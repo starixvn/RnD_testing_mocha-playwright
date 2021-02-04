@@ -13,5 +13,6 @@ before(async () => {
     });
     global.isHear = false
     global.balance = parseFloat("0.00")
+    global.env = process.env.NODE_ENV || 'cf_local'
 })
 

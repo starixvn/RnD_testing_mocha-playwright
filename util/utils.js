@@ -1,8 +1,13 @@
 import * as config from './../config/config'
 import pixelmatch from 'pixelmatch'
+import * as MemberSitePage from '../Games/MemberSite_Page'
+import * as GameLobbyPage from '../Games/GameLobby_Page'
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
 const path = require('path')
+const chai = require('chai')
+const expect = chai.expect
+const PNG = require('pngjs').PNG
 
 
 // Verify Message is existed
@@ -78,7 +83,15 @@ export const waitForLoadState = async() => {
          // this.screenFail()
      }
 }
-
+// Wait Element 
+export const waitEl = async() => {
+    try {
+        await page.waitForSelector(_el, { timeout : config.setting.timeout})
+     } catch (error) {
+         console.error(error.message);
+         // this.screenFail()
+     }
+}
 // Click Element
 export const clickEl = async(_el) => {
     try {
@@ -203,18 +216,9 @@ export const readImageData = async(_path) => {
         console.log('Error '+error.message)
     }
 }
-export const subImage = async(_img, _x, _y , _w, _h) => {
-    try {
-        return (await sharp(_img)
-                .extract({ top: _y, left: _x, width: _w, height: _h }).toBuffer())
-    } catch (error) {
-        console.log('Error '+error.message)
-    } 
-}
 export const CaptureSubImageToFile = async(_x, _y , _w, _h,_path) => {
     try {
-        return (await sharp(await page.screenshot({type : "png"}))
-                .extract({ top: _y, left: _x, width: _w, height: _h }).toFile(_path))
+        return (await page.screenshot({path: _path , clip : {x: _x, y: _y, width: _w, height : _h} }))
     } catch (error) {
         console.log('Error '+error.message)
     } 
@@ -223,13 +227,16 @@ export const findImage = async(_subimage, _x, _y, _w, _h) => {
     /* Test Comment*/
     try {
         let flag=null
-        let si = await readImageData(_subimage)
+        let si = readImageData(_subimage)
         let sc
         let diff = new PNG({_w, _h});
         let loop =true;
         while(loop){
-            sc = PNG.sync.read( await subImage(await page.screenshot({type : "png"}),_x,_y,_w,_h) )
-            flag = pixelmatch(si.data,sc.data, diff.data, _w, _h, { threshold : 0 })
+            sc = PNG.sync.read(await page.screenshot({ clip : {x: _x, y: _y, width: _w, height : _h} }))
+            flag = pixelmatch((await si).data,sc.data, diff.data, _w, _h, { threshold : 0.15 })
+            // console.log(Date.now())
+            console.log('a_pixeldiff:'+flag.toString())
+            console.log('e_pixelmatch'+(_w*_h*0.07).toString())
             if(flag<(_w*_h*0.07)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
@@ -348,6 +355,20 @@ export const wsHearMessageOff = async() => {
 
 
 // Login
-export const Login = async(_en) => {
-    isHear = false
+export const Login = async() => {
+    await wsHearMessageOff()
+    let flag
+    if(env != 'cf_local') {
+        // Login Member Site
+        await MemberSitePage.login()
+        // Navigate Sabaclub
+        await navigate(config[env].gamelobbyurl)
+    } else {
+        // Navigate Sabaclub from Simulator
+        await MemberSitePage.login_local()
+    }
+
+    // Verify go to Game Lobby Successfully
+    flag = await GameLobbyPage.verifyLoginSuccessfully()
+    expect(flag.Val,"Fail on Login GameLobby").to.be.true
 }

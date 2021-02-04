@@ -1,18 +1,20 @@
 const pw = require('playwright')
 import * as config from '../../config/config'
+import * as utils from '../../util/utils'
+
 describe('BlackJack Game', ()=>{
-it('TC_01_Smoke_Test case run with smoke flag', async () => {
+ it('TC_01_Smoke_Test case run with smoke flag', async () => {
     try {
-        let env = 'cflocal'
+        // let env = 'cflocal'
         console.log('Smoke Test')
-        console.log(config[env].memberId)
+        // console.log(config[env].memberId)
 
   } catch (error) {
     console.log(error)
   }
   },30000)  
 
-  it('TC_02_Full_Test case run with Full flag', async () => {
+ it('TC_02_Full_Test case run with Full flag', async () => {
     try {
         console.log('Full Test')
 
@@ -21,9 +23,11 @@ it('TC_01_Smoke_Test case run with smoke flag', async () => {
   }
   },30000)    
 
-  it('TC_03_Full_Smoke_Test case run with Full_Smoke flag', async () => {
+ it('TC_03_Full_Smoke_Test case run with Full_Smoke flag', async () => {
     try {
         console.log('Full Test')
+        console.log(env)
+        await utils.Login()
 
   } catch (error) {
     console.log(error)

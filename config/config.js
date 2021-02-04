@@ -10,7 +10,7 @@ export const setting ={
 }
 
 export const cf_local ={
-    url: "http://l2-glbs.lumigame.com/signin",
+    url: "http://gamelobby-simulator.lumigame.com/signin",
     username: "",
     memberId: "1001053",
     password: "",
@@ -18,17 +18,17 @@ export const cf_local ={
 }
 
 export const cf_sit ={
-    url: "http://athena000web.playthefun.com/onelogin.aspx?id=supper",
-    username: "VNTestSabaClub09",
-    password: "1234aa",
-    gamelobbyurl: "http://athena000web.playthefun.com/GamePage.aspx?Game=sabaclub&refer="
+    url: "http://demo:one23@qawer.playthefun.com:5068/login",
+    username: "supertestsaba48",
+    password: "1234aaAA",
+    gamelobbyurl: "http://qawer.playthefun.com:5068/VendorGame/OpenSabaClubLobby"
 }
 
 export const cf_uat ={
-    url: "http://qasb.athena000.com:42107/onelogin.aspx?id=suppe",
-    username: "vntest013",
-    password: "1q2w3e4r",
-    gamelobbyurl: "http://qasb.athena000.com:42107/GamePage.aspx?Game=sabaclub&refer="
+    url: "http://demo:one23@qawer.viva88.com:6100/Login/",
+    username: "IT57Test789",
+    password: "1234aaAA",
+    gamelobbyurl: "http://qawer.viva88.com:6100/VendorGame/OpenSabaClubLobby"
 }
 
 export const cf_prod ={
@@ -37,4 +37,3 @@ export const cf_prod ={
     username: "",
     password: ""
 }
-
