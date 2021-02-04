@@ -24,7 +24,9 @@
     },
     "scripts": {
         "test": "mocha  Games/**/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report --timeout 60000",
-        "smoke": "mocha  Games/**/*_Test.js  -r @babel/register --file ./Setup.js  --fgrep Smoke_  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report --timeout 60000"
-    },
-    "dependencies": {}
+        "smoke": "mocha  Games/**/*_Test.js  -r @babel/register --file ./Setup.js  --fgrep Smoke_  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report --timeout 60000",
+        "parallel": "mocha Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js -p --reporter mochawesome --reporter-options reportDir=Report --timeout 60000 "
+
+    }
+
 }
