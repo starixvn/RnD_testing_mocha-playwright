@@ -1,3 +1,3 @@
     after(async function() {
-        await global.browser.close()
+        await browser.close()
     })

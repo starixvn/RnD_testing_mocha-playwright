@@ -6,7 +6,9 @@ export const setting ={
         height : 720
     },
     timeout : 60000,
-    loop : 60
+    loop : 60,
+    headless: false
+
 }
 
 export const cf_local ={

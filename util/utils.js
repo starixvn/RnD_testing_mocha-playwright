@@ -235,8 +235,8 @@ export const findImage = async(_subimage, _x, _y, _w, _h) => {
             sc = PNG.sync.read(await page.screenshot({ clip : {x: _x, y: _y, width: _w, height : _h} }))
             flag = pixelmatch((await si).data,sc.data, diff.data, _w, _h, { threshold : 0.15 })
             // console.log(Date.now())
-            console.log('a_pixeldiff:'+flag.toString())
-            console.log('e_pixelmatch'+(_w*_h*0.07).toString())
+            // console.log('a_pixeldiff:'+flag.toString())
+            // console.log('e_pixelmatch'+(_w*_h*0.07).toString())
             if(flag<(_w*_h*0.07)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
@@ -355,17 +355,17 @@ export const wsHearMessageOff = async() => {
 
 
 // Login
-export const Login = async() => {
+export const Login = async(_env) => {
     await wsHearMessageOff()
     let flag
-    if(env != 'cf_local') {
+    if(_env != 'cf_local') {
         // Login Member Site
-        await MemberSitePage.login()
+        await MemberSitePage.login(_env)
         // Navigate Sabaclub
-        await navigate(config[env].gamelobbyurl)
+        await navigate(config[_env].gamelobbyurl)
     } else {
         // Navigate Sabaclub from Simulator
-        await MemberSitePage.login_local()
+        await MemberSitePage.login_local(_env)
     }
 
     // Verify go to Game Lobby Successfully

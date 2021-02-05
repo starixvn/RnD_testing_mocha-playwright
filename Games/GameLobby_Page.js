@@ -1,7 +1,7 @@
 import { GameLobbyLocator } from './GameLobby_Locator'
 import * as utils from '../util/utils'
 export const verifyLoginSuccessfully = async() => {
-        console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
+        //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
         return await utils.findImage(
             GameLobbyLocator.AccountName.ImageCompareAccountName,
             GameLobbyLocator.AccountName.left,

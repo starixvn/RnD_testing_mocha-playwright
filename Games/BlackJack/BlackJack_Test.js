@@ -26,9 +26,6 @@ describe('BlackJack Game', ()=>{
  it('TC_03_Full_Smoke_Test case run with Full_Smoke flag', async () => {
     try {
         console.log('Full Test')
-        console.log(env)
-        await utils.Login()
-
   } catch (error) {
     console.log(error)
   }
