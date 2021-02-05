@@ -3,6 +3,8 @@ docker-build-master:
   # Official docker image.
   image: roshannguyen/pwimg:latest
   stage: build
+  tags: 
+    - docker-automation-test
   services:
     - docker:dind
   before_script:
