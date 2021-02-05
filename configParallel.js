@@ -1,6 +1,7 @@
 import playwright from 'playwright'
 import * as config from './config/config'
 import {Login} from './util/utils'
+const path = require('path')
 
 exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
@@ -15,8 +16,8 @@ exports.mochaHooks = {
         }
     });
     global.isHear = false
-    const env = process.env.NODE_ENV || 'cf_local'
-    await Login(env)
+    global.env = process.env.NODE_ENV || 'cf_local'
+    // await Login(env)
     } ]  ,
   afterAll: [async () => { await browser.close()  }]
   }

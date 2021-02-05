@@ -1,6 +1,5 @@
 const path = require('path')
-const pathImageCompare = path.dirname(require.main.paths[2]) + path.sep + "ImageCompare" + path.sep
-
+const pathImageCompare = path.dirname(__dirname) + path.sep + "ImageCompare" + path.sep
 export const GameLobbyLocator = {
     cvGame : "GameCanvas",
     AccountName : {

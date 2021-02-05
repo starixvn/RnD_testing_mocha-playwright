@@ -1,4 +1,6 @@
 const pw = require('playwright')
+const path = require('path')
+const game = path.dirname(__filename).split(path.sep).pop()
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 
@@ -26,6 +28,7 @@ describe('BlackJack Game', ()=>{
  it('TC_03_Full_Smoke_Test case run with Full_Smoke flag', async () => {
     try {
         console.log('Full Test')
+        await utils.Login(env,game);
   } catch (error) {
     console.log(error)
   }

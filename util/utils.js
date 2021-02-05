@@ -355,17 +355,17 @@ export const wsHearMessageOff = async() => {
 
 
 // Login
-export const Login = async(_env) => {
+export const Login = async(_env,_game) => {
     await wsHearMessageOff()
     let flag
     if(_env != 'cf_local') {
         // Login Member Site
-        await MemberSitePage.login(_env)
+        await MemberSitePage.login(_env,_game)
         // Navigate Sabaclub
         await navigate(config[_env].gamelobbyurl)
     } else {
         // Navigate Sabaclub from Simulator
-        await MemberSitePage.login_local(_env)
+        await MemberSitePage.login_local(_env,_game)
     }
 
     // Verify go to Game Lobby Successfully

@@ -14,7 +14,10 @@ export const setting ={
 export const cf_local ={
     url: "http://gamelobby-simulator.lumigame.com/signin",
     username: "",
-    memberId: "1001053",
+    memberId: {
+        BlackJack : "1001053",
+        Sedie : "1001052",
+    },
     password: "",
     gamelobbyurl: ""
 }

@@ -4,7 +4,7 @@ import * as utils from './../util/utils'
 const chai = require('chai')
 const expect = chai.expect
 
-export const login = async(_env) => {
+export const login = async(_env,_game) => {
     // Login for SIT/UAT/PRO
     try {
         // Go to Membersite Url
@@ -12,7 +12,7 @@ export const login = async(_env) => {
         await utils.waitForLoadState()
         
         // Input Username and Password
-        await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username)
+        await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
         await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
 
         // Enter Login button
@@ -30,7 +30,7 @@ export const login = async(_env) => {
         await utils.waitForLoadState()
         
         // Input Username and Password
-        await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username)
+        await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
         await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
 
         // Enter Login button
@@ -44,7 +44,7 @@ export const login = async(_env) => {
 }
     
     //Login for local
-export const login_local = async(_env) => {
+export const login_local = async(_env,_game) => {
         try{
             let flag
             // Go to Membersite Url
@@ -52,7 +52,7 @@ export const login_local = async(_env) => {
             await utils.waitForLoadState()
 
             // Innput MemberID
-            await utils.sendKeys(MemberSiteLocator.txtMemberId,config[_env].memberId)
+            await utils.sendKeys(MemberSiteLocator.txtMemberId,config[_env].memberId[_game])
 
             // Click on Gen Token
             await utils.clickEl(MemberSiteLocator.btnGetToken)
