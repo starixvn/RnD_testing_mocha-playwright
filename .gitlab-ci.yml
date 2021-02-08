@@ -1,4 +1,6 @@
-image: git3.nexdev.net:5050/rnd/testing/ci-smoketest
+image: 
+  name: git3.nexdev.net:5050/rnd/testing/ci-smoketest
+  entrypoint: ["/opt/playwright-browsers/"]
 
 stages: 
   - test
