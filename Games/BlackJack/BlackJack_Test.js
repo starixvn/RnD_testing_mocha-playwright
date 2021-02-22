@@ -1,37 +1,33 @@
 const pw = require('playwright')
-const path = require('path')
-const game = path.dirname(__filename).split(path.sep).pop()
-import * as config from '../../config/config'
+const game = "BlackJack"
+const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
+import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
 
 describe('BlackJack Game', ()=>{
- it('TC_01_Smoke_Test case run with smoke flag', async () => {
-    try {
-        // let env = 'cflocal'
-        console.log('Smoke Test')
-        // console.log(config[env].memberId)
 
-  } catch (error) {
-    console.log(error)
-  }
-  },30000)  
+  before(async function(){
+    await utils.Login(env,game);
+    await utils.wsHearMessageOn()
+  })
 
- it('TC_02_Full_Test case run with Full flag', async () => {
-    try {
-        console.log('Full Test')
+  afterEach(async function(){
+    if(this.currentTest.state == 'failed'){
+      var __filename = this.currentTest.title.trim()
+      await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
+      await addContext (this,`./Pictures/${__filename}.png` )
+    }
+  })
 
-  } catch (error) {
-    console.log(error)
-  }
-  },30000)    
+ it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
+  await BlackJackFunc.OpenFromLobby()
+  await BlackJackFunc.verifySignInSuccessfully()
+  })  
 
- it('TC_03_Full_Smoke_Test case run with Full_Smoke flag', async () => {
-    try {
-        console.log('Full Test')
-        await utils.Login(env,game);
-  } catch (error) {
-    console.log(error)
-  }
-  },30000)  
+  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
+    await BlackJackFunc.OpenFromLobby()
+    await BlackJackFunc.verifySignInSuccessfully()
+    })  
+
 
 })

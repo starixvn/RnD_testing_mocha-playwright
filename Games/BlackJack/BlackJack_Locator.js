@@ -1,0 +1,26 @@
+export const BlackJackLocator = {
+    BlackJack_icon : {x:1187, y:274 },
+    More_icon: {x: 60, y :170},
+    Home_icon: {x:60 ,y:247},
+    History_icon: {x:60 ,y:312},
+    Popup_closeicon: {x:1180 ,y:96},
+    Question_icon: {x:60 ,y:397},
+    Coin10:{ x: 461, y: 629},
+    Coin50:{ x: 624, y: 629},
+    Coin100:{ x: 711, y: 629},
+    RightArrow: {x: 855,y: 629},
+    LefttArrow: {x: 390,y: 629},
+    Pos2:{ x: 640, y: 500},
+    Pos1:{ x: 317, y: 456},
+    Pos3:{x:958, y:456},
+    Cancel_Pos2:{ x: 727, y: 491},
+    Cancel_Pos1:{ x: 405, y: 453},
+    Cancel_Pos3:{x:1043, y:451},
+    Deal:{x:1000, y:600},
+    Stand:{x:1161, y:549},
+    Hit:{x:1000, y:600},
+    Split:{x:848, y:600},
+    TotalBet: {x:7,y:38, width:141 ,height: 57},
+    
+  }
+  

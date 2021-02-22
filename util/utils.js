@@ -1,7 +1,7 @@
 import * as config from './../config/config'
 import pixelmatch from 'pixelmatch'
-import * as MemberSitePage from '../Games/MemberSite_Page'
-import * as GameLobbyPage from '../Games/GameLobby_Page'
+import * as MemberSiteFunc from '../Games/MemberSite_Function'
+import * as GameLobbyFunc from '../Games/GameLobby_Function'
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
 const path = require('path')
@@ -31,7 +31,7 @@ export const wsFindMessage = async(_mes) => {
                 // console.log(wsMessageReceived)
                 result = await FindMessage(_mes)
                 if( result === true ) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
-                await page.waitForTimeout(1000)
+                await sleep(500)
             }
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}
@@ -39,6 +39,26 @@ export const wsFindMessage = async(_mes) => {
         return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
     } 
 }
+
+// Wait for wsmsg
+export const wsWaitMessage = async(_mes)=> {
+    try {
+        for(let t =0 ; t < config.setting.loop ; t++){
+            _found = wsMessageReceived.filter(element => element.includes(_mes));
+            if (_found.length > 0) {
+                break
+                }
+            else{ 
+                await sleep(500) 
+                }
+            }             
+        }
+        catch (error){
+            console.log('Error '+error.message)
+        }
+    
+    }
+   
 // Check FreeSpin is existed
 export const isFreeSpin = async() => {
     try {
@@ -275,21 +295,19 @@ export const parseNumber = async(_text) => {
     }
 }
 // swipe to left ( y < 0 ) or right ( y >0 )
-export const swipe = async(_y) => {
-    // try {
-        // await dispatchTouch(client, 'touchStart', [{ x: config.setting.viewport.width/2 , y: config.setting.viewport.height/2}]);
-        // await dispatchTouch(client, 'touchMove', [{ x: config.setting.viewport.width/2, y: config.setting.viewport.height/2 + _y }]);
-        // await dispatchTouch(client, 'touchEnd', []);
-        await page.mouse.move(config.setting.viewport.width/2, config.setting.viewport.height/2)
+export const swipe = async(__fx, _fy,__tx, _ty,) => {
+    try {
+        await page.mouse.move(__fx,  _fy)
         await page.mouse.down();
         await sleep(500)
-        await page.mouse.move(config.setting.viewport.width/2, config.setting.viewport.height/2 + _y)
+        await page.mouse.move(__tx,  _ty)
         await sleep(500)
         await page.mouse.up()
-    // } catch (error) {
-    //     console.log('Error '+error.message)
-    // }
+    } catch (error) {
+        console.log('Error '+error.message)
+    }
 }
+
 
 // Place bet until get message
 export const verifyWsMessageForBetProcess = async(_mes) => {
@@ -360,15 +378,15 @@ export const Login = async(_env,_game) => {
     let flag
     if(_env != 'cf_local') {
         // Login Member Site
-        await MemberSitePage.login(_env,_game)
+        await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
         await navigate(config[_env].gamelobbyurl)
     } else {
         // Navigate Sabaclub from Simulator
-        await MemberSitePage.login_local(_env,_game)
+        await MemberSiteFunc.login_local(_env,_game)
     }
 
     // Verify go to Game Lobby Successfully
-    flag = await GameLobbyPage.verifyLoginSuccessfully()
+    flag = await GameLobbyFunc.verifyLoginSuccessfully()
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
 }

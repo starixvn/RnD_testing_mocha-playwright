@@ -1,6 +1,6 @@
 import { MemberSiteLocator } from './MemberSite_Locator'
 import * as config from '../config/config'
-import * as utils from './../util/utils'
+import * as utils from '../util/utils'
 const chai = require('chai')
 const expect = chai.expect
 
