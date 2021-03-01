@@ -301,7 +301,7 @@ export const swipe = async(__fx, _fy,__tx, _ty,) => {
         await page.mouse.down();
         await sleep(500)
         await page.mouse.move(__tx,  _ty)
-        await sleep(500)
+        await sleep(1000)
         await page.mouse.up()
     } catch (error) {
         console.log('Error '+error.message)
@@ -371,6 +371,15 @@ export const wsHearMessageOff = async() => {
     isHear = false
 }
 
+// Off Listener Websocket Message
+export const shouldBeEqual = async(_val,_expect) => {
+    try{
+        expect(_val).to.equal(_expect)
+    } catch (error) {
+        console.log('Error '+error.message)
+    }
+}
+
 
 // Login
 export const Login = async(_env,_game) => {
@@ -385,7 +394,6 @@ export const Login = async(_env,_game) => {
         // Navigate Sabaclub from Simulator
         await MemberSiteFunc.login_local(_env,_game)
     }
-
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     expect(flag.Val,"Fail on Login GameLobby").to.be.true

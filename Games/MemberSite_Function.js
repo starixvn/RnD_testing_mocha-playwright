@@ -61,6 +61,7 @@ export const login_local = async(_env,_game) => {
             // Navigate to SabaClub
             let url = (await utils.getAttribute(MemberSiteLocator.lblRedirect,"href")).toString()
             await utils.navigate((await url).slice(0, -1))
+            await utils.sleep(7000)//Wait for login process
         } catch (error) {
             console.error(error.message)
         }
