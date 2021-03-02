@@ -8,10 +8,11 @@ const path = require('path')
 const chai = require('chai')
 const expect = chai.expect
 const PNG = require('pngjs').PNG
+const jp = require('jsonpath')
 
 
 // Verify Message is existed
-export const FindMessage = async(_mes) => {
+const FindMessage = async(_mes) => {
     try {
         for(let i = 0; i < wsMessageReceived.length ; i++){
             // console.log(wsMessageReceived[i])
@@ -20,6 +21,17 @@ export const FindMessage = async(_mes) => {
         return false
     } catch (error) {
         return false
+    }
+}
+const getMessage = async(_mes) => {
+    try {
+        for(let i = 0; i < wsMessageReceived.length ; i++){
+            // console.log(wsMessageReceived[i])
+            if(wsMessageReceived[i].includes(_mes)) return wsMessageReceived[i].toString()
+        }
+        return null
+    } catch (error) {
+        return null
     }
 }
 
@@ -37,6 +49,23 @@ export const wsFindMessage = async(_mes) => {
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}
     } catch (error) {
         return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
+    } 
+}
+export const getWsMessage = async(_mes) => {
+    try {
+        let result
+        for(let t = 0 ; t< config.setting.loop ; t++){
+            if(typeof wsMessageReceived !== 'undefined'){
+                // console.log(wsMessageReceived)
+                result = await getMessage(_mes)
+                if( result !== null ) return result
+                await sleep(500)
+            }
+        }
+        return null
+    } catch (error) {
+        console.log(error.message)
+        return null
     } 
 }
 
@@ -215,6 +244,7 @@ export const screenShotFailed = async() => {
 export const screenShot = async(_title) => {
     try {
         await page.screenshot({ path: 'ScreenShot'+ path.sep +_title+'.png', type : "png" })
+        
     } catch (error) {
         console.log('Error '+error.message)
     }
@@ -236,7 +266,7 @@ export const readImageData = async(_path) => {
         console.log('Error '+error.message)
     }
 }
-export const CaptureSubImageToFile = async(_x, _y , _w, _h,_path) => {
+export const CaptureSubImageToFile = async(_path,_x, _y , _w, _h) => {
     try {
         return (await page.screenshot({path: _path , clip : {x: _x, y: _y, width: _w, height : _h} }))
     } catch (error) {
@@ -288,7 +318,8 @@ export const getTextFromImage = async(_path) => {
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
-        let txtNum = _text.replace(/\,/g,'').replace(/\./g,',')
+        let txtNum = _text.replace(/\,/g,'')
+        console.log(txtNum)
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
@@ -397,4 +428,8 @@ export const Login = async(_env,_game) => {
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
+}
+
+export const getDataJsonPath = async(_rawData, _jsonpath) => {
+    return jp.query(JSON.parse(_rawData),_jsonpath)
 }

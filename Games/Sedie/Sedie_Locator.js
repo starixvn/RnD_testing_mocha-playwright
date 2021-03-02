@@ -1,0 +1,30 @@
+const path = require('path') 
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + "Sedie" + path.sep
+export const SedieLocator = { 
+	Dealer : { top : 10, left : 553, width : 177, height : 211, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Dealer.png" },
+	Even : { x : 376, y : 304, top : 268, left : 214, width : 325, height : 73, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Even.png" },
+	Odd : { x : 910, y : 298, top : 268, left : 751, width : 319, height : 60, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Odd.png" },
+	Red4 : { x : 279, y : 467, top : 428, left : 205, width : 148, height : 79, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Red4.png" },
+	Red3 : { x : 457, y : 468, top : 421, left : 379, width : 157, height : 94, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Red3.png" },
+	Red2 : { x : 646, y : 465, top : 423, left : 567, width : 158, height : 85, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Red2.png" },
+	White3 : { x : 829, y : 466, top : 421, left : 751, width : 157, height : 91, ImageCompare : pathImageCompare + "ImgCompare_Sedie_White3.png" },
+	White4 : { x : 1013, y : 467, top : 428, left : 939, width : 149, height : 78, ImageCompare : pathImageCompare + "ImgCompare_Sedie_White4.png" },
+	Balance : { top : 675, left : 155, width : 127, height : 29, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Balance.png" },
+	ChipBroad : { x : 660, y : 625, top : 586, left : 387, width : 546, height : 79, ImageCompare1 : pathImageCompare + "ImgCompare_Sedie_ChipBroad1.png", ImageCompare2 : pathImageCompare + "ImgCompare_Sedie_ChipBroad2.png" },
+	LeftArrow : { x : 351, y : 628 },
+	RightArrow : { x : 955, y : 626 },
+	Chip1 : { x : 436, y : 624 },
+	Chip5 : { x : 519, y : 625 },
+	Chip10 : { x : 604, y : 627 },
+	Chip50 : { x : 690, y : 624 },
+	Chip100 : { x : 774, y : 626 },
+	Chip200 : { x : 617, y : 627 },
+	Chip500 : { x : 702, y : 627 },
+	Chip1000 : { x : 787, y : 626 },
+	Chip2000 : { x : 872, y : 625 },
+	Home : { x : 56, y : 116 },
+	History : { x : 55, y : 200, top : 71, left : 83, width : 1119, height : 125, ImageCompare : pathImageCompare + "ImgCompare_Sedie_History.png" },
+	HistoryClose : { x : 1184, y : 98 },
+	Guide : { x : 55, y : 286, top : 83, left : 176, width : 929, height : 568, ImageCompare1 : pathImageCompare + "ImgCompare_Sedie_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_Sedie_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_Sedie_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_Sedie_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_Sedie_Guide_5.png" },
+	GuideClose : { x : 1086, y : 113 }
+}
