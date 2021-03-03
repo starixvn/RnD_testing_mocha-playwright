@@ -105,20 +105,25 @@ export const BetSettle_HitCardUntilOver15 = async (_pos) => {
         let _currentscore = 0  
         const _result = await GetFirstTotalScore(_pos)
         for (let i = 0; i < 4; i++){
-        if (_result >= 17 || _currentscore >= 15)
+        if (_result >= 15 || _currentscore >= 15)
         { 
           if (_result == 21){
               break
         }
           else {
+              console.log(`Stand card pos ${_pos}`)
+              await utils.sleep(1000)
               await StandCard()
+              await utils.sleep(3000) 
               break
           }
         }
         else
         {
+          console.log(`hit card pos ${_pos}`)
+          await utils.sleep(1000)
           await HitCard()
-          await utils.sleep(2000) //wait for wsmsg
+          await utils.sleep(3000) //wait for wsmsg
           _currentscore = await GetHitScore(_pos)
         }
       }
@@ -130,16 +135,18 @@ export const BetSettle_HitCardUntilOver15 = async (_pos) => {
 export const BetSettle_HitToQuizzed = async (_pos) => {
   try {
       let _currentscore = 0 
+      const _result = await GetFirstTotalScore(_pos)
       for (let i = 0; i < 4; i++){  
-        if (_currentscore >= 21)
+        if (_result >= 21 ||_currentscore > 21)
         {
           break
         }
         else
         {
           console.log(`hit card pos ${_pos}`)
+          await utils.sleep(1000)
           await HitCard()
-          await utils.sleep(2000)
+          await utils.sleep(3000)
           _currentscore = await GetHitScore(_pos)
           console.log(_currentscore)
         }
@@ -226,11 +233,11 @@ export const Sliding_Select_Chip = async(_chip) => {
   const _chipbar2 = [200,500,1000,2000]
   if (_chipbar2.includes(_chip) === true){
     await utils.swipe(950,630,0,630)
-    await utils.sleep(1000)
+    await utils.sleep(500)
      }
   else if (_chipbar1.includes(_chip) === true){
     await utils.swipe(405,630,1000,630)
-    await utils.sleep(1000)
+    await utils.sleep(500)
    }
     await utils.clickPos(BlackJackLocator[`Chip${_chip}`].x,BlackJackLocator[`Chip${_chip}`].y)  
   }
@@ -310,24 +317,18 @@ export const GetFirstTotalScore = async(_pos) => {
 }
 
 // Get current score of pos
-export const GetHitScore = async(_pos) => { ///mai lam tiep cho nay
-  console.log(wsMessageReceived)
-  let _found = wsMessageReceived.filter(element => element.includes(`","pos":${_pos}`));
-  if (_found === undefined ){
-    console.log('undefined')
+export const GetHitScore = async(_pos) => { 
+  let _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
+  //console.log(_foundhit)
+    if (_foundhit.includes(_pos) === false){
     await utils.sleep(3000)
-    _found = wsMessageReceived.filter(element => element.includes(`"actions":["hit"],"pos":${_pos}`));
+    _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
   }
-  //loop check if _found === undefined
-  var last_found = _found.pop();
-  console.log(last_found)
-  const res = String(last_found).split("42/user/blackjack,");
+  const res = String(_foundhit).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   console.log(obj[1].hit.total[0])
   return obj[1].hit.total[0]
 }
-
-
 
 // Get current score of pos
 export const GetWinlossPosID = async(_posid) => {
@@ -337,6 +338,15 @@ export const GetWinlossPosID = async(_posid) => {
   const obj = JSON.parse(res[1]);
   let _result = jp.query(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
    _result = +_result || 0
-   console.log(_result)
+   console.log(`${_posid} win : ${_result}`)
   return _result
+}
+
+// get ws balance
+export const GetCurrentBalance = async() =>{
+  await page.reload()
+  let _result = await utils.getWsMessage('"red"')
+  const res = String(_result).split("42/user/blackjack,");
+  const obj = JSON.parse(_result);
+  console.log(obj[1].hit.total[0])
 }

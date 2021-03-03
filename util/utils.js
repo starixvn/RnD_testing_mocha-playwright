@@ -25,9 +25,10 @@ const FindMessage = async(_mes) => {
 }
 const getMessage = async(_mes) => {
     try {
-        for(let i = 0; i < wsMessageReceived.length ; i++){
-            // console.log(wsMessageReceived[i])
-            if(wsMessageReceived[i].includes(_mes)) return wsMessageReceived[i].toString()
+        if(typeof wsMessageReceived !== 'undefined'){
+            const _found = wsMessageReceived.filter(element => element.includes(_mes));
+            console.log(_found)
+            if(_found.length !== 0) return _found.pop();
         }
         return null
     } catch (error) {
@@ -55,13 +56,11 @@ export const getWsMessage = async(_mes) => {
     try {
         let result
         for(let t = 0 ; t< config.setting.loop ; t++){
-            if(typeof wsMessageReceived !== 'undefined'){
                 // console.log(wsMessageReceived)
                 result = await getMessage(_mes)
-                if( result !== null ) return result
+                if(result !== null ) return result
                 await sleep(500)
             }
-        }
         return null
     } catch (error) {
         console.log(error.message)

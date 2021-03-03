@@ -19,7 +19,7 @@ export const OpenGameFromLobby = async(_Gamename) => {
     const Gscreen2 = ['VipFishPrawnCrab','FishPrawnCrab','DragonTiger','BlackJack','Roulette']
     if(Gscreen2.includes(_Gamename) === true){
         await utils.sleep(2000)
-        await utils.swipe(config.setting.viewport.width/2, config.setting.viewport.height/2,0, config.setting.viewport.height/2)
+        await utils.swipe(config.setting.viewport.width/2 + 50, config.setting.viewport.height/2,0, config.setting.viewport.height/2)
         await utils.sleep(2000)
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y )
         }    
