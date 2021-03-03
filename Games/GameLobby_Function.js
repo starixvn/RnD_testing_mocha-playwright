@@ -5,7 +5,7 @@ import * as config from '../config/config'
 export const verifyLoginSuccessfully = async() => {
         //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
         return await utils.findImage(
-            GameLobbyLocator.AccountName.ImageCompareAccountName,
+            GameLobbyLocator.AccountName.ImageCompare,
             GameLobbyLocator.AccountName.left,
             GameLobbyLocator.AccountName.top,
             GameLobbyLocator.AccountName.width,
