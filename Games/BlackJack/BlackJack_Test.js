@@ -5,10 +5,6 @@ import * as utils from '../../util/utils'
 import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
 import {BlackJackLocator} from './BlackJack_Locator'
-var jp = require('jsonpath');
-
-const path = require('path')
-
 
 describe('BlackJack Game', ()=>{
 
@@ -115,31 +111,44 @@ describe('BlackJack Game', ()=>{
     
 // })  
 
-  it('TC_09_Full_Smoke_Get Bet ID', async () => {
+  it('TC_09_Full_Smoke_Verify Betting state after confirmed', async () => {
       await BlackJackFunc.PlaceBet(1,'Pos1')
       await BlackJackFunc.PlaceBet(5,'Pos2')
-      await BlackJackFunc.PlaceBet(200,'Pos3')
+      await BlackJackFunc.PlaceBet(50,'Pos3')
       await BlackJackFunc.ClickDeal()
       await utils.sleep(3000)
-      const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
-      var res = String(_found).split("42/user/blackjack,");
-      var obj = JSON.parse(res[1]);
-      //console.log(obj[0])
-      //console.log(obj[1])
-      const testjsp = jp.query(obj[1], '$..hands[?(@.pos==1)]');
-      const  testjsp1 = JSON.parse(testjsp)
-      //console.log(jp.query(JSON.parse(res[1]),'$..hands[?(@.pos=="1")])'))
-      console.log(testjsp1.id)
-      // console.log(testjsp.pos)
-      // console.log(testjsp.total)
+      //Get total Bet Ammount should match witch bet stake
+      const totalbet_1 = await BlackJackFunc.GetTotalBetAmount()
+      await utils.shouldBeEqual(totalbet_1,56)
+      //Check post id order
+      const pos1id = await BlackJackFunc.GetPosId('1')
+      const pos2id = await BlackJackFunc.GetPosId('2')
+      const pos3id = await BlackJackFunc.GetPosId('3')
+      // console.log(pos1id,pos2id,pos3id)
+      // id order rule : pos1 < pos2 < pos3
+      await utils.shouldBeEqual(pos1id+1,pos2id)
+      await utils.shouldBeEqual(pos2id+1,pos3id)
+      // User can not place bet after confirmed
+      await BlackJackFunc.PlaceBet(100,'Pos2')
+      const totalbet_2 = await BlackJackFunc.GetTotalBetAmount()
+      await utils.shouldBeEqual(totalbet_1,totalbet_2)
+      //await utils.sleep(5000)
+      //Hit To Quizzed
+      console.log('pos1')
+      await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
+      //await utils.sleep(3000)
+      console.log('pos2 ')
+      await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
+     // await utils.sleep(3000)
+      console.log('pos3 ')
+      await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
+      await utils.sleep(5000)
+      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
+      const wlpos3 = await BlackJackFunc.GetWinlossPosID(pos3id)
+      let finalwl = (wlpos1 +wlpos2+wlpos3)
+      console.log(`Winloss: ${finalwl}`)
 
-      //    console.log(obj); 
-      // console.log(obj[1]); 
-      //console.log(_found.deal.hands[0].total)
-      //console.log(wsMessageReceived)
-      //console.log(_found)
-      //let chk = JSON.parse(_found)
-      //console.log(_found)
 
 
     })  

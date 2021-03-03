@@ -49,6 +49,15 @@ export const CloseHistory = async() => {
   await utils.sleep(500)
 }
 
+export const StandCard = async() => {
+  await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
+  await utils.sleep(500)
+}
+
+export const HitCard = async() => {
+  await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
+  await utils.sleep(500)
+}
 
 export const VerifySignInSuccessfully = async() => {
   let _result = await utils.wsFindMessage('user/blackjack,["signedIn"]')
@@ -90,23 +99,50 @@ export const CancelBet = async (_pos) => {
   }
 }
 
-//Bet Deal
-export const BetDeal = async (pos1,pos2,pos3) => {
+//Bet Settle
+export const BetSettle_HitCardUntilOver15 = async (_pos) => {
   try {
-      await utils.clickPos(BlackJackLocator.Deal.ex,BlackJackLocator.Deal.ey)
-      await utils.wsWaitformsg('totalAmount',wsMessageReceived)
-      await page.waitForTimeout(9000) // wait for options button enable
-      if(pos3 != null){
-        await utils.clickPos(BlackJackLocator[pos3].x,BlackJackLocator[pos3].y)
-        await page.waitForTimeout(1000)
+        let _currentscore = 0  
+        const _result = await GetFirstTotalScore(_pos)
+        for (let i = 0; i < 4; i++){
+        if (_result >= 17 || _currentscore >= 15)
+        { 
+          if (_result == 21){
+              break
+        }
+          else {
+              await StandCard()
+              break
+          }
+        }
+        else
+        {
+          await HitCard()
+          await utils.sleep(2000) //wait for wsmsg
+          _currentscore = await GetHitScore(_pos)
+        }
       }
-      if (pos2 != null){
-        await utils.clickPos(BlackJackLocator[pos2].x,BlackJackLocator[pos2].y)
-        await page.waitForTimeout(1000)
-      }
-      if (pos1 != null){
-        await utils.clickPos(BlackJackLocator[pos1].x,BlackJackLocator[pos1].y)
-        await page.waitForTimeout(1000)
+  } catch (e) {
+      console.error(e)
+  }
+}
+
+export const BetSettle_HitToQuizzed = async (_pos) => {
+  try {
+      let _currentscore = 0 
+      for (let i = 0; i < 4; i++){  
+        if (_currentscore >= 21)
+        {
+          break
+        }
+        else
+        {
+          console.log(`hit card pos ${_pos}`)
+          await HitCard()
+          await utils.sleep(2000)
+          _currentscore = await GetHitScore(_pos)
+          console.log(_currentscore)
+        }
       }
   } catch (e) {
       console.error(e)
@@ -129,7 +165,7 @@ export const VerifyHistoryContent = async() => {
   //  width: BlackJackLocator.History.width,
   //  height: BlackJackLocator.History.height}})
   const _result0= await utils.findImage(
-      BlackJackLocator.History.ImageCompareHistory,
+      BlackJackLocator.History.ImageCompare,
       BlackJackLocator.History.left,
       BlackJackLocator.History.top,
       BlackJackLocator.History.width,
@@ -141,8 +177,8 @@ export const VerifyGuideContent = async() => {
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
-  let _AcheckImage = [ BlackJackLocator.Guide.ImageCompareGuide1, BlackJackLocator.Guide.ImageCompareGuide2, BlackJackLocator.Guide.ImageCompareGuide3,
-    BlackJackLocator.Guide.ImageCompareGuide4, BlackJackLocator.Guide.ImageCompareGuide5, BlackJackLocator.Guide.ImageCompareGuide6] 
+  let _AcheckImage = [ BlackJackLocator.Guide.ImageCompare1, BlackJackLocator.Guide.ImageCompare2, BlackJackLocator.Guide.ImageCompare3,
+    BlackJackLocator.Guide.ImageCompare4, BlackJackLocator.Guide.ImageCompare5, BlackJackLocator.Guide.ImageCompare6] 
   for(let t = 0; t< _AcheckImage.length; t++){
     // await page.screenshot({path:`ImgCompare_BlackJack_Guide_${t+1}.png`,clip:{
     // x: BlackJackLocator.Guide.left,
@@ -260,11 +296,47 @@ export const GetPosId = async(_pos) => {
   const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  console.log[obj]
-  //console.log(jp.query(JSON.parse(res[1]),'$..hands[?(@.pos=="1")])'))
- //console.log(jp.query(obj,'$..hands[?(@.pos=="1")])'))
+  const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
+  return _result[0].id
+}
 
+export const GetFirstTotalScore = async(_pos) => {
+  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
+  const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(res[1]);
+  const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
+  console.log(Math.max(..._result[0].total))
+  return Math.max(..._result[0].total)
+}
 
+// Get current score of pos
+export const GetHitScore = async(_pos) => { ///mai lam tiep cho nay
+  console.log(wsMessageReceived)
+  let _found = wsMessageReceived.filter(element => element.includes(`","pos":${_pos}`));
+  if (_found === undefined ){
+    console.log('undefined')
+    await utils.sleep(3000)
+    _found = wsMessageReceived.filter(element => element.includes(`"actions":["hit"],"pos":${_pos}`));
+  }
+  //loop check if _found === undefined
+  var last_found = _found.pop();
+  console.log(last_found)
+  const res = String(last_found).split("42/user/blackjack,");
+  const obj = JSON.parse(res[1]);
+  console.log(obj[1].hit.total[0])
+  return obj[1].hit.total[0]
 }
 
 
+
+// Get current score of pos
+export const GetWinlossPosID = async(_posid) => {
+  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
+  var last_found = _found.pop();
+  const res = String(last_found).split("42/user/blackjack,");
+  const obj = JSON.parse(res[1]);
+  let _result = jp.query(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
+   _result = +_result || 0
+   console.log(_result)
+  return _result
+}
