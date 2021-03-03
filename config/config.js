@@ -12,7 +12,8 @@ export const setting ={
 }
 
 export const cf_local ={
-    url: "http://gamelobby-simulator.lumigame.com/signin",
+    //url: "http://gamelobby-simulator.lumigame.com/signin",
+    url: "http://l1-glbs1.lumigame.com/signin",
     username: "",
     memberId: {
         BlackJack : "1001051",
