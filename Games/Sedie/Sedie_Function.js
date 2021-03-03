@@ -4,6 +4,7 @@ import {SedieLocator} from './Sedie_Locator'
 import * as config from '../../config/config'
 const chai = require('chai')
 const expect = chai.expect
+const fs = require('fs')
 
 export const OpenFromLobby = async() => {
     try {
@@ -155,19 +156,8 @@ export const verifyMaxBet = async(_choice) =>{
     }
 }
 export const getBalance = async() => {
-    try {
-        await utils.CaptureSubImageToFile(SedieLocator.Balance.ImageCompare,
-            SedieLocator.Balance.left, SedieLocator.Balance.top, SedieLocator.Balance.width, SedieLocator.Balance.height)
-            
-        await utils.sleep(1000)
-        // Get Text From Image
-        let _txtNum = await utils.getTextFromImage(SedieLocator.Balance.ImageCompare)
-        // Convert Text To Number
-        return await utils.parseNumber(_txtNum)
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
+    return await utils.getUIBalance(SedieLocator.Balance.ImageCompare,
+        SedieLocator.Balance.left, SedieLocator.Balance.top, SedieLocator.Balance.width, SedieLocator.Balance.height)
 }
 const getRawData = async(_mes) => {
     try {
@@ -182,26 +172,162 @@ const getRawData = async(_mes) => {
         return null
     }
 }
+const getResult =  async() => {
+    try {
+        let rawData = await getRawData(`42/user/xocxoc,["XocXoc",{"finish":{"result"`)
+        return await utils.getDataJsonPath(rawData,`$..finish.result`)
+    } catch (error) {
+        console.log(error.message)
+        return null
+    }
+}
+const getUserResult = async() => {
+    try {
+        let rawData = await getRawData(`42/user/xocxoc,["XocXoc",{"status":{"winningByChoices":`)
+        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
+    } catch (error) {
+        console.log(error.message)
+        return null
+    }
+}
 export const verifySettlement = async(_choice,_chip) => {
     try {
-        let countRed = 0, currentBalance, lowcase, finishRound, result, status, winningByChoice
+        let countRed = 0, currentBalance, lowcase, result, status
+        let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, Red2: 2.4, White3: 3.75, White4: 14.4 }
         currentBalance = await getBalance()
         console.log(currentBalance.toString())
         lowcase = _choice.toLowerCase()
         wsMessageReceived = []
         await placeBet(_choice,_chip)
-        finishRound = await getRawData(`42/user/xocxoc,["XocXoc",{"finish":{"result"`)
-        result = await utils.getDataJsonPath(finishRound,`$..finish.result`)
+        result = await getResult()
+        
         for(let i=1; i<5 ; i++){
-            if (result[0][`red${i}`] === true) {
+            if (result[`red${i}`] === true) {
                 countRed = countRed +1
             }
         }
+        
         // Check on Websocket
-        status = await getRawData(`42/user/xocxoc,["XocXoc",{"status":{"winningByChoices":`)
-        winningByChoice = await utils.getDataJsonPath(status,`$..status.winningByChoices`)
-        console.log(result)
-        console.log(countRed)
+        status = await getUserResult()
+        if(_choice === 'Even') {
+            if(countRed === 0 || countRed === 2 || countRed === 4){
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        } else if (_choice === 'Odd') {
+            if( countRed ===1 || countRed === 3) {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        } else if (_choice === 'Red4') {
+            if(countRed === 4) {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        } else if (_choice === 'Red3') {
+            if(countRed === 3) {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        } else if (_choice === 'Red2') {
+            if(countRed === 2) {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        } else if (_choice === 'White3') {
+            if(countRed === 1) {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        } else if (_choice === 'White4') {
+            if(countRed === 0) {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,true)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            } else {
+                // Verify Status win/loss
+                await utils.shouldBeEqual(status.win,false)
+                // Verify WinLoss
+                await utils.shouldBeEqual(status.bet,_chip)
+                // Verify Choice WinLoss
+                await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
+            }
+        }
+        let winloss = (status.win === true) ? _chip*Odd[`${_choice}`] : _chip;
+        let balance = currentBalance - (2*_chip) + winloss
+        utils.sleep(8000)
+        currentBalance = await getBalance()
+        // Verify Balance on UI
+        await utils.shouldBeEqual(currentBalance,balance)
     } catch (error) {
         console.log(error.message)
     }

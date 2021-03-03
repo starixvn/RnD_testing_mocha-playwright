@@ -27,7 +27,7 @@ const getMessage = async(_mes) => {
     try {
         if(typeof wsMessageReceived !== 'undefined'){
             const _found = wsMessageReceived.filter(element => element.includes(_mes));
-            console.log(_found)
+            // console.log(_found)
             if(_found.length !== 0) return _found.pop();
         }
         return null
@@ -318,7 +318,6 @@ export const getTextFromImage = async(_path) => {
 export const parseNumber = async(_text) => {
     try {
         let txtNum = _text.replace(/\,/g,'')
-        console.log(txtNum)
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
@@ -430,5 +429,25 @@ export const Login = async(_env,_game) => {
 }
 
 export const getDataJsonPath = async(_rawData, _jsonpath) => {
-    return jp.query(JSON.parse(_rawData),_jsonpath)
+    return jp.value(JSON.parse(_rawData),_jsonpath)
+}
+const isNumber = async(n) => { return /([0-9]*,?)*(\.[0-9]*)?/.test(n) }
+export const getUIBalance = async(_path,_left, _top, _width, _height) => {
+    try {
+        await CaptureSubImageToFile(_path,_left, _top, _width, _height)
+        await sleep(1000)
+        let _txtNum = await parseNumber(await getTextFromImage(_path))
+        // console.log(_txtNum)
+        while(await isNumber(_txtNum) !== true && _txtNum === NaN){
+            _txtNum = await parseNumber(await getTextFromImage(_path))
+            // console.log(isNumber(_txtNum))
+            await sleep(1000)
+        }
+        fs.unlinkSync(_path)
+        // Convert Text To Number
+        return _txtNum
+    } catch (error) {
+        console.log(error.message)
+        return null
+    }
 }

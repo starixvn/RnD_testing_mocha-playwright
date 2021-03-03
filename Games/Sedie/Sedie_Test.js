@@ -230,7 +230,7 @@ describe('Sedie Game', ()=>{
 
   // it('TC_027_Full_Smoke_Verify maxbet of White4', async() =>{
   //   try {
-  //     await SedieFunc.verifyMaxBet('White3')
+  //     await SedieFunc.verifyMaxBet('White4')
   //   } catch (error) {
   //     console.log(error)
   //   }
