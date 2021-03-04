@@ -10,6 +10,8 @@ const expect = chai.expect
 const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
 const sharp = require('sharp')
+sharp.cache({ files : 0 });
+
 
 // Verify Message is existed
 const FindMessage = async(_mes) => {
@@ -72,7 +74,7 @@ export const getWsMessage = async(_mes) => {
 export const wsWaitMessage = async(_mes)=> {
     try {
         for(let t =0 ; t < config.setting.loop ; t++){
-            _found = wsMessageReceived.filter(element => element.includes(_mes));
+            let _found = wsMessageReceived.filter(element => element.includes(_mes));
             if (_found.length > 0) {
                 break
                 }
@@ -435,7 +437,7 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
     try {
         
         await CaptureSubImageToFile(_path,_left, _top, _width, _height)
-        await sharp(_path).resize(parseInt(_width*1.5),parseInt(_height*1.5)).toFile(_path+"_1")
+        await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
         await sleep(1000)
         let _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
         // console.log(_txtNum)
@@ -448,7 +450,7 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
             fs.unlinkSync(_path)
             fs.unlinkSync(_path+"_1")
             await CaptureSubImageToFile(_path,_left, _top, _width, _height)
-            await sharp(_path).resize(parseInt(_width*1.5),parseInt(_height*1.5)).toFile(_path+"_1")
+            await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
             await sleep(1000)
             _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
             // console.log(_txtNum)
