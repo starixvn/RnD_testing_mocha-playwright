@@ -20,10 +20,11 @@
         "ocrad.js": "0.0.1",
         "pixelmatch": "5.2.1",
         "playwright": "^1.8.0",
-        "tesseract.js": "^2.1.4"
+        "tesseract.js": "^2.1.4",
+        "sharp": "^0.27.2"
     },
     "scripts": {
-        "test": "mocha  --timeout 120000 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "test": "mocha  --timeout 0 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "smoke": "mocha  ./Games/**/*_Test.js  -r @babel/register --file ./Setup.js  --fgrep Smoke_  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report --timeout 60000",
         "parallel": "mocha --timeout 60000 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 2 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest "
     },

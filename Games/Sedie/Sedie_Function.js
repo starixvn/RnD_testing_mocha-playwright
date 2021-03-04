@@ -55,24 +55,28 @@ export const verifyBetChoice = async() => {
 }
 export const selectChip= async(_chip=1)=>{
     try {
+        await resetChipbroad()
         const _chipbar1 = [1,5,10,50,100]
         const _chipbar2 = [200,500,1000,2000]
         if (_chipbar2.includes(_chip) === true){
             await utils.swipe(SedieLocator.ChipBroad.x,SedieLocator.ChipBroad.y,0,SedieLocator.ChipBroad.y)
-            await utils.sleep(1000)
+            await utils.sleep(2000)
         }
         else if (_chipbar1.includes(_chip) === true){}
+        await utils.clickPos(SedieLocator[`Chip${_chip}`].x,SedieLocator[`Chip${_chip}`].y) 
+
     } catch (error) {
         console.log(error.message)
     }
 }
 export const placeBet = async(_choice,_chip=1) => {
     try {
-        selectChip(_chip)
-        await utils.clickPos(SedieLocator[`Chip${_chip}`].x,SedieLocator[`Chip${_chip}`].y)  
+        wsMessageReceived = []
+        await selectChip(_chip)
         let lowcase = _choice.toLowerCase()
         let _result = await utils.betProcess(SedieLocator[`${_choice}`].x,SedieLocator[`${_choice}`].y,`user/xocxoc,["XocXoc",{"ownBets":{"${lowcase}":${_chip}},"endBet":${_chip},`)
         expect(_result.Val).to.equal(true)
+
     } catch (error) {
         console.log(error.message)
     }
@@ -83,6 +87,7 @@ const resetChipbroad = async()=> {
         await utils.swipe(SedieLocator.ChipBroad.x,SedieLocator.ChipBroad.y,SedieLocator.ChipBroad.x+500,SedieLocator.ChipBroad.y)
         await utils.sleep(1000)
         await utils.clickPos(SedieLocator.Chip1.x,SedieLocator.Chip1.y)  
+        await utils.sleep(1000)
     } catch (error) {
         console.log(error.message)
     }
@@ -114,6 +119,7 @@ export const verifyBetChip = async() => {
 
 export const verifyBetAtBlockBettingTime = async() => {
     try {
+        wsMessageReceived = []
         let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
         expect(_result.Val).to.equal(true)
     } catch (error) {
@@ -134,7 +140,8 @@ export const verifyBetAtSettlementTime = async()=> {
 
 export const verifyMaxBet = async(_choice) =>{
     try {
-        if (_choice === `Round`){
+        let flag
+        if (_choice === 'Round'){
             // Wait to Finish Game
             wsMessageReceived = []
             await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
@@ -142,14 +149,19 @@ export const verifyMaxBet = async(_choice) =>{
             await utils.sleep(9000)
             await placeBet("Even")
             await selectChip(2000)
-            await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+            flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+            await utils.shouldBeEqual(flag.Val,true)
         }
-        else if (_choice === `Red4` || _choice === `White`){
+        else if (_choice === 'Red4' || _choice === 'White4'){
+            wsMessageReceived = []
             await selectChip(500)
-            await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+            flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+            await utils.shouldBeEqual(flag.Val,true)
         } else {
+            wsMessageReceived = []
             await selectChip(2000)
-            await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+            flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+            await utils.shouldBeEqual(flag.Val,true)
         }
     } catch (error) {
         console.log(error.message)
@@ -194,10 +206,14 @@ export const verifySettlement = async(_choice,_chip) => {
     try {
         let countRed = 0, currentBalance, lowcase, result, status
         let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, Red2: 2.4, White3: 3.75, White4: 14.4 }
-        currentBalance = await getBalance()
-        console.log(currentBalance.toString())
+        // console.log(currentBalance.toString())
         lowcase = _choice.toLowerCase()
         wsMessageReceived = []
+        // Wait to Finish Game
+        await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
+        // Wait to new round
+        await utils.sleep(9000)
+        currentBalance = await getBalance()
         await placeBet(_choice,_chip)
         result = await getResult()
         
@@ -322,12 +338,17 @@ export const verifySettlement = async(_choice,_chip) => {
                 await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
             }
         }
-        let winloss = (status.win === true) ? _chip*Odd[`${_choice}`] : _chip;
-        let balance = currentBalance - (2*_chip) + winloss
-        utils.sleep(8000)
+        let winloss = (status.win === true) ? _chip*Odd[`${_choice}`] : 0;
+        let balance = currentBalance - _chip + winloss
+        // console.log('winloss: ' +winloss)
+        // console.log('expected balance: ' + balance)
+        await utils.sleep(5000)
         currentBalance = await getBalance()
         // Verify Balance on UI
-        await utils.shouldBeEqual(currentBalance,balance)
+        // console.log('actual Balance: ' + currentBalance)
+        let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
+        // console.log(Math.abs(currentBalance-balance))
+        await utils.shouldBeEqual(rs,true)
     } catch (error) {
         console.log(error.message)
     }
