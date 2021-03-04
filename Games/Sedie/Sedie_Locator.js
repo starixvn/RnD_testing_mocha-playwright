@@ -9,7 +9,7 @@ export const SedieLocator = {
 	Red2 : { x : 646, y : 465, top : 423, left : 567, width : 158, height : 85, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Red2.png" },
 	White3 : { x : 829, y : 466, top : 421, left : 751, width : 157, height : 91, ImageCompare : pathImageCompare + "ImgCompare_Sedie_White3.png" },
 	White4 : { x : 1013, y : 467, top : 428, left : 939, width : 149, height : 78, ImageCompare : pathImageCompare + "ImgCompare_Sedie_White4.png" },
-	Balance : { top : 675, left : 155, width : 127, height : 29, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Balance.png" },
+	Balance : { top : 665, left : 139, width : 158, height : 49, ImageCompare : pathImageCompare + "ImgCompare_Sedie_Balance.png" },
 	ChipBroad : { x : 660, y : 625, top : 586, left : 387, width : 546, height : 79, ImageCompare1 : pathImageCompare + "ImgCompare_Sedie_ChipBroad1.png", ImageCompare2 : pathImageCompare + "ImgCompare_Sedie_ChipBroad2.png" },
 	LeftArrow : { x : 351, y : 628 },
 	RightArrow : { x : 955, y : 626 },
