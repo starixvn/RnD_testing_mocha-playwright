@@ -35,7 +35,7 @@ export const CloseGuide = async() => {
 
 export const ClickDeal = async() => {
   await utils.clickPos(BlackJackLocator.Deal.x,BlackJackLocator.Deal.y )
-  await utils.sleep(500)
+  await utils.sleep(4000)
 }
 
 export const ClickCancel = async() => {
@@ -57,6 +57,12 @@ export const StandCard = async() => {
 export const HitCard = async() => {
   await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
   await utils.sleep(500)
+}
+
+export const NewRound = async() => {
+  wsMessageReceived = []
+  await utils.clickPos(BlackJackLocator.New.x,BlackJackLocator.New.y)
+  await utils.sleep(3000)
 }
 
 export const VerifySignInSuccessfully = async() => {
@@ -292,6 +298,7 @@ export const VerifyChipColor_Pos2 = async(_chip) => {
   await utils.shouldBeEqual(_result.Val,true)    
 }
 
+// Get Total Bet Ammount of all pos after click Deal
 export const GetTotalBetAmount = async() => {
   const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
   var res = String(_found).split("42/user/blackjack,");
@@ -299,16 +306,18 @@ export const GetTotalBetAmount = async() => {
   return obj[1].deal.totalAmount
 }
 
+// Get Total Bet ID of pos after click Deal
 export const GetPosId = async(_pos) => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
+  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
   return _result[0].id
 }
 
+// Get Total Score of Pos of first round
 export const GetFirstTotalScore = async(_pos) => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
+  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
@@ -316,7 +325,7 @@ export const GetFirstTotalScore = async(_pos) => {
   return Math.max(..._result[0].total)
 }
 
-// Get current score of pos
+// Get current score of pos when hitting a card
 export const GetHitScore = async(_pos) => { 
   let _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
   //console.log(_foundhit)
@@ -330,7 +339,7 @@ export const GetHitScore = async(_pos) => {
   return obj[1].hit.total[0]
 }
 
-// Get current score of pos
+// Get winloss of pos (based on pos's id) after settled
 export const GetWinlossPosID = async(_posid) => {
   const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
   var last_found = _found.pop();
@@ -342,11 +351,27 @@ export const GetWinlossPosID = async(_posid) => {
   return _result
 }
 
-// get ws balance
-export const GetCurrentBalance = async() =>{
-  await page.reload()
+// get In game Balance
+export const GetInGamgeBalance = async() =>{
   let _result = await utils.getWsMessage('"red"')
   const res = String(_result).split("42/user/blackjack,");
-  const obj = JSON.parse(_result);
-  console.log(obj[1].hit.total[0])
+  const obj = JSON.parse(res[1]);
+  return obj[1].user.red
 }
+
+// Check Current Balacnce
+export const GetBJUIBalance = async() =>{
+  const uibalance= await utils.getUIBalance(BlackJackLocator.Balance.ImageCompare,BlackJackLocator.Balance.left,BlackJackLocator.Balance.top,BlackJackLocator.Balance.width,BlackJackLocator.Balance.height)
+  console.log(`UI Balance : ${uibalance}`)
+  return uibalance
+}
+
+// Get Total Score of Pos of first round
+export const GetDealBalance = async(_pos) => {
+  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
+  const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(res[1]);
+  const _result = jp.query(obj, "$[1]['user']['red']");
+  console.log(`Balance after Deal: ${_result[0]}`)
+  return _result[0]
+  }
