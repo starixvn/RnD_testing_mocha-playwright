@@ -9,7 +9,7 @@ const chai = require('chai')
 const expect = chai.expect
 const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
-
+const sharp = require('sharp')
 
 // Verify Message is existed
 const FindMessage = async(_mes) => {
@@ -307,7 +307,7 @@ export const getTextFromImage = async(_path) => {
         await worker.loadLanguage('eng');
         await worker.initialize('eng');
         const { data: { text } } = await worker.recognize(_path);
-        // console.log(text)
+        console.log(text)
         await worker.terminate();
         return text
     } catch (error) {
@@ -361,7 +361,6 @@ export const verifyWsMessageForBetProcess = async(_mes) => {
 }
 export const betProcess = async(_x,_y,_mes) => {
     try{
-        let flag
         for(let t = 0; t< config.setting.loop; t++){
             await clickPos(_x,_y)
             if(await verifyWsMessageForBetProcess(_mes) === true) {
@@ -434,20 +433,43 @@ export const getDataJsonPath = async(_rawData, _jsonpath) => {
 const isNumber = async(n) => { return /([0-9]*,?)*(\.[0-9]*)?/.test(n) }
 export const getUIBalance = async(_path,_left, _top, _width, _height) => {
     try {
+        
         await CaptureSubImageToFile(_path,_left, _top, _width, _height)
+        await sharp(_path).resize(parseInt(_width*1.5),parseInt(_height*1.5)).toFile(_path+"_1")
         await sleep(1000)
-        let _txtNum = await parseNumber(await getTextFromImage(_path))
+        let _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
         // console.log(_txtNum)
-        while(await isNumber(_txtNum) !== true && _txtNum === NaN){
-            _txtNum = await parseNumber(await getTextFromImage(_path))
-            // console.log(isNumber(_txtNum))
+        for(let t = 0; t< config.setting.loop/4; t++){
+            if(isNaN(_txtNum) !== true) {
+                fs.unlinkSync(_path)
+                fs.unlinkSync(_path+"_1")
+                return _txtNum
+            }
+            fs.unlinkSync(_path)
+            fs.unlinkSync(_path+"_1")
+            await CaptureSubImageToFile(_path,_left, _top, _width, _height)
+            await sharp(_path).resize(parseInt(_width*1.5),parseInt(_height*1.5)).toFile(_path+"_1")
             await sleep(1000)
+            _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
+            // console.log(_txtNum)
         }
-        fs.unlinkSync(_path)
-        // Convert Text To Number
-        return _txtNum
+        return null
     } catch (error) {
         console.log(error.message)
         return null
     }
+}
+export const setBalance = async(_custid,_balance=20000) => {
+    // await page.route("")
+    // await fetch("http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer", {
+    //     method: 'post',
+    //     body: 'ObCustId='+custid+'&Balance='+balance,
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded',
+    //         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    //         'Accept-Language': 'vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
+    //         'Accept-Encoding': 'gzip, deflate'
+    //     }
+    // }).then((response) => console.log(response))
+    // .catch((error) => console.log(error));
 }
