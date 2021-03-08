@@ -316,15 +316,17 @@ export const getTextFromImage = async(_path) => {
         console.log('Error '+error.message)
     }
 }
+
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
-        let txtNum = _text.replace(/\,/g,'')
+        let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1')
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
     }
 }
+
 // swipe to left ( y < 0 ) or right ( y >0 )
 export const swipe = async(__fx, _fy,__tx, _ty,) => {
     try {
@@ -450,7 +452,8 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
             fs.unlinkSync(_path)
             fs.unlinkSync(_path+"_1")
             await CaptureSubImageToFile(_path,_left, _top, _width, _height)
-            await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
+            await sharp(_path).resize(parseInt(_width*(2+(t*0.2))),parseInt(_height*(2+(t*0.2)))).toFile(_path+"_1")
+            //await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
             await sleep(1000)
             _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
             // console.log(_txtNum)

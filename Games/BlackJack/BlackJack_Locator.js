@@ -2,7 +2,7 @@ const path = require('path')
 const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.sep + "BlackJack" + path.sep
 
 export const BlackJackLocator = {
-	Balance : { top : 685, left : 165, width :130, height : 40, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_Balance.png" },
+	Balance : { top : 688, left : 175, width :95, height : 22, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_Balance.png" },
 	Odds : { top : 102, left : 377, width : 519, height : 176, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_Odds.png" },
 	BetLimit : { top : 33, left : 897, width : 190, height : 109, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_BetLimit.png" },
 	Stake : { top : 4, left : 11, width : 139, height : 81, ImageCompare1 : pathImageCompare + "ImgCompare_BlackJack_Stake1.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Stake5.png", ImageCompare10 : pathImageCompare + "ImgCompare_BlackJack_Stake10.png", ImageCompare50 : pathImageCompare + "ImgCompare_BlackJack_Stake50.png", ImageCompare100 : pathImageCompare + "ImgCompare_BlackJack_Stake100.png", ImageCompare200 : pathImageCompare + "ImgCompare_BlackJack_Stake200.png", ImageCompare500 : pathImageCompare + "ImgCompare_BlackJack_Stake500.png", ImageCompare1000 : pathImageCompare + "ImgCompare_BlackJack_Stake1000.png", ImageCompare2000 : pathImageCompare + "ImgCompare_BlackJack_Stake2000.png" },
@@ -39,7 +39,7 @@ export const BlackJackLocator = {
 	Home : { x : 63, y : 253 },
 	History : { x : 63, y : 324, top : 68, left : 84, width : 1127, height : 124, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_History.png" },
 	HistoryClose : { x : 1185, y : 97 },
-	Guide : { x : 64, y : 397, top : 68, left : 173, width : 941, height : 569, ImageCompare1 : pathImageCompare + "ImgCompare_BlackJack_Guide.png", ImageCompare2 : pathImageCompare + "ImgCompare_BlackJack_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BlackJack_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BlackJack_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_BlackJack_Guide_6.png" },
+	Guide : { x : 64, y : 397, top : 68, left : 173, width : 941, height : 569, ImageCompare1 : pathImageCompare + "ImgCompare_BlackJack_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BlackJack_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BlackJack_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BlackJack_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_BlackJack_Guide_6.png" },
 	GuideClose : { x : 1089, y : 98 },
   
   DefaultState : {
