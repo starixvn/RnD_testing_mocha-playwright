@@ -4,6 +4,7 @@ const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.s
 export const BlackJackLocator = {
 	Balance : { top : 688, left : 175, width :95, height : 22, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_Balance.png" },
 	Odds : { top : 102, left : 377, width : 519, height : 176, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_Odds.png" },
+	Balance : { top : 688, left : 170, width :105, height : 25, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_Balance.png" },
 	BetLimit : { top : 33, left : 897, width : 190, height : 109, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_BetLimit.png" },
 	Stake : { top : 4, left : 11, width : 139, height : 81, ImageCompare1 : pathImageCompare + "ImgCompare_BlackJack_Stake1.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Stake5.png", ImageCompare10 : pathImageCompare + "ImgCompare_BlackJack_Stake10.png", ImageCompare50 : pathImageCompare + "ImgCompare_BlackJack_Stake50.png", ImageCompare100 : pathImageCompare + "ImgCompare_BlackJack_Stake100.png", ImageCompare200 : pathImageCompare + "ImgCompare_BlackJack_Stake200.png", ImageCompare500 : pathImageCompare + "ImgCompare_BlackJack_Stake500.png", ImageCompare1000 : pathImageCompare + "ImgCompare_BlackJack_Stake1000.png", ImageCompare2000 : pathImageCompare + "ImgCompare_BlackJack_Stake2000.png" },
 	ChipBroad : { top : 587, left : 403, width : 562, height : 94, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_ChipBroad.png" },

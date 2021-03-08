@@ -5,8 +5,6 @@ import * as GameLobbyFunc from '../Games/GameLobby_Function'
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
 const path = require('path')
-const chai = require('chai')
-const expect = chai.expect
 const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
 const sharp = require('sharp')
@@ -320,7 +318,11 @@ export const getTextFromImage = async(_path) => {
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
+<<<<<<< HEAD
         let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1')
+=======
+        let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1').replace(/ /,'')
+>>>>>>> d898981ad51b9ca4e9a95dfb40f64839be6d3031
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
@@ -404,12 +406,8 @@ export const wsHearMessageOff = async() => {
 }
 
 // Off Listener Websocket Message
-export const shouldBeEqual = async(_val,_expect) => {
-    try{
-        expect(_val).to.equal(_expect)
-    } catch (error) {
-        console.log('Error '+error.message)
-    }
+export const shouldBeEqual = async(_val,_expect,_mess="Error: expect "+ _val +' to equal '+_expect) => {
+    global.expect(_val,_mess).to.equal(_expect,_val) 
 }
 
 
@@ -437,8 +435,8 @@ export const getDataJsonPath = async(_rawData, _jsonpath) => {
 const isNumber = async(n) => { return /([0-9]*,?)*(\.[0-9]*)?/.test(n) }
 export const getUIBalance = async(_path,_left, _top, _width, _height) => {
     try {
-        
         await CaptureSubImageToFile(_path,_left, _top, _width, _height)
+        await sleep(1000)
         await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
         await sleep(1000)
         let _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
@@ -452,8 +450,13 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
             fs.unlinkSync(_path)
             fs.unlinkSync(_path+"_1")
             await CaptureSubImageToFile(_path,_left, _top, _width, _height)
+<<<<<<< HEAD
             await sharp(_path).resize(parseInt(_width*(2+(t*0.2))),parseInt(_height*(2+(t*0.2)))).toFile(_path+"_1")
             //await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
+=======
+            await sleep(1000)
+            await sharp(_path).resize(parseInt(_width*(2+(t*0.2))),parseInt(_height*(2+(t*0.2)))).toFile(_path+"_1")
+>>>>>>> d898981ad51b9ca4e9a95dfb40f64839be6d3031
             await sleep(1000)
             _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
             // console.log(_txtNum)
