@@ -1,6 +1,9 @@
 import playwright from 'playwright'
 import * as config from './config/config'
 
+const chai = require('chai')
+const expect = chai.expect
+
 before(async () => {
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
@@ -19,5 +22,6 @@ before(async () => {
     global.isHear = false
     global.balance = parseFloat("0.00")
     global.env = process.env.NODE_ENV || 'cf_local'
+    global.expect = expect
 })
 
