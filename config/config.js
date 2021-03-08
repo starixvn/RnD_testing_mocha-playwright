@@ -7,13 +7,13 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: false
+    headless: true
 
 }
 
 export const cf_local ={
-    //url: "http://gamelobby-simulator.lumigame.com/signin",
-    url: "http://l1-glbs1.lumigame.com/signin",
+    url: "http://gamelobby-simulator.lumigame.com/signin",
+    //url: "http://l1-glbs1.lumigame.com/signin",
     username: "",
     memberId: {
         BlackJack : "1001051",
