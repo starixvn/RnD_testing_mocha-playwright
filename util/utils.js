@@ -318,11 +318,7 @@ export const getTextFromImage = async(_path) => {
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
-<<<<<<< HEAD
-        let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1')
-=======
         let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1').replace(/ /,'')
->>>>>>> d898981ad51b9ca4e9a95dfb40f64839be6d3031
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
@@ -450,13 +446,8 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
             fs.unlinkSync(_path)
             fs.unlinkSync(_path+"_1")
             await CaptureSubImageToFile(_path,_left, _top, _width, _height)
-<<<<<<< HEAD
-            await sharp(_path).resize(parseInt(_width*(2+(t*0.2))),parseInt(_height*(2+(t*0.2)))).toFile(_path+"_1")
-            //await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
-=======
             await sleep(1000)
             await sharp(_path).resize(parseInt(_width*(2+(t*0.2))),parseInt(_height*(2+(t*0.2)))).toFile(_path+"_1")
->>>>>>> d898981ad51b9ca4e9a95dfb40f64839be6d3031
             await sleep(1000)
             _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
             // console.log(_txtNum)
