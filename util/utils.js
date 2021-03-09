@@ -272,10 +272,16 @@ export const CaptureSubImageToFile = async(_path,_x, _y , _w, _h) => {
         console.log('Error '+error.message)
     } 
 }
-export const findImage = async(_subimage, _x, _y=null, _w=null, _h=null) => {
+export const findImage = async(_subimage, _x=null, _y=null, _w=null, _h=null) => {
     /* Test Comment*/
     try {
-        if(isNaN(_x) === false){}
+        if(typeof _subimage === 'object'){
+            _x = _subimage.left
+            _y = _subimage.top
+            _w = _subimage.width
+            _h = _subimage.height
+            _subimage = _subimage.ImageCompare
+        } else if(isNaN(_x) === false){}
         else {
             _y = _x.top
             _w = _x.width
@@ -306,10 +312,16 @@ export const findImage = async(_subimage, _x, _y=null, _w=null, _h=null) => {
     }
 }
 
-export const findImageFalse = async(_subimage, _x, _y=null, _w=null, _h=null) => {
+export const imageShouldNotDisplay = async(_subimage, _x=null, _y=null, _w=null, _h=null) => {
     /* Test Comment*/
     try {
-        if(isNaN(_x) === false){}
+        if(typeof _subimage === 'object'){
+            _x = _subimage.left
+            _y = _subimage.top
+            _w = _subimage.width
+            _h = _subimage.height
+            _subimage = _subimage.ImageCompare
+        } else if(isNaN(_x) === false){}
         else {
             _y = _x.top
             _w = _x.width
@@ -326,8 +338,8 @@ export const findImageFalse = async(_subimage, _x, _y=null, _w=null, _h=null) =>
             flag = pixelmatch((await si).data,sc.data, diff.data, _w, _h, { threshold : 0.15 })
             // console.log(Date.now())
             // console.log('a_pixeldiff:'+flag.toString())
-            // console.log('e_pixelmatch'+(_w*_h*0.07).toString())
-            if(flag>(_w*_h*0.90)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
+            // console.log('e_pixelmatch'+(_w*_h*0.6).toString())
+            if(flag>(_w*_h*0.6)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
               }, config.setting.timeout);
@@ -348,11 +360,9 @@ export const getTextFromImage = async(_path) => {
         await worker.loadLanguage('eng');
         await worker.initialize('eng');
         const { data: { text } } = await worker.recognize(_path);
-        console.log(text)
+        // console.log(text)
         await worker.terminate();
-        if(text.includes(' ') === false) {
-            return text
-        } else return 'abc'
+        return text
     } catch (error) {
         console.log('Error '+error.message)
     }
@@ -361,7 +371,9 @@ export const getTextFromImage = async(_path) => {
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
-        let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1')
+
+        let txtNum = _text.replace(/[\$US]/g,'').replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1').trim()
+        // console.log('parse: '+txtNum)
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
@@ -452,7 +464,6 @@ export const shouldBeEqual = async(_val,_expect,_mess="") => {
 
 // Login
 export const Login = async(_env,_game) => {
-    await wsHearMessageOff()
     let flag
     if(_env != 'cf_local') {
         // Login Member Site
@@ -465,7 +476,7 @@ export const Login = async(_env,_game) => {
     }
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
-    console.log(flag)
+    // console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
 }
 
@@ -473,8 +484,21 @@ export const getDataJsonPath = async(_rawData, _jsonpath) => {
     return jp.value(JSON.parse(_rawData),_jsonpath)
 }
 const isNumber = async(n) => { return /([0-9]*,?)*(\.[0-9]*)?/.test(n) }
-export const getUIBalance = async(_path,_left, _top, _width, _height) => {
+export const getUIBalance = async(_path,_left=null, _top=null, _width=null, _height=null) => {
     try {
+        if(typeof _path === 'object') {
+            _left = _path.left
+            _top = _path.top
+            _width = _path.width
+            _height = _path.height
+            _path = _path.ImageCompare
+        } else if(isNaN(_left) === false){}
+        else {
+            _top = _x.top
+            _width = _x.width
+            _height = _x.height
+            _left = _x.left
+        }
         await CaptureSubImageToFile(_path,_left, _top, _width, _height)
         await sleep(1000)
         await sharp(_path).resize(parseInt(_width),parseInt(_height)).toFile(_path+"_1")

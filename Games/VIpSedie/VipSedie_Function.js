@@ -18,26 +18,19 @@ export const verifySignInSuccessfully = async() => {
 
 
 export const verifyBetChoice = async() => {
-    let _result = await utils.findImage(VipSedieLocator.Even.ImageCompare,
-        VipSedieLocator.Even.left, VipSedieLocator.Even.top, VipSedieLocator.Even.width, VipSedieLocator.Even.height)
+    let _result = await utils.findImage(VipSedieLocator.Even)
     global.expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(VipSedieLocator.Odd.ImageCompare,
-        VipSedieLocator.Odd.left, VipSedieLocator.Odd.top, VipSedieLocator.Odd.width, VipSedieLocator.Odd.height)
+    _result = await utils.findImage(VipSedieLocator.Odd)
     global.expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(VipSedieLocator.Red4.ImageCompare,
-        VipSedieLocator.Red4.left, VipSedieLocator.Red4.top, VipSedieLocator.Red4.width, VipSedieLocator.Red4.height)
+    _result = await utils.findImage(VipSedieLocator.Red4)
     global.expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(VipSedieLocator.Red3.ImageCompare,
-        VipSedieLocator.Red3.left, VipSedieLocator.Red3.top, VipSedieLocator.Red3.width, VipSedieLocator.Red3.height)
+    _result = await utils.findImage(VipSedieLocator.Red3)
     global.expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(VipSedieLocator.Red2.ImageCompare,
-        VipSedieLocator.Red2.left, VipSedieLocator.Red2.top, VipSedieLocator.Red2.width, VipSedieLocator.Red2.height)
+    _result = await utils.findImage(VipSedieLocator.Red2)
     global.expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(VipSedieLocator.White3.ImageCompare,
-        VipSedieLocator.White3.left, VipSedieLocator.White3.top, VipSedieLocator.White3.width, VipSedieLocator.White3.height)
+    _result = await utils.findImage(VipSedieLocator.White3)
     global.expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(VipSedieLocator.White4.ImageCompare,
-        VipSedieLocator.White4.left, VipSedieLocator.White4.top, VipSedieLocator.White4.width, VipSedieLocator.White4.height)
+    _result = await utils.findImage(VipSedieLocator.White4)
     global.expect(_result.Val).to.equal(true)
 }
 export const selectChip = async(_chip=10)=>{
@@ -78,13 +71,11 @@ export const verifyBetChip = async() => {
     // await utils.CaptureSubImageToFile(VipSedieLocator.ChipBroad.ImageCompare2,
     //     VipSedieLocator.ChipBroad.left, VipSedieLocator.ChipBroad.top, VipSedieLocator.ChipBroad.width, VipSedieLocator.ChipBroad.height)
     // End
-    let _result = await utils.findImage(VipSedieLocator.ChipBroad.ImageCompare1,
-        VipSedieLocator.ChipBroad.left, VipSedieLocator.ChipBroad.top, VipSedieLocator.ChipBroad.width, VipSedieLocator.ChipBroad.height)
+    let _result = await utils.findImage(VipSedieLocator.ChipBroad.ImageCompare1, VipSedieLocator.ChipBroad)
     global.expect(_result.Val).to.equal(true)
     await utils.swipe(VipSedieLocator.ChipBroad.x,VipSedieLocator.ChipBroad.y,0,VipSedieLocator.ChipBroad.y)
     await utils.sleep(1000)
-    _result = await utils.findImage(VipSedieLocator.ChipBroad.ImageCompare2,
-        VipSedieLocator.ChipBroad.left, VipSedieLocator.ChipBroad.top, VipSedieLocator.ChipBroad.width, VipSedieLocator.ChipBroad.height)
+    _result = await utils.findImage(VipSedieLocator.ChipBroad.ImageCompare2, VipSedieLocator.ChipBroad)
     global.expect(_result.Val).to.equal(true)
 }
 
@@ -318,15 +309,13 @@ export const verifySettlement = async(_choice,_chip=10) => {
 }
 
 const verifyDealer = async() => {
-    let flag = await utils.findImage(VipSedieLocator.Dealer.ImageCompare,
-        VipSedieLocator.Dealer.left, VipSedieLocator.Dealer.top, VipSedieLocator.Dealer.width, VipSedieLocator.Dealer.height)
+    let flag = await utils.findImage(VipSedieLocator.Dealer)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const returnHome = async() => {
     await utils.clickPos(VipSedieLocator.Home.x, VipSedieLocator.Home.y)
-    let flag = await utils.findImage(GameLobbyLocator.AccountName.ImageCompare,
-        GameLobbyLocator.AccountName.left, GameLobbyLocator.AccountName.top, GameLobbyLocator.AccountName.width, GameLobbyLocator.AccountName.height)
+    let flag = await utils.findImage(GameLobbyLocator.AccountName)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
@@ -355,10 +344,7 @@ export const verifyGuideContent = async()=> {
         // await utils.swipe(fx, fy, fx, ty) 
         let _result = await utils.findImage(
             _AcheckImage[t],
-            VipSedieLocator.Guide.left,
-            VipSedieLocator.Guide.top,
-            VipSedieLocator.Guide.width,
-            VipSedieLocator.Guide.height
+            VipSedieLocator.Guide
             )
         await utils.swipe(fx, fy, fx, ty) 
         await utils.shouldBeEqual(_result.Val,true)
@@ -375,8 +361,7 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
-    let flag = await utils.findImage(VipSedieLocator.History.ImageCompare,
-        VipSedieLocator.History.left, VipSedieLocator.History.top, VipSedieLocator.History.width, VipSedieLocator.History.height)
+    let flag = await utils.findImage(VipSedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
 }
 

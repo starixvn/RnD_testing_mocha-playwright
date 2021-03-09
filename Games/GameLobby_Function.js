@@ -4,12 +4,7 @@ import * as config from '../config/config'
 
 export const verifyLoginSuccessfully = async() => {
         //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
-        return await utils.findImage(
-            GameLobbyLocator.AccountName.ImageCompare,
-            GameLobbyLocator.AccountName.left,
-            GameLobbyLocator.AccountName.top,
-            GameLobbyLocator.AccountName.width,
-            GameLobbyLocator.AccountName.height)
+        return await utils.findImage(GameLobbyLocator.AccountName)
 }
 
 export const OpenGameFromLobby = async(_Gamename) => {
@@ -30,6 +25,5 @@ export const OpenGameFromLobby = async(_Gamename) => {
 }
 
 export const getBalance = async() => {
-    return await utils.getUIBalance(OpenGameFromLobby.Balance.ImageCompare,
-        OpenGameFromLobby.Balance.left, OpenGameFromLobby.Balance.top, OpenGameFromLobby.Balance.width, OpenGameFromLobby.Balance.height)
+    return await utils.getUIBalance(GameLobbyLocator.Balance)
 }

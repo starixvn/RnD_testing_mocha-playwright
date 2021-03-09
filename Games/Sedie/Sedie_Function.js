@@ -20,26 +20,19 @@ export const verifySignInSuccessfully = async() => {
 
 
 export const verifyBetChoice = async() => {
-    let _result = await utils.findImage(SedieLocator.Even.ImageCompare,
-        SedieLocator.Even.left, SedieLocator.Even.top, SedieLocator.Even.width, SedieLocator.Even.height)
+    let _result = await utils.findImage(SedieLocator.Even)
     expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Odd.ImageCompare,
-        SedieLocator.Odd.left, SedieLocator.Odd.top, SedieLocator.Odd.width, SedieLocator.Odd.height)
+    _result = await utils.findImage(SedieLocator.Odd)
     expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Red4.ImageCompare,
-        SedieLocator.Red4.left, SedieLocator.Red4.top, SedieLocator.Red4.width, SedieLocator.Red4.height)
+    _result = await utils.findImage(SedieLocator.Red4)
     expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Red3.ImageCompare,
-        SedieLocator.Red3.left, SedieLocator.Red3.top, SedieLocator.Red3.width, SedieLocator.Red3.height)
+    _result = await utils.findImage(SedieLocator.Red3)
     expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Red2.ImageCompare,
-        SedieLocator.Red2.left, SedieLocator.Red2.top, SedieLocator.Red2.width, SedieLocator.Red2.height)
+    _result = await utils.findImage(SedieLocator.Red2)
     expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.White3.ImageCompare,
-        SedieLocator.White3.left, SedieLocator.White3.top, SedieLocator.White3.width, SedieLocator.White3.height)
+    _result = await utils.findImage(SedieLocator.White3)
     expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.White4.ImageCompare,
-        SedieLocator.White4.left, SedieLocator.White4.top, SedieLocator.White4.width, SedieLocator.White4.height)
+    _result = await utils.findImage(SedieLocator.White4)
     expect(_result.Val).to.equal(true)
 }
 export const selectChip = async(_chip=1)=>{
@@ -85,13 +78,11 @@ export const verifyBetChip = async() => {
     // await utils.CaptureSubImageToFile(SedieLocator.ChipBroad.ImageCompare2,
     //     SedieLocator.ChipBroad.left, SedieLocator.ChipBroad.top, SedieLocator.ChipBroad.width, SedieLocator.ChipBroad.height)
     // End
-    let _result = await utils.findImage(SedieLocator.ChipBroad.ImageCompare1,
-        SedieLocator.ChipBroad.left, SedieLocator.ChipBroad.top, SedieLocator.ChipBroad.width, SedieLocator.ChipBroad.height)
+    let _result = await utils.findImage(SedieLocator.ChipBroad.ImageCompare1, SedieLocator.ChipBroad)
     expect(_result.Val).to.equal(true)
     await utils.swipe(SedieLocator.ChipBroad.x,SedieLocator.ChipBroad.y,0,SedieLocator.ChipBroad.y)
     await utils.sleep(1000)
-    _result = await utils.findImage(SedieLocator.ChipBroad.ImageCompare2,
-        SedieLocator.ChipBroad.left, SedieLocator.ChipBroad.top, SedieLocator.ChipBroad.width, SedieLocator.ChipBroad.height)
+    _result = await utils.findImage(SedieLocator.ChipBroad.ImageCompare2, SedieLocator.ChipBroad)
     expect(_result.Val).to.equal(true)
 }
 
@@ -324,15 +315,13 @@ export const verifySettlement = async(_choice,_chip=1) => {
 }
 
 const verifyDealer = async() => {
-    let flag = await utils.findImage(SedieLocator.Dealer.ImageCompare,
-        SedieLocator.Dealer.left, SedieLocator.Dealer.top, SedieLocator.Dealer.width, SedieLocator.Dealer.height)
+    let flag = await utils.findImage(SedieLocator.Dealer)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const returnHome = async() => {
     await utils.clickPos(SedieLocator.Home.x, SedieLocator.Home.y)
-    let flag = await utils.findImage(GameLobbyLocator.AccountName.ImageCompare,
-        GameLobbyLocator.AccountName.left, GameLobbyLocator.AccountName.top, GameLobbyLocator.AccountName.width, GameLobbyLocator.AccountName.height)
+    let flag = await utils.findImage(GameLobbyLocator.AccountName)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
@@ -361,10 +350,7 @@ export const verifyGuideContent = async()=> {
         // await utils.swipe(fx, fy, fx, ty) 
         let _result = await utils.findImage(
             _AcheckImage[t],
-            SedieLocator.Guide.left,
-            SedieLocator.Guide.top,
-            SedieLocator.Guide.width,
-            SedieLocator.Guide.height
+            SedieLocator.Guide
             )
         await utils.swipe(fx, fy, fx, ty) 
         await utils.shouldBeEqual(_result.Val,true)
@@ -376,8 +362,7 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
-    let flag = await utils.findImage(SedieLocator.History.ImageCompare,
-        SedieLocator.History.left, SedieLocator.History.top, SedieLocator.History.width, SedieLocator.History.height)
+    let flag = await utils.findImage(SedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
