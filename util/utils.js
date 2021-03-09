@@ -272,9 +272,16 @@ export const CaptureSubImageToFile = async(_path,_x, _y , _w, _h) => {
         console.log('Error '+error.message)
     } 
 }
-export const findImage = async(_subimage, _x, _y, _w, _h) => {
+export const findImage = async(_subimage, _x, _y=null, _w=null, _h=null) => {
     /* Test Comment*/
     try {
+        if(isNaN(_x) === false){}
+        else {
+            _y = _x.top
+            _w = _x.width
+            _h = _x.height
+            _x = _x.left
+        }
         let flag=null
         let si = readImageData(_subimage)
         let sc
@@ -287,6 +294,40 @@ export const findImage = async(_subimage, _x, _y, _w, _h) => {
             // console.log('a_pixeldiff:'+flag.toString())
             // console.log('e_pixelmatch'+(_w*_h*0.07).toString())
             if(flag<(_w*_h*0.07)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
+            setTimeout(() => { 
+                loop = false
+                }, config.setting.timeout);
+            // fs.writeFileSync('diff.png', PNG.sync.write(diff));
+        }
+        return { Val : false , Err : { IsErr : false , ErrMess : ""}}
+    } catch (error) {
+        console.log('Error '+error.message)
+        return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
+    }
+}
+
+export const findImageFalse = async(_subimage, _x, _y=null, _w=null, _h=null) => {
+    /* Test Comment*/
+    try {
+        if(isNaN(_x) === false){}
+        else {
+            _y = _x.top
+            _w = _x.width
+            _h = _x.height
+            _x = _x.left
+        }
+        let flag=null
+        let si = readImageData(_subimage)
+        let sc
+        let diff = new PNG({_w, _h});
+        let loop =true;
+        while(loop){
+            sc = PNG.sync.read(await page.screenshot({ clip : {x: _x, y: _y, width: _w, height : _h} }))
+            flag = pixelmatch((await si).data,sc.data, diff.data, _w, _h, { threshold : 0.15 })
+            // console.log(Date.now())
+            // console.log('a_pixeldiff:'+flag.toString())
+            // console.log('e_pixelmatch'+(_w*_h*0.07).toString())
+            if(flag>(_w*_h*0.90)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
               }, config.setting.timeout);
@@ -309,7 +350,9 @@ export const getTextFromImage = async(_path) => {
         const { data: { text } } = await worker.recognize(_path);
         console.log(text)
         await worker.terminate();
-        return text
+        if(text.includes(' ') === false) {
+            return text
+        } else return 'abc'
     } catch (error) {
         console.log('Error '+error.message)
     }
@@ -318,7 +361,7 @@ export const getTextFromImage = async(_path) => {
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
-        let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1').replace(/ /,'')
+        let txtNum = _text.replace(/\,/g,'').replace(/\.([0-9]{3})/g,'$1')
         return parseFloat(txtNum)
     } catch (error) {
         console.log('Error '+error.message)
@@ -402,8 +445,8 @@ export const wsHearMessageOff = async() => {
 }
 
 // Off Listener Websocket Message
-export const shouldBeEqual = async(_val,_expect,_mess="Error: expect "+ _val +' to equal '+_expect) => {
-    global.expect(_val,_mess).to.equal(_expect,_val) 
+export const shouldBeEqual = async(_val,_expect,_mess="") => {
+    global.expect(_val,_mess).to.equal(_expect) 
 }
 
 
@@ -422,6 +465,7 @@ export const Login = async(_env,_game) => {
     }
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
+    console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
 }
 
@@ -433,11 +477,11 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
     try {
         await CaptureSubImageToFile(_path,_left, _top, _width, _height)
         await sleep(1000)
-        await sharp(_path).resize(parseInt(_width*2),parseInt(_height*2)).toFile(_path+"_1")
+        await sharp(_path).resize(parseInt(_width),parseInt(_height)).toFile(_path+"_1")
         await sleep(1000)
         let _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
         // console.log(_txtNum)
-        for(let t = 0; t< config.setting.loop/4; t++){
+        for(let t = 1; t<= config.setting.loop/4; t++){
             if(isNaN(_txtNum) !== true) {
                 fs.unlinkSync(_path)
                 fs.unlinkSync(_path+"_1")
@@ -447,7 +491,7 @@ export const getUIBalance = async(_path,_left, _top, _width, _height) => {
             fs.unlinkSync(_path+"_1")
             await CaptureSubImageToFile(_path,_left, _top, _width, _height)
             await sleep(1000)
-            await sharp(_path).resize(parseInt(_width*(2+(t*0.2))),parseInt(_height*(2+(t*0.2)))).toFile(_path+"_1")
+            await sharp(_path).resize(parseInt(_width*(1+(t*0.5))),parseInt(_height*(1+(t*0.5)))).toFile(_path+"_1")
             await sleep(1000)
             _txtNum = await parseNumber(await getTextFromImage(_path+"_1"))
             // console.log(_txtNum)

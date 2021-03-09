@@ -177,7 +177,6 @@ export const verifySettlement = async(_choice,_chip=10) => {
     await utils.sleep(500)
     wsMessageReceived = []
     // Wait to new round
-    await utils.sleep(9000)
     currentBalance = await getBalance()
     console.log("Current Balance: "+currentBalance)
     await placeBet(_choice,_chip)

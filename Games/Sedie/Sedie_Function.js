@@ -184,7 +184,6 @@ export const verifySettlement = async(_choice,_chip=1) => {
     await utils.sleep(500)
     wsMessageReceived = []
     // Wait to new round
-    await utils.sleep(9000)
     currentBalance = await getBalance()
     console.log("Current Balance: "+currentBalance)
     await placeBet(_choice,_chip)
@@ -321,7 +320,7 @@ export const verifySettlement = async(_choice,_chip=1) => {
     console.log('actual Balance: ' + currentBalance)
     let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
     // console.log(Math.abs(currentBalance-balance))
-    await utils.shouldBeEqual(rs,true)
+    await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
 }
 
 const verifyDealer = async() => {

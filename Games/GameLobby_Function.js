@@ -28,3 +28,8 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
     await utils.sleep(5000) //hard sleep wait for game load
 }
+
+export const getBalance = async() => {
+    return await utils.getUIBalance(OpenGameFromLobby.Balance.ImageCompare,
+        OpenGameFromLobby.Balance.left, OpenGameFromLobby.Balance.top, OpenGameFromLobby.Balance.width, OpenGameFromLobby.Balance.height)
+}
