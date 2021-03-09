@@ -9,8 +9,8 @@ import {BigSmallLocator} from './BigSmall_Locator'
 describe('BigSmall Game', ()=>{
 
   before(async function(){
-    await utils.Login(env,game);
     await utils.wsHearMessageOn()
+    await utils.Login(env,game);
     await utils.sleep(3000)
   })
 
@@ -25,6 +25,8 @@ describe('BigSmall Game', ()=>{
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await GameLobbyFunc.OpenGameFromLobby(game)
     await BigSmallFunc.VerifySignInSuccessfully()
+    //Verify odds of bet choices
+    // Verify bet choices of game Big Small
   })  
 
   // it('TC_02_Full_Smoke_Verify History Content', async () => {
@@ -45,11 +47,17 @@ describe('BigSmall Game', ()=>{
   //   await BigSmallFunc.CloseStatistic()
   // })  
 
-  it('TC_05_Full_Smoke_Verify Preset Content', async () => {
-    await BigSmallFunc.OpenPreset()
-    await BigSmallFunc.VerifyPresetContent()
-    await BigSmallFunc.ClosePreset()
+  // it('TC_05_Full_Smoke_Verify Preset Content', async () => {
+  //   await BigSmallFunc.OpenPreset()
+  //   await BigSmallFunc.VerifyPresetContent()
+  //   await BigSmallFunc.ClosePreset()
+  // })  
+
+  
+  it('TC_06_Full_Smoke_Verify Betting Big', async () => {
+    await BigSmallFunc.PlaceBet()
   })  
+
 
 
 

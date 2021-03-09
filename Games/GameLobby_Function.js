@@ -6,10 +6,7 @@ export const verifyLoginSuccessfully = async() => {
         //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
         return await utils.findImage(
             GameLobbyLocator.AccountName.ImageCompare,
-            GameLobbyLocator.AccountName.left,
-            GameLobbyLocator.AccountName.top,
-            GameLobbyLocator.AccountName.width,
-            GameLobbyLocator.AccountName.height)
+            GameLobbyLocator.AccountName)
 }
 
 export const OpenGameFromLobby = async(_Gamename) => {

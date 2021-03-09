@@ -57,36 +57,16 @@ export const ClosePreset = async() => {
 
 export const VerifySignInSuccessfully = async() => {
   // Verify BigSmall Title
-    const _title= await utils.findImage(
-      BigSmallLocator.Title.ImageCompare,
-      BigSmallLocator.Title.left,
-      BigSmallLocator.Title.top,
-      BigSmallLocator.Title.width,
-      BigSmallLocator.Title.height)
+    const _title= await utils.findImage(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title)
     await utils.shouldBeEqual(_title.Val,true)  
   // Verify Big
-  const _big= await utils.findImage(
-    BigSmallLocator.Big.ImageCompare,
-    BigSmallLocator.Big.left,
-    BigSmallLocator.Big.top,
-    BigSmallLocator.Big.width,
-    BigSmallLocator.Big.height)
+  const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
   await utils.shouldBeEqual(_big.Val,true)  
   // Verify Small
-  const _small= await utils.findImage(
-    BigSmallLocator.Small.ImageCompare,
-    BigSmallLocator.Small.left,
-    BigSmallLocator.Small.top,
-    BigSmallLocator.Small.width,
-    BigSmallLocator.Small.height)
+  const _small= await utils.findImage(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small)
   await utils.shouldBeEqual(_small.Val,true)  
   // Verify odd
-  const _odd= await utils.findImage(
-    BigSmallLocator.Odds.ImageCompare,
-    BigSmallLocator.Odds.left,
-    BigSmallLocator.Odds.top,
-    BigSmallLocator.Odds.width,
-    BigSmallLocator.Odds.height)
+  const _odd= await utils.findImage(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds)
   await utils.shouldBeEqual(_odd.Val,true)  
 }
 
@@ -95,7 +75,7 @@ export const VerifySignInSuccessfully = async() => {
 export const PlaceBet = async (_pos,_stake) => {
   try {
       await utils.sleep(500)
-      await SelectPos(pos)
+      await SelectPos(pos)  //Big or Small
       await utils.sleep(500)
       const _cnumber = `Chip${stake}`
       await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
@@ -138,7 +118,7 @@ export const SubmitChip = async () => {
   }
 }
 
-//Select Bet pos
+//Select Bet pos Big or Small
 export const SelectPos = async(_pos) => {
   await utils.clickPos(BigSmallLocator[_pos].x,BigSmallLocator[_pos].y)//click bet position
 }
@@ -163,12 +143,7 @@ export const VerifyHistoryContent = async() => {
   //   y: BigSmallLocator.History.top,
   //  width: BigSmallLocator.History.width,
   //  height: BigSmallLocator.History.height}})
-  const _result0= await utils.findImage(
-      BigSmallLocator.History.ImageCompare,
-      BigSmallLocator.History.left,
-      BigSmallLocator.History.top,
-      BigSmallLocator.History.width,
-      BigSmallLocator.History.height)
+  const _result0= await utils.findImage(BigSmallLocator.History.ImageCompare,BigSmallLocator.History)
   await utils.shouldBeEqual(_result0.Val,true)    
 }
 
@@ -177,12 +152,7 @@ export const VerifyPresetContent = async() => {
   //   y: BigSmallLocator.Preset.top,
   //  width: BigSmallLocator.Preset.width,
   //  height: BigSmallLocator.Preset.height}})
-  const _result0= await utils.findImage(
-      BigSmallLocator.Preset.ImageCompare,
-      BigSmallLocator.Preset.left,
-      BigSmallLocator.Preset.top,
-      BigSmallLocator.Preset.width,
-      BigSmallLocator.Preset.height)
+  const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
   await utils.shouldBeEqual(_result0.Val,true)    
 }
 
@@ -199,13 +169,7 @@ export const VerifyGuideContent = async() => {
     //  width: BigSmallLocator.Guide.width,
     //  height: BigSmallLocator.Guide.height}})
     //  await utils.swipe(fx, fy, fx, ty) 
-    const _result = await utils.findImage(
-      _AcheckImage[t],
-      BigSmallLocator.Guide.left,
-      BigSmallLocator.Guide.top,
-      BigSmallLocator.Guide.width,
-      BigSmallLocator.Guide.height
-      )
+    const _result = await utils.findImage(_AcheckImage[t],BigSmallLocator.Guide)
     await utils.swipe(fx, fy, fx, ty) 
     await utils.shouldBeEqual(_result.Val,true)
   
@@ -220,23 +184,14 @@ export const VerifyStatisticContent = async() => {
   //  height: BigSmallLocator.Statistic.height}})
 
   //Verify Statistic Result
-  const _result1= await utils.findImage(
-      BigSmallLocator.Statistic.ImageCompare1,
-      BigSmallLocator.Statistic.left,
-      BigSmallLocator.Statistic.top,
-      BigSmallLocator.Statistic.width,
-      BigSmallLocator.Statistic.height)
+  const _result1= await utils.findImage(BigSmallLocator.Statistic.ImageCompare1,BigSmallLocator.Statistic)
   await utils.shouldBeEqual(_result1.Val,true)    
 
   //Verify Statistic Point
   await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
   const _result2= await utils.findImage(
-    BigSmallLocator.Statistic.ImageCompare2,
-    BigSmallLocator.Statistic.left,
-    BigSmallLocator.Statistic.top,
-    BigSmallLocator.Statistic.width,
-    BigSmallLocator.Statistic.height)
-await utils.shouldBeEqual(_result2.Val,true)    
+  BigSmallLocator.Statistic.ImageCompare2,BigSmallLocator.Statistic)
+  await utils.shouldBeEqual(_result2.Val,true)    
 
 }
 

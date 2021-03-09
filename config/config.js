@@ -7,7 +7,7 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: false
+    headless: true
 
 }
 
@@ -23,7 +23,7 @@ export const cf_local ={
         Keno:  "1001054",
         Baccarat:  "1001055",
         Roulette:  "1001056",
-        BigSmall : "1001057"
+        BigSmall : "1001057",
         MiniSedie: "1001058"
     },
     password: "",

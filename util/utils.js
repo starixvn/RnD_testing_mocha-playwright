@@ -452,7 +452,7 @@ export const shouldBeEqual = async(_val,_expect,_mess="") => {
 
 // Login
 export const Login = async(_env,_game) => {
-    await wsHearMessageOff()
+    // await wsHearMessageOff()
     let flag
     if(_env != 'cf_local') {
         // Login Member Site
@@ -465,7 +465,7 @@ export const Login = async(_env,_game) => {
     }
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
-    console.log(flag)
+    // console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
 }
 
