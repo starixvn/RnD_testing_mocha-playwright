@@ -7,7 +7,7 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: true
+    headless: false
 
 }
 
@@ -18,10 +18,12 @@ export const cf_local ={
     memberId: {
         BlackJack : "1001051",
         Sedie : "1001052",
+        VipSedie : "1001057",
         Sicbo:  "1001053",
         Keno:  "1001054",
         Baccarat:  "1001055",
-        Roulette:  "1001056"
+        Roulette:  "1001056",
+        BigSmall : "1001057"
     },
     password: "",
     gamelobbyurl: ""
