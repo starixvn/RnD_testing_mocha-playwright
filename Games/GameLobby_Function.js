@@ -4,13 +4,8 @@ import * as config from '../config/config'
 
 export const verifyLoginSuccessfully = async() => {
         //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
-<<<<<<< HEAD
-        return await utils.findImage(
-            GameLobbyLocator.AccountName.ImageCompare,
-            GameLobbyLocator.AccountName)
-=======
         return await utils.findImage(GameLobbyLocator.AccountName)
->>>>>>> 27af27cbf900c0c4ea2393641791e521057aef64
+
 }
 
 export const OpenGameFromLobby = async(_Gamename) => {

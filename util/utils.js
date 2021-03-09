@@ -464,10 +464,7 @@ export const shouldBeEqual = async(_val,_expect,_mess="") => {
 
 // Login
 export const Login = async(_env,_game) => {
-<<<<<<< HEAD
     // await wsHearMessageOff()
-=======
->>>>>>> 27af27cbf900c0c4ea2393641791e521057aef64
     let flag
     if(_env != 'cf_local') {
         // Login Member Site
