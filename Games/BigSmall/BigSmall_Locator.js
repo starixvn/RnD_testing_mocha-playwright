@@ -35,7 +35,7 @@ export const BigSmallLocator = {
 	PresetAccept : { x : 785, y : 467, top : 447, left : 724, width : 123, height : 41, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_PresetAccept.png" },
 	PresetClear : { x : 642, y : 466, top : 449, left : 579, width : 127, height : 34, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_PresetClear.png" },
 	PresetClose : { x : 498, y : 467, top : 446, left : 434, width : 128, height : 42, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_PresetClose.png" },
-	Statistic : { x : 341, y : 343, top : 174, left : 347, width : 590, height : 108, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_Statistic.png" },
+	Statistic : { x : 341, y : 343, top : 174, left : 347, width : 590, height : 108, ImageCompare1 : pathImageCompare + "ImgCompare_BigSmall_Statistic_Result.png",ImageCompare2 : pathImageCompare + "ImgCompare_BigSmall_Statistic_Point.png" },
 	StatisticResult : { x : 567, y : 256, top : 244, left : 503, width : 129, height : 25, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_StatisticResult.png" },
 	StatisticPoint : { x : 710, y : 256, top : 245, left : 647, width : 126, height : 23, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_StatisticPoint.png" },
 	StatisticLeftArrow : { x : 381, y : 358 },

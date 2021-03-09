@@ -1,188 +1,188 @@
 import * as utils from '../../util/utils'
-import {BlackJackLocator} from './BlackJack_Locator'
+import {BigSmallLocator} from './BigSmall_Locator'
 import * as config from '../../config/config'
 const path = require('path')
-const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.sep + "BlackJack" + path.sep
+const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.sep + "BigSmall" + path.sep
 var jp = require('jsonpath');
 
-export const ReturnHome = async() => {
-  await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
-  await utils.sleep(500)
-  await utils.clickPos(BlackJackLocator.Home.x,BlackJackLocator.Home.y )
+export const CloseGame = async() => {
+  await utils.clickPos(BigSmallLocator.Close.x,BigSmallLocator.Close.y )
   await utils.sleep(1000)
 }
 
 export const OpenHistory = async() => {
-  await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
-  await utils.sleep(500)
-  await utils.clickPos(BlackJackLocator.History.x,BlackJackLocator.History.y )
+  await utils.clickPos(BigSmallLocator.History.x,BigSmallLocator.History.y )
   await utils.sleep(500)
 
 }
 
-export const OpenGuide = async() => {
-  await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
+export const CloseHistory = async() => {
+  await utils.clickPos(BigSmallLocator.HistoryClose.x,BigSmallLocator.HistoryClose.y )
   await utils.sleep(500)
-  await utils.clickPos(BlackJackLocator.Guide.x,BlackJackLocator.Guide.y )
+}
+
+export const OpenGuide = async() => {
+  await utils.clickPos(BigSmallLocator.Guide.x,BigSmallLocator.Guide.y )
   await utils.sleep(500)
 
 }
 
 export const CloseGuide = async() => {
-  await utils.clickPos(BlackJackLocator.GuideClose.x,BlackJackLocator.GuideClose.y )
+  await utils.clickPos(BigSmallLocator.GuideClose.x,BigSmallLocator.GuideClose.y )
   await utils.sleep(500)
 }
 
-export const ClickDeal = async() => {
-  await utils.clickPos(BlackJackLocator.Deal.x,BlackJackLocator.Deal.y )
-  await utils.sleep(4000)
+export const OpenStatistic = async() => {
+  await utils.clickPos(BigSmallLocator.Statistic.x,BigSmallLocator.Statistic.y )
+  await utils.sleep(500)
+
 }
 
-export const ClickCancel = async() => {
-  await utils.clickPos(BlackJackLocator.Cancel.x,BlackJackLocator.Cancel.y )
+export const CloseStatistic = async() => {
+  await utils.clickPos(BigSmallLocator.StatisticClose.x,BigSmallLocator.StatisticClose.y )
   await utils.sleep(500)
 }
 
+export const OpenPreset = async() => {
+  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y )
+  await utils.sleep(500)
 
-export const CloseHistory = async() => {
-  await utils.clickPos(BlackJackLocator.HistoryClose.x,BlackJackLocator.HistoryClose.y )
+}
+
+export const ClosePreset = async() => {
+  await utils.clickPos(BigSmallLocator.PresetClose.x,BigSmallLocator.PresetClose.y )
   await utils.sleep(500)
 }
 
-export const StandCard = async() => {
-  await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
-  await utils.sleep(500)
-}
-
-export const HitCard = async() => {
-  await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
-  await utils.sleep(500)
-}
-
-export const NewRound = async() => {
-  wsMessageReceived = []
-  await utils.clickPos(BlackJackLocator.New.x,BlackJackLocator.New.y)
-  await utils.sleep(3000)
-}
 
 export const VerifySignInSuccessfully = async() => {
-  let _result = await utils.wsFindMessage('user/blackjack,["signedIn"]')
-  await utils.shouldBeEqual(_result.Val,true)
+  // Verify BigSmall Title
+    const _title= await utils.findImage(
+      BigSmallLocator.Title.ImageCompare,
+      BigSmallLocator.Title.left,
+      BigSmallLocator.Title.top,
+      BigSmallLocator.Title.width,
+      BigSmallLocator.Title.height)
+    await utils.shouldBeEqual(_title.Val,true)  
+  // Verify Big
+  const _big= await utils.findImage(
+    BigSmallLocator.Big.ImageCompare,
+    BigSmallLocator.Big.left,
+    BigSmallLocator.Big.top,
+    BigSmallLocator.Big.width,
+    BigSmallLocator.Big.height)
+  await utils.shouldBeEqual(_big.Val,true)  
+  // Verify Small
+  const _small= await utils.findImage(
+    BigSmallLocator.Small.ImageCompare,
+    BigSmallLocator.Small.left,
+    BigSmallLocator.Small.top,
+    BigSmallLocator.Small.width,
+    BigSmallLocator.Small.height)
+  await utils.shouldBeEqual(_small.Val,true)  
+  // Verify odd
+  const _odd= await utils.findImage(
+    BigSmallLocator.Odds.ImageCompare,
+    BigSmallLocator.Odds.left,
+    BigSmallLocator.Odds.top,
+    BigSmallLocator.Odds.width,
+    BigSmallLocator.Odds.height)
+  await utils.shouldBeEqual(_odd.Val,true)  
 }
 
 
 //PlaceBet
-export const PlaceBet = async (stake,pos) => {
+export const PlaceBet = async (_pos,_stake) => {
   try {
       await utils.sleep(500)
-      await Sliding_Select_Chip(stake)
-      // const _cnumber = `Chip${stake}`
-      // await utils.clickPos(BlackJackLocator[_cnumber].x,BlackJackLocator[_cnumber].y) //click coin
       await SelectPos(pos)
+      await utils.sleep(500)
+      const _cnumber = `Chip${stake}`
+      await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
+      await utils.sleep(500)
+      //SubmitChip
+      await SubmitChip()
       //await utils.clickPos(BlackJackLocator[pos].x,BlackJackLocator[pos].y)//click bet position
   } catch (e) {
       console.error(e)
   }
 }
 
-//PlaceBet
-export const CancelBet = async (_pos) => {
+//Clear Chip
+export const ClearChip = async () => {
   try {
-    if(_pos == 'Pos3'){
-      await utils.clickPos(BlackJackLocator.Pos3Cancel.x,BlackJackLocator.Pos3Cancel.y)
-      await page.waitForTimeout(1000)
-    }
-    if (_pos == 'Pos2'){
-      await utils.clickPos(BlackJackLocator.Pos2Cancel.x,BlackJackLocator.Pos2Cancel.y)
-      await page.waitForTimeout(1000)
-    }
-    if (_pos == 'Pos1'){
-      await utils.clickPos(BlackJackLocator.Pos1Cancel.x,BlackJackLocator.Pos1Cancel.y)
-      await page.waitForTimeout(1000)
-    }
+      await utils.clickPos(BigSmallLocator.ChipBroadClear.x,BigSmallLocator.ChipBroadClear.y)
+      await page.waitForTimeout(500)
   } catch (e) {
       console.error(e)
   }
 }
 
-//Bet Settle
-export const BetSettle_HitCardUntilOver15 = async (_pos) => {
+//Close Bet Chip
+export const CloseChipBoard = async () => {
   try {
-        let _currentscore = 0  
-        const _result = await GetFirstTotalScore(_pos)
-        for (let i = 0; i < 4; i++){
-        if (_result >= 15 || _currentscore >= 15)
-        { 
-          if (_result == 21){
-              break
-        }
-          else {
-              console.log(`Stand card pos ${_pos}`)
-              await utils.sleep(1000)
-              await StandCard()
-              await utils.sleep(3000) 
-              break
-          }
-        }
-        else
-        {
-          console.log(`hit card pos ${_pos}`)
-          await utils.sleep(1000)
-          await HitCard()
-          await utils.sleep(3000) //wait for wsmsg
-          _currentscore = await GetHitScore(_pos)
-        }
-      }
+      await utils.clickPos(BigSmallLocator.ChipBroadClose.x,BigSmallLocator.ChipBroadClose.y)
+      await page.waitForTimeout(500)
   } catch (e) {
       console.error(e)
   }
 }
 
-export const BetSettle_HitToQuizzed = async (_pos) => {
+//SubmitChip
+export const SubmitChip = async () => {
   try {
-      let _currentscore = 0 
-      const _result = await GetFirstTotalScore(_pos)
-      for (let i = 0; i < 4; i++){  
-        if (_result > 21 ||_currentscore > 21)
-        {
-          break
-        }
-        else
-        {
-          console.log(`hit card pos ${_pos}`)
-          await utils.sleep(1000)
-          await HitCard()
-          await utils.sleep(3000)
-          _currentscore = await GetHitScore(_pos)
-          console.log(_currentscore)
-        }
-      }
+      await utils.clickPos(BigSmallLocator.ChipBroadAccept.x,BigSmallLocator.ChipBroadAccept.y)
+      await page.waitForTimeout(500)
   } catch (e) {
       console.error(e)
   }
 }
 
-export const VerifyDealerContent = async() => {
-  const _result= await utils.findImage(
-      BlackJackLocator.DealerContent.ImageCompare,
-      BlackJackLocator.DealerContent.left,
-      BlackJackLocator.DealerContent.top,
-      BlackJackLocator.DealerContent.width,
-      BlackJackLocator.DealerContent.height)
-  await utils.shouldBeEqual(_result.Val,true)    
+//Select Bet pos
+export const SelectPos = async(_pos) => {
+  await utils.clickPos(BigSmallLocator[_pos].x,BigSmallLocator[_pos].y)//click bet position
+}
+
+//Preset Chip
+export const PresetChip = async(_chip) => {
+  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
+  const _prechip = `PresetChip${_chip}`
+  await utils.clickPos(BigSmallLocator[_prechip].x,BigSmallLocator[_prechip].y)
+  await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)//click Accept
+}
+
+//Clear Preset Chip
+export const ClearPresetChip = async() => {
+  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
+  await utils.clickPos(BigSmallLocator.PresetClear.x,BigSmallLocator.PresetClear.y)
+  await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)//click Accept
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BlackJack_History.png',clip:{x: BlackJackLocator.History.left,
-  //   y: BlackJackLocator.History.top,
-  //  width: BlackJackLocator.History.width,
-  //  height: BlackJackLocator.History.height}})
+  // await page.screenshot({path:'ImgCompare_BigSmall_History.png',clip:{x: BigSmallLocator.History.left,
+  //   y: BigSmallLocator.History.top,
+  //  width: BigSmallLocator.History.width,
+  //  height: BigSmallLocator.History.height}})
   const _result0= await utils.findImage(
-      BlackJackLocator.History.ImageCompare,
-      BlackJackLocator.History.left,
-      BlackJackLocator.History.top,
-      BlackJackLocator.History.width,
-      BlackJackLocator.History.height)
+      BigSmallLocator.History.ImageCompare,
+      BigSmallLocator.History.left,
+      BigSmallLocator.History.top,
+      BigSmallLocator.History.width,
+      BigSmallLocator.History.height)
+  await utils.shouldBeEqual(_result0.Val,true)    
+}
+
+export const VerifyPresetContent = async() => {
+  // await page.screenshot({path:'ImgCompare_BigSmall_Preset.png',clip:{x: BigSmallLocator.Preset.left,
+  //   y: BigSmallLocator.Preset.top,
+  //  width: BigSmallLocator.Preset.width,
+  //  height: BigSmallLocator.Preset.height}})
+  const _result0= await utils.findImage(
+      BigSmallLocator.Preset.ImageCompare,
+      BigSmallLocator.Preset.left,
+      BigSmallLocator.Preset.top,
+      BigSmallLocator.Preset.width,
+      BigSmallLocator.Preset.height)
   await utils.shouldBeEqual(_result0.Val,true)    
 }
 
@@ -190,68 +190,62 @@ export const VerifyGuideContent = async() => {
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
-  let _AcheckImage = [ BlackJackLocator.Guide.ImageCompare1, BlackJackLocator.Guide.ImageCompare2, BlackJackLocator.Guide.ImageCompare3,
-    BlackJackLocator.Guide.ImageCompare4, BlackJackLocator.Guide.ImageCompare5, BlackJackLocator.Guide.ImageCompare6] 
+  let _AcheckImage = [ BigSmallLocator.Guide.ImageCompare1, BigSmallLocator.Guide.ImageCompare2, BigSmallLocator.Guide.ImageCompare3,
+    BigSmallLocator.Guide.ImageCompare4] 
   for(let t = 0; t< _AcheckImage.length; t++){
-    // await page.screenshot({path:`ImgCompare_BlackJack_Guide_${t+1}.png`,clip:{
-    // x: BlackJackLocator.Guide.left,
-    //   y: BlackJackLocator.Guide.top,
-    //  width: BlackJackLocator.Guide.width,
-    //  height: BlackJackLocator.Guide.height}})
+    // await page.screenshot({path:`ImgCompare_BigSmall_Guide_${t+1}.png`,clip:{
+    // x: BigSmallLocator.Guide.left,
+    //   y: BigSmallLocator.Guide.top,
+    //  width: BigSmallLocator.Guide.width,
+    //  height: BigSmallLocator.Guide.height}})
     //  await utils.swipe(fx, fy, fx, ty) 
     const _result = await utils.findImage(
       _AcheckImage[t],
-      BlackJackLocator.Guide.left,
-      BlackJackLocator.Guide.top,
-      BlackJackLocator.Guide.width,
-      BlackJackLocator.Guide.height
+      BigSmallLocator.Guide.left,
+      BigSmallLocator.Guide.top,
+      BigSmallLocator.Guide.width,
+      BigSmallLocator.Guide.height
       )
     await utils.swipe(fx, fy, fx, ty) 
     await utils.shouldBeEqual(_result.Val,true)
   
-  }    
+  }  
   
 }
 
-export const VerifyDefaultState = async() => {
-//Check default pos and stakes, min & maxbet  
-  const _result= await utils.findImage(
-    BlackJackLocator.DefaultState.ImageCompare,
-    BlackJackLocator.DefaultState.left,
-    BlackJackLocator.DefaultState.top,
-    BlackJackLocator.DefaultState.width,
-    BlackJackLocator.DefaultState.height)
-await utils.shouldBeEqual(_result.Val,true)    
+export const VerifyStatisticContent = async() => {
+  // await page.screenshot({path:'ImgCompare_BigSmall_Statistic_Point.png',clip:{x: BigSmallLocator.Statistic.left,
+  //   y: BigSmallLocator.Statistic.top,
+  //  width: BigSmallLocator.Statistic.width,
+  //  height: BigSmallLocator.Statistic.height}})
 
-  //Check default Chip
-  const _chip= await utils.findImage(
-    BlackJackLocator.DefaultChip.ImageCompare,
-    BlackJackLocator.DefaultChip.left,
-    BlackJackLocator.DefaultChip.top,
-    BlackJackLocator.DefaultChip.width,
-    BlackJackLocator.DefaultChip.height)
-await utils.shouldBeEqual(_chip.Val,true)  
+  //Verify Statistic Result
+  const _result1= await utils.findImage(
+      BigSmallLocator.Statistic.ImageCompare1,
+      BigSmallLocator.Statistic.left,
+      BigSmallLocator.Statistic.top,
+      BigSmallLocator.Statistic.width,
+      BigSmallLocator.Statistic.height)
+  await utils.shouldBeEqual(_result1.Val,true)    
+
+  //Verify Statistic Point
+  await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
+  const _result2= await utils.findImage(
+    BigSmallLocator.Statistic.ImageCompare2,
+    BigSmallLocator.Statistic.left,
+    BigSmallLocator.Statistic.top,
+    BigSmallLocator.Statistic.width,
+    BigSmallLocator.Statistic.height)
+await utils.shouldBeEqual(_result2.Val,true)    
+
 }
 
-//Sliding chip bar and select chip icon
-export const Sliding_Select_Chip = async(_chip) => {
-  const _chipbar1 = [1,5,10,50,100]
-  const _chipbar2 = [200,500,1000,2000]
-  if (_chipbar2.includes(_chip) === true){
-    await utils.swipe(950,630,0,630)
-    await utils.sleep(500)
-     }
-  else if (_chipbar1.includes(_chip) === true){
-    await utils.swipe(405,630,1000,630)
-    await utils.sleep(500)
-   }
-    await utils.clickPos(BlackJackLocator[`Chip${_chip}`].x,BlackJackLocator[`Chip${_chip}`].y)  
-  }
+//
 
-//Select Bet pos
-export const SelectPos = async(_pos) => {
-  await utils.clickPos(BlackJackLocator[_pos].x,BlackJackLocator[_pos].y)//click bet position
-}
+///////////////////////////////////////////////////////////
+
+
+
 
 export const VerifyPosStake = async(_pos,_stake) => {
   const poststake = `${_pos}Stake`
@@ -261,10 +255,10 @@ export const VerifyPosStake = async(_pos,_stake) => {
     //  height: BlackJackLocator[poststake].height}})
     const _result = await utils.findImage(
     pathImageCompare + `Stake${_pos}` + path.sep  + `${_stake}.png`,
-    BlackJackLocator[poststake].left,
-    BlackJackLocator[poststake].top,
-    BlackJackLocator[poststake].width,
-    BlackJackLocator[poststake].height)
+    BigSmallLocator[poststake].left,
+    BigSmallLocator[poststake].top,
+    BigSmallLocator[poststake].width,
+    BigSmallLocator[poststake].height)
     await utils.shouldBeEqual(_result.Val,true)    
 }
 
@@ -276,10 +270,10 @@ export const VerifyBetBlance = async(_stake) => {
     //  height: BlackJackLocator.Stake.height}})
     const _result = await utils.findImage(
     pathImageCompare + 'BetBalance' + path.sep  + `${_stake}.png`,
-    BlackJackLocator.Stake.left,
-    BlackJackLocator.Stake.top,
-    BlackJackLocator.Stake.width,
-    BlackJackLocator.Stake.height)
+    BigSmallLocator.Stake.left,
+    BigSmallLocator.Stake.top,
+    BigSmallLocator.Stake.width,
+    BigSmallLocator.Stake.height)
     await utils.shouldBeEqual(_result.Val,true)    
 }
 
@@ -291,10 +285,10 @@ export const VerifyChipColor_Pos2 = async(_chip) => {
   //  height: BlackJackLocator.Pos2.height}})
   const _result = await utils.findImage(
   pathImageCompare + 'ChipColorPos2' + path.sep  + `${_chip}.png`,
-  BlackJackLocator.Pos2.left,
-  BlackJackLocator.Pos2.top,
-  BlackJackLocator.Pos2.width,
-  BlackJackLocator.Pos2.height)
+  BigSmallLocator.Pos2.left,
+  BigSmallLocator.Pos2.top,
+  BigSmallLocator.Pos2.width,
+  BigSmallLocator.Pos2.height)
   await utils.shouldBeEqual(_result.Val,true)    
 }
 
@@ -361,7 +355,7 @@ export const GetInGamgeBalance = async() =>{
 
 // Check Current Balacnce
 export const GetBJUIBalance = async() =>{
-  const uibalance= await utils.getUIBalance(BlackJackLocator.Balance.ImageCompare,BlackJackLocator.Balance.left,BlackJackLocator.Balance.top,BlackJackLocator.Balance.width,BlackJackLocator.Balance.height)
+  const uibalance= await utils.getUIBalance(BigSmallLocator.Balance.ImageCompare,BigSmallLocator.Balance.left,BigSmallLocator.Balance.top,BigSmallLocator.Balance.width,BigSmallLocator.Balance.height)
   console.log(`UI Balance : ${uibalance}`)
   return uibalance
 }

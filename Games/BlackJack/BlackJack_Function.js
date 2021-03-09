@@ -51,8 +51,8 @@ export const CloseHistory = async() => {
 
 export const StandCard = async() => {
   try {
+    await utils.sleep(500)
     await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
-    //await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top) //click to lost focus on Stand button
     await utils.sleep(500)
     const _Stand= await utils.findImage(
       BlackJackLocator.Stand.ImageCompare,
@@ -75,6 +75,7 @@ export const StandCard = async() => {
 
 export const HitCard = async() => {
   try {
+    await utils.sleep(500)
     await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
     const _Hit= await utils.findImage(
@@ -485,7 +486,7 @@ export const IsDealerBLackJack = async() => {
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  let _result = jp.query(obj[1], "$[1]['deal']['dealer'][1]['rank']");
+  let _result = jp.query(obj[1], "$..dealer[1]");
   console.log('dealer', _result)
   if (Object.keys(_result).length > 0){
     return true
