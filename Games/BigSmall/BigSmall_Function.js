@@ -72,21 +72,100 @@ export const VerifySignInSuccessfully = async() => {
 
 
 //PlaceBet
-export const PlaceBet = async (_pos,_stake) => {
+export const PlaceBet = async (_pos,_stake,wait='wait') => {
   try {
+    let _isfail
+    for (let t = 0;  t< config.setting.loop; t++)
+     {
+      wsMessageReceived = []
       await utils.sleep(500)
-      await SelectPos(pos)  //Big or Small
+      await SelectPos(_pos)  //Big or Small
       await utils.sleep(500)
-      const _cnumber = `Chip${stake}`
-      await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
-      await utils.sleep(500)
-      //SubmitChip
+      // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
+      if (_stake != null)
+      {
+        const _cnumber = `Chip${_stake}`
+        await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
+        await utils.sleep(500)
+      }
+         //SubmitChip
       await SubmitChip()
+      // Wait until betting success
+      if (wait == 'wait'){
+        _isfail = await IsBetFail()
+      }
+      else if (wait == 'nowait'){
+        _isfail = false
+      }
+      await utils.sleep(1000)
+      if (_isfail === false )
+      {
+        break
+      }
+    }   
       //await utils.clickPos(BlackJackLocator[pos].x,BlackJackLocator[pos].y)//click bet position
   } catch (e) {
       console.error(e)
   }
 }
+
+//Clear Chip
+export const VerifyBetStake = async (_pos,_stake) => {
+  try {
+      //Precondition convert Big --> tai, Small --> xiu
+      let findmsg,_found
+      if (_pos == "Big"){
+          findmsg = `{"taixiu":{"taixiu":{"red_me_tai":${_stake}}}`
+          _found = await utils.wsFindMessage(findmsg)
+       }
+
+       else if(_pos == "Small"){
+          findmsg = `{"taixiu":{"taixiu":{"red_me_xiu":${_stake}}}`
+          _found = await utils.wsFindMessage(findmsg)
+       }
+      await utils.shouldBeEqual(_found.Val,true)    
+  } catch (e) {
+      console.error(e)
+  }
+}
+
+//
+export const GetWinLossResult = async () => {
+  try {
+      let _found = await utils.getWsMessage('{"taixiu":{"status":{"win":')
+      const obj = JSON.parse(_found);
+      let _result = jp.query(obj, `$..win`);
+      let _betstake
+      if (_result == 'false'){
+        _betstake = 0
+      }
+      else
+      {
+        let _astake = jp.query(obj, `$..bet`);
+        _betstake = _astake[0]
+      }
+      return {win: _result[0], stake: _betstake }
+      
+  } catch (e) {
+      console.error(e)
+  }
+}
+
+// Verify error msg
+export const VerifyErrorMessage = async(_msg) => {
+  await utils.sleep(1000)
+  let _found, _result
+  _result = wsMessageReceived.filter(element => element.includes(`{"taixiu":{"err":"${_msg}"}}`));
+  if (_result.length > 0)
+  {
+    _found = true
+  }
+  else {
+    _found = false
+  }
+  await utils.shouldBeEqual(_found,true)
+}
+
 
 //Clear Chip
 export const ClearChip = async () => {
@@ -120,22 +199,25 @@ export const SubmitChip = async () => {
 
 //Select Bet pos Big or Small
 export const SelectPos = async(_pos) => {
-  await utils.clickPos(BigSmallLocator[_pos].x,BigSmallLocator[_pos].y)//click bet position
+  let _acpos = `Pos${_pos}`
+  await utils.clickPos(BigSmallLocator[_acpos].x,BigSmallLocator[_acpos].y)//click bet position
 }
 
 //Preset Chip
-export const PresetChip = async(_chip) => {
+export const PresetChip = async(_chip,_clear='clear') => {
   await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
   const _prechip = `PresetChip${_chip}`
+  //Clear preset chip --> return 0
+  if (_clear == 'clear'){
+    await ClearPresetChip()
+  }
   await utils.clickPos(BigSmallLocator[_prechip].x,BigSmallLocator[_prechip].y)
   await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)//click Accept
 }
 
 //Clear Preset Chip
 export const ClearPresetChip = async() => {
-  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
   await utils.clickPos(BigSmallLocator.PresetClear.x,BigSmallLocator.PresetClear.y)
-  await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)//click Accept
 }
 
 export const VerifyHistoryContent = async() => {
@@ -194,6 +276,17 @@ export const VerifyStatisticContent = async() => {
   await utils.shouldBeEqual(_result2.Val,true)    
 
 }
+
+//Is Round Error after betting
+export const IsBetFail = async() => {
+  let _found = wsMessageReceived.filter(element => element.includes('{"taixiu":{"err'));
+  if (_found.length > 0){
+    return true
+  }
+  else
+  return false
+}
+
 
 //
 

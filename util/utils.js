@@ -59,7 +59,7 @@ export const getWsMessage = async(_mes) => {
                 // console.log(wsMessageReceived)
                 result = await getMessage(_mes)
                 if(result !== null ) return result
-                await sleep(500)
+                await sleep(1000)
             }
         return null
     } catch (error) {
@@ -77,7 +77,7 @@ export const wsWaitMessage = async(_mes)=> {
                 break
                 }
             else{ 
-                await sleep(500) 
+                await sleep(1000) 
                 }
             }             
         }
