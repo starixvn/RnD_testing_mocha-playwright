@@ -472,6 +472,9 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
     })
 
+    it('TC_21_Full_Smoke_Verify Close Game Success', async () => {
+      await BlackJackFunc.ReturnHome()
+    }) 
 
 
 })

@@ -10,6 +10,8 @@ export const ReturnHome = async() => {
   await utils.sleep(500)
   await utils.clickPos(BlackJackLocator.Home.x,BlackJackLocator.Home.y )
   await utils.sleep(1000)
+  let flag = await utils.findImage(GameLobbyLocator.AccountName)
+  await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const OpenHistory = async() => {

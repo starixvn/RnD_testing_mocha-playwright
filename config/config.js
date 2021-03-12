@@ -24,7 +24,9 @@ export const cf_local ={
         Baccarat:  "1001055",
         Roulette:  "1001056",
         BigSmall : "1001057",
-        MiniSedie: "1001058"
+        MiniSedie: "1001058",
+        TurboBigSmall: "1001059",
+        TurboOddEven: "1001060"
     },
     password: "",
     gamelobbyurl: ""

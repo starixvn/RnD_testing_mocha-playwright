@@ -1,13 +1,15 @@
 import * as utils from '../../util/utils'
 import {BigSmallLocator} from './BigSmall_Locator'
 import * as config from '../../config/config'
-const path = require('path')
-const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.sep + "BigSmall" + path.sep
+import * as GameLobbyFunc from '../GameLobby_Function'
 var jp = require('jsonpath');
 
 export const CloseGame = async() => {
   await utils.clickPos(BigSmallLocator.Close.x,BigSmallLocator.Close.y )
   await utils.sleep(1000)
+  let flag = await utils.imageShouldNotDisplay(BigSmallLocator.Big)
+  await utils.shouldBeEqual(flag.Val,true)
+
 }
 
 export const OpenHistory = async() => {
@@ -78,15 +80,15 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await utils.sleep(500)
+      await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(500)
+      await utils.sleep(100)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
         const _cnumber = `Chip${_stake}`
         await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
-        await utils.sleep(500)
+        await utils.sleep(100)
       }
          //SubmitChip
       await SubmitChip()
@@ -97,13 +99,12 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else if (wait == 'nowait'){
         _isfail = false
       }
-      await utils.sleep(1000)
+      await utils.sleep(500)
       if (_isfail === false )
       {
         break
       }
     }   
-      //await utils.clickPos(BlackJackLocator[pos].x,BlackJackLocator[pos].y)//click bet position
   } catch (e) {
       console.error(e)
   }
@@ -112,6 +113,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 //Clear Chip
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
+    //console.log('Verify Bet Stake: ',_pos,'Stake: ',_stake)
       //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
       if (_pos == "Big"){
@@ -260,19 +262,23 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BigSmall_Statistic_Point.png',clip:{x: BigSmallLocator.Statistic.left,
-  //   y: BigSmallLocator.Statistic.top,
-  //  width: BigSmallLocator.Statistic.width,
-  //  height: BigSmallLocator.Statistic.height}})
-
+//  await page.screenshot({path:'ImgCompare_BigSmall_StatisticResult.png',clip:{x: BigSmallLocator.StatisticResult.left,
+//     y: BigSmallLocator.StatisticResult.top,
+//    width: BigSmallLocator.StatisticResult.width,
+//    height: BigSmallLocator.StatisticResult.height}})
+//    await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
+//    await page.screenshot({path:'ImgCompare_BigSmall_StatisticPoint.png',clip:{x: BigSmallLocator.StatisticPoint.left,
+//     y: BigSmallLocator.StatisticPoint.top,
+//    width: BigSmallLocator.StatisticPoint.width,
+//    height: BigSmallLocator.StatisticPoint.height}})
   //Verify Statistic Result
-  const _result1= await utils.findImage(BigSmallLocator.Statistic.ImageCompare1,BigSmallLocator.Statistic)
+  const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
   await utils.shouldBeEqual(_result1.Val,true)    
 
   //Verify Statistic Point
   await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
   const _result2= await utils.findImage(
-  BigSmallLocator.Statistic.ImageCompare2,BigSmallLocator.Statistic)
+    BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
   await utils.shouldBeEqual(_result2.Val,true)    
 
 }
@@ -287,134 +293,27 @@ export const IsBetFail = async() => {
   return false
 }
 
+export const CheckSettleBalance = async(_beforebalance) => {
+  let d= await GetWinLossResult()
+  console.log('Is Win: ',d.win, d.stake)
+  await utils.sleep(2000)
+  let _afterbalance = await GameLobbyFunc.getBalance()
+  console.log('Compare Balance: ',_afterbalance,_beforebalance,_beforebalance + d.stake)
+}
 
-//
+
+export const GetBalanceAfterBet = async () => {
+  try {
+      let _found = await utils.getWsMessage('{"taixiu":{"taixiu":{"red_me_')
+      const obj = JSON.parse(_found);
+      let _result = jp.query(obj, `$..red`);
+       return _result[0]
+      } catch (e) {
+      console.error(e)
+  }
+}
+
+
 
 ///////////////////////////////////////////////////////////
 
-
-
-
-export const VerifyPosStake = async(_pos,_stake) => {
-  const poststake = `${_pos}Stake`
-    //   await page.screenshot({path:`${_stake}${_pos}.png`,clip:{x: BlackJackLocator[poststake].left,
-    //   y: BlackJackLocator[poststake].top,
-    //  width: BlackJackLocator[poststake].width,
-    //  height: BlackJackLocator[poststake].height}})
-    const _result = await utils.findImage(
-    pathImageCompare + `Stake${_pos}` + path.sep  + `${_stake}.png`,
-    BigSmallLocator[poststake].left,
-    BigSmallLocator[poststake].top,
-    BigSmallLocator[poststake].width,
-    BigSmallLocator[poststake].height)
-    await utils.shouldBeEqual(_result.Val,true)    
-}
-
-
-export const VerifyBetBlance = async(_stake) => {
-    //   await page.screenshot({path:`${_stake}.png`,clip:{x: BlackJackLocator.Stake.left,
-    //   y: BlackJackLocator.Stake.top,
-    //  width: BlackJackLocator.Stake.width,
-    //  height: BlackJackLocator.Stake.height}})
-    const _result = await utils.findImage(
-    pathImageCompare + 'BetBalance' + path.sep  + `${_stake}.png`,
-    BigSmallLocator.Stake.left,
-    BigSmallLocator.Stake.top,
-    BigSmallLocator.Stake.width,
-    BigSmallLocator.Stake.height)
-    await utils.shouldBeEqual(_result.Val,true)    
-}
-
-
-export const VerifyChipColor_Pos2 = async(_chip) => {
-  //   await page.screenshot({path:`${_chip}.png`,clip:{x: BlackJackLocator.Pos2.left,
-  //   y: BlackJackLocator.Pos2.top,
-  //  width: BlackJackLocator.Pos2.width,
-  //  height: BlackJackLocator.Pos2.height}})
-  const _result = await utils.findImage(
-  pathImageCompare + 'ChipColorPos2' + path.sep  + `${_chip}.png`,
-  BigSmallLocator.Pos2.left,
-  BigSmallLocator.Pos2.top,
-  BigSmallLocator.Pos2.width,
-  BigSmallLocator.Pos2.height)
-  await utils.shouldBeEqual(_result.Val,true)    
-}
-
-// Get Total Bet Ammount of all pos after click Deal
-export const GetTotalBetAmount = async() => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
-  var res = String(_found).split("42/user/blackjack,");
-  var obj = JSON.parse(res[1]);
-  return obj[1].deal.totalAmount
-}
-
-// Get Total Bet ID of pos after click Deal
-export const GetPosId = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
-  return _result[0].id
-}
-
-// Get Total Score of Pos of first round
-export const GetFirstTotalScore = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
-  console.log(Math.max(..._result[0].total))
-  return Math.max(..._result[0].total)
-}
-
-// Get current score of pos when hitting a card
-export const GetHitScore = async(_pos) => { 
-  let _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
-  //console.log(_foundhit)
-    if (_foundhit.includes(_pos) === false){
-    await utils.sleep(3000)
-    _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
-  }
-  const res = String(_foundhit).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  console.log(obj[1].hit.total[0])
-  return obj[1].hit.total[0]
-}
-
-// Get winloss of pos (based on pos's id) after settled
-export const GetWinlossPosID = async(_posid) => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
-  var last_found = _found.pop();
-  const res = String(last_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  let _result = jp.query(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
-   _result = +_result || 0
-   console.log(`${_posid} win : ${_result}`)
-  return _result
-}
-
-// get In game Balance
-export const GetInGamgeBalance = async() =>{
-  let _result = await utils.getWsMessage('"red"')
-  const res = String(_result).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  return obj[1].user.red
-}
-
-// Check Current Balacnce
-export const GetBJUIBalance = async() =>{
-  const uibalance= await utils.getUIBalance(BigSmallLocator.Balance.ImageCompare,BigSmallLocator.Balance.left,BigSmallLocator.Balance.top,BigSmallLocator.Balance.width,BigSmallLocator.Balance.height)
-  console.log(`UI Balance : ${uibalance}`)
-  return uibalance
-}
-
-// Get Total Score of Pos of first round
-export const GetDealBalance = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  console.log(obj)
-  const _result = jp.query(obj, `$..red`);
-  console.log(_result[1])
-  return Math.max(_result[0])
-}

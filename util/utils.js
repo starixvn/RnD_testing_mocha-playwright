@@ -132,7 +132,7 @@ export const waitForLoadState = async() => {
      }
 }
 // Wait Element 
-export const waitEl = async() => {
+export const waitEl = async(_el) => {
     try {
         await page.waitForSelector(_el, { timeout : config.setting.timeout})
      } catch (error) {
