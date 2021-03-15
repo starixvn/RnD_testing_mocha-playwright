@@ -96,13 +96,13 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       wsMessageReceived = []
       await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(100)
+      await utils.sleep(500)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
         const _cnumber = `Chip${_stake}`
         await utils.clickPos(TurboOddEvenLocator[_cnumber].x,TurboOddEvenLocator[_cnumber].y)
-        await utils.sleep(100)
+        await utils.sleep(500)
       }
          //SubmitChip
       await SubmitChip()
@@ -113,7 +113,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else if (wait == 'nowait'){
         _isfail = false
       }
-      await utils.sleep(100)
+      await utils.sleep(1000)
       if (_isfail === false )
       {
         break
@@ -169,7 +169,7 @@ export const GetWinLossResult = async () => {
 
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
-  await utils.sleep(500)
+  await utils.sleep(1000)
   let _found, _result
   _result = wsMessageReceived.filter(element => element.includes(`{"clturbo":{"err":"${_msg}"}}`));
   if (_result.length > 0)

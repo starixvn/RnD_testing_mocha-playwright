@@ -16,8 +16,8 @@ describe('TurboOddEven Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
-      await addContext (this,`./Pictures/${__filename}.png` )
+      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
 
@@ -51,7 +51,29 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.ClosePreset()
   })  
 
-  it('TC_06_Full_Smoke_Verify User Can Only Bet on 1 Pos-Odd', async () => {
+  it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {
+    const pos = "Odd"
+    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+   await TurboOddEvenFunc.PlaceBet(pos,1000)
+   await TurboOddEvenFunc.PlaceBet(pos,1000)
+   await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
+   await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
+   let d= await TurboOddEvenFunc.GetWinLossResult()
+   console.log('Is Win: ',d.win, d.stake)
+ }) 
+ 
+ it('TC_07_Full_Smoke_Verify Max Bet on Even', async () => {
+   const pos = "Even"
+   const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+  await TurboOddEvenFunc.PlaceBet(pos,1000)
+  await TurboOddEvenFunc.PlaceBet(pos,1000)
+  await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
+  await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
+  let d= await TurboOddEvenFunc.GetWinLossResult()
+  console.log('Is Win: ',d.win, d.stake)
+}) 
+
+  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Odd', async () => {
      const pos = "Odd"
      const errormsg = 'Chỉ được cược 1 bên.'
     await TurboOddEvenFunc.PlaceBet(pos,1)
@@ -62,7 +84,7 @@ describe('TurboOddEven Game', ()=>{
     console.log('Is Win: ',d.win, d.stake)
   })  
 
-  it('TC_07_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {
+  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {
     const pos = "Even"
     const errormsg = 'Chỉ được cược 1 bên.'
    await TurboOddEvenFunc.PlaceBet(pos,1)
@@ -72,28 +94,6 @@ describe('TurboOddEven Game', ()=>{
    let d= await TurboOddEvenFunc.GetWinLossResult()
    console.log('Is Win: ',d.win, d.stake)
   })  
- 
-  it('TC_08_Full_Smoke_Verify Max Bet on Odd', async () => {
-     const pos = "Odd"
-     const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
-    await TurboOddEvenFunc.PlaceBet(pos,1000)
-    await TurboOddEvenFunc.PlaceBet(pos,1000)
-    await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
-    await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
-  }) 
-  
-  it('TC_09_Full_Smoke_Verify Max Bet on Even', async () => {
-    const pos = "Even"
-    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
-   await TurboOddEvenFunc.PlaceBet(pos,1000)
-   await TurboOddEvenFunc.PlaceBet(pos,1000)
-   await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
-   await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
-   let d= await TurboOddEvenFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
- }) 
 
   it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Odd', async () => {
     const Achip =  [1,5,10,50]
@@ -389,6 +389,6 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CloseGame()
   }) 
 
-  
+
 })
 

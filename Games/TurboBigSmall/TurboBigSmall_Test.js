@@ -16,8 +16,8 @@ describe('TurboBigSmall Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
-      await addContext (this,`./Pictures/${__filename}.png` )
+      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
 
@@ -51,7 +51,29 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.ClosePreset()
   })  
 
-  it('TC_06_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
+  it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
+    const pos = "Big"
+    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+   await TurboBigSmallFunc.PlaceBet(pos,1000)
+   await TurboBigSmallFunc.PlaceBet(pos,1000)
+   await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
+   await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
+   let d= await TurboBigSmallFunc.GetWinLossResult()
+   console.log('Is Win: ',d.win, d.stake)
+ }) 
+ 
+ it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {
+   const pos = "Small"
+   const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+  await TurboBigSmallFunc.PlaceBet(pos,1000)
+  await TurboBigSmallFunc.PlaceBet(pos,1000)
+  await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
+  await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
+  let d= await TurboBigSmallFunc.GetWinLossResult()
+  console.log('Is Win: ',d.win, d.stake)
+}) 
+
+  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
      const pos = "Big"
      const errormsg = 'Chỉ được cược 1 bên.'
     await TurboBigSmallFunc.PlaceBet(pos,1)
@@ -62,7 +84,7 @@ describe('TurboBigSmall Game', ()=>{
     console.log('Is Win: ',d.win, d.stake)
   })  
 
-  it('TC_07_Full_Smoke_Verify User Can Only Bet on 1 Pos-Small', async () => {
+  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Small', async () => {
     const pos = "Small"
     const errormsg = 'Chỉ được cược 1 bên.'
    await TurboBigSmallFunc.PlaceBet(pos,1)
@@ -73,28 +95,6 @@ describe('TurboBigSmall Game', ()=>{
    console.log('Is Win: ',d.win, d.stake)
   })  
  
-  it('TC_08_Full_Smoke_Verify Max Bet on Big', async () => {
-     const pos = "Big"
-     const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
-    await TurboBigSmallFunc.PlaceBet(pos,1000)
-    await TurboBigSmallFunc.PlaceBet(pos,1000)
-    await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
-    await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
-  }) 
-  
-  it('TC_09_Full_Smoke_Verify Max Bet on Small', async () => {
-    const pos = "Small"
-    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
-   await TurboBigSmallFunc.PlaceBet(pos,1000)
-   await TurboBigSmallFunc.PlaceBet(pos,1000)
-   await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
-   await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
-   let d= await TurboBigSmallFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
- }) 
-
   it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Big', async () => {
     const Achip =  [1,5,10,50]
     const pos = "Big"

@@ -17,8 +17,8 @@ describe('BigSmall Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
-      await addContext (this,`./Pictures/${__filename}.png` )
+      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
 
@@ -52,7 +52,29 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.ClosePreset()
   })  
 
-  it('TC_06_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
+  it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
+    const pos = "Big"
+    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+   await BigSmallFunc.PlaceBet(pos,1000)
+   await BigSmallFunc.PlaceBet(pos,1000)
+   await BigSmallFunc.PlaceBet(pos,5,'nowait')
+   await BigSmallFunc.VerifyErrorMessage(errormsg)
+   let d= await BigSmallFunc.GetWinLossResult()
+   console.log('Is Win: ',d.win, d.stake)
+ }) 
+ 
+ it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {
+   const pos = "Small"
+   const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+  await BigSmallFunc.PlaceBet(pos,1000)
+  await BigSmallFunc.PlaceBet(pos,1000)
+  await BigSmallFunc.PlaceBet(pos,5,'nowait')
+  await BigSmallFunc.VerifyErrorMessage(errormsg)
+  let d= await BigSmallFunc.GetWinLossResult()
+  console.log('Is Win: ',d.win, d.stake)
+}) 
+
+  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
      const pos = "Big"
      const errormsg = 'Chỉ được cược 1 bên.'
     await BigSmallFunc.PlaceBet(pos,1)
@@ -63,7 +85,7 @@ describe('BigSmall Game', ()=>{
     console.log('Is Win: ',d.win, d.stake)
   })  
 
-  it('TC_07_Full_Smoke_Verify User Can Only Bet on 1 Pos-Small', async () => {
+  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Small', async () => {
     const pos = "Small"
     const errormsg = 'Chỉ được cược 1 bên.'
    await BigSmallFunc.PlaceBet(pos,1)
@@ -74,29 +96,7 @@ describe('BigSmall Game', ()=>{
    console.log('Is Win: ',d.win, d.stake)
   })  
  
-  it('TC_08_Full_Smoke_Verify Max Bet on Big', async () => {
-     const pos = "Big"
-     const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
-    await BigSmallFunc.PlaceBet(pos,1000)
-    await BigSmallFunc.PlaceBet(pos,1000)
-    await BigSmallFunc.PlaceBet(pos,5,'nowait')
-    await BigSmallFunc.VerifyErrorMessage(errormsg)
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
-  }) 
-  
-  it('TC_09_Full_Smoke_Verify Max Bet on Small', async () => {
-    const pos = "Small"
-    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
-   await BigSmallFunc.PlaceBet(pos,1000)
-   await BigSmallFunc.PlaceBet(pos,1000)
-   await BigSmallFunc.PlaceBet(pos,5,'nowait')
-   await BigSmallFunc.VerifyErrorMessage(errormsg)
-   let d= await BigSmallFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
- }) 
-
-  it('TC_10_Full_Smoke_Verify Betting Full Chips on Big', async () => {
+   it('TC_10_Full_Smoke_Verify Betting Full Chips on Big', async () => {
     const Achip =  [1,5,10,50,100,200,500,1000]
     const pos = "Big"
     let _stake =0

@@ -7,60 +7,60 @@ var jp = require('jsonpath');
 
 export const ReturnHome = async() => {
   await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
   await utils.clickPos(BlackJackLocator.Home.x,BlackJackLocator.Home.y )
   await utils.sleep(1000)
-  let flag = await utils.findImage(GameLobbyLocator.AccountName)
+  let flag = await utils.imageShouldNotDisplay(BlackJackLocator.DealerContent)
   await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const OpenHistory = async() => {
   await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
   await utils.clickPos(BlackJackLocator.History.x,BlackJackLocator.History.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
 
 }
 
 export const OpenGuide = async() => {
   await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
   await utils.clickPos(BlackJackLocator.Guide.x,BlackJackLocator.Guide.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
 
 }
 
 export const CloseGuide = async() => {
   await utils.clickPos(BlackJackLocator.GuideClose.x,BlackJackLocator.GuideClose.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
 }
 
 export const ClickDeal = async() => {
   await utils.clickPos(BlackJackLocator.Deal.x,BlackJackLocator.Deal.y )
-  await utils.sleep(7000)
+  await utils.sleep(8000)
 }
 
 export const ClickCancel = async() => {
   await utils.clickPos(BlackJackLocator.Cancel.x,BlackJackLocator.Cancel.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
 }
 
 
 export const CloseHistory = async() => {
     await utils.clickPos(BlackJackLocator.HistoryClose.x,BlackJackLocator.HistoryClose.y )
-  await utils.sleep(500)
+  await utils.sleep(100)
 }
 
 export const StandCard = async() => {
   try {
-    await utils.sleep(500)
+    await utils.sleep(100)
     await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
     const _Stand= await utils.findImage(BlackJackLocator.Stand.ImageCompare,BlackJackLocator.Stand)
       if (_Stand.Val === true){
-        console.log('Stand')
+       // console.log('Stand')
         await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
-        await utils.sleep(500)
+        await utils.sleep(1000)
       }
       else
       console.log('Stand button could not be found')
@@ -72,13 +72,13 @@ export const StandCard = async() => {
 
 export const HitCard = async() => {
   try {
-    await utils.sleep(500)
+    await utils.sleep(100)
     await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
     const _Hit= await utils.findImage(BlackJackLocator.Hit.ImageCompare,BlackJackLocator.Hit)
       if (_Hit.Val === true){
         await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
-        await utils.sleep(500)
+        await utils.sleep(1000)
       }
       else
       console.log('Hit button could not be found')
@@ -89,12 +89,12 @@ export const HitCard = async() => {
 
 export const NewRound = async() => {
   try {
-    await utils.sleep(1000)
+    await utils.sleep(100)
     await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(1000)
     const _Newbet= await utils.findImage(BlackJackLocator.New.ImageCompare,BlackJackLocator.New)
       if (_Newbet.Val === true){
-        console.log('New Bet')
+        //console.log('New Bet')
         wsMessageReceived = []
         await utils.clickPos(BlackJackLocator.New.x,BlackJackLocator.New.y)
         await utils.sleep(3000)
@@ -108,12 +108,12 @@ export const NewRound = async() => {
 
 export const Rebet = async() => {
   try {
-    await utils.sleep(1000)
+    await utils.sleep(100)
     await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(1000)
     const _Rebet= await utils.findImage(BlackJackLocator.Renew.ImageCompare,BlackJackLocator.Renew)
       if (_Rebet.Val === true){
-        console.log('ReBet')
+        //console.log('ReBet')
         wsMessageReceived = []
         await utils.clickPos(BlackJackLocator.Renew.x,BlackJackLocator.Renew.y)
         await utils.sleep(3000)
@@ -152,15 +152,15 @@ export const CancelBet = async (_pos) => {
   try {
     if(_pos == 'Pos3'){
       await utils.clickPos(BlackJackLocator.Pos3Cancel.x,BlackJackLocator.Pos3Cancel.y)
-      await page.waitForTimeout(1000)
+      await page.waitForTimeout(500)
     }
     if (_pos == 'Pos2'){
       await utils.clickPos(BlackJackLocator.Pos2Cancel.x,BlackJackLocator.Pos2Cancel.y)
-      await page.waitForTimeout(1000)
+      await page.waitForTimeout(500)
     }
     if (_pos == 'Pos1'){
       await utils.clickPos(BlackJackLocator.Pos1Cancel.x,BlackJackLocator.Pos1Cancel.y)
-      await page.waitForTimeout(1000)
+      await page.waitForTimeout(500)
     }
   } catch (e) {
       console.error(e)
@@ -182,7 +182,7 @@ export const BetSettle_HitCardUntilOver15 = async (_pos) => {
               if (_result == 21 )
                  break              
               else if (_currentscore < 21) {
-                  console.log(`Stand card pos ${_pos}`)
+                  //console.log(`Stand card pos ${_pos}`)
                   await StandCard()
                   break
                 }
@@ -190,7 +190,7 @@ export const BetSettle_HitCardUntilOver15 = async (_pos) => {
           }
           else if (_currentscore < 21)
            {
-            console.log(`hit card pos ${_pos}`)
+            //console.log(`hit card pos ${_pos}`)
             await HitCard()
             await utils.sleep(3000) //wait for wsmsg
             _currentscore = await GetHitScore(_pos)
@@ -217,12 +217,12 @@ export const BetSettle_HitToQuizzed = async (_pos) => {
         }
         else
         {
-          console.log(`hit card pos ${_pos}`)
+          //console.log(`hit card pos ${_pos}`)
           await utils.sleep(1000)
           await HitCard()
           await utils.sleep(3000)
           _currentscore = await GetHitScore(_pos)
-          console.log(_currentscore)
+          //console.log(_currentscore)
         }
       }
   } catch (e) {
@@ -358,7 +358,7 @@ export const GetFirstTotalScore = async(_pos) => {
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
-  console.log('First Score: ',Math.max(..._result[0].total))
+  //console.log('First Score: ',Math.max(..._result[0].total))
   return Math.max(..._result[0].total)
 }
 
@@ -372,7 +372,7 @@ export const GetHitScore = async(_pos) => {
   }
   const res = String(_foundhit).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  console.log('Hit card score: ',obj[1].hit.total[0])
+  //console.log('Hit card score: ',obj[1].hit.total[0])
   return obj[1].hit.total[0]
 }
 
@@ -407,7 +407,7 @@ export const GetBJUIBalance = async() =>{
   // const _result = jp.query(obj, "$[1]['user']['red']");
   // console.log(`Reload Balance: ${_result[0]}`)
   // return _result[0]
-  console.log(`UI Balance: ${uibalance}`)
+  //console.log(`UI Balance: ${uibalance}`)
   return uibalance
 }
 
@@ -417,7 +417,7 @@ export const GetDealBalance = async(_pos) => {
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   const _result = jp.query(obj, "$[1]['user']['red']");
-  console.log(`Balance after Deal: ${_result[0]}`)
+  //console.log(`Balance after Deal: ${_result[0]}`)
   return _result[0]
   }
 
@@ -428,7 +428,7 @@ export const IsDealerBLackJack = async() => {
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   let _result = jp.query(obj[1], "$..dealer[1]");
-  console.log('dealer', _result)
+ // console.log('dealer', _result)
   if (Object.keys(_result).length > 0){
     return true
   }

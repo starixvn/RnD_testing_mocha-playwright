@@ -16,8 +16,8 @@ describe('BlackJack Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
-      await addContext (this,`./Pictures/${__filename}.png` )
+      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
 
@@ -69,7 +69,7 @@ describe('BlackJack Game', ()=>{
           await utils.sleep(500)
           await BlackJackFunc.CancelBet(pos)
         }
-        await utils.sleep(1000)
+        await utils.sleep(500)
         await BlackJackFunc.Sliding_Select_Chip(1)
         
     })  
@@ -88,7 +88,7 @@ describe('BlackJack Game', ()=>{
         await utils.sleep(500)
         await BlackJackFunc.CancelBet(pos)
       }
-      await utils.sleep(1000)
+      await utils.sleep(5000)
       await BlackJackFunc.Sliding_Select_Chip(1)
       
   }) 
@@ -106,7 +106,7 @@ describe('BlackJack Game', ()=>{
       await utils.sleep(500)
       await BlackJackFunc.CancelBet(pos)
     }
-    await utils.sleep(1000)
+    await utils.sleep(500)
     await BlackJackFunc.Sliding_Select_Chip(1)
     
 })  
@@ -119,7 +119,7 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.ClickDeal()
       //// User can not place bet after confirmed
       await BlackJackFunc.PlaceBet(betstake,pos)
-      await utils.sleep(2000)
+      await utils.sleep(1000)
       // Verify totalbet
       const totalbet = await BlackJackFunc.GetTotalBetAmount()
       await utils.shouldBeEqual(totalbet,betstake)
@@ -423,7 +423,7 @@ describe('BlackJack Game', ()=>{
       await utils.shouldBeEqual(totalbet,maxbet)
       // Settle
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
-      await utils.sleep(5000)
+      await utils.sleep(2000)
     })
 
     it('TC_19_Full_Smoke_Verify Re-bet Of Double Hands', async () => {

@@ -13,16 +13,11 @@ describe('MiniSedie Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${__filename}.png`});
-      await addContext (this,`./Pictures/${__filename}.png` )
+      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
-  // it('Full_Test', async () => {
-  //   let num = '15,541.999.64'
-  //   console.log(num)
-  //   num = num.replace(/\.([0-9]{3})/g,'$1')
-  //   console.log(num)
-  // })  
+ 
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
       await MiniSedieFunc.openFromLobby()
       await MiniSedieFunc.verifySignInSuccessfully()
