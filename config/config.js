@@ -7,13 +7,13 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: true
+    headless: false
 
 }
 
 export const cf_local ={
-    url: "http://gamelobby-simulator.lumigame.com/signin",
-    // url: "http://l1-glbs1.lumigame.com/signin",
+    //url: "http://gamelobby-simulator.lumigame.com/signin",
+    url: "http://l1-glbs1.lumigame.com/signin",
     username: "",
     memberId: {
         BlackJack : "1001051",
@@ -23,10 +23,10 @@ export const cf_local ={
         Keno:  "1001054",
         Baccarat:  "1001055",
         Roulette:  "1001056",
-        BigSmall : "1001057",
-        MiniSedie: "1001058",
-        TurboBigSmall: "1001059",
-        TurboOddEven: "1001060"
+        BigSmall : "1001058",
+        MiniSedie: "1001059",
+        TurboBigSmall: "1001060",
+        TurboOddEven: "1001061"
     },
     password: "",
     gamelobbyurl: ""

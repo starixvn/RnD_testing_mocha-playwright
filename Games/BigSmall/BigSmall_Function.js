@@ -117,12 +117,12 @@ export const VerifyBetStake = async (_pos,_stake) => {
       //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
       if (_pos == "Big"){
-          findmsg = `{"taixiu":{"taixiu":{"red_me_tai":${_stake}}}`
+          findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"big":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
        }
 
        else if(_pos == "Small"){
-          findmsg = `{"taixiu":{"taixiu":{"red_me_xiu":${_stake}}}`
+          findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"small":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
        }
       await utils.shouldBeEqual(_found.Val,true)    
@@ -134,16 +134,17 @@ export const VerifyBetStake = async (_pos,_stake) => {
 //
 export const GetWinLossResult = async () => {
   try {
-      let _found = await utils.getWsMessage('{"taixiu":{"status":{"win":')
-      const obj = JSON.parse(_found);
-      let _result = jp.query(obj, `$..win`);
+      let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"status":')
+      const res = String(_found).split("42/user/taixiu,");
+      const obj = JSON.parse(res[1]);
+      let _result = jp.query(obj[1],`$..win`);
       let _betstake
       if (_result == 'false'){
         _betstake = 0
       }
       else
       {
-        let _astake = jp.query(obj, `$..bet`);
+        let _astake = jp.query(obj[1], `$..bet`);
         _betstake = _astake[0]
       }
       return {win: _result[0], stake: _betstake }
@@ -157,7 +158,7 @@ export const GetWinLossResult = async () => {
 export const VerifyErrorMessage = async(_msg) => {
   await utils.sleep(1000)
   let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`{"taixiu":{"err":"${_msg}"}}`));
+  _result = wsMessageReceived.filter(element => element.includes(`42/user/taixiu,["taixiu",{"endBet":-1,"notice":"${_msg}"}]`));
   if (_result.length > 0)
   {
     _found = true
@@ -232,12 +233,12 @@ export const VerifyHistoryContent = async() => {
 }
 
 export const VerifyPresetContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BigSmall_Preset.png',clip:{x: BigSmallLocator.Preset.left,
-  //   y: BigSmallLocator.Preset.top,
-  //  width: BigSmallLocator.Preset.width,
-  //  height: BigSmallLocator.Preset.height}})
-  const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
-  await utils.shouldBeEqual(_result0.Val,true)    
+  await page.screenshot({path:'ImgCompare_BigSmall_Preset.png',clip:{x: BigSmallLocator.Preset.left,
+    y: BigSmallLocator.Preset.top,
+   width: BigSmallLocator.Preset.width,
+   height: BigSmallLocator.Preset.height}})
+  // const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
+  // await utils.shouldBeEqual(_result0.Val,true)    
 }
 
 export const VerifyGuideContent = async() => {
@@ -262,30 +263,32 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
-//  await page.screenshot({path:'ImgCompare_BigSmall_StatisticResult.png',clip:{x: BigSmallLocator.StatisticResult.left,
-//     y: BigSmallLocator.StatisticResult.top,
-//    width: BigSmallLocator.StatisticResult.width,
-//    height: BigSmallLocator.StatisticResult.height}})
-//    await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
-//    await page.screenshot({path:'ImgCompare_BigSmall_StatisticPoint.png',clip:{x: BigSmallLocator.StatisticPoint.left,
-//     y: BigSmallLocator.StatisticPoint.top,
-//    width: BigSmallLocator.StatisticPoint.width,
-//    height: BigSmallLocator.StatisticPoint.height}})
-  //Verify Statistic Result
-  const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
-  await utils.shouldBeEqual(_result1.Val,true)    
+ await page.screenshot({path:'ImgCompare_BigSmall_StatisticResult.png',clip:{x: BigSmallLocator.StatisticResult.left,
+    y: BigSmallLocator.StatisticResult.top,
+   width: BigSmallLocator.StatisticResult.width,
+   height: BigSmallLocator.StatisticResult.height}})
+   await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
+   await page.screenshot({path:'ImgCompare_BigSmall_StatisticPoint.png',clip:{x: BigSmallLocator.StatisticPoint.left,
+    y: BigSmallLocator.StatisticPoint.top,
+   width: BigSmallLocator.StatisticPoint.width,
+   height: BigSmallLocator.StatisticPoint.height}})
+  //// Verify Statistic Result
+  // const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
+  // await utils.shouldBeEqual(_result1.Val,true)    
 
-  //Verify Statistic Point
-  await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
-  const _result2= await utils.findImage(
-    BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
-  await utils.shouldBeEqual(_result2.Val,true)    
+  // //Verify Statistic Point
+  // await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
+  // const _result2= await utils.findImage(
+  //   BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
+  // await utils.shouldBeEqual(_result2.Val,true)    
 
 }
 
 //Is Round Error after betting
 export const IsBetFail = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('{"taixiu":{"err'));
+  let _found = wsMessageReceived.filter(element => element.includes('42/user/taixiu,["taixiu",{"endBet":-1,"notice'));
+  // const res = String(_found).split("42/user/taixiu,");
+  // const obj = JSON.parse(res[1]);
   if (_found.length > 0){
     return true
   }
@@ -304,9 +307,10 @@ export const CheckSettleBalance = async(_beforebalance) => {
 
 export const GetBalanceAfterBet = async () => {
   try {
-      let _found = await utils.getWsMessage('{"taixiu":{"taixiu":{"red_me_')
-      const obj = JSON.parse(_found);
-      let _result = jp.query(obj, `$..red`);
+      let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"ownBets"')
+      const res = String(_found).split("42/user/taixiu,");
+      const obj = JSON.parse(res[1]);
+      let _result = jp.query(obj,'$..user[red]');
        return _result[0]
       } catch (e) {
       console.error(e)

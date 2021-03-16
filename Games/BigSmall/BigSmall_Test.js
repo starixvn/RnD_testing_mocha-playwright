@@ -24,7 +24,7 @@ describe('BigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await GameLobbyFunc.OpenGameFromLobby(game)
-    await BigSmallFunc.VerifySignInSuccessfully()
+    // await BigSmallFunc.VerifySignInSuccessfully()
 
   })  
 
@@ -60,7 +60,7 @@ describe('BigSmall Game', ()=>{
    await BigSmallFunc.PlaceBet(pos,5,'nowait')
    await BigSmallFunc.VerifyErrorMessage(errormsg)
    let d= await BigSmallFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
+  console.log('Is Win: ',d.win, d.stake)
  }) 
  
  it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {
