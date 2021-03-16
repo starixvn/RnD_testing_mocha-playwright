@@ -1,0 +1,32 @@
+image: 
+  name: roshannguyen/pwimg
+
+stages: 
+  - test
+  - after-test
+  - cleanup
+
+parallel-test:
+  stage: test
+  tags:
+   - docker-automation-test
+  script:
+   - npm install
+   - set NODE_ENV=cf_local
+   - npm run smoke
+  artifacts:
+    paths:
+      - Report/
+    when: always
+    expire_in: 1 day 
+
+cleanup_job:
+  stage: cleanup
+  tags:
+  - docker-automation-test
+  script:
+    - echo "Cleaning up"
+    - rm -rf "%CACHE_PATH%/%CI_PIPELINE_ID%"
+  when: always
+  
+  
