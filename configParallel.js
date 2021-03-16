@@ -7,10 +7,7 @@ exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
   beforeAll: [async () => {
     global.wsMessageReceived = []
-    global.browser = await playwright[config.setting.browser].launch({
-       headless: true ,
-       args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
-      })
+    global.browser = await playwright[config.setting.browser].launch({headless: true })
     const page = await browser.newPage();
     global.page = page
     const context = await browser.newContext({
