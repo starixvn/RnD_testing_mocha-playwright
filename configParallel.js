@@ -5,7 +5,7 @@ const expect = chai.expect
 
 exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
-  beforeAll: [async () => {
+  beforeAll: (async () => {
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({headless: true })
     const page = await browser.newPage();
@@ -21,6 +21,6 @@ exports.mochaHooks = {
     global.balance = parseFloat("0.00")
     global.env = process.env.NODE_ENV || 'cf_local'
     global.expect = expect
-    } ]  ,
-  afterAll: [async () => { await browser.close()  }]
+    } )  ,
+  afterAll: (async () => { await browser.close()  })
   }
