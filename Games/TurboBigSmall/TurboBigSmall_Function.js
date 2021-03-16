@@ -115,13 +115,13 @@ export const VerifyBetStake = async (_pos,_stake) => {
       //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
       if (_pos == "Big"){
-          findmsg = `{"taixiu_turbo":{"taixiu":{"red_me_tai":${_stake}}}`
+          findmsg = `42/user/txturbo,["TXTurbo",{"ownBets":{"big":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
           }
 
        else if(_pos == "Small"){
-          findmsg = `{"taixiu_turbo":{"taixiu":{"red_me_xiu":${_stake}}}`
-          _found = await utils.wsFindMessage(findmsg)
+        findmsg = `42/user/txturbo,["TXTurbo",{"ownBets":{"small":${_stake}}`
+        _found = await utils.wsFindMessage(findmsg)
        }
       await utils.shouldBeEqual(_found.Val,true)    
   } catch (e) {
@@ -132,9 +132,10 @@ export const VerifyBetStake = async (_pos,_stake) => {
 //
 export const GetWinLossResult = async () => {
   try {
-      let _found = await utils.getWsMessage('{"taixiu_turbo":{"status":{"win":')
-      const obj = JSON.parse(_found);
-      let _result = jp.query(obj, `$..win`);
+    let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"status":')
+    const res = String(_found).split("42/user/txturbo,");
+    const obj = JSON.parse(res[1]);
+    let _result = jp.query(obj[1],`$..win`);
       let _betstake
       if (_result == 'false'){
         _betstake = 0
@@ -155,7 +156,7 @@ export const GetWinLossResult = async () => {
 export const VerifyErrorMessage = async(_msg) => {
   await utils.sleep(1000)
   let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`{"taixiu_turbo":{"err":"${_msg}"}}`));
+  _result = wsMessageReceived.filter(element => element.includes(`42/user/txturbo,["TXTurbo",{"endBet":-1,"notice":"${_msg}"}]`));
   if (_result.length > 0)
   {
     _found = true
@@ -282,7 +283,7 @@ export const VerifyStatisticContent = async() => {
 
 //Is Round Error after betting
 export const IsBetFail = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('{"taixiu_turbo":{"err'));
+  let _found = wsMessageReceived.filter(element => element.includes('42/user/txturbo,["TXTurbo",{"endBet":-1,"notice'));
   if (_found.length > 0){
     return true
   }
@@ -301,9 +302,10 @@ export const CheckSettleBalance = async(_beforebalance) => {
 
 export const GetBalanceAfterBet = async () => {
   try {
-      let _found = await utils.getWsMessage('{"taixiu_turbo":{"taixiu":{"red_me_')
-      const obj = JSON.parse(_found);
-      let _result = jp.query(obj, `$..red`);
+    let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"ownBets"')
+    const res = String(_found).split("42/user/txturbo,");
+    const obj = JSON.parse(res[1]);
+    let _result = jp.query(obj,'$..user[red]');
        return _result[0]
       } catch (e) {
       console.error(e)

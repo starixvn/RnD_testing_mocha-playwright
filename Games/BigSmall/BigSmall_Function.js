@@ -233,12 +233,12 @@ export const VerifyHistoryContent = async() => {
 }
 
 export const VerifyPresetContent = async() => {
-  await page.screenshot({path:'ImgCompare_BigSmall_Preset.png',clip:{x: BigSmallLocator.Preset.left,
-    y: BigSmallLocator.Preset.top,
-   width: BigSmallLocator.Preset.width,
-   height: BigSmallLocator.Preset.height}})
-  // const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
-  // await utils.shouldBeEqual(_result0.Val,true)    
+  // await page.screenshot({path:'ImgCompare_BigSmall_Preset.png',clip:{x: BigSmallLocator.Preset.left,
+  //   y: BigSmallLocator.Preset.top,
+  //  width: BigSmallLocator.Preset.width,
+  //  height: BigSmallLocator.Preset.height}})
+  const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
+  await utils.shouldBeEqual(_result0.Val,true)    
 }
 
 export const VerifyGuideContent = async() => {
@@ -263,24 +263,24 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
- await page.screenshot({path:'ImgCompare_BigSmall_StatisticResult.png',clip:{x: BigSmallLocator.StatisticResult.left,
-    y: BigSmallLocator.StatisticResult.top,
-   width: BigSmallLocator.StatisticResult.width,
-   height: BigSmallLocator.StatisticResult.height}})
-   await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
-   await page.screenshot({path:'ImgCompare_BigSmall_StatisticPoint.png',clip:{x: BigSmallLocator.StatisticPoint.left,
-    y: BigSmallLocator.StatisticPoint.top,
-   width: BigSmallLocator.StatisticPoint.width,
-   height: BigSmallLocator.StatisticPoint.height}})
+//  await page.screenshot({path:'ImgCompare_BigSmall_StatisticResult.png',clip:{x: BigSmallLocator.StatisticResult.left,
+//     y: BigSmallLocator.StatisticResult.top,
+//    width: BigSmallLocator.StatisticResult.width,
+//    height: BigSmallLocator.StatisticResult.height}})
+//    await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
+//    await page.screenshot({path:'ImgCompare_BigSmall_StatisticPoint.png',clip:{x: BigSmallLocator.StatisticPoint.left,
+//     y: BigSmallLocator.StatisticPoint.top,
+//    width: BigSmallLocator.StatisticPoint.width,
+//    height: BigSmallLocator.StatisticPoint.height}})
   //// Verify Statistic Result
-  // const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
-  // await utils.shouldBeEqual(_result1.Val,true)    
+  const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
+  await utils.shouldBeEqual(_result1.Val,true)    
 
-  // //Verify Statistic Point
-  // await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
-  // const _result2= await utils.findImage(
-  //   BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
-  // await utils.shouldBeEqual(_result2.Val,true)    
+  //Verify Statistic Point
+  await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
+  const _result2= await utils.findImage(
+    BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
+  await utils.shouldBeEqual(_result2.Val,true)    
 
 }
 
