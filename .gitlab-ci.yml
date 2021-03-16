@@ -13,7 +13,7 @@ parallel-test:
   script:
    - npm install
    - set NODE_ENV=cf_local
-   - npm run smoke
+   - npm run test --game=Sedie
   artifacts:
     paths:
       - Report/
