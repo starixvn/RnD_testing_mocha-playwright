@@ -6,13 +6,26 @@ stages:
   - after-test
   - cleanup
 
-login-test:
+parallel-test:
   stage: test
   tags:
    - docker-automation-test
   script:
    - npm install
    - set NODE_ENV=cf_local
+   - echo "Set Balance"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001051&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001052&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001053&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001054&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001055&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001056&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001057&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001058&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001059&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001060&Balance=200000"
+   - curl "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer?memId=4839058" --data-raw "ObCustId=1001061&Balance=200000"
+   - echo "Start Run Parallel"
    - npm run parallel
   artifacts:
     paths:
