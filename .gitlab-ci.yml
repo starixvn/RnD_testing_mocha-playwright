@@ -12,8 +12,9 @@ parallel-test:
    - docker-automation-test
   script:
    - npm install
-   - set NODE_ENV=cf_local
-   - npm run parallel
+   - node -v
+  #  - set NODE_ENV=cf_local
+  #  - npm run parallel
   artifacts:
     paths:
       - Report/
