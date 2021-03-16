@@ -1,5 +1,6 @@
 image: 
-  name: git3.nexdev.net:5050/rnd/testing/mocha-playwright
+  # name: git3.nexdev.net:5050/rnd/testing/mocha-playwright
+  name: roshannguyen/pwimg
 
 stages: 
   - test
@@ -13,8 +14,8 @@ parallel-test:
   script:
    - npm install
    - node -v
-  #  - set NODE_ENV=cf_local
-  #  - npm run parallel
+   - set NODE_ENV=cf_local
+   - npm run parallel
   artifacts:
     paths:
       - Report/
