@@ -1,5 +1,5 @@
 image: 
-  name: roshannguyen/pwimg
+  name: git3.nexdev.net:5050/rnd/testing/mocha-playwright
 
 stages: 
   - test
@@ -13,7 +13,7 @@ parallel-test:
   script:
    - npm install
    - set NODE_ENV=cf_local
-   - npm run test --game=Sedie
+   - npm run parallel
   artifacts:
     paths:
       - Report/
