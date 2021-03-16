@@ -18,15 +18,15 @@ export const cf_local ={
     memberId: {
         BlackJack : "1001051",
         Sedie : "1001052",
-        VipSedie : "1001057",
-        Sicbo:  "1001053",
-        Keno:  "1001054",
-        Baccarat:  "1001055",
-        Roulette:  "1001056",
-        BigSmall : "1001057",
-        MiniSedie: "1001058",
-        TurboBigSmall: "1001059",
-        TurboOddEven: "1001060"
+        VipSedie : "1001053",
+        Sicbo:  "1001054",
+        Keno:  "1001055",
+        Baccarat:  "1001056",
+        Roulette:  "1001057",
+        BigSmall : "1001058",
+        MiniSedie: "1001059",
+        TurboBigSmall: "1001060",
+        TurboOddEven: "1001061"
     },
     password: "",
     gamelobbyurl: ""
