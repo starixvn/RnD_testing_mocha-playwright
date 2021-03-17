@@ -28,7 +28,7 @@
         "test": "mocha  --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "testw": "mocha  --timeout 0 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "smoke": "mocha  --timeout 0 Games/**/*_Test.js  -r @babel/register --fgrep Smoke_ --file ./Setup.js  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report",
-        "parallel": "mocha --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 2 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest "
+        "parallel": "mocha --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest "
     },
     "dependencies": {
         "jsonpath": "^1.1.0"
