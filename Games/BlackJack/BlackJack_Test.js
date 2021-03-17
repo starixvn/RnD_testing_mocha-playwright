@@ -56,7 +56,7 @@ describe('BlackJack Game', ()=>{
       
     })  
 
-  it('TC_06_Full_Smoke_Verify PlaceBet all Chips to  Pos1', async () => {
+  it('TC_06_Full_Verify PlaceBet all Chips to  Pos1', async () => {
         const AStake = ['Stake1','Stake5','Stake10','Stake50','Stake100','Stake200','Stake500','Stake1k','Stake2k']
         let pos = 'Pos1'
         for (let i in AStake){
@@ -93,7 +93,7 @@ describe('BlackJack Game', ()=>{
       
   }) 
     
-  it('TC_08_Full_Smoke_Verify PlaceBet all Chips to Pos3', async () => {
+  it('TC_08_Full_Verify PlaceBet all Chips to Pos3', async () => {
     const AStake = ['Stake1','Stake5','Stake10','Stake50','Stake100','Stake200','Stake500','Stake1k','Stake2k']
     let pos = 'Pos3'
     for (let i in AStake){
@@ -111,7 +111,7 @@ describe('BlackJack Game', ()=>{
     
 })  
 
-     it('TC_09_Full_Smoke_Verify User Can Betting SingleHand-HitToQuizzed', async () => {
+     it('TC_09_Full_Verify User Can Betting SingleHand-HitToQuizzed', async () => {
       let pos = 'Pos1'
       let betstake = 1
       //Place bet
@@ -141,7 +141,7 @@ describe('BlackJack Game', ()=>{
       // }  
     })
 
-    it('TC_10_Full_Smoke_Verify User Can Betting SingleHand-Hit Card Score OVer 15', async () => {
+    it('TC_10_Full_Verify User Can Betting SingleHand-Hit Card Score OVer 15', async () => {
       let pos = 'Pos1'
       let betstake = 10
       //Place bet 
@@ -165,7 +165,7 @@ describe('BlackJack Game', ()=>{
       // }  
     })
 
-    it('TC_11_Full_Smoke_Verify User Can Betting Double Hands-Hit Card Score OVer 15', async () => {
+    it('TC_11_Full_Verify User Can Betting Double Hands-Hit Card Score OVer 15', async () => {
       let pos1 = 'Pos1'
       let pos2 = 'Pos2'
       let betstake = 10
@@ -194,7 +194,7 @@ describe('BlackJack Game', ()=>{
       // } 
     })
 
-    it('TC_12_Full_Smoke_Verify User Can Betting Double Hands-HitToQuizzed', async () => {
+    it('TC_12_Full_Verify User Can Betting Double Hands-HitToQuizzed', async () => {
       let pos1 = 'Pos1'
       let pos2 = 'Pos2'
       let betstake = 1
@@ -260,7 +260,7 @@ describe('BlackJack Game', ()=>{
       // } 
     })
     
-    it('TC_14_Full_Smoke_Verify User Can Betting Triple Hands-HitToQuizzed', async () => {
+    it('TC_14_Full_Verify User Can Betting Triple Hands-HitToQuizzed', async () => {
       let pos1 = 'Pos1'
       let pos2 = 'Pos2'
       let pos3 = 'Pos3'
@@ -294,7 +294,7 @@ describe('BlackJack Game', ()=>{
     //  } 
     })
 
-    it('TC_15_Full_Smoke_Verify Maxbet Of Single Hand', async () => {
+    it('TC_15_Full_Verify Maxbet Of Single Hand', async () => {
       const pos1 = 'Pos1'
       const betstake1 = 500
       const betstake2 = 1000
@@ -324,7 +324,7 @@ describe('BlackJack Game', ()=>{
     //  } 
     })
 
-    it('TC_16_Full_Smoke_Verify Maxbet Of Double Hands', async () => {
+    it('TC_16_Full_Verify Maxbet Of Double Hands', async () => {
       const pos1 = 'Pos1'
       const pos2= 'Pos2'
       const betstake1 = 1000
@@ -408,7 +408,7 @@ describe('BlackJack Game', ()=>{
     //  } 
     })
 
-       it('TC_18_Full_Smoke_Verify Re-bet Of Single Hand', async () => {
+       it('TC_18_Full_Verify Re-bet Of Single Hand', async () => {
       const pos1 = 'Pos1'
       const betstake1 = 1
       const maxbet = 1
@@ -426,7 +426,7 @@ describe('BlackJack Game', ()=>{
       await utils.sleep(2000)
     })
 
-    it('TC_19_Full_Smoke_Verify Re-bet Of Double Hands', async () => {
+    it('TC_19_Full_Verify Re-bet Of Double Hands', async () => {
       const pos1 = 'Pos1'
       const pos2 = 'Pos2'
       const betstake1 = 1

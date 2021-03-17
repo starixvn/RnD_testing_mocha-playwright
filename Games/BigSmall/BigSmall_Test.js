@@ -24,7 +24,7 @@ describe('BigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await GameLobbyFunc.OpenGameFromLobby(game)
-    // await BigSmallFunc.VerifySignInSuccessfully()
+    await BigSmallFunc.VerifySignInSuccessfully()
 
   })  
 
@@ -46,7 +46,7 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.CloseStatistic()
   })  
 
-  it('TC_05_Full_Smoke_Verify Preset Content', async () => {
+  it('TC_05_Full_Verify Preset Content', async () => {
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.VerifyPresetContent()
     await BigSmallFunc.ClosePreset()
@@ -63,7 +63,7 @@ describe('BigSmall Game', ()=>{
   console.log('Is Win: ',d.win, d.stake)
  }) 
  
- it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {
+ it('TC_07_Full_Verify Max Bet on Small', async () => {
    const pos = "Small"
    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
   await BigSmallFunc.PlaceBet(pos,1000)
@@ -85,7 +85,7 @@ describe('BigSmall Game', ()=>{
     console.log('Is Win: ',d.win, d.stake)
   })  
 
-  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Small', async () => {
+  it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {
     const pos = "Small"
     const errormsg = 'Chỉ được cược 1 bên.'
    await BigSmallFunc.PlaceBet(pos,1)
@@ -110,7 +110,7 @@ describe('BigSmall Game', ()=>{
 
   })  
 
-  it('TC_11_Full_Smoke_Verify Betting Full Chips on Small', async () => {
+  it('TC_11_Full_Verify Betting Full Chips on Small', async () => {
     const Achip =  [1,5,10,50,100,200,500,1000]
     const pos = "Small"
     let _stake =0
@@ -141,7 +141,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   })  
 
-  it('TC_13_Full_Smoke_Verify Preset Betting Full Chips on Big', async () => {
+  it('TC_13_Full_Verify Preset Betting Full Chips on Big', async () => {
     const Achip =  [1,5,10,50,100,200,500,1000]
     const pos = "Small"
     let _stake =0
@@ -159,7 +159,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_14_Full_Smoke_Verify Betting on Big with specific Preset Chip + extra Chip on Board', async () => {
+  it('TC_14_Full_Verify Betting on Big with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Big
     //Verify all preset and chips on board can be bet success
     const Achip =  [1,5,10,50,100,200,500]
@@ -220,7 +220,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_17_Full_Smoke_Verify Betting on Small with accumulate presetchip', async () => {
+  it('TC_17_Full_Verify Betting on Small with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
     const Achip =  [1,5,10,50,100,200,500, 1000]
