@@ -6,7 +6,7 @@ import * as config from '../../config/config'
 const chai = require('chai')
 const expect = chai.expect
 const fs = require('fs')
-const remainingTime = `{"miniSedie":{"remainingTime":38}}`
+const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`
 
 export const openFromLobby = async() => {
     await utils.sleep(1000)
@@ -16,7 +16,7 @@ export const openFromLobby = async() => {
 }
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('{"miniSedie":{"gameConfigs":{')
+    let _result = await utils.wsFindMessage('42/user/minisedie,["MiniSeDie",{"gameConfigs":{')
     expect(_result.Val).to.equal(true)
 }
 
@@ -62,34 +62,22 @@ export const placeBet = async(_choice,_chip=1) => {
         _chip : input chip amount will be selected, by default = 1
     */
     wsMessageReceived = []
-    let _result
     await selectChip(_chip)
-    if(_choice === 'Even') {
-        _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`"endBet":${_chip},"ownBets":{"even":${_chip},"odd":0,"red3":0,"red4":0,"white3":0,"white4":0}`)
-    } else if(_choice === 'Odd') {
-        _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`"endBet":${_chip},"ownBets":{"even":0,"odd":${_chip},"red3":0,"red4":0,"white3":0,"white4":0}`)
-    } else if(_choice === 'Red3') {
-        _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`"endBet":${_chip},"ownBets":{"even":0,"odd":0,"red3":${_chip},"red4":0,"white3":0,"white4":0}`)
-    } else if (_choice === 'Red4') {
-        _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`"endBet":${_chip},"ownBets":{"even":0,"odd":0,"red3":0,"red4":${_chip},"white3":0,"white4":0}`)
-    } else if (_choice === 'White3') {
-        _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`"endBet":${_chip},"ownBets":{"even":0,"odd":0,"red3":0,"red4":0,"white3":${_chip},"white4":0}`)
-    } else if (_choice === 'White4') {
-        _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`"endBet":${_chip},"ownBets":{"even":0,"odd":0,"red3":0,"red4":0,"white3":0,"white4":${_chip}}`)
-    }
+    let lowcase = _choice.toLowerCase()
+    let _result = await utils.betProcess(MiniSedieLocator[`${_choice}`].x,MiniSedieLocator[`${_choice}`].y,`user/minisedie,["MiniSeDie",{"ownBets":{"${lowcase}":${_chip}},"endBet":${_chip},`)
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
-    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`{"miniSedie":{"notice":"Vui lòng đặt cược ở phiên sau.","endBet":-1}}`)
+    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
     await utils.wsFindMessage(remainingTime)
-    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`{"miniSedie":{"notice":"Vui lòng đặt cược ở phiên sau.","endBet":-1}}`)
+    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -106,18 +94,18 @@ export const verifyMaxBet = async(_choice) =>{
         await utils.sleep(9000)
         await placeBet("Even")
         await selectChip(2000)
-        flag = await utils.betProcess(MiniSedieLocator.Odd.x, MiniSedieLocator.Odd.y, `{"miniSedie":{"notice":"Tổng tiền cược tối đa ở phiên này là 2,000","endBet":-1}}`)
+        flag = await utils.betProcess(MiniSedieLocator.Odd.x, MiniSedieLocator.Odd.y, `42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
         await utils.shouldBeEqual(flag.Val,true)
     }
     else if (_choice === 'Red4' || _choice === 'White4'){
         wsMessageReceived = []
         await selectChip(500)
-        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `{"miniSedie":{"notice":"Tiền cược tối đa ở cửa này là 500","endBet":-1}}`)
+        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
         await utils.shouldBeEqual(flag.Val,true)
     } else {
         wsMessageReceived = []
         await selectChip(2000)
-        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `{"miniSedie":{"notice":"Tiền cược tối đa ở cửa này là 2,000","endBet":-1}}`)
+        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
         await utils.shouldBeEqual(flag.Val,true)
     }
 }
@@ -129,7 +117,8 @@ const getRawData = async(_mes) => {
         let raw = await utils.getWsMessage(_mes)
         if(raw === null) return null
         else {
-            return raw
+            raw = raw.split("42/user/minisedie,");
+            return raw[1]
         }
     } catch (error) {
         console.log(error.message)
@@ -138,8 +127,8 @@ const getRawData = async(_mes) => {
 }
 const getResult =  async() => {
     try {
-        let rawData = await getRawData(`{"miniSedie":{"finish":{"roundId":`)
-        return await utils.getDataJsonPath(rawData,`$.miniSedie.finish.result`)
+        let rawData = await getRawData(`minisedie,["MiniSeDie",{"finish":{"result"`)
+        return await utils.getDataJsonPath(rawData,`$..finish.result`)
     } catch (error) {
         console.log(error.message)
         return null
@@ -147,8 +136,8 @@ const getResult =  async() => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`{"miniSedie":{"status":{"winningByChoices":`)
-        return await utils.getDataJsonPath(rawData, `$.miniSedie..status`)
+        let rawData = await getRawData(`42/user/minisedie,["MiniSeDie",{"status":{"winningByChoices":`)
+        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
         return null
