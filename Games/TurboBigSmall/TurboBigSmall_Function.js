@@ -81,7 +81,6 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
       await utils.sleep(500)
-      console.log('done select pos')
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
@@ -115,7 +114,6 @@ export const VerifyBetStake = async (_pos,_stake) => {
       //console.log('Verify Stake: ',_pos,': ',_stake)
       //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
-      console.log(`verify stake`)
       if (_pos == "Big"){
           findmsg = `42/user/txturbo,["TXTurbo",{"ownBets":{"big":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
@@ -285,7 +283,6 @@ export const VerifyStatisticContent = async() => {
 //Is Round Error after betting
 export const IsBetFail = async() => {
   let _found = wsMessageReceived.filter(element => element.includes('42/user/txturbo,["TXTurbo",{"endBet":-1,"notice"'));
-  console.log(_found)
   if (_found.length > 0){
     return true
   }
