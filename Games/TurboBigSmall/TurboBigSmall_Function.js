@@ -86,7 +86,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       {
         const _cnumber = `Chip${_stake}`
         await utils.clickPos(TurboBigSmallLocator[_cnumber].x,TurboBigSmallLocator[_cnumber].y)
-        await utils.sleep(500)
+        await utils.sleep(100)
       }
          //SubmitChip
       await SubmitChip()
@@ -97,7 +97,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else if (wait == 'nowait'){
         _isfail = false
       }
-      await utils.sleep(1000)
+      await utils.sleep(500)
       if (_isfail === false )
       {
         break

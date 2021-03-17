@@ -102,7 +102,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       {
         const _cnumber = `Chip${_stake}`
         await utils.clickPos(TurboOddEvenLocator[_cnumber].x,TurboOddEvenLocator[_cnumber].y)
-        await utils.sleep(500)
+        await utils.sleep(100)
       }
          //SubmitChip
       await SubmitChip()
@@ -113,7 +113,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else if (wait == 'nowait'){
         _isfail = false
       }
-      await utils.sleep(1000)
+      await utils.sleep(500)
       if (_isfail === false )
       {
         break
@@ -131,12 +131,12 @@ export const VerifyBetStake = async (_pos,_stake) => {
       //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
       if (_pos == "Even"){
-          findmsg = `{"clturbo":{"clturbo":{"red_me_chan":${_stake}}}`
-          _found = await utils.wsFindMessage(findmsg)
+        findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"even":${_stake}}`
+        _found = await utils.wsFindMessage(findmsg)
           }
 
        else if(_pos == "Odd"){
-          findmsg = `{"clturbo":{"clturbo":{"red_me_le":${_stake}}}`
+        findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"odd":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
        }
       await utils.shouldBeEqual(_found.Val,true)    
@@ -148,9 +148,10 @@ export const VerifyBetStake = async (_pos,_stake) => {
 //
 export const GetWinLossResult = async () => {
   try {
-      let _found = await utils.getWsMessage('{"clturbo":{"status":{"win":')
-      const obj = JSON.parse(_found);
-      let _result = jp.query(obj, `$..win`);
+    let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"status":')
+    const res = String(_found).split("42/user/oeturbo,");
+    const obj = JSON.parse(res[1]);
+    let _result = jp.query(obj[1],`$..win`);
       let _betstake
       if (_result == 'false'){
         _betstake = 0
@@ -171,8 +172,8 @@ export const GetWinLossResult = async () => {
 export const VerifyErrorMessage = async(_msg) => {
   await utils.sleep(1000)
   let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`{"clturbo":{"err":"${_msg}"}}`));
-  if (_result.length > 0)
+  _result = wsMessageReceived.filter(element => element.includes(`42/user/oeturbo,["OETurbo",{"endBet":-1,"notice":"${_msg}"}]`));
+   if (_result.length > 0)
   {
     _found = true
   }
@@ -298,7 +299,7 @@ export const VerifyStatisticContent = async() => {
 
 //Is Round Error after betting
 export const IsBetFail = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('{"clturbo":{"err'));
+  let _found = wsMessageReceived.filter(element => element.includes('42/user/oeturbo,["OETurbo",{"endBet":-1,"notice"'));
   if (_found.length > 0){
     return true
   }
@@ -317,9 +318,10 @@ export const CheckSettleBalance = async(_beforebalance) => {
 
 export const GetBalanceAfterBet = async () => {
   try {
-      let _found = await utils.getWsMessage('{"clturbo":{"clturbo":{"red_me_')
-      const obj = JSON.parse(_found);
-      let _result = jp.query(obj, `$..red`);
+    let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"ownBets"')
+    const res = String(_found).split("42/user/oeturbo,");
+    const obj = JSON.parse(res[1]);
+    let _result = jp.query(obj,'$..user[red]');
        return _result[0]
       } catch (e) {
       console.error(e)
