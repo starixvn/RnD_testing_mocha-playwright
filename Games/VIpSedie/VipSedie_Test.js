@@ -132,33 +132,33 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
-    await VipSedieFunc.verifySettlement("Even",20)
-  })
+  // it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  //   await VipSedieFunc.verifySettlement("Even",20)
+  // })
 
-  it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
-    await VipSedieFunc.verifySettlement("Odd",50)
-  })
+  // it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
+  //   await VipSedieFunc.verifySettlement("Odd",50)
+  // })
 
-  it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
-    await VipSedieFunc.verifySettlement("Red4",500)
-  })
+  // it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
+  //   await VipSedieFunc.verifySettlement("Red4",500)
+  // })
 
-  it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
-    await VipSedieFunc.verifySettlement("Red3",50)
-  })
+  // it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
+  //   await VipSedieFunc.verifySettlement("Red3",50)
+  // })
 
-  it('TC_033_Full_Smoke_Verify Settlement on choice Red2', async() =>{  
-    await VipSedieFunc.verifySettlement("Red2",20)
-  })
+  // it('TC_033_Full_Smoke_Verify Settlement on choice Red2', async() =>{  
+  //   await VipSedieFunc.verifySettlement("Red2",20)
+  // })
 
-  it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
-    await VipSedieFunc.verifySettlement("White3",100)
-  })
+  // it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
+  //   await VipSedieFunc.verifySettlement("White3",100)
+  // })
   
-  it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
-    await VipSedieFunc.verifySettlement("White4",50)
-  })
+  // it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
+  //   await VipSedieFunc.verifySettlement("White4",50)
+  // })
 
   it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
     await VipSedieFunc.openGuide()

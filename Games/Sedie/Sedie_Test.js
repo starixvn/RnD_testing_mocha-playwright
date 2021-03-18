@@ -131,33 +131,33 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
-    await SedieFunc.verifySettlement("Even",5)
-  })
+  // it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  //   await SedieFunc.verifySettlement("Even",5)
+  // })
 
-  it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
-    await SedieFunc.verifySettlement("Odd",10)
-  })
+  // it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
+  //   await SedieFunc.verifySettlement("Odd",10)
+  // })
 
-  it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
-    await SedieFunc.verifySettlement("Red4",200)
-  })
+  // it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
+  //   await SedieFunc.verifySettlement("Red4",200)
+  // })
 
-  it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
-    await SedieFunc.verifySettlement("Red3",50)
-  })
+  // it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
+  //   await SedieFunc.verifySettlement("Red3",50)
+  // })
 
-  it('TC_033_Full_Smoke_Verify Settlement on choice Red2', async() =>{  
-    await SedieFunc.verifySettlement("Red2",1)
-  })
+  // it('TC_033_Full_Smoke_Verify Settlement on choice Red2', async() =>{  
+  //   await SedieFunc.verifySettlement("Red2",1)
+  // })
 
-  it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
-    await SedieFunc.verifySettlement("White3",100)
-  })
+  // it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
+  //   await SedieFunc.verifySettlement("White3",100)
+  // })
   
-  it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
-    await SedieFunc.verifySettlement("White4",10)
-  })
+  // it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
+  //   await SedieFunc.verifySettlement("White4",10)
+  // })
 
   it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
     await SedieFunc.openGuide()

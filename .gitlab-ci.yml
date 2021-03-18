@@ -15,17 +15,17 @@ parallel-test:
    - npm install
    - set NODE_ENV=cf_local
    - echo "Set Balance"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001051&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001052&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001053&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001054&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001055&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001056&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001057&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001058&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001059&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001060&Balance=200000&Minbet=1.00&MaxBet=2000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001061&Balance=200000&Minbet=1.00&MaxBet=2000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001051&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001052&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001053&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001054&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001055&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001056&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001057&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001058&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001059&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001060&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001061&Balance=200000&Minbet=1.00&MaxBet=3000.00"
    - echo "Start Run Parallel"
    - npm run p_full
   artifacts:

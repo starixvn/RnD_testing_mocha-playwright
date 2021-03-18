@@ -124,25 +124,25 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
-    await MiniSedieFunc.verifySettlement("Even",5)
-  })
+  // it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  //   await MiniSedieFunc.verifySettlement("Even",5)
+  // })
 
-  it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
-    await MiniSedieFunc.verifySettlement("Odd",10)
-  })
+  // it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
+  //   await MiniSedieFunc.verifySettlement("Odd",10)
+  // })
 
-  it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
-    await MiniSedieFunc.verifySettlement("Red4",200)
-  })
+  // it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
+  //   await MiniSedieFunc.verifySettlement("Red4",200)
+  // })
 
-  it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
-    await MiniSedieFunc.verifySettlement("Red3",50)
-  })
+  // it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
+  //   await MiniSedieFunc.verifySettlement("Red3",50)
+  // })
 
-  it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
-    await MiniSedieFunc.verifySettlement("White3",100)
-  })
+  // it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
+  //   await MiniSedieFunc.verifySettlement("White3",100)
+  // })
   
   it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
     await MiniSedieFunc.verifySettlement("White4",10)
