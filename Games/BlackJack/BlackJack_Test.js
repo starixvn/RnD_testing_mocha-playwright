@@ -199,7 +199,7 @@ describe('BlackJack Game', ()=>{
       let pos2 = 'Pos2'
       let betstake = 1
       //Place bet 500
-     // await BlackJackFunc.NewRound()
+      await BlackJackFunc.NewRound()
       await BlackJackFunc.PlaceBet(betstake,pos1)
       await BlackJackFunc.PlaceBet(betstake,pos2)
       await BlackJackFunc.ClickDeal()
