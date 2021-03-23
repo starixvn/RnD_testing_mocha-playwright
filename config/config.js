@@ -5,16 +5,17 @@ export const setting ={
         width : 1280,
         height : 720
     },
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4392.0 Safari/537.36',
     timeout : 60000,
     loop : 60,
-    headless: true
+    headless: false
 
 }
 
 export const cf_local ={
     //url: "http://gamelobby-simulator.lumigame.com/signin",
     url: "http://l1-glbs1.lumigame.com/signin",
-    username: "",
+    usernameSSO: "",
     memberId: {
         BlackJack : "1001051",
         Sedie : "1001052",
@@ -29,7 +30,10 @@ export const cf_local ={
         TurboOddEven: "1001061"
     },
     password: "",
-    gamelobbyurl: ""
+    gamelobbyurl: "",
+    urlWebsocket: "ws://haproxy.lumigame.com:7002/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "http://l1-games1.lumigame.com",
+    protocol: "ws"
 }
 
 export const cf_sit ={
@@ -41,9 +45,13 @@ export const cf_sit ={
 
 export const cf_uat ={
     url: "http://demo:one23@qawer.viva88.com:6100/Login/",
-    username: "IT57Test789",
+    username: {
+        Sedie: "IT57Test789"
+    },
     password: "1234aaAA",
-    gamelobbyurl: "http://qawer.viva88.com:6100/VendorGame/OpenSabaClubLobby"
+    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=0",
+    urlWebsocket: "ws://haproxy.lumigame.com:7002/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "http://l1-games1.lumigame.com"
 }
 
 export const cf_prod ={

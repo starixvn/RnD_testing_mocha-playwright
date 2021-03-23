@@ -17,7 +17,8 @@ exports.mochaHooks = {
         viewport: {
           width: config.setting.viewport.width,
           height: config.setting.viewport.height
-        }
+        },
+        userAgent: config.setting.userAgent
     });
     global.context = context
     global.isHear = false

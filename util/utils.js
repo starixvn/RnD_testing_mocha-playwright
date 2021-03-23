@@ -2,6 +2,8 @@ import * as config from './../config/config'
 import pixelmatch from 'pixelmatch'
 import * as MemberSiteFunc from '../Games/MemberSite_Function'
 import * as GameLobbyFunc from '../Games/GameLobby_Function'
+import { throws } from 'assert';
+const W3CWebSocket = require('websocket').w3cwebsocket;
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
 const path = require('path')
@@ -9,6 +11,7 @@ const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
 const sharp = require('sharp')
 sharp.cache({ files : 0 });
+let username=null,session=null
 
 
 // Verify Message is existed
@@ -470,7 +473,7 @@ export const Login = async(_env,_game) => {
         // Login Member Site
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
-        await navigate(config[_env].gamelobbyurl)
+        await navigate(page.url().toString().replace(/\/Sports/g,'')+config[_env].gamelobbyurl)
     } else {
         // Navigate Sabaclub from Simulator
         await MemberSiteFunc.login_local(_env,_game)
@@ -527,6 +530,15 @@ export const getUIBalance = async(_path,_left=null, _top=null, _width=null, _hei
         return null
     }
 }
+export const getBalance = async()=>{
+    const client = new wsClient(config[env].urlWebsocket,config[env].urlOrigin)
+    await client.init()
+    if(username === null || session === null){
+        console.log("Missing session")
+    } else {
+        return await client.getBalance(username,session)
+    }
+}
 export const setBalance = async(_custid,_balance=20000) => {
     // await page.route("")
     // await fetch("http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer", {
@@ -540,4 +552,99 @@ export const setBalance = async(_custid,_balance=20000) => {
     //     }
     // }).then((response) => console.log(response))
     // .catch((error) => console.log(error));
+}
+
+// Get Balance by WebSocket
+export const wsClient = class {
+    constructor(url,origin){
+        this.client = new W3CWebSocket(url,config[env].protocol,origin, {
+            'User-agent': config.setting.userAgent
+        })
+        this.wsMessage = []
+    }
+    async init(){
+        this.client.onerror = ()=> {
+            console.log('Connection Error');
+        };
+    
+        this.client.onclose = ()=> {
+            console.log('Client Closed');
+        };
+    
+        this.client.onmessage = (e)=> {
+            if (typeof e.data === 'string') {
+                this.wsMessage.push(e.data)
+            }
+        };
+    
+        this.client.onopen = ()=> {
+            console.log('WebSocket Client Connected');
+        };
+    }
+    async SendMessage(message) {
+        for(let i=0;i<config.setting.loop;i++){
+            if(this.client.readyState === this.client.OPEN ){
+                this.client.send(message.toString())
+                break
+            }
+            
+            await sleep(200)
+            // console.log("Wait Websocket Client Connect Succesfully")
+        }
+    }
+    async waitMessage(messageWait) {
+        for(let i=0;i<config.setting.loop;i++){
+            for(let j=0; j< this.wsMessage.length; j++){
+                if(this.wsMessage[j].includes(messageWait)){
+                    // console.log(this.wsMessage[j])
+                    i=60;
+                    break
+                }
+            }
+            await sleep(200)
+            // console.log("Wait Websocket Message: "+ messageWait)
+        }
+    }
+    async getMessage(prefixMessage) {
+        let _found = null
+        for(let i=0; i<config.setting.loop;i++) {
+            _found = this.wsMessage.filter(element => element.includes(prefixMessage));
+            if(_found.length !== 0) { break }
+            await sleep(200)
+            // console.log("Wait Websocket Message: "+ messageWait)
+        }
+        return _found.pop()
+    }
+    async getRawData(_mes){
+        try {
+            let raw = _mes
+            if(raw === null) return null
+            else {
+                raw = raw.split("42/user/roulette,");
+                return raw[1]
+            }
+        } catch (error) {
+            console.log(error.message)
+            return null
+        }
+    }
+    async getBalance(username,session) {
+        await this.waitMessage('0{')
+        await this.SendMessage('40/user/roulette,')
+        await this.waitMessage('40')
+        await this.SendMessage(`42/user/roulette,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`)
+        await this.waitMessage('42/user/roulette,["signedIn"]')
+        await this.SendMessage('42/user/roulette,["inGame"]')
+        await this.waitMessage('42/user/roulette,["Roulette",{"gameConfigs')
+        let mess =  await this.getMessage('42/user/roulette,["Roulette",{"gameConfigs')
+        mess = await this.getRawData(mess)
+        return await getDataJsonPath(mess,'$..user.red')
+    }
+}
+
+export const getSession = async()=>{
+    const _rawData =  await getWsMessage('{"Authorized":true,')
+    console.log(_rawData)
+    session = await getDataJsonPath(_rawData,'$..ss.ss')
+    username = await getDataJsonPath(_rawData,'$..ss.username')
 }

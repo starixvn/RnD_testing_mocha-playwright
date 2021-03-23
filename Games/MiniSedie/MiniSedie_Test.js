@@ -9,6 +9,7 @@ describe('MiniSedie Game', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
+    await uttls.getSession()
   })
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){

@@ -128,8 +128,7 @@ export const verifyMaxBet = async(_choice) =>{
     }
 }
 export const getBalance = async() => {
-    return await utils.getUIBalance(SedieLocator.Balance.ImageCompare,
-        SedieLocator.Balance.left, SedieLocator.Balance.top, SedieLocator.Balance.width, SedieLocator.Balance.height)
+    return await utils.getBalance()
 }
 const getRawData = async(_mes) => {
     try {
