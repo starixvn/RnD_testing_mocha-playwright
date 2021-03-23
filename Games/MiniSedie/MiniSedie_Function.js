@@ -153,7 +153,7 @@ export const verifySettlement = async(_choice,_chip=1) => {
     lowcase = _choice.toLowerCase()
     // Wait to Finish Game
     await utils.wsFindMessage(remainingTime)
-    await utils.sleep(500)
+    await utils.sleep(3000)
     wsMessageReceived = []
     // Wait to new round
     currentBalance = await getBalance()
