@@ -1,5 +1,6 @@
 import playwright from 'playwright'
 import * as config from './config/config'
+import uaParser from 'ua-parser-js'
 
 const chai = require('chai')
 const expect = chai.expect
@@ -14,10 +15,11 @@ before(async () => {
         viewport: {
           width: config.setting.viewport.width,
           height: config.setting.viewport.height
-        },
-        userAgent: config.setting.userAgent
+        }
     });
     const page = await browser.newPage()
+    const getUA = await page.evaluate(() => navigator.userAgent);
+    global.userAgent = uaParser(getUA).ua;
     global.page = page
     global.context = context
     global.isHear = false
