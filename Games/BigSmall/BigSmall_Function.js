@@ -311,6 +311,15 @@ export const IsSettle = async() => {
   return false
 }
 
+//Get Settle RoundID
+export const GetSettleRoundID = async() => {
+  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"finish":{"result":')
+  const res = String(_found).split("42/user/taixiu,");
+  const obj = JSON.parse(res[1]);
+  let _result = jp.query(obj[1],`$..roundId`);
+  return _result[0]
+}
+
 
 export const CheckSettleBalance = async(_beforebalance) => {
   let d= await GetWinLossResult()
