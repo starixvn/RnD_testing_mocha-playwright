@@ -2,7 +2,6 @@ export const MemberSiteLocator = {
     // Login page
     txtUsername : "//input[@id='txtID']",
     txtPassword : "//input[@id='txtPW']",
-    txtUserAgent : "//input[@id='browserUserAgent']",
     btnLogin : "//button",
     btnLoginPro : "//a[contains(@class,'btn btn')]",
     imgLogo : "//div[@class='logo ']",

@@ -121,8 +121,7 @@ export const verifyMaxBet = async(_choice) =>{
     }
 }
 export const getBalance = async() => {
-    return await utils.getUIBalance(VipSedieLocator.Balance.ImageCompare,
-        VipSedieLocator.Balance.left, VipSedieLocator.Balance.top, VipSedieLocator.Balance.width, VipSedieLocator.Balance.height)
+    return await utils.getBalance()
 }
 const getRawData = async(_mes) => {
     try {

@@ -558,7 +558,7 @@ export const setBalance = async(_custid,_balance=20000) => {
 export const wsClient = class {
     constructor(url,origin){
         this.client = new W3CWebSocket(url,config[env].protocol,origin, {
-            'User-agent': config.setting.userAgent
+            'User-agent': userAgent
         })
         this.wsMessage = []
     }

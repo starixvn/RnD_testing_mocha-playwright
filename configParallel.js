@@ -17,9 +17,11 @@ exports.mochaHooks = {
         viewport: {
           width: config.setting.viewport.width,
           height: config.setting.viewport.height
-        },
-        userAgent: config.setting.userAgent
+        }
     });
+    const page = await browser.newPage()
+    const getUA = await page.evaluate(() => navigator.userAgent);
+    global.userAgent = uaParser(getUA).ua;
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")

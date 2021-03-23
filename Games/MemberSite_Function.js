@@ -54,9 +54,6 @@ export const login_local = async(_env,_game) => {
             // Innput MemberID
             await utils.sendKeys(MemberSiteLocator.txtMemberId,config[_env].memberId[_game])
 
-            // Input User Agent
-            await utils.sendKeys(MemberSiteLocator.txtUserAgent,config.setting.userAgent)
-
             // Click on Gen Token
             await utils.clickEl(MemberSiteLocator.btnGetToken)
             flag = await utils.isValueNotEqualOnAttribute(MemberSiteLocator.lblRedirect,"href","#")
