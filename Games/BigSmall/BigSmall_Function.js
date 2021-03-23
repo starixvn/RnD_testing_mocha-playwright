@@ -13,9 +13,14 @@ export const CloseGame = async() => {
 }
 
 export const OpenHistory = async() => {
-  await utils.clickPos(BigSmallLocator.History.x,BigSmallLocator.History.y )
-  await utils.sleep(500)
-
+  let _settlestate = await IsSettle()
+  if (_settlestate === true){
+   // console.log('Stand')
+      await utils.sleep(5000)
+      await utils.clickPos(BigSmallLocator.History.x,BigSmallLocator.History.y)
+  }
+  else
+  await utils.clickPos(BigSmallLocator.History.x,BigSmallLocator.History.y)
 }
 
 export const CloseHistory = async() => {
@@ -295,6 +300,17 @@ export const IsBetFail = async() => {
   else
   return false
 }
+
+//Is Round Settle
+export const IsSettle = async() => {
+  let _found = wsMessageReceived.filter(element => element.includes('42/user/taixiu,["taixiu",{"finish":{"result":'));
+  if (_found.length > 0){
+    return true
+  }
+  else
+  return false
+}
+
 
 export const CheckSettleBalance = async(_beforebalance) => {
   let d= await GetWinLossResult()
