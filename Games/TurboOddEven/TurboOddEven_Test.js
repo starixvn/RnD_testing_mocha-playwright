@@ -58,8 +58,8 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.PlaceBet(pos,1000)
    await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
    await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
-   let d= await TurboOddEvenFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
+   await TurboOddEvenFunc.CheckSettleBalance()
+   await TurboOddEvenFunc.CheckRoundHistory()
  }) 
  
  it('TC_07_Full_Verify Max Bet on Even', async () => {
@@ -69,8 +69,7 @@ describe('TurboOddEven Game', ()=>{
   await TurboOddEvenFunc.PlaceBet(pos,1000)
   await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
   await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
-  let d= await TurboOddEvenFunc.GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
+  await TurboOddEvenFunc.CheckSettleBalance()
 }) 
 
   it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Odd', async () => {
@@ -80,8 +79,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.VerifyBetStake(pos,1)
     await TurboOddEvenFunc.PlaceBet("Even",5,'nowait')
     await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
   it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {
@@ -91,8 +89,7 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.VerifyBetStake(pos,1)
    await TurboOddEvenFunc.PlaceBet("Odd",5,'nowait')
    await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
-   let d= await TurboOddEvenFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
+   await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
   it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Odd', async () => {
@@ -104,8 +101,7 @@ describe('TurboOddEven Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)     
+      await TurboOddEvenFunc.CheckSettleBalance()     
 
   })  
 
@@ -118,8 +114,7 @@ describe('TurboOddEven Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)     
+      await TurboOddEvenFunc.CheckSettleBalance()    
 
   })  
 
@@ -132,8 +127,7 @@ describe('TurboOddEven Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
   it('TC_13_Full_Verify Betting [100-1000] Chips on Even', async () => {
@@ -145,8 +139,7 @@ describe('TurboOddEven Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
   it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Odd', async () => {
@@ -159,8 +152,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -177,8 +169,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -195,8 +186,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -213,8 +203,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -233,8 +222,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -253,8 +241,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -273,9 +260,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-    let _beforebalance = await GameLobbyFunc.getBalance()
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -294,9 +279,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-    let _beforebalance = await GameLobbyFunc.getBalance()
-    let d= await TurboOddEvenFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -315,9 +298,7 @@ describe('TurboOddEven Game', ()=>{
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
-    let _beforebalance = await GameLobbyFunc.getBalance() 
-     let d= await TurboOddEvenFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -336,9 +317,7 @@ describe('TurboOddEven Game', ()=>{
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
-    let _beforebalance = await GameLobbyFunc.getBalance() 
-     let d= await TurboOddEvenFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.ClearPresetChip()
@@ -357,8 +336,7 @@ describe('TurboOddEven Game', ()=>{
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
-     let d= await TurboOddEvenFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
      //Post-condition: clear preset value
      await TurboOddEvenFunc.OpenPreset()
      await TurboOddEvenFunc.ClearPresetChip()
@@ -377,8 +355,7 @@ describe('TurboOddEven Game', ()=>{
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
-     let d= await TurboOddEvenFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboOddEvenFunc.CheckSettleBalance()
      //Post-condition: clear preset value
      await TurboOddEvenFunc.OpenPreset()
      await TurboOddEvenFunc.ClearPresetChip()

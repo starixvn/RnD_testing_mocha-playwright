@@ -58,8 +58,8 @@ describe('TurboBigSmall Game', ()=>{
    await TurboBigSmallFunc.PlaceBet(pos,1000)
    await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
    await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
-   let d= await TurboBigSmallFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
+   await TurboBigSmallFunc.CheckSettleBalance()
+   await TurboBigSmallFunc.CheckRoundHistory()
  }) 
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {
@@ -69,8 +69,7 @@ describe('TurboBigSmall Game', ()=>{
   await TurboBigSmallFunc.PlaceBet(pos,1000)
   await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
   await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
-  let d= await TurboBigSmallFunc.GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
+  await TurboBigSmallFunc.CheckSettleBalance()
 }) 
 
   it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
@@ -80,8 +79,7 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.VerifyBetStake(pos,1)
     await TurboBigSmallFunc.PlaceBet("Small",5,'nowait')
     await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {
@@ -91,8 +89,7 @@ describe('TurboBigSmall Game', ()=>{
    await TurboBigSmallFunc.VerifyBetStake(pos,1)
    await TurboBigSmallFunc.PlaceBet("Big",5,'nowait')
    await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
-   let d= await TurboBigSmallFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
+   await TurboBigSmallFunc.CheckSettleBalance()
   })  
  
   it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Big', async () => {
@@ -104,8 +101,7 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)     
+    await TurboBigSmallFunc.CheckSettleBalance()   
 
   })  
 
@@ -118,8 +114,7 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)     
+    await TurboBigSmallFunc.CheckSettleBalance()     
 
   })  
 
@@ -132,8 +127,7 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_13_Full_Verify Betting [100-1000] Chips on Small', async () => {
@@ -145,8 +139,7 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+     await TurboBigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Big', async () => {
@@ -159,8 +152,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -177,8 +169,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -195,8 +186,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -213,8 +203,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -233,8 +222,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -253,8 +241,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -273,9 +260,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let _beforebalance = await GameLobbyFunc.getBalance()
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -294,9 +279,7 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'wait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let _beforebalance = await GameLobbyFunc.getBalance()
-    let d= await TurboBigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+     await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -315,9 +298,7 @@ describe('TurboBigSmall Game', ()=>{
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
     await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
-    let _beforebalance = await GameLobbyFunc.getBalance() 
-     let d= await TurboBigSmallFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -336,9 +317,7 @@ describe('TurboBigSmall Game', ()=>{
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
     await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
-    let _beforebalance = await GameLobbyFunc.getBalance() 
-     let d= await TurboBigSmallFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.ClearPresetChip()
@@ -357,8 +336,7 @@ describe('TurboBigSmall Game', ()=>{
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
     await TurboBigSmallFunc.VerifyBetStake(pos,_stake)  
-     let d= await TurboBigSmallFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
      //Post-condition: clear preset value
      await TurboBigSmallFunc.OpenPreset()
      await TurboBigSmallFunc.ClearPresetChip()
@@ -377,8 +355,7 @@ describe('TurboBigSmall Game', ()=>{
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
     await TurboBigSmallFunc.VerifyBetStake(pos,_stake)  
-     let d= await TurboBigSmallFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await TurboBigSmallFunc.CheckSettleBalance()
      //Post-condition: clear preset value
      await TurboBigSmallFunc.OpenPreset()
      await TurboBigSmallFunc.ClearPresetChip()

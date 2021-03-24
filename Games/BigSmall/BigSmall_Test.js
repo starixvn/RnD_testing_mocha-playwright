@@ -59,8 +59,8 @@ describe('BigSmall Game', ()=>{
    await BigSmallFunc.PlaceBet(pos,1000)
    await BigSmallFunc.PlaceBet(pos,5,'nowait')
    await BigSmallFunc.VerifyErrorMessage(errormsg)
-   let d= await BigSmallFunc.GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
+   await BigSmallFunc.CheckSettleBalance()
+   await BigSmallFunc.CheckRoundHistory()
  }) 
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {
@@ -70,8 +70,8 @@ describe('BigSmall Game', ()=>{
   await BigSmallFunc.PlaceBet(pos,1000)
   await BigSmallFunc.PlaceBet(pos,5,'nowait')
   await BigSmallFunc.VerifyErrorMessage(errormsg)
-  let d= await BigSmallFunc.GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
+  await BigSmallFunc.CheckSettleBalance()
+
 }) 
 
   it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
@@ -81,9 +81,9 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.VerifyBetStake(pos,1)
     await BigSmallFunc.PlaceBet("Small",5,'nowait')
     await BigSmallFunc.VerifyErrorMessage(errormsg)
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
-  })  
+    await BigSmallFunc.CheckSettleBalance()
+  }) 
+
 
   it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {
     const pos = "Small"
@@ -92,8 +92,8 @@ describe('BigSmall Game', ()=>{
    await BigSmallFunc.VerifyBetStake(pos,1)
    await BigSmallFunc.PlaceBet("Big",5,'nowait')
    await BigSmallFunc.VerifyErrorMessage(errormsg)
-   let d= await BigSmallFunc.GetWinLossResult()
-   console.log('Is Win: ',d.win, d.stake)
+   await BigSmallFunc.CheckSettleBalance()
+
   })  
  
    it('TC_10_Full_Smoke_Verify Betting Full Chips on Big', async () => {
@@ -105,8 +105,7 @@ describe('BigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await BigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)     
+      await BigSmallFunc.CheckSettleBalance()  
 
   })  
 
@@ -119,8 +118,7 @@ describe('BigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await BigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+         await BigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_12_Full_Smoke_Verify Preset Betting Full Chips on Big', async () => {
@@ -133,8 +131,7 @@ describe('BigSmall Game', ()=>{
       await BigSmallFunc.PlaceBet(pos,null,'wait')
       await BigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await BigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.ClearPresetChip()
@@ -151,8 +148,7 @@ describe('BigSmall Game', ()=>{
       await BigSmallFunc.PlaceBet(pos,null,'wait')
       await BigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await BigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.ClearPresetChip()
@@ -171,8 +167,7 @@ describe('BigSmall Game', ()=>{
       await BigSmallFunc.PlaceBet(pos,Achip[i],'wait')
       await BigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await BigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.ClearPresetChip()
@@ -191,8 +186,7 @@ describe('BigSmall Game', ()=>{
       await BigSmallFunc.PlaceBet(pos,Achip[i],'wait')
       await BigSmallFunc.VerifyBetStake(pos,_stake)    
          } 
-    let d= await BigSmallFunc.GetWinLossResult()
-    console.log('Is Win: ',d.win, d.stake)
+    await BigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.ClearPresetChip()
@@ -211,9 +205,7 @@ describe('BigSmall Game', ()=>{
         } 
     await BigSmallFunc.PlaceBet(pos,null,'wait')
     await BigSmallFunc.VerifyBetStake(pos,_stake)   
-    let _beforebalance = await GameLobbyFunc.getBalance() 
-     let d= await BigSmallFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await BigSmallFunc.CheckSettleBalance()
     //Post-condition: clear preset value
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.ClearPresetChip()
@@ -232,8 +224,7 @@ describe('BigSmall Game', ()=>{
         } 
     await BigSmallFunc.PlaceBet(pos,null,'wait')
     await BigSmallFunc.VerifyBetStake(pos,_stake)  
-     let d= await BigSmallFunc.GetWinLossResult()
-     console.log('Is Win: ',d.win, d.stake)
+    await BigSmallFunc.CheckSettleBalance()
      //Post-condition: clear preset value
      await BigSmallFunc.OpenPreset()
      await BigSmallFunc.ClearPresetChip()

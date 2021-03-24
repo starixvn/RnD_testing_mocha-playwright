@@ -1,6 +1,5 @@
 const game = "BlackJack"
 const addContext = require('mochawesome/addContext')
-import { dir } from 'console'
 import * as utils from '../../util/utils'
 import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
@@ -9,8 +8,9 @@ import {BlackJackLocator} from './BlackJack_Locator'
 describe('BlackJack Game', ()=>{
 
   before(async function(){
-    await utils.Login(env,game);
     await utils.wsHearMessageOn()
+    await utils.Login(env,game);
+    await utils.sleep(3000)
   })
 
   afterEach(async function(){
@@ -53,7 +53,7 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.ReturnHome()
       await GameLobbyFunc.OpenGameFromLobby(game)
       await BlackJackFunc.VerifyDefaultState()
-      
+     
     })  
 
   it('TC_06_Full_Verify PlaceBet all Chips to  Pos1', async () => {
@@ -129,16 +129,10 @@ describe('BlackJack Game', ()=>{
       const pos1id = await BlackJackFunc.GetPosId(1)
       // Hit to Quizzed
       await BlackJackFunc.BetSettle_HitToQuizzed(1)
-      let wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)     
-      let UIBalance = await BlackJackFunc.GetBJUIBalance()
-      console.log(DealBalance,UIBalance)
-     //Check Current Balance After Settled
-      // if (wlpos1 !=0){
-      //   await utils.shouldBeEqual(UIBalance,DealBalance + wlpos1)
-      //   }
-      // else {
-      //   await utils.shouldBeEqual(UIBalance,DealBalance)
-      // }  
+      let wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)   
+      let expectbalance = DealBalance + wlpos1.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)  
+      await BlackJackFunc.CheckRoundHistory(pos1id,wlpos1.settleresult,betstake,wlpos1.betwin)
     })
 
     it('TC_10_Full_Verify User Can Betting SingleHand-Hit Card Score OVer 15', async () => {
@@ -154,15 +148,10 @@ describe('BlackJack Game', ()=>{
       const pos1id = await BlackJackFunc.GetPosId(1)
           // Hit score over 15
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      let UIBalance = await BlackJackFunc.GetBJUIBalance()
-      console.log(DealBalance,UIBalance)
-      // if (wlpos1 !=0){
-      //   await utils.shouldBeEqual(UIBalance,DealBalance + wlpos1)
-      //   }
-      // else {
-      //   await utils.shouldBeEqual(UIBalance,DealBalance)
-      // }  
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      let expectbalance = DealBalance + wlpos1.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)  
+      await BlackJackFunc.CheckRoundHistory(pos1id,wlpos1.settleresult,betstake,wlpos1.betwin)
     })
 
     it('TC_11_Full_Verify User Can Betting Double Hands-Hit Card Score OVer 15', async () => {
@@ -182,16 +171,10 @@ describe('BlackJack Game', ()=>{
           // Hit score over 15
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
-      // let UIBalance = await BlackJackFunc.GetBJUIBalance()
-      // const finalwl = (wlpos1 +wlpos2)
-      // if (finalwl !=0){
-      //   await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-      //   }
-      // else {
-      //   await utils.shouldBeEqual(UIBalance,DealBalance)
-      // } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)  
     })
 
     it('TC_12_Full_Verify User Can Betting Double Hands-HitToQuizzed', async () => {
@@ -211,16 +194,13 @@ describe('BlackJack Game', ()=>{
           // Hit score over 15
       await BlackJackFunc.BetSettle_HitToQuizzed(1)
       await BlackJackFunc.BetSettle_HitToQuizzed(2)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
-      // let UIBalance = await BlackJackFunc.GetBJUIBalance()
-      // const finalwl = (wlpos1 +wlpos2)
-      // if (finalwl !=0){
-      //   await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-      //   }
-      // else {
-      //   await utils.shouldBeEqual(UIBalance,DealBalance)
-      // } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)  
+      await BlackJackFunc.CheckRoundHistory(pos1id,wlpos1.settleresult,betstake,wlpos1.betwin)
+      await BlackJackFunc.CheckRoundHistory(pos2id,wlpos1.settleresult,betstake,wlpos2.betwin)
+
     })
 
     it('TC_13_Full_Smoke_Verify User Can Betting Triple Hands-Hit Card Score OVer 15', async () => {
@@ -247,17 +227,11 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
-      const wlpos3 = await BlackJackFunc.GetWinlossPosID(pos3id)
-      const finalwl = (wlpos1 +wlpos2+ wlpos3)
-      // let UIBalance = await BlackJackFunc.GetBJUIBalance()
-      //  if (finalwl !=0){
-      //   await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-      //   }
-      // else {
-      //   await utils.shouldBeEqual(UIBalance,DealBalance)
-      // } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      const wlpos3 = await BlackJackFunc.GetSettleResultByPosID(pos3id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin + wlpos3.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)  
     })
     
     it('TC_14_Full_Verify User Can Betting Triple Hands-HitToQuizzed', async () => {
@@ -281,17 +255,11 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitToQuizzed(1)
       await BlackJackFunc.BetSettle_HitToQuizzed(2)
       await BlackJackFunc.BetSettle_HitToQuizzed(3)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
-      const wlpos3 = await BlackJackFunc.GetWinlossPosID(pos3id)
-      const finalwl = (wlpos1 +wlpos2+ wlpos3)
-    //   let UIBalance = await BlackJackFunc.GetBJUIBalance()
-    //   if (finalwl !=0){
-    //    await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-    //    }
-    //  else {
-    //    await utils.shouldBeEqual(UIBalance,DealBalance)
-    //  } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      const wlpos3 = await BlackJackFunc.GetSettleResultByPosID(pos3id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin + wlpos3.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)
     })
 
     it('TC_15_Full_Verify Maxbet Of Single Hand', async () => {
@@ -307,21 +275,16 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.PlaceBet(betstake2,pos1)
       await BlackJackFunc.ClickDeal()
       // Get Current Balance
+      let DealBalance =await BlackJackFunc.GetDealBalance()
       let totalbet =await BlackJackFunc.GetTotalBetAmount()
       await utils.shouldBeEqual(totalbet,maxbet)
        // Get PosId
       const pos1id = await BlackJackFunc.GetPosId(1)
       // Hit to Quizzed
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const finalwl = (wlpos1)
-    //   let UIBalance = await BlackJackFunc.GetBJUIBalance()
-    //   if (finalwl !=0){
-    //    await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-    //    }
-    //  else {
-    //    await utils.shouldBeEqual(UIBalance,DealBalance)
-    //  } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      let expectbalance = DealBalance + wlpos1.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)
     })
 
     it('TC_16_Full_Verify Maxbet Of Double Hands', async () => {
@@ -337,6 +300,7 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.PlaceBet(betstake1,pos1)
       await BlackJackFunc.PlaceBet(betstake1,pos2)
       await BlackJackFunc.ClickDeal()
+      let DealBalance =await BlackJackFunc.GetDealBalance()
       // Get Total Bet and pos bet
       let totalbet =await BlackJackFunc.GetTotalBetAmount()
       let pos1bet = await BlackJackFunc.GetPosBet(1)
@@ -350,16 +314,10 @@ describe('BlackJack Game', ()=>{
       // HSettle
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
-      const finalwl = (wlpos1 +wlpos2)
-    //   let UIBalance = await BlackJackFunc.GetBJUIBalance()
-    //   if (finalwl !=0){
-    //    await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-    //    }
-    //  else {
-    //    await utils.shouldBeEqual(UIBalance,DealBalance)
-    //  } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)
     })
 
     it('TC_17_Full_Smoke_Verify Maxbet Of Triple Hands', async () => {
@@ -378,6 +336,7 @@ describe('BlackJack Game', ()=>{
      await BlackJackFunc.PlaceBet(betstake1,pos2)
      await BlackJackFunc.PlaceBet(betstake1,pos3)
      await BlackJackFunc.ClickDeal()
+     let DealBalance =await BlackJackFunc.GetDealBalance()
        // Get Total Bet and pos bet
       let totalbet =await BlackJackFunc.GetTotalBetAmount()
       let pos1bet = await BlackJackFunc.GetPosBet(1)
@@ -395,17 +354,11 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
-      const wlpos1 = await BlackJackFunc.GetWinlossPosID(pos1id)
-      const wlpos2 = await BlackJackFunc.GetWinlossPosID(pos2id)
-      const wlpos3 = await BlackJackFunc.GetWinlossPosID(pos3id)
-      const finalwl = (wlpos1 + wlpos2+ wlpos3)
-    //   let UIBalance = await BlackJackFunc.GetBJUIBalance()
-    //   if (finalwl !=0){
-    //    await utils.shouldBeEqual(UIBalance,DealBalance + finalwl)
-    //    }
-    //  else {
-    //    await utils.shouldBeEqual(UIBalance,DealBalance)
-    //  } 
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      const wlpos3 = await BlackJackFunc.GetSettleResultByPosID(pos3id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin +wlpos3.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)
     })
 
        it('TC_18_Full_Verify Re-bet Of Single Hand', async () => {

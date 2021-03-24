@@ -2,6 +2,7 @@ import * as utils from '../../util/utils'
 import {BigSmallLocator} from './BigSmall_Locator'
 import * as config from '../../config/config'
 import * as GameLobbyFunc from '../GameLobby_Function'
+import _ from 'lodash';
 var jp = require('jsonpath');
 
 export const CloseGame = async() => {
@@ -15,7 +16,7 @@ export const CloseGame = async() => {
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){
-   // console.log('Stand')
+      console.log('Balanced Betting Pool')
       await utils.sleep(5000)
       await utils.clickPos(BigSmallLocator.History.x,BigSmallLocator.History.y)
   }
@@ -311,37 +312,44 @@ export const IsSettle = async() => {
   return false
 }
 
-//Get Settle RoundID
-export const GetSettleRoundID = async() => {
+//Get Settle Result
+export const GetSettleResult = async() => {
   let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"finish":{"result":')
   const res = String(_found).split("42/user/taixiu,");
   const obj = JSON.parse(res[1]);
-  let _result = jp.query(obj[1],`$..roundId`);
-  return _result[0]
+  let _roundid = jp.query(obj[1],`$..roundId`);
+  let _result = jp.query(obj[1],`$..result`);
+  let _settleresult = jp.query(obj[1],`$..settlementResult`);
+  return { result : _result , roundid : _roundid, settleresult : _settleresult}
+}
+
+//Check Round History
+export const CheckRoundHistory = async() => {
+  let _checkres = await GetSettleResult()
+  await OpenHistory()
+  await utils.sleep(3000)
+  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"history"')
+  const res = String(_found).split("42/user/taixiu,");
+  const obj = JSON.parse(res[1]);
+  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].result`);
+  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].settlementResult`);
+  // using lodash
+  await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
+  await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
+  await CloseHistory()
 }
 
 
-export const CheckSettleBalance = async(_beforebalance) => {
-  let d= await GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
-  await utils.sleep(2000)
-  let _afterbalance = await GameLobbyFunc.getBalance()
-  console.log('Compare Balance: ',_afterbalance,_beforebalance,_beforebalance + d.stake)
+export const CheckSettleBalance = async() => {
+  let _beforebalance = await utils.getBalance()
+  let _af = await GetWinLossResult()
+  console.log('Is Win: ',_af.win, _af.stake)
+  await utils.sleep(1000)
+  let _afterbalance = await utils.getBalance()
+  _beforebalance = _beforebalance +  _af.stake
+  await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
+  console.log('Compare Balance: ',_afterbalance,_beforebalance)
 }
-
-
-export const GetBalanceAfterBet = async () => {
-  try {
-      let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"ownBets"')
-      const res = String(_found).split("42/user/taixiu,");
-      const obj = JSON.parse(res[1]);
-      let _result = jp.query(obj,'$..user[red]');
-       return _result[0]
-      } catch (e) {
-      console.error(e)
-  }
-}
-
 
 
 ///////////////////////////////////////////////////////////

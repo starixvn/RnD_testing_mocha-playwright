@@ -3,6 +3,8 @@ import {TurboOddEvenLocator} from './TurboOddEven_Locator'
 import * as config from '../../config/config'
 import * as GameLobbyFunc from '../GameLobby_Function'
 var jp = require('jsonpath');
+import _ from 'lodash';
+
 
 export const CloseGame = async() => {
   await utils.clickPos(TurboOddEvenLocator.Close.x,TurboOddEvenLocator.Close.y )
@@ -307,26 +309,46 @@ export const IsBetFail = async() => {
   return false
 }
 
-export const CheckSettleBalance = async(_beforebalance) => {
-  let d= await GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
-  await utils.sleep(500)
-  let _afterbalance = await GameLobbyFunc.getBalance()
-  console.log('Compare Balance: ',_afterbalance,_beforebalance,_beforebalance + d.stake)
+
+//Get Settle Result
+export const GetSettleResult = async() => {
+  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"finish":{"result":')
+  const res = String(_found).split("42/user/oeturbo,");
+  const obj = JSON.parse(res[1]);
+  let _roundid = jp.query(obj[1],`$..roundId`);
+  let _result = jp.query(obj[1],`$..result`);
+  let _settleresult = jp.query(obj[1],`$..settlementResult`);
+  return { result : _result , roundid : _roundid, settleresult : _settleresult}
+}
+
+//Check Round History
+export const CheckRoundHistory = async() => {
+  let _checkres = await GetSettleResult()
+  await OpenHistory()
+  await utils.sleep(1000)
+  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"history"')
+  const res = String(_found).split("42/user/oeturbo,");
+  const obj = JSON.parse(res[1]);
+  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].result`);
+  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].settlementResult`);
+  // using lodash
+  await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
+  await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
+  await CloseHistory()
 }
 
 
-export const GetBalanceAfterBet = async () => {
-  try {
-    let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"ownBets"')
-    const res = String(_found).split("42/user/oeturbo,");
-    const obj = JSON.parse(res[1]);
-    let _result = jp.query(obj,'$..user[red]');
-       return _result[0]
-      } catch (e) {
-      console.error(e)
-  }
+export const CheckSettleBalance = async() => {
+  let _beforebalance = await utils.getBalance()
+  let _af = await GetWinLossResult()
+  console.log('Is Win: ',_af.win, _af.stake)
+  await utils.sleep(1000)
+  let _afterbalance = await utils.getBalance()
+  _beforebalance = _beforebalance +  _af.stake
+  await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
+  console.log('Compare Balance: ',_afterbalance,_beforebalance)
 }
+
 
 
 

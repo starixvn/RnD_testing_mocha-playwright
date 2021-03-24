@@ -2,6 +2,7 @@ import * as utils from '../../util/utils'
 import {TurboBigSmallLocator} from './TurboBigSmall_Locator'
 import * as config from '../../config/config'
 import * as GameLobbyFunc from '../GameLobby_Function'
+import _ from 'lodash';
 var jp = require('jsonpath');
 
 export const CloseGame = async() => {
@@ -12,9 +13,15 @@ export const CloseGame = async() => {
 }
 
 export const OpenHistory = async() => {
+    let _settlestate = await IsSettle()
+  if (_settlestate === true){
+      console.log('Balanced Betting Pool')
+      await utils.sleep(5000)
+      await utils.clickPos(TurboBigSmallLocator.History.x ,TurboBigSmallLocator.History.y)
+  }
+  else
   await utils.clickPos(TurboBigSmallLocator.History.x ,TurboBigSmallLocator.History.y)
   await utils.sleep(500)
-
 }
 
 export const CloseHistory = async() => {
@@ -259,24 +266,24 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
-  // await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticResult.png',clip:{x: TurboBigSmallLocator.StatisticResult.left,
-  //   y: TurboBigSmallLocator.StatisticResult.top,
-  //  width: TurboBigSmallLocator.StatisticResult.width,
-  //  height: TurboBigSmallLocator.StatisticResult.height}})
-  //  await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
-  //  await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticPoint.png',clip:{x: TurboBigSmallLocator.StatisticPoint.left,
-  //   y: TurboBigSmallLocator.StatisticPoint.top,
-  //  width: TurboBigSmallLocator.StatisticPoint.width,
-  //  height: TurboBigSmallLocator.StatisticPoint.height}})
+  await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticResult.png',clip:{x: TurboBigSmallLocator.StatisticResult.left,
+    y: TurboBigSmallLocator.StatisticResult.top,
+   width: TurboBigSmallLocator.StatisticResult.width,
+   height: TurboBigSmallLocator.StatisticResult.height}})
+   await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
+   await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticPoint.png',clip:{x: TurboBigSmallLocator.StatisticPoint.left,
+    y: TurboBigSmallLocator.StatisticPoint.top,
+   width: TurboBigSmallLocator.StatisticPoint.width,
+   height: TurboBigSmallLocator.StatisticPoint.height}})
   //Verify Statistic Result
-  const _result1= await utils.findImage(TurboBigSmallLocator.StatisticResult.ImageCompare,TurboBigSmallLocator.StatisticResult)
-  await utils.shouldBeEqual(_result1.Val,true)    
+  // const _result1= await utils.findImage(TurboBigSmallLocator.StatisticResult.ImageCompare,TurboBigSmallLocator.StatisticResult)
+  // await utils.shouldBeEqual(_result1.Val,true)    
 
-  //Verify Statistic Point
-  await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
-  const _result2= await utils.findImage(
-  TurboBigSmallLocator.StatisticPoint.ImageCompare,TurboBigSmallLocator.StatisticPoint)
-  await utils.shouldBeEqual(_result2.Val,true)    
+  // //Verify Statistic Point
+  // await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
+  // const _result2= await utils.findImage(
+  // TurboBigSmallLocator.StatisticPoint.ImageCompare,TurboBigSmallLocator.StatisticPoint)
+  // await utils.shouldBeEqual(_result2.Val,true)    
 
 }
 
@@ -290,28 +297,54 @@ export const IsBetFail = async() => {
   return false
 }
 
-export const CheckSettleBalance = async(_beforebalance) => {
-  let d= await GetWinLossResult()
-  console.log('Is Win: ',d.win, d.stake)
-  await utils.sleep(2000)
-  let _afterbalance = await GameLobbyFunc.getBalance()
-  console.log('Compare Balance: ',_afterbalance,_beforebalance,_beforebalance + d.stake)
-}
-
-
-export const GetBalanceAfterBet = async () => {
-  try {
-    let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"ownBets"')
-    console.log(_found)
-    const res = String(_found).split("42/user/txturbo,");
-    const obj = JSON.parse(res[1]);
-    let _result = jp.query(obj,'$..user[red]');
-       return _result[0]
-      } catch (e) {
-      console.error(e)
+//Is Round Settle
+export const IsSettle = async() => {
+  let _found = wsMessageReceived.filter(element => element.includes('42/user/txturbo,["TXTurbo",{"finish":{"result":'));
+  if (_found.length > 0){
+    return true
   }
+  else
+  return false
 }
 
+//Get Settle Result
+export const GetSettleResult = async() => {
+  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"finish":{"result":')
+  const res = String(_found).split("42/user/txturbo,");
+  const obj = JSON.parse(res[1]);
+  let _roundid = jp.query(obj[1],`$..roundId`);
+  let _result = jp.query(obj[1],`$..result`);
+  let _settleresult = jp.query(obj[1],`$..settlementResult`);
+  return { result : _result , roundid : _roundid, settleresult : _settleresult}
+}
+
+//Check Round History
+export const CheckRoundHistory = async() => {
+  let _checkres = await GetSettleResult()
+  await OpenHistory()
+  await utils.sleep(2000)
+  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"history"')
+  const res = String(_found).split("42/user/txturbo,");
+  const obj = JSON.parse(res[1]);
+  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].result`);
+  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].settlementResult`);
+  // using lodash
+  await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
+  await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
+  await CloseHistory()
+}
+
+
+export const CheckSettleBalance = async() => {
+  let _beforebalance = await utils.getBalance()
+  let _af = await GetWinLossResult()
+  console.log('Is Win: ',_af.win, _af.stake)
+  await utils.sleep(1000)
+  let _afterbalance = await utils.getBalance()
+  _beforebalance = _beforebalance +  _af.stake
+  await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
+  console.log('Compare Balance: ',_afterbalance,_beforebalance)
+}
 
 
 ///////////////////////////////////////////////////////////

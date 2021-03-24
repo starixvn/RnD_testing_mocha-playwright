@@ -480,8 +480,9 @@ export const Login = async(_env,_game) => {
     }
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
-    // console.log(flag)
+        // console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
+    await getSession()
 }
 
 export const getDataJsonPath = async(_rawData, _jsonpath) => {

@@ -48,7 +48,7 @@ export const ClickCancel = async() => {
 
 export const CloseHistory = async() => {
     await utils.clickPos(BlackJackLocator.HistoryClose.x,BlackJackLocator.HistoryClose.y )
-  await utils.sleep(100)
+  await utils.sleep(500)
 }
 
 export const StandCard = async() => {
@@ -338,8 +338,9 @@ export const GetPosId = async(_pos) => {
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
-  return _result[0].id
+  const _result = jp.value(obj[1], `$..hands[?(@.pos==${_pos})].id`);
+  return _result
+  console.log('posid: ', _result)
 }
 
 // Get Bet stake of pos
@@ -347,8 +348,8 @@ export const GetPosBet = async(_pos) => {
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
-  return _result[0].bet
+  const _result = jp.value(obj[1], `$..hands[?(@.pos==${_pos})].bet`);
+  return _result
 }
 
 
@@ -376,49 +377,14 @@ export const GetHitScore = async(_pos) => {
   return obj[1].hit.total[0]
 }
 
-// Get winloss of pos (based on pos's id) after settled
-export const GetWinlossPosID = async(_posid) => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
-  var last_found = _found.pop();
-  const res = String(last_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  let _result = jp.query(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
-   _result = +_result || 0
-   console.log(`${_posid} win : ${_result}`)
-  return _result
-}
-
-// get In game Balance
-export const GetInGamgeBalance = async() =>{
-  let _result = await utils.getWsMessage('"red"')
-  const res = String(_result).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  return obj[1].user.red
-}
-
-// Check Current Balacnce
-export const GetBJUIBalance = async() =>{
-  const uibalance= await utils.getUIBalance(BlackJackLocator.Balance.ImageCompare,BlackJackLocator.Balance.left,BlackJackLocator.Balance.top,BlackJackLocator.Balance.width,BlackJackLocator.Balance.height)
-  // await page.reload();
-  // await utils.sleep(5000)
-  // const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
-  // const res = String(_found).split("42/user/blackjack,");
-  // const obj = JSON.parse(res[1]);
-  // const _result = jp.query(obj, "$[1]['user']['red']");
-  // console.log(`Reload Balance: ${_result[0]}`)
-  // return _result[0]
-  //console.log(`UI Balance: ${uibalance}`)
-  return uibalance
-}
-
 // Get Total Score of Pos of first round
 export const GetDealBalance = async(_pos) => {
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
   const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  const _result = jp.query(obj, "$[1]['user']['red']");
+  const _result = jp.value(obj, "$[1]['user']['red']");
   //console.log(`Balance after Deal: ${_result[0]}`)
-  return _result[0]
+  return _result
   }
 
 
@@ -434,4 +400,42 @@ export const IsDealerBLackJack = async() => {
   }
   else
     return false
+}
+
+// Get winloss of pos (based on pos's id) after settled
+export const GetSettleResultByPosID = async(_posid) => {
+  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
+  var last_found = _found.pop();
+  const res = String(last_found).split("42/user/blackjack,");
+  const obj = JSON.parse(res[1]);
+  let _betwin = jp.value(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
+  _betwin = +_betwin || 0
+  let _settleresult = jp.value(obj[1], `$..settlementResult`);
+   console.log(`${_posid} win : ${_betwin}`)
+   return { betwin : _betwin , settleresult : _settleresult}
+}
+
+
+//Check Round History
+export const CheckRoundHistory = async(_rid,_settleresult,_betstake,_winloss) => {
+  await OpenHistory()
+  await utils.sleep(3000)
+  let _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"history"')
+  const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(res[1]);
+  let _getbetstake = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].bet`);
+  let _getsettleresult = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].settlementResult`);
+  let _getwinloss = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].betwin`)
+  // check
+  await utils.shouldBeEqual(_betstake,_getbetstake)
+  await utils.shouldBeEqual(_settleresult,_getsettleresult)
+  await utils.shouldBeEqual(_winloss,_getwinloss)
+  await CloseHistory()
+}
+
+
+export const CheckSettleBalance = async(_expectBalance) => {
+  let _beforebalance = await utils.getBalance()
+  await utils.shouldBeEqual(Math.round(_beforebalance * 100) / 100, Math.round(_expectBalance * 100) / 100)
+  console.log('Compare Balance: ',_beforebalance,_expectBalance)
 }
