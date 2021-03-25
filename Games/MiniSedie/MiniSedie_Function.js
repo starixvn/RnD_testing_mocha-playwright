@@ -294,7 +294,9 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
 
     if(_saveResult === true){
-        return await getResult(false)
+        let allResult = await getResult(false)
+        allResult.countRed = countRed
+        return allResult
     }
     return null
 }

@@ -4,7 +4,9 @@ const addContext = require('mochawesome/addContext')
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 import { GameLobbyLocator } from '../GameLobby_Locator'
+import { ResultLocator } from '../Result_Locator'
 import * as MiniSedieFunc from './MiniSedie_Function'
+import * as ResultFunc from './../Result_Function'
 
 describe('MiniSedie Game', ()=>{
   before(async function(){
@@ -171,7 +173,9 @@ describe('MiniSedie Game', ()=>{
     await utils.clickPos(GameLobbyLocator.Result.x, GameLobbyLocator.Result.y)
     await utils.sleep(5000)
     await utils.switchTabs(1)
-    console.log(await page.title())
+    await ResultFunc.selectGame(game)
+    await utils.clickEl(ResultLocator.btnSearch)
+    await ResultFunc.verifyFormatTime()
   })
 
 })

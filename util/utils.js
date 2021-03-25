@@ -137,9 +137,9 @@ export const waitForLoadState = async() => {
      }
 }
 // Wait Element 
-export const waitEl = async(_el) => {
+export const waitEl = async(_el,_state='visible') => {
     try {
-        await page.waitForSelector(_el, { timeout : config.setting.timeout})
+        await page.waitForSelector( _el, { timeout : config.setting.timeout, state : _state})
      } catch (error) {
         console.error(error.message);
         // this.screenFail()
@@ -180,6 +180,18 @@ export const sendKeys = async(_el, _val) => {
         console.error(error.message);
         // this.screenFail()
         await shouldBeEqual(true,false,"Error - send keys")
+    }
+}
+
+// Get Text
+export const getText = async(_el) => {
+    try {
+        await page.waitForSelector(_el, { timeout : config.setting.timeout })
+        return await page.innerText(_el)
+    } catch (error) {
+        console.error(error.message);
+        // this.screenFail()
+        await shouldBeEqual(true,false,"Error - get Text")
     }
 }
 
@@ -242,8 +254,8 @@ export const selectDrp = async(_el, _val) => {
 export const switchTabs = async(_index) => {
     try {
         await page.waitForTimeout();
-        await page.bringToFront()
         page = await pages[_index]
+        await page.bringToFront()
     } catch (error) {
         console.log('Error '+error.message)
         await shouldBeEqual(true,false,"Error - switch Tab")
