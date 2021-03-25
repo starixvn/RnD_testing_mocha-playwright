@@ -161,7 +161,8 @@ const getUserResult = async() => {
         return null
     }
 }
-export const verifySettlement = async(_choice,_chip=1) => {
+
+export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     /*  Param Explained:
         _choice : input choice option will be selected, ex: 'Even' , 'Odd', '4Red' ....
         _chip : input chip amount will be selected, by default = 1
@@ -311,6 +312,10 @@ export const verifySettlement = async(_choice,_chip=1) => {
     let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
     // console.log(Math.abs(currentBalance-balance))
     await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
+
+    if(_saveResult === true){
+
+    }
 }
 
 const verifyDealer = async() => {

@@ -110,7 +110,7 @@ export const verifyMaxBet = async(_choice) =>{
     }
 }
 const getBalance = async() => {
-    return await GameLobbyFunc.getBalance()
+    return await utils.getBalance()
 }
 const getRawData = async(_mes) => {
     try {
@@ -125,10 +125,24 @@ const getRawData = async(_mes) => {
         return null
     }
 }
-const getResult =  async() => {
+const getResult = async(_onlyResult=true) => {
     try {
         let rawData = await getRawData(`minisedie,["MiniSeDie",{"finish":{"result"`)
-        return await utils.getDataJsonPath(rawData,`$..finish.result`)
+        if(_onlyResult === true) {
+            return await utils.getDataJsonPath(rawData,`$..finish.result`)
+        } else {
+            const roundId = await utils.getDataJsonPath(rawData, `$..roundId`)
+            const result = await utils.getDataJsonPath(rawData, `$..settlementResult`)
+            return { 
+                roundId : roundId, 
+                odd : result.odd, 
+                even : result.even, 
+                red3 : result.red3, 
+                red4 : result.red4, 
+                white3 : result.white3,
+                white4 : result.white4
+            }
+        }
     } catch (error) {
         console.log(error.message)
         return null
@@ -143,10 +157,11 @@ const getUserResult = async() => {
         return null
     }
 }
-export const verifySettlement = async(_choice,_chip=1) => {
+export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     /*  Param Explained:
         _choice : input choice option will be selected, ex: 'Even' , 'Odd', '4Red' ....
         _chip : input chip amount will be selected, by default = 1
+        _saveResult : when this variable = true, result in this round will be saved
     */
     let countRed = 0, currentBalance, lowcase, result, status
     let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, White3: 3.75, White4: 14.4 }
@@ -277,6 +292,11 @@ export const verifySettlement = async(_choice,_chip=1) => {
     let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
     // console.log(Math.abs(currentBalance-balance))
     await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
+
+    if(_saveResult === true){
+        return await getResult(false)
+    }
+    return null
 }
 
 const verifyStatistic = async() => {

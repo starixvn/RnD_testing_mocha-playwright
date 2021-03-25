@@ -121,6 +121,7 @@ export const navigate = async(_url) => {
         await page.waitForTimeout(500)
     } catch (error) {
         console.error(error.message)
+        await shouldBeEqual(true,false,"Timeout - navigate this page")
     }
 }
 
@@ -130,8 +131,9 @@ export const waitForLoadState = async() => {
     try {
         await page.waitForLoadState('load', { timeout : config.setting.timeout })
      } catch (error) {
-         console.error(error.message);
-         // this.screenFail()
+        console.error(error.message);
+        // this.screenFail()
+        await shouldBeEqual(true,false,"Timeout - wait for load event to be fired")
      }
 }
 // Wait Element 
@@ -139,8 +141,9 @@ export const waitEl = async(_el) => {
     try {
         await page.waitForSelector(_el, { timeout : config.setting.timeout})
      } catch (error) {
-         console.error(error.message);
-         // this.screenFail()
+        console.error(error.message);
+        // this.screenFail()
+        await shouldBeEqual(true,false,"Timeout - wait for Selector can be visible")
      }
 }
 // Click Element
@@ -150,8 +153,9 @@ export const clickEl = async(_el) => {
         await page.click(_el)
         await page.waitForTimeout(500)
      } catch (error) {
-         console.error(error.message);
-         // this.screenFail()
+        console.error(error.message);
+        // this.screenFail()
+        await shouldBeEqual(true,false,"Error - click Element")
      }
 }
 
@@ -161,8 +165,9 @@ export const clickPos = async(_x, _y) => {
         await page.mouse.click(_x,_y)
         await page.waitForTimeout(500)
      } catch (error) {
-         console.error(error.message);
-         // this.screenFail()
+        console.error(error.message);
+        // this.screenFail()
+        await shouldBeEqual(true,false,"Error - click Position")
      }
 }
 
@@ -174,6 +179,7 @@ export const sendKeys = async(_el, _val) => {
     } catch (error) {
         console.error(error.message);
         // this.screenFail()
+        await shouldBeEqual(true,false,"Error - send keys")
     }
 }
 
@@ -185,6 +191,7 @@ export const getAttribute = async(_el, _val) => {
     } catch (error) {
         console.error(error.message);
         // this.screenFail()
+        await shouldBeEqual(true,false,"Error - get Attribute")
     }
 }
 
@@ -227,6 +234,19 @@ export const selectDrp = async(_el, _val) => {
         await page.selectOption(_el, { value : _val })
     }  catch (error) {
         console.log('Error '+error.message)
+        await shouldBeEqual(true,false,"Error - select item on dropdown list")
+    }
+}
+
+// Switch tab
+export const switchTabs = async(_index) => {
+    try {
+        await page.waitForTimeout();
+        await page.bringToFront()
+        page = await pages[_index]
+    } catch (error) {
+        console.log('Error '+error.message)
+        await shouldBeEqual(true,false,"Error - switch Tab")
     }
 }
 
@@ -469,7 +489,7 @@ export const shouldBeEqual = async(_val,_expect,_mess="") => {
 export const Login = async(_env,_game) => {
     // await wsHearMessageOff()
     let flag
-    if(_env != 'cf_local') {
+    if(_env !== 'cf_local') {
         // Login Member Site
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
@@ -480,15 +500,14 @@ export const Login = async(_env,_game) => {
     }
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
+    await getSession()
         // console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
-    await getSession()
 }
 
 export const getDataJsonPath = async(_rawData, _jsonpath) => {
     return jp.value(JSON.parse(_rawData),_jsonpath)
 }
-const isNumber = async(n) => { return /([0-9]*,?)*(\.[0-9]*)?/.test(n) }
 export const getUIBalance = async(_path,_left=null, _top=null, _width=null, _height=null) => {
     try {
         if(typeof _path === 'object') {

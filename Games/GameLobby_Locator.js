@@ -21,5 +21,6 @@ export const GameLobbyLocator = {
 	FishPrawnCrabIcon : { x : 838, y : 445 },
 	DragonTigerIcon : { x : 1013, y : 271 },
 	BlackJackIcon : { x : 1187, y : 274 },
-	RouletteIcon : { x : 1185, y : 447 }
+	RouletteIcon : { x : 1185, y : 447 },
+	Result : { x: 50, y : 660 }
 }
