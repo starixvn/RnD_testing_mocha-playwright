@@ -4,6 +4,8 @@ const addContext = require('mochawesome/addContext')
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 import * as VipSedieFunc from './VipSedie_Function'
+import * as GameLobbyFunc from './../GameLobby_Function'
+import * as ResultFunc from './../Result_Function'
 
 describe('VipSedie Game', ()=>{
   before(async function(){
@@ -17,6 +19,8 @@ describe('VipSedie Game', ()=>{
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
+  
+  let result
 
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
       await VipSedieFunc.openFromLobby()
@@ -157,7 +161,7 @@ describe('VipSedie Game', ()=>{
   })
   
   it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
-    await VipSedieFunc.verifySettlement("White4",50)
+    result = await VipSedieFunc.verifySettlement("White4",50,true)
   })
 
   it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
@@ -174,6 +178,26 @@ describe('VipSedie Game', ()=>{
 
   it('TC_038_Full_Smoke_Verify Home', async() => {
     await VipSedieFunc.returnHome()
+  })
+
+  it('TC_039_Full_Smoke_Verify Result Page', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.VipSedie.verifyResult(await result)
+  })
+
+  it('TC_40_Full_Smoke_Verify searching an invalid roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.VipSedie.verifyInvalidRoundID()
+  })
+
+  it('TC_41_Full_Smoke_Verify searching an archived roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.VipSedie.verifyArchivedRoundID()
+  })
+
+  it('TC_042_Full_Smoke_Verify searching with roundid =0', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.VipSedie.verifyRoundID0()
   })
 
 })

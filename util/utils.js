@@ -175,7 +175,7 @@ export const clickPos = async(_x, _y) => {
 export const sendKeys = async(_el, _val) => {
     try {
         await page.waitForSelector(_el, { timeout : config.setting.timeout })
-        await page.fill(_el, _val)
+        await page.fill(_el, _val.toString())
     } catch (error) {
         console.error(error.message);
         // this.screenFail()
@@ -222,6 +222,56 @@ export const isValueNotEqualOnAttribute = async(_el, _val, _strCompare) => {
         console.log('Error '+error.message)
         return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
     }
+}
+
+// Verify value of Attribute is equal strCompare
+export const isValueEqualOnAttribute = async(_el, _val, _strCompare) => {
+    try {
+        let loop = true;
+        while(loop){
+            if((await getAttribute(_el, _val)).toString() === _strCompare) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
+            setTimeout(() => { 
+                loop = false
+              }, setting.timeout);
+        }
+        return { Val : false , Err : { IsErr : false , ErrMess : ""}}
+    } catch (error) {
+        console.log('Error '+error.message)
+        return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
+    }
+}
+
+// Verify Status of Element 
+export const isStatusLocator = async(_el, _status) =>{
+    // Support Status = isChecked | isEditable | isEnabled | isHidden | isVisible
+    try {
+        let _Val,_ErrMess = ""
+        if(_status === "isChecked") {
+            _Val = await page.isCheck(_el, { timeout : config.setting.timeout })
+        } else if (_status === "isDisabled") {
+            _Val = await page.isDisabled(_el, { timeout : config.setting.timeout })
+        } else if(_status === "isEditable") {
+            _Val = await page.isEditable(_el, { timeout : config.setting.timeout })
+        } else if(_status === "isEnabled") {
+            _Val = await page.isEnabled(_el, { timeout : config.setting.timeout })
+        } else if(_status === "isHidden") {
+            _Val = await page.isHidden(_el, { timeout : config.setting.timeout })
+        } else if(_status === "isVisible") {
+            _Val = await page.isVisible(_el, { timeout : config.setting.timeout })
+        } else { _Val = null, _ErrMess = "Status is not supported"}
+        return { Val : _Val , Err : { IsErr : false , ErrMess : _ErrMess}}
+    } catch (error) {
+        console.log('Error '+error.message)
+        return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
+    }
+}
+export const statusLocator = {
+    isChecked : "isChecked",
+    isDisabled : "isDisabled",
+    isEditable : "isEditable",
+    isEnabled : "isEnabled",
+    isHidden : "isHidden",
+    isVisible : "isVisible"
 }
 
 // Verify Title
@@ -670,7 +720,11 @@ export const wsClient = class {
         await this.waitMessage('42/user/roulette,["Roulette",{"gameConfigs')
         let mess =  await this.getMessage('42/user/roulette,["Roulette",{"gameConfigs')
         mess = await this.getRawData(mess)
+        await this.closeSocket()
         return await getDataJsonPath(mess,'$..user.red')
+    }
+    async closeSocket() {
+        this.client.close(0,"Closed Socket")
     }
 }
 

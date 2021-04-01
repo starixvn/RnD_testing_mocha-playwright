@@ -3,8 +3,7 @@ const game = "MiniSedie"
 const addContext = require('mochawesome/addContext')
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
-import { GameLobbyLocator } from '../GameLobby_Locator'
-import { ResultLocator } from '../Result_Locator'
+import * as GameLobbyFunc from './../GameLobby_Function'
 import * as MiniSedieFunc from './MiniSedie_Function'
 import * as ResultFunc from './../Result_Function'
 
@@ -148,10 +147,10 @@ describe('MiniSedie Game', ()=>{
   //   await MiniSedieFunc.verifySettlement("White3",100)
   // })
   
-  // it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
-  //   result = await MiniSedieFunc.verifySettlement("White4",10,true)
-  //   console.log(result)
-  // })
+  it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
+    result = await MiniSedieFunc.verifySettlement("White4",10,true)
+    console.log(result)
+  })
 
   // it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
   //   await MiniSedieFunc.openGuide()
@@ -169,13 +168,24 @@ describe('MiniSedie Game', ()=>{
   //   await MiniSedieFunc.returnClose()
   // })
 
-  it('TC_039_Full_Smoke_Verify ResultPage', async()=>{
-    await utils.clickPos(GameLobbyLocator.Result.x, GameLobbyLocator.Result.y)
-    await utils.sleep(5000)
-    await utils.switchTabs(1)
-    await ResultFunc.selectGame(game)
-    await utils.clickEl(ResultLocator.btnSearch)
-    await ResultFunc.verifyFormatTime()
+  it('TC_039_Full_Smoke_Verify Result Page', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.miniSedie.verifyResult(await result)
+  })
+
+  it('TC_40_Full_Smoke_Verify searching an invalid roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.miniSedie.verifyInvalidRoundID()
+  })
+
+  it('TC_41_Full_Smoke_Verify searching an archived roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.miniSedie.verifyArchivedRoundID()
+  })
+
+  it('TC_042_Full_Smoke_Verify searching with roundid =0', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.miniSedie.verifyRoundID0()
   })
 
 })

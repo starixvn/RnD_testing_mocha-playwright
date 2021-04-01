@@ -4,6 +4,8 @@ const addContext = require('mochawesome/addContext')
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 import * as SedieFunc from './Sedie_Function'
+import * as ResultFunc from './../Result_Function'
+import * as GameLobbyFunc from './../GameLobby_Function'
 
 describe('Sedie Game', ()=>{
   before(async function(){
@@ -19,6 +21,7 @@ describe('Sedie Game', ()=>{
     }
   })
 
+  let result;
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
       await SedieFunc.openFromLobby()
       await SedieFunc.verifySignInSuccessfully()
@@ -157,7 +160,8 @@ describe('Sedie Game', ()=>{
   })
   
   it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
-    await SedieFunc.verifySettlement("White4",10)
+    result = await SedieFunc.verifySettlement("White4",10,true)
+    console.log(result)
   })
 
   it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
@@ -176,4 +180,25 @@ describe('Sedie Game', ()=>{
     await SedieFunc.returnHome()
   })
 
+  it('TC_039_Full_Smoke_Verify Result Page', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.Sedie.verifyResult(await result)
+  })
+
+  it('TC_40_Full_Smoke_Verify searching an invalid roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.Sedie.verifyInvalidRoundID()
+  })
+
+  it('TC_41_Full_Smoke_Verify searching an archived roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.Sedie.verifyArchivedRoundID()
+  })
+
+  it('TC_042_Full_Smoke_Verify searching with roundid =0', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.Sedie.verifyRoundID0()
+  })
+
 })
+

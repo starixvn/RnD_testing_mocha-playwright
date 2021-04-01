@@ -1,6 +1,7 @@
 import { GameLobbyLocator } from './GameLobby_Locator'
 import * as utils from '../util/utils'
 import * as config from '../config/config'
+import { util } from 'chai'
 
 export const verifyLoginSuccessfully = async() => {
         //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
@@ -27,4 +28,14 @@ export const OpenGameFromLobby = async(_Gamename) => {
 
 export const getBalance = async() => {
     return await utils.getUIBalance(GameLobbyLocator.Balance)
+}
+
+export const openResultPage = async() => {
+    await utils.clickPos(GameLobbyLocator.Result.x, GameLobbyLocator.Result.y)
+    for(let i = 0; i < config.setting.timeout ; i++){
+        if( await pages.length === 2) { break; }
+        console.log(pages.length)
+        await utils.sleep(500)
+    }
+    await utils.switchTabs(1)
 }
