@@ -38,6 +38,6 @@
         "demo": "mocha  --timeout 0 Games/Demo/demo1.js -r @babel/register"
     },
     "dependencies": {
-        "jsonpath": "^1.1.0"
+        "jsonpath": "^1.1.1"
     }
 }

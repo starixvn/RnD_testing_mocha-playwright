@@ -318,7 +318,15 @@ export const GetSettleResult = async() => {
   let _roundid = jp.query(obj[1],`$..roundId`);
   let _result = jp.query(obj[1],`$..result`);
   let _settleresult = jp.query(obj[1],`$..settlementResult`);
-  return { result : _result , roundid : _roundid, settleresult : _settleresult}
+  let _oddwin = jp.value(obj[1],`$..settlementResult.even`);
+  let _choicewin = _oddwin
+  if (_choicewin == true){
+    _choicewin = 'Chẵn'
+  }
+  else {
+    _choicewin = 'Lẻ'
+  }
+  return { result : _result , roundid : _roundid[0], settleresult : _settleresult, choicewin : _choicewin}
 }
 
 //Check Round History

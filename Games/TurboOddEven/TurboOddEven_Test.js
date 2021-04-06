@@ -3,6 +3,7 @@ const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as TurboOddEvenFunc from '../TurboOddEven/TurboOddEven_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
+import * as ResultFunc from '../Result_Function'
 import {TurboOddEvenLocator} from './TurboOddEven_Locator'
 
 describe('TurboOddEven Game', ()=>{
@@ -45,11 +46,13 @@ describe('TurboOddEven Game', ()=>{
   //   await TurboOddEvenFunc.CloseStatistic()
   // })  
 
-  // it('TC_05_Full_Smoke_Verify Preset Content', async () => {
-  //   await TurboOddEvenFunc.OpenPreset()
-  //   await TurboOddEvenFunc.VerifyPresetContent()
-  //   await TurboOddEvenFunc.ClosePreset()
-  // })  
+  it('TC_05_Full_Smoke_Verify Preset Content', async () => {
+    await TurboOddEvenFunc.OpenPreset()
+    await TurboOddEvenFunc.VerifyPresetContent()
+    await TurboOddEvenFunc.ClosePreset()
+    await TurboOddEvenFunc.PlaceBet('Odd',1000)
+    await TurboOddEvenFunc.CheckSettleBalance()
+  })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {
     const pos = "Odd"
@@ -343,7 +346,7 @@ describe('TurboOddEven Game', ()=>{
      await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   }) 
 
-  it('TC_25_Full_Verify Betting [100-500] on Even with accumulate presetchip', async () => {
+  it('TC_25_Full_Verify Betting [100-500] on Even with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Even, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
     const Achip =  [100,200,500]
@@ -356,13 +359,31 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
     await TurboOddEvenFunc.CheckSettleBalance()
+    let settleresult = await TurboOddEvenFunc.GetSettleResult()
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.OddEvenTurbo.verifyResult(settleresult)
      //Post-condition: clear preset value
      await TurboOddEvenFunc.OpenPreset()
      await TurboOddEvenFunc.ClearPresetChip()
      await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   }) 
 
-  it('TC_26_Full_Smoke_Verify Close Game Success', async () => {
+  it('TC_26_Full_Smoke_Verify searching an invalid roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.OddEvenTurbo.verifyInvalidRoundID()
+  })
+
+  it('TC_27_Full_Smoke_Verify searching an archived roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.OddEvenTurbo.verifyArchivedRoundID()
+  })
+
+  it('TC_28_Full_Smoke_Verify searching with roundid =0', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.OddEvenTurbo.verifyRoundID0()
+  })
+
+  it('TC_29_Full_Smoke_Verify Close Game Success', async () => {
     await TurboOddEvenFunc.CloseGame()
   }) 
 

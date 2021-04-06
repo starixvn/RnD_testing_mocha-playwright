@@ -4,6 +4,7 @@ import { dir } from 'console'
 import * as utils from '../../util/utils'
 import * as BigSmallFunc from '../BigSmall/BigSmall_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
+import * as ResultFunc from '../Result_Function'
 import {BigSmallLocator} from './BigSmall_Locator'
 
 describe('BigSmall Game', ()=>{
@@ -24,7 +25,7 @@ describe('BigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await GameLobbyFunc.OpenGameFromLobby(game)
-    await BigSmallFunc.VerifySignInSuccessfully()
+   await BigSmallFunc.VerifySignInSuccessfully()
 
   })  
 
@@ -50,6 +51,8 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.VerifyPresetContent()
     await BigSmallFunc.ClosePreset()
+    await BigSmallFunc.PlaceBet('Big',1)
+    await BigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
@@ -212,7 +215,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_17_Full_Verify Betting on Small with accumulate presetchip', async () => {
+  it('TC_17_Full_Smoke_Verify Betting on Small with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
     const Achip =  [1,5,10,50,100,200,500, 1000]
@@ -225,13 +228,31 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.PlaceBet(pos,null,'wait')
     await BigSmallFunc.VerifyBetStake(pos,_stake)  
     await BigSmallFunc.CheckSettleBalance()
+    let settleresult = await BigSmallFunc.GetSettleResult()
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmall.verifyResult(settleresult)
      //Post-condition: clear preset value
      await BigSmallFunc.OpenPreset()
      await BigSmallFunc.ClearPresetChip()
      await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_18_Full_Smoke_Verify Close Game Success', async () => {
+  it('TC_18_Full_Smoke_Verify searching an invalid roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmall.verifyInvalidRoundID()
+  })
+
+  it('TC_19_Full_Smoke_Verify searching an archived roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmall.verifyArchivedRoundID()
+  })
+
+  it('TC_20_Full_Smoke_Verify searching with roundid =0', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmall.verifyRoundID0()
+  })
+
+  it('TC_21_Full_Smoke_Verify Close Game Success', async () => {
     await BigSmallFunc.CloseGame()
   }) 
 

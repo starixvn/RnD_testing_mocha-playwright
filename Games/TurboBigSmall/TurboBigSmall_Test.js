@@ -3,6 +3,7 @@ const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as TurboBigSmallFunc from '../TurboBigSmall/TurboBigSmall_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
+import * as ResultFunc from '../Result_Function'
 import {TurboBigSmallLocator} from './TurboBigSmall_Locator'
 
 describe('TurboBigSmall Game', ()=>{
@@ -49,6 +50,8 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.VerifyPresetContent()
     await TurboBigSmallFunc.ClosePreset()
+    await TurboBigSmallFunc.PlaceBet('Big',1)
+    await TurboBigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
@@ -343,7 +346,7 @@ describe('TurboBigSmall Game', ()=>{
      await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_25_Full_Smoke_Verify Betting [100-500] on Small with accumulate presetchip', async () => {
+  it('TC_25_Full_Smoke_Verify Betting [100-500] on Small with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
     const Achip =  [100,200,500]
@@ -356,13 +359,31 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.PlaceBet(pos,null,'wait')
     await TurboBigSmallFunc.VerifyBetStake(pos,_stake)  
     await TurboBigSmallFunc.CheckSettleBalance()
+    let settleresult = await TurboBigSmallFunc.GetSettleResult()
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmallTurbo.verifyResult(settleresult)
      //Post-condition: clear preset value
      await TurboBigSmallFunc.OpenPreset()
      await TurboBigSmallFunc.ClearPresetChip()
      await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
+  
+  it('TC_26_Full_Smoke_Verify searching an invalid roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmallTurbo.verifyInvalidRoundID()
+  })
 
-  it('TC_26_Full_Smoke_Verify Close Game Success', async () => {
+  it('TC_27_Full_Smoke_Verify searching an archived roundid', async() =>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmallTurbo.verifyArchivedRoundID()
+  })
+
+  it('TC_28_Full_Smoke_Verify searching with roundid =0', async()=>{
+    await GameLobbyFunc.openResultPage()
+    await ResultFunc.BigSmallTurbo.verifyRoundID0()
+  })
+
+  it('TC_29_Full_Smoke_Verify Close Game Success', async () => {
     await TurboBigSmallFunc.CloseGame()
   }) 
   

@@ -621,6 +621,7 @@ export const getBalance = async()=>{
         return await client.getBalance(username,session)
     }
 }
+
 export const setBalance = async(_custid,_balance=20000) => {
     // await page.route("")
     // await fetch("http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer", {
@@ -733,4 +734,32 @@ export const getSession = async()=>{
     console.log(_rawData)
     session = await getDataJsonPath(_rawData,'$..ss.ss')
     username = await getDataJsonPath(_rawData,'$..ss.username')
+}
+
+export const gameType = {
+    Sedie : "XocXoc",
+    VipSedie : "VipSeDie",
+    MiniSeDie : "MiniSeDie",
+    BigSmall : "taixiu",
+    TurboBigSmall : "TXTurbo",
+    TurboOddEven : "OETurbo"
+ }
+
+export const verifyBettingTime = async(_game,_bettime) => {
+    //Clear ws to reach new round data
+  wsMessageReceived = []
+  let _found = await getWsMessage(`42/user/${GameType[_game].toLocaleLowerCase()},["${GameType[_game]}",{"remainingTime":`)
+  const res = String(_found).split(`42/user/${GameType[_game].toLocaleLowerCase()},`);
+  let remaintime = await getDataJsonPath(res[1],'$..remainingTime')
+  // Wait for delay settle time
+  await sleep((remaintime - _bettime -1) *1000)
+  //Start count down bet time
+  for(let i=_bettime; i>=1; i--){
+      await sleep(1000)
+  }    
+  //Check Settle
+  let  _result =await wsMessageReceived.filter(element => element.includes(`42/user/${GameType[_game].toLocaleLowerCase()},["${GameType[_game]}",{"finish":{"result"`));
+  //Check settle ws msg should be 1 or 2 in array
+  await expect(_result.length).to.be.within(1,2)
+ 
 }

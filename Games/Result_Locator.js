@@ -1,12 +1,12 @@
 export const ResultLocator = {
-    lblTitle : "//div[@class='header']/h1[text()='Kết Quả']",
-    lblNote : "//input[@id='txtPW']",
+    lblTitle : '"Kết Quả"',
+    lblNote : 'id=txtPW',
     btnSearch : "//button",
-    lblNodata : "//td[text()='Không có dữ liệu.']",
+    lblNodata : '"Không có dữ liệu."',
     formSearching : {
-        drpGameType : "//select[@id='GameType']",
-        txtRoundID : "//input[@id='RoundId']",
-        txtDate : "//input[@id='Date']"
+        drpGameType : '//*[@id="GameType"]',
+        txtRoundID : 'id=RoundId',
+        txtDate : 'id=Date'
     },
     tblResult : {
         lblTime : "//table//tbody/tr/td[1]",
@@ -58,6 +58,30 @@ export const ResultLocator = {
                 countRed3 : "Lẻ, 3 đỏ",
                 countRed4 : "Chẵn, 4 đỏ"
             }
-        }
+        },
+        BigSmall : {
+            lblResult1 : "//*/tr[1]//img[1]",
+            lblResult2 : "//*/tr[1]//img[2]",
+            lblResult3 : "//*/tr[1]//img[3]",
+            total : "//*/tr[1]//td[4]",
+            choicewin : "//*/tr[1]//td[5]/span"
+            },
+
+        BigSmallTurbo : {
+            lblResult1 : "//*/tr[1]//img[1]",
+            lblResult2 : "//*/tr[1]//img[2]",
+            lblResult3 : "//*/tr[1]//img[3]",
+            total : "//*/tr[1]//td[4]",
+            choicewin : "//*/tr[1]//td[5]/span"
+            } ,
+        
+        OddEvenTurbo : {
+            lblResult1 : "//*/tr[1]//img[1]",
+            lblResult2 : "//*/tr[1]//img[2]",
+            lblResult3 : "//*/tr[1]//img[3]",
+            total : "//*/tr[1]//td[4]",
+            choicewin : "//*/tr[1]//td[5]/span"
+            }        
+    
     }
 }
