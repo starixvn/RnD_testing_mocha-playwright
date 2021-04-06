@@ -737,28 +737,29 @@ export const getSession = async()=>{
 }
 
 export const gameType = {
-    Sedie : "XocXoc",
-    VipSedie : "VipSeDie",
-    MiniSeDie : "MiniSeDie",
-    BigSmall : "taixiu",
-    TurboBigSmall : "TXTurbo",
-    TurboOddEven : "OETurbo"
+    Sedie : {_ws:"XocXoc", _bettime: 30 },
+    VipSedie :  {_ws:"VipSeDie", _bettime: 30 },
+    MiniSeDie : {_ws:"MiniSeDie", _bettime: 30 },
+    BigSmall : {_ws:"taixiu", _bettime: 50 },
+    TurboBigSmall : {_ws:"TXTurbo", _bettime: 30 },
+    TurboOddEven : {_ws:"OETurbo", _bettime: 30 }
  }
 
-export const verifyBettingTime = async(_game,_bettime) => {
+export const verifyBettingTime = async(_game) => {
     //Clear ws to reach new round data
   wsMessageReceived = []
-  let _found = await getWsMessage(`42/user/${GameType[_game].toLocaleLowerCase()},["${GameType[_game]}",{"remainingTime":`)
-  const res = String(_found).split(`42/user/${GameType[_game].toLocaleLowerCase()},`);
+  let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
+  const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`);
   let remaintime = await getDataJsonPath(res[1],'$..remainingTime')
+  let bettime = gameType[_game]._bettime
   // Wait for delay settle time
-  await sleep((remaintime - _bettime -1) *1000)
+  await sleep((remaintime - bettime  -1) *1000)
   //Start count down bet time
-  for(let i=_bettime; i>=1; i--){
+  for(let i=bettime; i>=1; i--){
       await sleep(1000)
   }    
   //Check Settle
-  let  _result =await wsMessageReceived.filter(element => element.includes(`42/user/${GameType[_game].toLocaleLowerCase()},["${GameType[_game]}",{"finish":{"result"`));
+  let  _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"finish":{"result"`));
   //Check settle ws msg should be 1 or 2 in array
   await expect(_result.length).to.be.within(1,2)
  
