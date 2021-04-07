@@ -2,11 +2,17 @@ import * as utils from '../../util/utils'
 import {GameLobbyLocator} from '../GameLobby_Locator'
 import * as GameLobbyFunc from '../GameLobby_Function'
 import {MiniSedieLocator} from './MiniSedie_Locator'
+import {DB} from './../DataBase_Locator'
 import * as config from '../../config/config'
 const chai = require('chai')
 const expect = chai.expect
 const fs = require('fs')
 const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`
+
+
+// Data 
+let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, White3: 3.75, White4: 14.4 }
+
 
 export const openFromLobby = async() => {
     await utils.sleep(1000)
@@ -132,15 +138,16 @@ const getResult = async(_onlyResult=true) => {
             return await utils.getDataJsonPath(rawData,`$..finish.result`)
         } else {
             const roundId = await utils.getDataJsonPath(rawData, `$..roundId`)
-            const result = await utils.getDataJsonPath(rawData, `$..settlementResult`)
+            const settlementResult = await utils.getDataJsonPath(rawData, `$..settlementResult`)
             return { 
                 roundId : roundId, 
-                odd : result.odd, 
-                even : result.even, 
-                red3 : result.red3, 
-                red4 : result.red4, 
-                white3 : result.white3,
-                white4 : result.white4
+                odd : settlementResult.odd, 
+                even : settlementResult.even, 
+                red3 : settlementResult.red3, 
+                red4 : settlementResult.red4, 
+                white3 : settlementResult.white3,
+                white4 : settlementResult.white4,
+                result : await utils.getDataJsonPath(rawData,`$..finish.result`)
             }
         }
     } catch (error) {
@@ -163,8 +170,8 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
         _chip : input chip amount will be selected, by default = 1
         _saveResult : when this variable = true, result in this round will be saved
     */
-    let countRed = 0, currentBalance, lowcase, result, status
-    let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, White3: 3.75, White4: 14.4 }
+    let countRed = 0, currentBalance, lowcase, result, status,time
+    
     lowcase = _choice.toLowerCase()
     // Wait to Finish Game
     await utils.wsFindMessage(remainingTime)
@@ -175,7 +182,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     console.log("Current Balance: "+currentBalance)
     await placeBet(_choice,_chip)
     result = await getResult()
-    
+    time = new Date().toISOString()
     for(let i=1; i<5 ; i++){
         if (result[`red${i}`] === true) {
             countRed = countRed +1
@@ -295,7 +302,11 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
 
     if(_saveResult === true){
         let allResult = await getResult(false)
+        allResult.choice = _choice
+        allResult.stake = _chip
         allResult.countRed = countRed
+        allResult.time = time
+        allResult.winloss = winloss
         return allResult
     }
     return null
@@ -378,4 +389,81 @@ export const verifyHistoryPopup = async() => {
 export const closeHistory = async() => {
     await utils.clickPos(MiniSedieLocator.HistoryClose.x, MiniSedieLocator.HistoryClose.y)
     await verifyStatistic()
+}
+
+export const verifyDBCuoc = async(_resultOnWeb) => {
+    let qrFindCuoc = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundId}]}
+    let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.MiniSedie.cuoc,qrFindCuoc)
+    // Verify _id is existed
+    await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+    // Verify phien
+    await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundId)
+    // Verify uid is existed
+    await utils.shouldBeEqual(("uid" in resultOnDb),true,"uid column is not existed")
+    // Verify MemberId
+    await utils.shouldBeEqual(resultOnDb.memberId.toString(),await utils.getMemberId())
+    // Verify name
+    await utils.shouldBeEqual(resultOnDb.name,await utils.getName())
+    // Verify siteId (hard code on Local)
+    await utils.shouldBeEqual(resultOnDb.siteId,'4100300')
+    // Verify betwin
+    await utils.shouldBeEqual(resultOnDb.betwin,_resultOnWeb.winloss)
+    // Verify even
+    await utils.shouldBeEqual(resultOnDb.even,
+        (_resultOnWeb.choice === 'Even') ? _resultOnWeb.stake : 0)
+    // Verify odd
+    await utils.shouldBeEqual(resultOnDb.odd,
+        (_resultOnWeb.choice === 'Odd') ? _resultOnWeb.stake : 0)
+    // Verify red4
+    await utils.shouldBeEqual(resultOnDb.red4,
+        (_resultOnWeb.choice === 'Red4') ? _resultOnWeb.stake : 0)
+    // Verify red3
+    await utils.shouldBeEqual(resultOnDb.red3,
+        (_resultOnWeb.choice === 'Red3') ? _resultOnWeb.stake : 0)
+    // Verify white3
+    await utils.shouldBeEqual(resultOnDb.white3,
+        (_resultOnWeb.choice === 'White3') ? _resultOnWeb.stake : 0)
+    // Verify white4
+    await utils.shouldBeEqual(resultOnDb.white4,
+        (_resultOnWeb.choice === 'White4') ? _resultOnWeb.stake : 0)
+    // Verify time
+    await utils.shouldBeEqual(
+        (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+        true,"Settle time is incorrect")
+    // Verify thanhtoan
+    await utils.shouldBeEqual(resultOnDb.thanhtoan,true)
+    // Verify Odds
+    await utils.shouldBeEqual(resultOnDb.odds.even, Odd.Even)
+    await utils.shouldBeEqual(resultOnDb.odds.odd, Odd.Odd)
+    await utils.shouldBeEqual(resultOnDb.odds.red4, Odd.Red4)
+    await utils.shouldBeEqual(resultOnDb.odds.red3, Odd.Red3)
+    await utils.shouldBeEqual(resultOnDb.odds.white3, Odd.White3)
+    await utils.shouldBeEqual(resultOnDb.odds.white4, Odd.White4)
+    // Verify freebet
+    await utils.shouldBeEqual(resultOnDb.freeBet,false)
+}
+
+export const verifyDBPhien = async(_resultOnWeb)=>{
+    let qrFindPhien = { id :_resultOnWeb.roundId }
+    let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.MiniSedie.phien,qrFindPhien)
+    // Verify column _id is existed
+    await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+    // Verify id
+    await utils.shouldBeEqual(resultOnDb.id,_resultOnWeb.roundId)
+    // Verify result
+    await utils.shouldBeEqual(resultOnDb.result.red1,_resultOnWeb.result.red1)
+    await utils.shouldBeEqual(resultOnDb.result.red2,_resultOnWeb.result.red2)
+    await utils.shouldBeEqual(resultOnDb.result.red3,_resultOnWeb.result.red3)
+    await utils.shouldBeEqual(resultOnDb.result.red4,_resultOnWeb.result.red4)
+    // Verify time
+    await utils.shouldBeEqual(
+        (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+        true,"Time is incorrect")
+    // Verify Settlement result
+    await utils.shouldBeEqual(resultOnDb.settlementResult.odd,_resultOnWeb.odd)
+    await utils.shouldBeEqual(resultOnDb.settlementResult.even,_resultOnWeb.even)
+    await utils.shouldBeEqual(resultOnDb.settlementResult.red3,_resultOnWeb.red3)
+    await utils.shouldBeEqual(resultOnDb.settlementResult.red4,_resultOnWeb.red4)
+    await utils.shouldBeEqual(resultOnDb.settlementResult.white3,_resultOnWeb.white3)
+    await utils.shouldBeEqual(resultOnDb.settlementResult.white4,_resultOnWeb.white4)
 }

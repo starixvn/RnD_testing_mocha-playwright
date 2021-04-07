@@ -2,7 +2,7 @@ import * as config from './../config/config'
 import pixelmatch from 'pixelmatch'
 import * as MemberSiteFunc from '../Games/MemberSite_Function'
 import * as GameLobbyFunc from '../Games/GameLobby_Function'
-import { throws } from 'assert';
+import * as Mongodb from 'mongodb'
 const W3CWebSocket = require('websocket').w3cwebsocket;
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
@@ -11,7 +11,7 @@ const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
 const sharp = require('sharp')
 sharp.cache({ files : 0 });
-let username=null,session=null
+let username=null,session=null,name=null
 
 
 // Verify Message is existed
@@ -215,7 +215,7 @@ export const isValueNotEqualOnAttribute = async(_el, _val, _strCompare) => {
             if((await getAttribute(_el, _val)).toString() != _strCompare) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
-              }, setting.timeout);
+              }, config.setting.timeout);
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}
     } catch (error) {
@@ -232,7 +232,7 @@ export const isValueEqualOnAttribute = async(_el, _val, _strCompare) => {
             if((await getAttribute(_el, _val)).toString() === _strCompare) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
-              }, setting.timeout);
+              }, config.setting.timeout);
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}
     } catch (error) {
@@ -734,6 +734,24 @@ export const getSession = async()=>{
     console.log(_rawData)
     session = await getDataJsonPath(_rawData,'$..ss.ss')
     username = await getDataJsonPath(_rawData,'$..ss.username')
+    name = await getDataJsonPath(_rawData,'$..user.name')
+}
+export const getName = async() =>{
+    return await name
+}
+export const getMemberId = async() => {
+    return await username.match(/_([0-9]+)/)[1]
+}
+// getData Mongodb
+export const mondbGetData = async(connectString, dbName, collection, query)=> {
+    // Get first value of query
+    return new Promise((res,rej) => {
+        Mongodb.MongoClient.connect(connectString, function(err,client){
+            if(err) rej(err)
+            res(client.db(dbName).collection(collection).findOne(query))
+            client.close()
+        }
+    )})
 }
 
 export const gameType = {

@@ -25,13 +25,16 @@
         "google-spreadsheet": "3.1.15",
         "websocket-as-promised": "2.0.1",
         "websocket": "1.0.33",
-        "ua-parser-js": "^0.7.24"
+        "ua-parser-js": "^0.7.24",
+        "mongodb": "^3.6.5"
     },
     "scripts": {
         "test": "mocha  --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "localwin": "mocha  --timeout 0 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "localwindb" : "mocha  --timeout 0 Games/%npm_config_game%/*_DBTest.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "full": "mocha  --timeout 0 Games/**/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "smoke": "mocha  --timeout 0 Games/**/*_Test.js  -r @babel/register --fgrep Smoke_ --file ./Setup.js  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report",
+        "db" : "mocha  --timeout 0 Games/**/*_DBTest.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "p_full": "mocha --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest ",
         "p_smoke": "mocha --timeout 0 Games/**/*_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest ",
         "exportStatus": "mocha  --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register",
