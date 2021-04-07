@@ -757,7 +757,7 @@ export const mondbGetData = async(connectString, dbName, collection, query)=> {
 export const gameType = {
     Sedie : {_ws:"XocXoc", _bettime: 30 },
     VipSedie :  {_ws:"VipSeDie", _bettime: 30 },
-    MiniSeDie : {_ws:"MiniSeDie", _bettime: 30 },
+    MiniSedie : {_ws:"MiniSeDie", _bettime: 30 },
     BigSmall : {_ws:"taixiu", _bettime: 50 },
     TurboBigSmall : {_ws:"TXTurbo", _bettime: 30 },
     TurboOddEven : {_ws:"OETurbo", _bettime: 30 }
@@ -767,18 +767,42 @@ export const verifyBettingTime = async(_game) => {
     //Clear ws to reach new round data
   wsMessageReceived = []
   let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
-  const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`);
+  const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)
   let remaintime = await getDataJsonPath(res[1],'$..remainingTime')
   let bettime = gameType[_game]._bettime
   // Wait for delay settle time
   await sleep((remaintime - bettime  -1) *1000)
   //Start count down bet time
-  for(let i=bettime; i>=1; i--){
+  for(let i=bettime; i>=1; i--)
+    {
       await sleep(1000)
-  }    
+    }    
   //Check Settle
   let  _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"finish":{"result"`));
   //Check settle ws msg should be 1 or 2 in array
   await expect(_result.length).to.be.within(1,2)
  
 }
+
+export const verifyBlockTime = async(_game,_placebetfunc,args) => {
+    //ex:  await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,["Big",1,'nowait'])
+    wsMessageReceived = []
+    let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
+    const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)
+    let remaintime = await getDataJsonPath(res[1],'$..remainingTime')
+    let bettime = gameType[_game]._bettime
+    // Wait for delay settle time
+    await sleep((remaintime - bettime  -1) *1000)
+    for(let i=bettime; i>=1; i--){
+        if(i> 5){
+          await sleep(1000)
+        }
+        if(i==5){
+          await _placebetfunc.apply(this,args)
+          let _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`));
+          await expect(_result.length).to.be.within(1,2)
+        }
+      
+    }    
+  }
+

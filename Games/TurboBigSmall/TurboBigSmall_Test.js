@@ -50,8 +50,9 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.VerifyPresetContent()
     await TurboBigSmallFunc.ClosePreset()
-    await TurboBigSmallFunc.PlaceBet('Big',1)
-    await TurboBigSmallFunc.CheckSettleBalance()
+    await utils.verifyBettingTime(game)
+    await utils.verifyBlockTime(game,TurboBigSmallFunc.PlaceBet,['Big',1,'nowait'])
+
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {

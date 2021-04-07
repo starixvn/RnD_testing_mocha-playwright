@@ -50,8 +50,9 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.VerifyPresetContent()
     await TurboOddEvenFunc.ClosePreset()
-    await TurboOddEvenFunc.PlaceBet('Odd',1000)
-    await TurboOddEvenFunc.CheckSettleBalance()
+    await utils.verifyBettingTime(game)
+    await utils.verifyBlockTime(game,TurboOddEvenFunc.PlaceBet,['Odd',1,'nowait'])
+
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {

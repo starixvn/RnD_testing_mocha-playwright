@@ -51,8 +51,8 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.VerifyPresetContent()
     await BigSmallFunc.ClosePreset()
-    await BigSmallFunc.PlaceBet('Big',1)
-    await BigSmallFunc.CheckSettleBalance()
+    await utils.verifyBettingTime(game)
+    await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
