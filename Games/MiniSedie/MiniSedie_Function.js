@@ -1,12 +1,7 @@
 import * as utils from '../../util/utils'
-import {GameLobbyLocator} from '../GameLobby_Locator'
-import * as GameLobbyFunc from '../GameLobby_Function'
 import {MiniSedieLocator} from './MiniSedie_Locator'
 import {DB} from './../DataBase_Locator'
 import * as config from '../../config/config'
-const chai = require('chai')
-const expect = chai.expect
-const fs = require('fs')
 const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`
 
 
@@ -14,12 +9,6 @@ const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`
 let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, White3: 3.75, White4: 14.4 }
 
 
-export const openFromLobby = async() => {
-    await utils.sleep(1000)
-    await utils.clickPos(GameLobbyLocator.MiniSedieIcon.x, GameLobbyLocator.MiniSedieIcon.y)
-    await utils.sleep(1000)
-    await verifyStatistic()
-}
 
 export const verifySignInSuccessfully = async() => {
     let _result = await utils.wsFindMessage('42/user/minisedie,["MiniSeDie",{"gameConfigs":{')
@@ -428,7 +417,7 @@ export const verifyDBCuoc = async(_resultOnWeb) => {
         (_resultOnWeb.choice === 'White4') ? _resultOnWeb.stake : 0)
     // Verify time
     await utils.shouldBeEqual(
-        (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+        (Math.abs(new Date(_resultOnWeb.time) - new Date(resultOnDb.time))/1000) < 60,
         true,"Settle time is incorrect")
     // Verify thanhtoan
     await utils.shouldBeEqual(resultOnDb.thanhtoan,true)
@@ -457,7 +446,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
     await utils.shouldBeEqual(resultOnDb.result.red4,_resultOnWeb.result.red4)
     // Verify time
     await utils.shouldBeEqual(
-        (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+        (Math.abs(new Date(_resultOnWeb.time) - new Date(resultOnDb.time))/1000) < 60,
         true,"Time is incorrect")
     // Verify Settlement result
     await utils.shouldBeEqual(resultOnDb.settlementResult.odd,_resultOnWeb.odd)

@@ -1,7 +1,5 @@
-const pw = require('playwright')
 const game = "Sedie"
 const addContext = require('mochawesome/addContext')
-import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 import * as SedieFunc from './Sedie_Function'
 import * as ResultFunc from './../Result_Function'
@@ -23,7 +21,7 @@ describe('Sedie Game', ()=>{
 
   let result;
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-      await SedieFunc.openFromLobby()
+      await GameLobbyFunc.OpenGameFromLobby("Sedie")
       await SedieFunc.verifySignInSuccessfully()
   })  
 

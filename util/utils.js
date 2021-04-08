@@ -90,28 +90,6 @@ export const wsWaitMessage = async(_mes)=> {
     
     }
    
-// Check FreeSpin is existed
-export const isFreeSpin = async() => {
-    try {
-        for(let t = 0 ; t< config.setting.loop ; t++){
-            if(typeof wsMessageReceived !== 'undefined'){
-                for(let i = 0; i < wsMessageReceived.length ; i++){
-                    if(wsMessageReceived[i].includes('Authorized')) {
-                        let chk = JSON.parse(wsMessageReceived[i])
-                        if(typeof chk.user.availSpins === 'undefined' ) return false
-                        else if(chk.user.availSpins != 0) return true
-                        else return false
-                    }
-                }
-            }
-            await sleep(1000)
-        }
-        return false
-    } catch (error) {
-        console.log('Error '+error.message)
-        return false
-    }
-}
 
 
 // Go to Page
@@ -241,39 +219,6 @@ export const isValueEqualOnAttribute = async(_el, _val, _strCompare) => {
     }
 }
 
-// Verify Status of Element 
-export const isStatusLocator = async(_el, _status) =>{
-    // Support Status = isChecked | isEditable | isEnabled | isHidden | isVisible
-    try {
-        let _Val,_ErrMess = ""
-        if(_status === "isChecked") {
-            _Val = await page.isCheck(_el, { timeout : config.setting.timeout })
-        } else if (_status === "isDisabled") {
-            _Val = await page.isDisabled(_el, { timeout : config.setting.timeout })
-        } else if(_status === "isEditable") {
-            _Val = await page.isEditable(_el, { timeout : config.setting.timeout })
-        } else if(_status === "isEnabled") {
-            _Val = await page.isEnabled(_el, { timeout : config.setting.timeout })
-        } else if(_status === "isHidden") {
-            _Val = await page.isHidden(_el, { timeout : config.setting.timeout })
-        } else if(_status === "isVisible") {
-            _Val = await page.isVisible(_el, { timeout : config.setting.timeout })
-        } else { _Val = null, _ErrMess = "Status is not supported"}
-        return { Val : _Val , Err : { IsErr : false , ErrMess : _ErrMess}}
-    } catch (error) {
-        console.log('Error '+error.message)
-        return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
-    }
-}
-export const statusLocator = {
-    isChecked : "isChecked",
-    isDisabled : "isDisabled",
-    isEditable : "isEditable",
-    isEnabled : "isEnabled",
-    isHidden : "isHidden",
-    isVisible : "isVisible"
-}
-
 // Verify Title
 export const verifyTitle = async(_title) => {
     try {
@@ -317,14 +262,6 @@ export const clearLog = async() =>{
     wsFindMessage = []
 }
 
-// ScreenShot
-export const screenShotFailed = async() => {
-    try {
-        await page.screenshot({ path: 'ScreenShot'+ path.sep +'Failed_Screen.png', type : "png" })
-    }  catch (error) {
-        console.log('Error '+error.message)
-    }
-}
 export const screenShot = async(_title) => {
     try {
         await page.screenshot({ path: 'ScreenShot'+ path.sep +_title+'.png', type : "png" })
@@ -620,21 +557,6 @@ export const getBalance = async()=>{
     } else {
         return await client.getBalance(username,session)
     }
-}
-
-export const setBalance = async(_custid,_balance=20000) => {
-    // await page.route("")
-    // await fetch("http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer", {
-    //     method: 'post',
-    //     body: 'ObCustId='+custid+'&Balance='+balance,
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    //         'Accept-Language': 'vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
-    //         'Accept-Encoding': 'gzip, deflate'
-    //     }
-    // }).then((response) => console.log(response))
-    // .catch((error) => console.log(error));
 }
 
 // Get Balance by WebSocket

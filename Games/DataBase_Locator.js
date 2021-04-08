@@ -5,6 +5,14 @@ export const DB = {
         MiniSedie : {
             cuoc : 'minisedie_cuocs',
             phien : 'minisedie_phiens'
+        },
+        Sedie : {
+            cuoc : 'xocxoc_cuocs',
+            phien : 'xocxoc_phiens'
+        },
+        VipSedie : {
+            cuoc : 'vipsedie_cuocs',
+            phien : 'vipsedie_phiens'
         }
     }
 }

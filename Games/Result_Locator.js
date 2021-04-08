@@ -19,13 +19,13 @@ export const ResultLocator = {
             redChip : "red-chip",
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[4]",
-            choiceWin : {
-                countRed0 : "Chẵn, 4 trắng",
-                countRed1 : "Lẻ, 1 đỏ",
-                countRed2 : "Chẵn, 2 đỏ",
-                countRed3 : "Lẻ, 3 đỏ",
-                countRed4 : "Chẵn, 4 đỏ"
-            }
+            choiceWin : [
+                "Chẵn, 4 trắng",
+                "Lẻ, 1 đỏ",
+                "Chẵn, 2 đỏ",
+                "Lẻ, 3 đỏ",
+                "Chẵn, 4 đỏ" ]
+            
         },
         MiniSedie : {
             lblResult1 : "//table//tbody/tr/td[3]/i[1]",
@@ -35,13 +35,12 @@ export const ResultLocator = {
             redChip : "red-chip",
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[4]",
-            choiceWin : {
-                countRed0 : "Chẵn, 4 trắng",
-                countRed1 : "Lẻ, 1 đỏ",
-                countRed2 : "Chẵn",
-                countRed3 : "Lẻ, 3 đỏ",
-                countRed4 : "Chẵn, 4 đỏ"
-            }
+            choiceWin : [
+                "Chẵn, 4 trắng",
+                "Lẻ, 1 đỏ",
+                "Chẵn",
+                "Lẻ, 3 đỏ",
+                "Chẵn, 4 đỏ" ]
         },
         VipSedie : {
             lblResult1 : "//table//tbody/tr/td[3]/i[1]",
@@ -51,13 +50,12 @@ export const ResultLocator = {
             redChip : "red-chip",
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[4]",
-            choiceWin : {
-                countRed0 : "Chẵn, 4 trắng",
-                countRed1 : "Lẻ, 1 đỏ",
-                countRed2 : "Chẵn, 2 đỏ",
-                countRed3 : "Lẻ, 3 đỏ",
-                countRed4 : "Chẵn, 4 đỏ"
-            }
+            choiceWin : [
+                "Chẵn, 4 trắng",
+                "Lẻ, 1 đỏ",
+                "Chẵn, 2 đỏ",
+                "Lẻ, 3 đỏ",
+                "Chẵn, 4 đỏ"]
         },
         BigSmall : {
             lblResult1 : "//*/tr[1]//img[1]",

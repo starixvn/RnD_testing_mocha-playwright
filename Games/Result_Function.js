@@ -1,8 +1,5 @@
 import { ResultLocator } from './Result_Locator'
-import * as config from '../config/config'
 import * as utils from '../util/utils'
-const chai = require('chai')
-const expect = chai.expect
 
 const gameName = {
     Sedie : 'SeDie',
@@ -38,8 +35,8 @@ const closePage = async() =>{
     await utils.switchTabs(0)
 }
 export const miniSedie = {
-    verifyResult : async(_Result) =>{
-        await selectGame("MiniSedie")
+    verifyResult : async(_Result,game="MiniSedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
         await utils.clickEl(ResultLocator.btnSearch)
 
@@ -48,66 +45,28 @@ export const miniSedie = {
         // Verify RoundID
         await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
         // Verify Result column
-        if(_Result.countRed === 0){
-            // Verify 4 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult1,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult2,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult3,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult4,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-        } else if(_Result.countRed === 1){
-            // Verify 1 Red 3 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult1,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult2,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult3,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult4,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-        } else if(_Result.countRed === 2){
-            // Verify 2 Red 2 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult1,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult2,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult3,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult4,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-        } else if(_Result.countRed === 3){
-            // Verify 3 Red 1 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult1,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult2,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult3,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult4,"class",ResultLocator.tblResult.MiniSedie.whiteChip)
-        } else if(_Result.countRed === 4){
-            // Verify 4 Red
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult1,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult2,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult3,"class",ResultLocator.tblResult.MiniSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.MiniSedie.lblResult4,"class",ResultLocator.tblResult.MiniSedie.redChip)
-        }
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult1,"class",
+            (_Result.countRed >= 1) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult2,"class",
+            (_Result.countRed >= 2) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult3,"class",
+            (_Result.countRed >= 3) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult4,"class",
+            (_Result.countRed === 4) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
 
         // Verify Choice Win
-        if(_Result.countRed === 0){
-            // Verify 4 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.MiniSedie.lblChoiceWin),ResultLocator.tblResult.MiniSedie.choiceWin.countRed0)
-        } else if(_Result.countRed === 1){
-            // Verify 1 Red 3 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.MiniSedie.lblChoiceWin),ResultLocator.tblResult.MiniSedie.choiceWin.countRed1)
-        } else if(_Result.countRed === 2){
-            // Verify 2 Red 2 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.MiniSedie.lblChoiceWin),ResultLocator.tblResult.MiniSedie.choiceWin.countRed2)
-        } else if(_Result.countRed === 3){
-            // Verify 3 Red 1 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.MiniSedie.lblChoiceWin),ResultLocator.tblResult.MiniSedie.choiceWin.countRed3)
-        } else if(_Result.countRed === 4){
-            // Verify 4 Red
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.MiniSedie.lblChoiceWin),ResultLocator.tblResult.MiniSedie.choiceWin.countRed4)
-        }
+        await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult[game].lblChoiceWin),ResultLocator.tblResult[game].choiceWin[_Result.countRed])
         await closePage()
     },
-    verifyInvalidRoundID : async() =>{
-        await selectGame("MiniSedie")
+    verifyInvalidRoundID : async(game="MiniSedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,-1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)
         await closePage()
     },
-    verifyRoundID0 : async() =>{
-        await selectGame("MiniSedie")
+    verifyRoundID0 : async(game="MiniSedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,0)
         await utils.clickEl(ResultLocator.btnSearch)
 
@@ -118,17 +77,17 @@ export const miniSedie = {
         await utils.waitEl(ResultLocator.tblResult.lblRound)
 
         // Verify Result Column
-        await utils.waitEl(ResultLocator.tblResult.MiniSedie.lblResult1)
-        await utils.waitEl(ResultLocator.tblResult.MiniSedie.lblResult2)
-        await utils.waitEl(ResultLocator.tblResult.MiniSedie.lblResult3)
-        await utils.waitEl(ResultLocator.tblResult.MiniSedie.lblResult4)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult1)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult2)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult3)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult4)
 
         // Verify ChoiceWin Column
-        await utils.waitEl(ResultLocator.tblResult.MiniSedie.lblChoiceWin)
+        await utils.waitEl(ResultLocator.tblResult[game].lblChoiceWin)
         await closePage()
     },
-    verifyArchivedRoundID : async()=> {
-        await selectGame("MiniSedie")
+    verifyArchivedRoundID : async(game="MiniSedie")=> {
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)
@@ -137,8 +96,8 @@ export const miniSedie = {
 }
 
 export const Sedie = {
-    verifyResult : async(_Result) =>{
-        await selectGame("Sedie")
+    verifyResult : async(_Result,game="Sedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
         await utils.clickEl(ResultLocator.btnSearch)
 
@@ -147,66 +106,28 @@ export const Sedie = {
         // Verify RoundID
         await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
         // Verify Result column
-        if(_Result.countRed === 0){
-            // Verify 4 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult1,"class",ResultLocator.tblResult.Sedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult2,"class",ResultLocator.tblResult.Sedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult3,"class",ResultLocator.tblResult.Sedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult4,"class",ResultLocator.tblResult.Sedie.whiteChip)
-        } else if(_Result.countRed === 1){
-            // Verify 1 Red 3 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult1,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult2,"class",ResultLocator.tblResult.Sedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult3,"class",ResultLocator.tblResult.Sedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult4,"class",ResultLocator.tblResult.Sedie.whiteChip)
-        } else if(_Result.countRed === 2){
-            // Verify 2 Red 2 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult1,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult2,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult3,"class",ResultLocator.tblResult.Sedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult4,"class",ResultLocator.tblResult.Sedie.whiteChip)
-        } else if(_Result.countRed === 3){
-            // Verify 3 Red 1 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult1,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult2,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult3,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult4,"class",ResultLocator.tblResult.Sedie.whiteChip)
-        } else if(_Result.countRed === 4){
-            // Verify 4 Red
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult1,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult2,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult3,"class",ResultLocator.tblResult.Sedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.Sedie.lblResult4,"class",ResultLocator.tblResult.Sedie.redChip)
-        }
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult1,"class",
+            (_Result.countRed >= 1) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult2,"class",
+            (_Result.countRed >= 2) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult3,"class",
+            (_Result.countRed >= 3) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult4,"class",
+            (_Result.countRed === 4) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
 
         // Verify Choice Win
-        if(_Result.countRed === 0){
-            // Verify 4 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.Sedie.lblChoiceWin),ResultLocator.tblResult.Sedie.choiceWin.countRed0)
-        } else if(_Result.countRed === 1){
-            // Verify 1 Red 3 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.Sedie.lblChoiceWin),ResultLocator.tblResult.Sedie.choiceWin.countRed1)
-        } else if(_Result.countRed === 2){
-            // Verify 2 Red 2 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.Sedie.lblChoiceWin),ResultLocator.tblResult.Sedie.choiceWin.countRed2)
-        } else if(_Result.countRed === 3){
-            // Verify 3 Red 1 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.Sedie.lblChoiceWin),ResultLocator.tblResult.Sedie.choiceWin.countRed3)
-        } else if(_Result.countRed === 4){
-            // Verify 4 Red
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.Sedie.lblChoiceWin),ResultLocator.tblResult.Sedie.choiceWin.countRed4)
-        }
+        await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult[game].lblChoiceWin),ResultLocator.tblResult[game].choiceWin[_Result.countRed])
         await closePage()
     },
-    verifyInvalidRoundID : async() =>{
-        await selectGame("Sedie")
+    verifyInvalidRoundID : async(game="Sedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,-1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)
         await closePage()
     },
-    verifyRoundID0 : async() =>{
-        await selectGame("Sedie")
+    verifyRoundID0 : async(game="Sedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,0)
         await utils.clickEl(ResultLocator.btnSearch)
 
@@ -217,27 +138,26 @@ export const Sedie = {
         await utils.waitEl(ResultLocator.tblResult.lblRound)
 
         // Verify Result Column
-        await utils.waitEl(ResultLocator.tblResult.Sedie.lblResult1)
-        await utils.waitEl(ResultLocator.tblResult.Sedie.lblResult2)
-        await utils.waitEl(ResultLocator.tblResult.Sedie.lblResult3)
-        await utils.waitEl(ResultLocator.tblResult.Sedie.lblResult4)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult1)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult2)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult3)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult4)
 
         // Verify ChoiceWin Column
-        await utils.waitEl(ResultLocator.tblResult.Sedie.lblChoiceWin)
+        await utils.waitEl(ResultLocator.tblResult[game].lblChoiceWin)
         await closePage()
     },
-    verifyArchivedRoundID : async()=> {
-        await selectGame("Sedie")
+    verifyArchivedRoundID : async(game="Sedie")=> {
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)
         await closePage()
     }
 }
-
 export const VipSedie = {
-    verifyResult : async(_Result) =>{
-        await selectGame("VipSedie")
+    verifyResult : async(_Result,game="VipSedie")=>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
         await utils.clickEl(ResultLocator.btnSearch)
 
@@ -246,66 +166,28 @@ export const VipSedie = {
         // Verify RoundID
         await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
         // Verify Result column
-        if(_Result.countRed === 0){
-            // Verify 4 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult1,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult2,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult3,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult4,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-        } else if(_Result.countRed === 1){
-            // Verify 1 Red 3 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult1,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult2,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult3,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult4,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-        } else if(_Result.countRed === 2){
-            // Verify 2 Red 2 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult1,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult2,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult3,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult4,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-        } else if(_Result.countRed === 3){
-            // Verify 3 Red 1 White
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult1,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult2,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult3,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult4,"class",ResultLocator.tblResult.VipSedie.whiteChip)
-        } else if(_Result.countRed === 4){
-            // Verify 4 Red
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult1,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult2,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult3,"class",ResultLocator.tblResult.VipSedie.redChip)
-            await utils.isValueEqualOnAttribute(ResultLocator.tblResult.VipSedie.lblResult4,"class",ResultLocator.tblResult.VipSedie.redChip)
-        }
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult1,"class",
+            (_Result.countRed >= 1) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult2,"class",
+            (_Result.countRed >= 2) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult3,"class",
+            (_Result.countRed >= 3) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game].lblResult4,"class",
+            (_Result.countRed === 4) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
 
         // Verify Choice Win
-        if(_Result.countRed === 0){
-            // Verify 4 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.VipSedie.lblChoiceWin),ResultLocator.tblResult.VipSedie.choiceWin.countRed0)
-        } else if(_Result.countRed === 1){
-            // Verify 1 Red 3 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.VipSedie.lblChoiceWin),ResultLocator.tblResult.VipSedie.choiceWin.countRed1)
-        } else if(_Result.countRed === 2){
-            // Verify 2 Red 2 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.VipSedie.lblChoiceWin),ResultLocator.tblResult.VipSedie.choiceWin.countRed2)
-        } else if(_Result.countRed === 3){
-            // Verify 3 Red 1 White
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.VipSedie.lblChoiceWin),ResultLocator.tblResult.VipSedie.choiceWin.countRed3)
-        } else if(_Result.countRed === 4){
-            // Verify 4 Red
-            await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult.VipSedie.lblChoiceWin),ResultLocator.tblResult.VipSedie.choiceWin.countRed4)
-        }
+        await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult[game].lblChoiceWin),ResultLocator.tblResult[game].choiceWin[_Result.countRed])
         await closePage()
     },
-    verifyInvalidRoundID : async() =>{
-        await selectGame("VipSedie")
+    verifyInvalidRoundID : async(game="VipSedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,-1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)
         await closePage()
     },
-    verifyRoundID0 : async() =>{
-        await selectGame("VipSedie")
+    verifyRoundID0 : async(game="VipSedie") =>{
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,0)
         await utils.clickEl(ResultLocator.btnSearch)
 
@@ -316,17 +198,17 @@ export const VipSedie = {
         await utils.waitEl(ResultLocator.tblResult.lblRound)
 
         // Verify Result Column
-        await utils.waitEl(ResultLocator.tblResult.VipSedie.lblResult1)
-        await utils.waitEl(ResultLocator.tblResult.VipSedie.lblResult2)
-        await utils.waitEl(ResultLocator.tblResult.VipSedie.lblResult3)
-        await utils.waitEl(ResultLocator.tblResult.VipSedie.lblResult4)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult1)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult2)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult3)
+        await utils.waitEl(ResultLocator.tblResult[game].lblResult4)
 
         // Verify ChoiceWin Column
-        await utils.waitEl(ResultLocator.tblResult.VipSedie.lblChoiceWin)
+        await utils.waitEl(ResultLocator.tblResult[game].lblChoiceWin)
         await closePage()
     },
-    verifyArchivedRoundID : async()=> {
-        await selectGame("VipSedie")
+    verifyArchivedRoundID : async(game="VipSedie")=> {
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)

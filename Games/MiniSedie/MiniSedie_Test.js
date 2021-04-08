@@ -20,7 +20,7 @@ describe('MiniSedie Game', ()=>{
   let result = null
  
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-      await MiniSedieFunc.openFromLobby()
+      await GameLobbyFunc.OpenGameFromLobby("MiniSedie")
       await MiniSedieFunc.verifySignInSuccessfully()
   })  
 
