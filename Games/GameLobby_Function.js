@@ -21,9 +21,9 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y )
         }    
       else if (Gscreen1.includes(_Gamename) === true){
-        await utils.sleep(2000)
+        await utils.sleep(1000)
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
-    await utils.sleep(5000) //hard sleep wait for game load
+    await utils.sleep(1000) //hard sleep wait for game load
 }
 
 export const getBalance = async() => {
