@@ -13,6 +13,18 @@ export const DB = {
         VipSedie : {
             cuoc : 'vipsedie_cuocs',
             phien : 'vipsedie_phiens'
+        },
+        BigSmall : {
+            cuoc : 'taixiu_cuocs',
+            phien : 'taixiu_phiens'
+        },
+        TurboBigSmall : {
+            cuoc : 'txturbo_cuocs',
+            phien : 'txturbo_phiens'
+        },
+        TurboOddEven : {
+            cuoc : 'chanleturbo_cuocs',
+            phien : 'chanleturbo_phiens'
         }
     }
 }

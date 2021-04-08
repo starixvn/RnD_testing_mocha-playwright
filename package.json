@@ -28,17 +28,25 @@
         "ua-parser-js": "^0.7.24",
         "mongodb": "^3.6.5"
     },
+    "@comment scripts": {
+        "CI_SelGame": ["Run specific game on CI"],
+        "Win_SelGame": ["Run main test suites of specific game on win OS"],
+        "Win_SelGameSub": ["Run sub test suites (Database, API, Manage page) of specific game on win OS"],
+        "full":["Run all test case in main test suites"],
+        "smoke": ["Run only smoke test cases in main test suites"],
+        "p_full": ["Parallel run all test case in main test suites"],
+        "p_smoke": ["Parrallel run only smoke test cases in main test suites"],
+        "exportStatus": ["Sync the lastest execution result to google sheet"]
+    },
     "scripts": {
-        "test": "mocha  --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
-        "localwin": "mocha  --timeout 0 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
-        "localwindb": "mocha  --timeout 0 Games/%npm_config_game%/*_DBTest.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "CI_SelGame": "mocha  --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "Win_SelGame": "mocha  --timeout 0 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "Win_SelGameSub": "mocha  --timeout 0 Games/%npm_config_game%/*_DBTest.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "full": "mocha  --timeout 0 Games/**/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "smoke": "mocha  --timeout 0 Games/**/*_Test.js  -r @babel/register --fgrep Smoke_ --file ./Setup.js  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report",
-        "db": "mocha  --timeout 0 Games/**/*_DBTest.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
         "p_full": "mocha --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest ",
         "p_smoke": "mocha --timeout 0 Games/**/*_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report,reportFilename=parallelTest ",
-        "exportStatus": "mocha  --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register",
-        "demo": "mocha  --timeout 0 Games/Demo/demo1.js -r @babel/register"
+        "exportStatus": "mocha  --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register"
     },
     "dependencies": {
         "jsonpath": "^1.1.1"
