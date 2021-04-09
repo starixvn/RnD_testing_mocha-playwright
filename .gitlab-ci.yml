@@ -10,24 +10,24 @@ stages:
 parallel-test:
   stage: test
   tags:
-   - docker-automation-test
+    - docker-automation-test
   script:
-   - npm install
-   - set NODE_ENV=cf_local
-   - echo "Set Balance"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001051&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001052&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001053&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001054&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001055&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001056&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001057&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001058&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001059&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001060&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001061&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-   - echo "Start Run Parallel"
-   - npm run full
+    - npm install
+    - set NODE_ENV=cf_local
+    - echo "Set Balance"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001051&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001052&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001053&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001054&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001055&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001056&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001057&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001058&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001059&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001060&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001061&Balance=200000&Minbet=1.00&MaxBet=3000.00"
+    - echo "Start Run Parallel"
+    - npm run CI_SelGame --game=MiniSedie
   rules:
    - when: manual
   artifacts:
@@ -35,11 +35,27 @@ parallel-test:
       - Report/
     when: always
     expire_in: 1 day 
+success_test:
+  stage: after-test
+  tags:
+    - docker-automation-test
+  script:
+    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *PASSED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/
+  when:
+    - on_success
 
+failure_test:
+  stage: after-test
+  tags:
+    - docker-automation-test
+  script:
+    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *FAILED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/$CI_PIPELINE_ID)"
+  when:
+    - on_success
 cleanup_job:
   stage: cleanup
   tags:
-  - docker-automation-test
+    - docker-automation-test
   script:
     - echo "Cleaning up"
     - rm -rf "%CACHE_PATH%/%CI_PIPELINE_ID%"
