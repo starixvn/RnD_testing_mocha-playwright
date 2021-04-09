@@ -16,15 +16,18 @@ export const DB = {
         },
         BigSmall : {
             cuoc : 'taixiu_cuocs',
-            phien : 'taixiu_phiens'
+            phien : 'taixiu_phiens',
+            ones : 'taixiu_ones'
         },
         TurboBigSmall : {
             cuoc : 'txturbo_cuocs',
-            phien : 'txturbo_phiens'
+            phien : 'txturbo_phiens',
+            ones : 'txturbo_ones'
         },
         TurboOddEven : {
             cuoc : 'chanleturbo_cuocs',
-            phien : 'chanleturbo_phiens'
+            phien : 'chanleturbo_phiens',
+            ones : 'chanleturbo_ones'
         }
     }
 }

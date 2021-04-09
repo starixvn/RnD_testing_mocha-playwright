@@ -1,7 +1,7 @@
 import * as utils from '../../util/utils'
 import {TurboOddEvenLocator} from './TurboOddEven_Locator'
 import * as config from '../../config/config'
-import * as GameLobbyFunc from '../GameLobby_Function'
+import {DB} from './../DataBase_Locator'
 var jp = require('jsonpath');
 import _ from 'lodash';
 
@@ -147,28 +147,6 @@ export const VerifyBetStake = async (_pos,_stake) => {
   }
 }
 
-//
-export const GetWinLossResult = async () => {
-  try {
-    let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"status":')
-    const res = String(_found).split("42/user/oeturbo,");
-    const obj = JSON.parse(res[1]);
-    let _result = jp.query(obj[1],`$..win`);
-      let _betstake
-      if (_result == 'false'){
-        _betstake = 0
-      }
-      else
-      {
-        let _astake = jp.query(obj, `$..bet`);
-        _betstake = _astake[0]
-      }
-      return {win: _result[0], stake: _betstake }
-      
-  } catch (e) {
-      console.error(e)
-  }
-}
 
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
@@ -309,13 +287,38 @@ export const IsBetFail = async() => {
   return false
 }
 
+//GetWinLossStatus
+export const GetWinLossStatus = async () => {
+  try {
+    let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"status":')
+    const res = String(_found).split("42/user/oeturbo,");
+    const obj = JSON.parse(res[1]);
+    let _result = jp.value(obj[1],`$..win`);
+    let _gbetchoice = jp.query(obj[1],`$..winningByChoices`)
+      let _betstake
+      if (_result == 'false'){
+        _betstake = 0
+      }
+      else
+      {
+        let _astake = jp.query(obj, `$..bet`);
+        _betstake = _astake[0]
+      }
+      let _betchoice = Object.keys(_gbetchoice[0])[0]
+      return {win: _result , stake: _betstake ,betchoice:  _betchoice}
+      
+  } catch (e) {
+      console.error(e)
+  }
+}
 
 //Get Settle Result
 export const GetSettleResult = async() => {
+  let _time = new Date().toISOString()
   let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"finish":{"result":')
   const res = String(_found).split("42/user/oeturbo,");
   const obj = JSON.parse(res[1]);
-  let _roundid = jp.query(obj[1],`$..roundId`);
+  let _roundid = jp.value(obj[1],`$..roundId`);
   let _result = jp.query(obj[1],`$..result`);
   let _settleresult = jp.query(obj[1],`$..settlementResult`);
   let _oddwin = jp.value(obj[1],`$..settlementResult.even`);
@@ -326,7 +329,9 @@ export const GetSettleResult = async() => {
   else {
     _choicewin = 'Lẻ'
   }
-  return { result : _result , roundid : _roundid[0], settleresult : _settleresult, choicewin : _choicewin}
+  // Get bet win stake
+  let _getwinstake = await GetWinLossStatus()
+  return { result : _result , roundid : _roundid, settleresult : _settleresult, choicewin : _choicewin, win: _getwinstake.win , betwin : _getwinstake.stake, time: _time, betchoice: _getwinstake.betchoice}
 }
 
 //Check Round History
@@ -348,7 +353,7 @@ export const CheckRoundHistory = async() => {
 
 export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
-  let _af = await GetWinLossResult()
+  let _af = await GetWinLossStatus()
   console.log('Is Win: ',_af.win, _af.stake)
   await utils.sleep(1000)
   let _afterbalance = await utils.getBalance()
@@ -360,5 +365,107 @@ export const CheckSettleBalance = async() => {
 
 
 
-///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////Database Functions
 
+export const verifyDBCuoc = async(_resultOnWeb) => {
+  let qrFindCuoc = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundid}]}
+  let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.TurboOddEven.cuoc,qrFindCuoc)
+  // Verify _id is existed
+  await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+  // Verify phien
+  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundid)
+  // // Verify win
+  // await utils.shouldBeEqual(resultOnDb.win,_resultOnWeb.win)
+  //Verify uid is existed
+  await utils.shouldBeEqual(("uid" in resultOnDb),true,"uid column is not existed")
+  // Verify MemberId
+  await utils.shouldBeEqual(resultOnDb.memberId.toString(),await utils.getMemberId())
+  // Verify name
+  await utils.shouldBeEqual(resultOnDb.name,await utils.getName())
+  // Verify siteId (hard code on Local)
+  await utils.shouldBeEqual(resultOnDb.siteId,'4100300')
+  // Verify betwin
+  let netwin
+  if(resultOnDb.win == true){
+    netwin = _resultOnWeb.betwin -resultOnDb.amount
+  }
+  else{
+    netwin = 0
+  }
+  await utils.shouldBeEqual(parseFloat(resultOnDb.betwin).toFixed(1),parseFloat(netwin).toFixed(1))
+  // Verify time
+  await utils.shouldBeEqual(
+      (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+      true,"Settle time is incorrect")
+  // Verify thanhtoan
+  await utils.shouldBeEqual(resultOnDb.thanhtoan,true)
+  //Verify Choice
+  await utils.shouldBeEqual(resultOnDb.choice,_resultOnWeb.betchoice)
+  // Table taixiu_cuocs - column win (true/false)
+  await utils.shouldBeEqual(resultOnDb.win,_resultOnWeb.win)
+  // Table taixiu_cuocs - column refund
+  await utils.shouldBeEqual(("refund" in resultOnDb),true,"refund column is not existed")
+  // Table taixiu_cuocs - column amount
+  await utils.shouldBeEqual(("amount" in resultOnDb),true,"amount column is not existed")
+}
+
+export const verifyDBPhien = async(_resultOnWeb)=>{
+  let qrFindPhien = { id :_resultOnWeb.roundid }
+  let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.TurboOddEven.phien,qrFindPhien)
+  // Verify column _id is existed
+  await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+  // Verify id
+  await utils.shouldBeEqual(resultOnDb.id,_resultOnWeb.roundid)
+  // Verify result
+  await utils.shouldBeEqual(_.isEqual(resultOnDb.result,_resultOnWeb.result[0]),true)
+  // Verify time
+  await utils.shouldBeEqual(
+      (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+      true,"Time is incorrect")
+  // Verify Settlement result
+  await utils.shouldBeEqual(_.isEqual(resultOnDb.settlementResult, _resultOnWeb.settleresult[0]),true)
+}
+
+export const verifyDBOnes = async(_resultOnWeb)=>{
+  let qrFindPhien = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundid}]}
+  let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.TurboOddEven.ones,qrFindPhien)
+  // Verify column _id is existed
+  await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+  // Verify phien
+  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundid)
+    //Verify uid is existed
+    await utils.shouldBeEqual(("uid" in resultOnDb),true,"uid column is not existed")
+  // Verify time
+  await utils.shouldBeEqual(
+      (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+      true,"Time is incorrect")
+  // Verify amount
+  await utils.shouldBeEqual(("amount" in resultOnDb),true,"amount column is not existed")    
+  // Verify betwin
+  let netwin
+  if(resultOnDb.win == true){
+    netwin = _resultOnWeb.betwin -resultOnDb.amount
+  }
+  else{
+    netwin = 0
+  }
+  await utils.shouldBeEqual(parseFloat(resultOnDb.betwin).toFixed(1),parseFloat(netwin).toFixed(1))
+  //Verify Choice
+  await utils.shouldBeEqual(resultOnDb.choice,_resultOnWeb.betchoice)
+  //Verify member id
+  await utils.shouldBeEqual(Number(resultOnDb.memberId),Number(await utils.getMemberId()))
+   //Verify name
+   await utils.shouldBeEqual(resultOnDb.name,await utils.getName())
+   // Verify odds
+  await utils.shouldBeEqual(("odds" in resultOnDb),true,"odds column is not existed")    
+   // Verify refund
+   await utils.shouldBeEqual(("refund" in resultOnDb),true,"refund column is not existed")   
+  // Verify siteid
+  await utils.shouldBeEqual(("siteId" in resultOnDb),true,"siteId column is not existed")   
+  // Verify thanhtoan
+  await utils.shouldBeEqual(("thanhtoan" in resultOnDb),true,"thanhtoan column is not existed")   
+  // Verify total amount
+  await utils.shouldBeEqual(("totalAmount" in resultOnDb),true,"totalAmount: column is not existed")   
+  // // Verify win
+  // await utils.shouldBeEqual(resultOnDb.win,_resultOnWeb.win)
+}
