@@ -4,6 +4,7 @@ image:
 
 stages: 
   - test
+  - config-after-test
   - after-test
   - cleanup
 
@@ -13,6 +14,7 @@ parallel-test:
     - docker-automation-test
   script:
     - npm install
+    - echo "JOBR=$CI_JOB_ID" >> build.env
     - set NODE_ENV=cf_local
     - echo "Set Balance"
     - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001051&Balance=200000&Minbet=1.00&MaxBet=3000.00"
@@ -31,14 +33,45 @@ parallel-test:
   artifacts:
     paths:
       - Report/
+      - build.env
     when: always
     expire_in: 1 day 
+
+success-config-after-tests:
+  stage: config-after-test
+  tags:
+  - docker-automation-test
+  script: 
+    - exit 0
+  when: on_success  
+  artifacts:
+    reports:
+      dotenv: 
+        - build.env
+    when: always
+    expire_in: 1 day
+
+failure-config-after-tests:
+  stage: config-after-test
+  tags:
+  - docker-automation-test
+  script: 
+    - exit 1
+  when: on_failure  
+  artifacts:
+    reports:
+      dotenv: 
+        - build.env
+    when: always
+    expire_in: 1 day
+
+
 success_test:
   stage: after-test
   tags:
     - docker-automation-test
   script:
-    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *PASSED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/$CI_PIPELINE_ID)"
+    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *PASSED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/$JOBRD)"
   when: on_success
 
 failure_test:
@@ -46,7 +79,7 @@ failure_test:
   tags:
     - docker-automation-test
   script:
-    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *FAILED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/$CI_PIPELINE_ID)"
+    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *FAILED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/$JOBR)"
   when: on_failure
 cleanup_job:
   stage: cleanup
