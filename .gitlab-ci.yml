@@ -8,14 +8,14 @@ stages:
   - after-test
   - cleanup
 
-parallel-test:
+$Mode-test:
   stage: test
   tags:
     - docker-automation-test
   script:
     - npm install
     - echo "JOBR=$CI_JOB_ID" >> build.env
-    - set NODE_ENV=cf_local
+    - set NODE_ENV=$env
     - echo "Set Balance"
     - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001051&Balance=200000&Minbet=1.00&MaxBet=3000.00"
     - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001052&Balance=200000&Minbet=1.00&MaxBet=3000.00"
@@ -28,8 +28,8 @@ parallel-test:
     - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001059&Balance=200000&Minbet=1.00&MaxBet=3000.00"
     - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001060&Balance=200000&Minbet=1.00&MaxBet=3000.00"
     - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001061&Balance=200000&Minbet=1.00&MaxBet=3000.00"
-    - echo "Start Run Parallel"
-    - npm run CI_SelGame --game=MiniSedie
+    - echo "Start Run $Mode"
+    - npm run $Mode
   artifacts:
     paths:
       - Report/
@@ -71,7 +71,7 @@ success_test:
   tags:
     - docker-automation-test
   script:
-    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *PASSED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/$JOBRD)"
+    - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *PASSED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/$JOBR)"
   when: on_success
 
 failure_test:
