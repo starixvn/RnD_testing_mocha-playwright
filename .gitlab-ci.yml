@@ -41,8 +41,7 @@ success_test:
     - docker-automation-test
   script:
     - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *PASSED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/
-  when:
-    - on_success
+  when: on_success
 
 failure_test:
   stage: after-test
@@ -50,8 +49,7 @@ failure_test:
     - docker-automation-test
   script:
     - curl -X POST "https://api.telegram.org/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage" -d "chat_id=-507838201&parse_mode=markdown&text=Environment - *[$ENVIRONMENT]* %0aStatus - *FAILED* %0aReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/$CI_PIPELINE_ID)"
-  when:
-    - on_success
+  when: on_success
 cleanup_job:
   stage: cleanup
   tags:
