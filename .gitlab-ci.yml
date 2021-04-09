@@ -27,7 +27,7 @@ parallel-test:
    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001060&Balance=200000&Minbet=1.00&MaxBet=3000.00"
    - curl "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer?memId=1830746" --data-raw "ObCustId=1001061&Balance=200000&Minbet=1.00&MaxBet=3000.00"
    - echo "Start Run Parallel"
-   - npm run p_full
+   - npm run full
   artifacts:
     paths:
       - Report/
