@@ -1,5 +1,6 @@
 import playwright from 'playwright'
 import * as config from './config/config'
+import uaParser from 'ua-parser-js'
 const chai = require('chai')
 const expect = chai.expect
 
@@ -11,17 +12,22 @@ exports.mochaHooks = {
        headless: true ,
        args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
       })
-    const page = await browser.newPage();
-    global.page = page
     const context = await browser.newContext({
         viewport: {
           width: config.setting.viewport.width,
           height: config.setting.viewport.height
         }
     });
-    const page = await browser.newPage()
+    let page = await context.newPage()
     const getUA = await page.evaluate(() => navigator.userAgent);
+    let pages = []
+    pages.push(page)
+    context.on('page', async(newPage)=>{
+      pages.push(await newPage)
+    })
+    global.pages = pages
     global.userAgent = uaParser(getUA).ua;
+    global.page = page
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")
