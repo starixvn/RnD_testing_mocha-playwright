@@ -24,27 +24,28 @@ describe('TurboBigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await GameLobbyFunc.OpenGameFromLobby(game)
-    //await TurboBigSmallFunc.VerifySignInSuccessfully()
+    await utils.sleep(10000)
+    await TurboBigSmallFunc.VerifySignInSuccessfully()
 
   })  
 
-  // it('TC_02_Full_Smoke_Verify History Content', async () => {
-  //   await TurboBigSmallFunc.OpenHistory()
-  //   await TurboBigSmallFunc.VerifyHistoryContent()
-  //   await TurboBigSmallFunc.CloseHistory()
-  // })  
+  it('TC_02_Full_Smoke_Verify History Content', async () => {
+    await TurboBigSmallFunc.OpenHistory()
+    await TurboBigSmallFunc.VerifyHistoryContent()
+    await TurboBigSmallFunc.CloseHistory()
+  })  
 
-  // it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-  //   await TurboBigSmallFunc.OpenGuide()
-  //   await TurboBigSmallFunc.VerifyGuideContent()
-  //   await TurboBigSmallFunc.CloseGuide()
-  // })  
+  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+    await TurboBigSmallFunc.OpenGuide()
+    await TurboBigSmallFunc.VerifyGuideContent()
+    await TurboBigSmallFunc.CloseGuide()
+  })  
 
-  // it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
-  //   await TurboBigSmallFunc.OpenStatistic()
-  //   await TurboBigSmallFunc.VerifyStatisticContent()
-  //   await TurboBigSmallFunc.CloseStatistic()
-  // })  
+  it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
+    await TurboBigSmallFunc.OpenStatistic()
+    await TurboBigSmallFunc.VerifyStatisticContent()
+    await TurboBigSmallFunc.CloseStatistic()
+  })  
 
   it('TC_05_Full_Smoke_Verify Preset Content', async () => {
     await TurboBigSmallFunc.OpenPreset()

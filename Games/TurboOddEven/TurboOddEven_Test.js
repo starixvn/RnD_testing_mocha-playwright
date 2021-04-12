@@ -28,23 +28,23 @@ describe('TurboOddEven Game', ()=>{
 
   })  
 
-  // it('TC_02_Full_Smoke_Verify History Content', async () => {
-  //   await TurboOddEvenFunc.OpenHistory()
-  //   await TurboOddEvenFunc.VerifyHistoryContent()
-  //   await TurboOddEvenFunc.CloseHistory()
-  // })  
+  it('TC_02_Full_Smoke_Verify History Content', async () => {
+    await TurboOddEvenFunc.OpenHistory()
+    await TurboOddEvenFunc.VerifyHistoryContent()
+    await TurboOddEvenFunc.CloseHistory()
+  })  
 
-  // it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-  //   await TurboOddEvenFunc.OpenGuide()
-  //   await TurboOddEvenFunc.VerifyGuideContent()
-  //   await TurboOddEvenFunc.CloseGuide()
-  // })  
+  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+    await TurboOddEvenFunc.OpenGuide()
+    await TurboOddEvenFunc.VerifyGuideContent()
+    await TurboOddEvenFunc.CloseGuide()
+  })  
 
-  // it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
-  //   await TurboOddEvenFunc.OpenStatistic()
-  //   await TurboOddEvenFunc.VerifyStatisticContent()
-  //   await TurboOddEvenFunc.CloseStatistic()
-  // })  
+  it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
+    await TurboOddEvenFunc.OpenStatistic()
+    await TurboOddEvenFunc.VerifyStatisticContent()
+    await TurboOddEvenFunc.CloseStatistic()
+  })  
 
   it('TC_05_Full_Smoke_Verify Preset Content', async () => {
     await TurboOddEvenFunc.OpenPreset()

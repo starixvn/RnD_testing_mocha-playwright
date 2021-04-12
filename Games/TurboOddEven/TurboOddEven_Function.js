@@ -222,7 +222,7 @@ export const ClearPresetChip = async() => {
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:'ImgCompare_TurboOddEven_History.png',clip:{x: TurboOddEvenLocator.History.left,
+  // await page.screenshot({path:TurboOddEvenLocator.History.ImageCompare,clip:{x: TurboOddEvenLocator.History.left,
   //   y: TurboOddEvenLocator.History.top,
   //  width: TurboOddEvenLocator.History.width,
   //  height: TurboOddEvenLocator.History.height}})
@@ -260,12 +260,12 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
-  // await page.screenshot({path:'ImgCompare_TurboOddEven_StatisticResult.png',clip:{x: TurboOddEvenLocator.StatisticResult.left,
+  // await page.screenshot({path:TurboOddEvenLocator.StatisticResult.ImageCompare,clip:{x: TurboOddEvenLocator.StatisticResult.left,
   //   y: TurboOddEvenLocator.StatisticResult.top,
   //  width: TurboOddEvenLocator.StatisticResult.width,
   //  height: TurboOddEvenLocator.StatisticResult.height}})
   //  await utils.clickPos(TurboOddEvenLocator.StatisticPoint.x,TurboOddEvenLocator.StatisticPoint.y)
-  //  await page.screenshot({path:'ImgCompare_TurboOddEven_StatisticPoint.png',clip:{x: TurboOddEvenLocator.StatisticPoint.left,
+  //  await page.screenshot({path:TurboOddEvenLocator.StatisticPoint.ImageCompare,clip:{x: TurboOddEvenLocator.StatisticPoint.left,
   //   y: TurboOddEvenLocator.StatisticPoint.top,
   //  width: TurboOddEvenLocator.StatisticPoint.width,
   //  height: TurboOddEvenLocator.StatisticPoint.height}})

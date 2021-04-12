@@ -63,6 +63,22 @@ export const ClosePreset = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
+  //   await page.screenshot({path:TurboBigSmallLocator.Title.ImageCompare,clip:{x: TurboBigSmallLocator.Title.left,
+  //   y: TurboBigSmallLocator.Title.top,
+  //  width: TurboBigSmallLocator.Title.width,
+  //  height: TurboBigSmallLocator.Title.height}})
+  //  await page.screenshot({path:TurboBigSmallLocator.Big.ImageCompare,clip:{x: TurboBigSmallLocator.Big.left,
+  //   y: TurboBigSmallLocator.Big.top,
+  //  width: TurboBigSmallLocator.Big.width,
+  //  height: TurboBigSmallLocator.Big.height}})
+  //  await page.screenshot({path:TurboBigSmallLocator.Small.ImageCompare,clip:{x: TurboBigSmallLocator.Small.left,
+  //   y: TurboBigSmallLocator.Small.top,
+  //  width: TurboBigSmallLocator.Small.width,
+  //  height: TurboBigSmallLocator.Small.height}})
+  //  await page.screenshot({path:TurboBigSmallLocator.Odds.ImageCompare,clip:{x: TurboBigSmallLocator.Odds.left,
+  //   y: TurboBigSmallLocator.Odds.top,
+  //  width: TurboBigSmallLocator.Odds.width,
+  //  height: TurboBigSmallLocator.Odds.height}})
   // Verify TurboBigSmall Title
   const _title= await utils.findImage(TurboBigSmallLocator.Title.ImageCompare,TurboBigSmallLocator.Title)
   await utils.shouldBeEqual(_title.Val,true)  
@@ -243,24 +259,24 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
-  await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticResult.png',clip:{x: TurboBigSmallLocator.StatisticResult.left,
-    y: TurboBigSmallLocator.StatisticResult.top,
-   width: TurboBigSmallLocator.StatisticResult.width,
-   height: TurboBigSmallLocator.StatisticResult.height}})
-   await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
-   await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticPoint.png',clip:{x: TurboBigSmallLocator.StatisticPoint.left,
-    y: TurboBigSmallLocator.StatisticPoint.top,
-   width: TurboBigSmallLocator.StatisticPoint.width,
-   height: TurboBigSmallLocator.StatisticPoint.height}})
+  // await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticResult.png',clip:{x: TurboBigSmallLocator.StatisticResult.left,
+  //   y: TurboBigSmallLocator.StatisticResult.top,
+  //  width: TurboBigSmallLocator.StatisticResult.width,
+  //  height: TurboBigSmallLocator.StatisticResult.height}})
+  //  await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
+  //  await page.screenshot({path:'ImgCompare_TurboBigSmall_StatisticPoint.png',clip:{x: TurboBigSmallLocator.StatisticPoint.left,
+  //   y: TurboBigSmallLocator.StatisticPoint.top,
+  //  width: TurboBigSmallLocator.StatisticPoint.width,
+  //  height: TurboBigSmallLocator.StatisticPoint.height}})
   //Verify Statistic Result
-  // const _result1= await utils.findImage(TurboBigSmallLocator.StatisticResult.ImageCompare,TurboBigSmallLocator.StatisticResult)
-  // await utils.shouldBeEqual(_result1.Val,true)    
+  const _result1= await utils.findImage(TurboBigSmallLocator.StatisticResult.ImageCompare,TurboBigSmallLocator.StatisticResult)
+  await utils.shouldBeEqual(_result1.Val,true)    
 
-  // //Verify Statistic Point
-  // await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
-  // const _result2= await utils.findImage(
-  // TurboBigSmallLocator.StatisticPoint.ImageCompare,TurboBigSmallLocator.StatisticPoint)
-  // await utils.shouldBeEqual(_result2.Val,true)    
+  //Verify Statistic Point
+  await utils.clickPos(TurboBigSmallLocator.StatisticPoint.x,TurboBigSmallLocator.StatisticPoint.y)
+  const _result2= await utils.findImage(
+  TurboBigSmallLocator.StatisticPoint.ImageCompare,TurboBigSmallLocator.StatisticPoint)
+  await utils.shouldBeEqual(_result2.Val,true)    
 
 }
 
