@@ -138,10 +138,7 @@ export const PlaceBet = async (stake,pos) => {
   try {
       await utils.sleep(500)
       await Sliding_Select_Chip(stake)
-      // const _cnumber = `Chip${stake}`
-      // await utils.clickPos(BlackJackLocator[_cnumber].x,BlackJackLocator[_cnumber].y) //click coin
       await SelectPos(pos)
-      //await utils.clickPos(BlackJackLocator[pos].x,BlackJackLocator[pos].y)//click bet position
   } catch (e) {
       console.error(e)
   }
@@ -327,7 +324,8 @@ export const VerifyChipColor_Pos2 = async(_chip) => {
 
 // Get Total Bet Ammount of all pos after click Deal
 export const GetTotalBetAmount = async() => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
+  //const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
+  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
   var res = String(_found).split("42/user/blackjack,");
   var obj = JSON.parse(res[1]);
   return obj[1].deal.totalAmount
@@ -373,7 +371,7 @@ export const GetHitScore = async(_pos) => {
   }
   const res = String(_foundhit).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
-  //console.log('Hit card score: ',obj[1].hit.total[0])
+  // console.log('Hit card score: ',obj[1].hit.total[0])
   return obj[1].hit.total[0]
 }
 
@@ -404,9 +402,10 @@ export const IsDealerBLackJack = async() => {
 
 // Get winloss of pos (based on pos's id) after settled
 export const GetSettleResultByPosID = async(_posid) => {
-  const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
-  var last_found = _found.pop();
-  const res = String(last_found).split("42/user/blackjack,");
+  // const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
+  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"finish');
+  //var last_found = _found.pop();
+  const res = String(_found).split("42/user/blackjack,");
   const obj = JSON.parse(res[1]);
   let _betwin = jp.value(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
   _betwin = +_betwin || 0

@@ -66,7 +66,7 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.CheckRoundHistory()
  }) 
  
- it('TC_07_Full_Verify Max Bet on Even', async () => {
+ it('TC_07_Full_Verify Max Bet on Even', async () => { 
    const pos = "Even"
    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
   await TurboOddEvenFunc.PlaceBet(pos,1000)
@@ -76,7 +76,7 @@ describe('TurboOddEven Game', ()=>{
   await TurboOddEvenFunc.CheckSettleBalance()
 }) 
 
-  it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Odd', async () => {
+  it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Odd', async () => {   
      const pos = "Odd"
      const errormsg = 'Chỉ được cược 1 bên.'
     await TurboOddEvenFunc.PlaceBet(pos,1)
@@ -86,7 +86,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {
+  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {   
     const pos = "Even"
     const errormsg = 'Chỉ được cược 1 bên.'
    await TurboOddEvenFunc.PlaceBet(pos,1)
@@ -96,7 +96,7 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Odd', async () => {
+  it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Odd', async () => {  
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
@@ -109,7 +109,7 @@ describe('TurboOddEven Game', ()=>{
 
   })  
 
-  it('TC_11_Full_Verify Betting [100-1000] Chips on Odd', async () => {
+  it('TC_11_Full_Verify Betting [100-1000] Chips on Odd', async () => {   
     const Achip =  [100,200,500,1000]
     const pos = "Odd"
     let _stake =0
@@ -122,7 +122,7 @@ describe('TurboOddEven Game', ()=>{
 
   })  
 
-  it('TC_12_Full_Verify Betting [1 -50] Chips on Even', async () => {
+  it('TC_12_Full_Verify Betting [1 -50] Chips on Even', async () => {   
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
@@ -134,7 +134,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_13_Full_Verify Betting [100-1000] Chips on Even', async () => {
+  it('TC_13_Full_Verify Betting [100-1000] Chips on Even', async () => {   
     const Achip =  [100,200,500,1000]
     const pos = "Even"
     let _stake =0
@@ -146,7 +146,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Odd', async () => {
+  it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Odd', async () => {   
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
@@ -163,7 +163,7 @@ describe('TurboOddEven Game', ()=>{
     await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   })  
 
-  it('TC_15_Full_Verify Preset Betting [100-1000] Chips on Odd', async () => {
+  it('TC_15_Full_Verify Preset Betting [100-1000] Chips on Odd', async () => {  
     const Achip =  [100,200,500,1000]
     const pos = "Odd"
     let _stake =0
@@ -180,7 +180,7 @@ describe('TurboOddEven Game', ()=>{
     await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   })
 
-  it('TC_16_Full_Verify Preset Betting [1 -50] Chips on Odd', async () => {
+  it('TC_16_Full_Verify Preset Betting [1 -50] Chips on Odd', async () => {   
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
@@ -197,7 +197,7 @@ describe('TurboOddEven Game', ()=>{
     await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   }) 
 
-  it('TC_17_Full_Verify Preset Betting [100-1000] Chips on Even', async () => {
+  it('TC_17_Full_Verify Preset Betting [100-1000] Chips on Even', async () => {   
     const Achip =  [100,200,500,1000]
     const pos = "Even"
     let _stake =0
@@ -216,7 +216,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_18_Full_Smoke_Verify Betting [1-50] on Odd with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Odd
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success  
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
@@ -235,7 +235,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_19_Full_Verify Betting [100-500] on Odd with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Odd
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success   
     const Achip =  [100,200,500]
     const pos = "Odd"
     let _stake =0
@@ -254,7 +254,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_20_Full_Verify Betting [1-50] on Even with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Even
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success   
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
@@ -273,7 +273,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_21_Full_erify Betting [100-500] on Even with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Even
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success   
     const Achip =  [100,200,500]
     const pos = "Even"
     let _stake =0
@@ -292,7 +292,7 @@ describe('TurboOddEven Game', ()=>{
 
     it('TC_22_Full_Smoke_Verify Betting [1-50] on Odd with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Odd, Value of preset chip will be accmulated
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success  
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
@@ -311,7 +311,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_23_Full_Verify Betting [100 -500] on Odd with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Odd, Value of preset chip will be accmulated
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success   
     const Achip =  [100,200,500]
     const pos = "Odd"
     let _stake =0
@@ -330,7 +330,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_24_Full_Verify Betting [1-50] on Even with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Even, Value of preset chip will be accmulated
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success   
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
@@ -349,7 +349,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_25_Full_Verify Betting [100-500] on Even with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Even, Value of preset chip will be accmulated
-    //Verify all preset and chips on board can be bet success
+    //Verify all preset and chips on board can be bet success    
     const Achip =  [100,200,500]
     const pos = "Even"
     let _stake =0

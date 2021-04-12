@@ -86,7 +86,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await utils.sleep(100)
+      await utils.sleep(500)
       await SelectPos(_pos)  //Big or Small
       await utils.sleep(500)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
@@ -268,6 +268,7 @@ export const VerifyStatisticContent = async() => {
 
 }
 
+
 //Is Round Error after betting
 export const IsBetFail = async() => {
   let _found = wsMessageReceived.filter(element => element.includes('42/user/taixiu,["taixiu",{"endBet":-1,"notice'));
@@ -298,17 +299,16 @@ export const GetWinLossStatus = async () => {
       const obj = JSON.parse(res[1]);
       let _result = jp.value(obj[1],`$..win`);
       let _gbetchoice = jp.query(obj[1],`$..winningByChoices`)
-      let _betstake
+      let _astake
       if (_result == 'false'){
-        _betstake = 0
+        _astake = 0  //rule cân cửa
       }
       else
       {
-        let _astake = jp.query(obj[1], `$..bet`);
-        _betstake = _astake[0]
+        _astake = jp.value(obj, `$..bet`);
       }
       let _betchoice = Object.keys(_gbetchoice[0])[0]
-      return {win: _result , stake: _betstake ,betchoice:  _betchoice}
+      return {win: _result , stake: _astake ,betchoice:  _betchoice}
       
   } catch (e) {
       console.error(e)
@@ -360,8 +360,12 @@ export const CheckSettleBalance = async() => {
   await utils.sleep(1000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.stake
-  await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
-  console.log('Compare Balance: ',_afterbalance,_beforebalance)
+  if ( _af.win == true){
+    await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
+  }
+  else {
+    console.log('Refund: ',_beforebalance, _afterbalance)
+  }
 }
 
 
