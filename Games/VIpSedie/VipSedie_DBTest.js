@@ -2,6 +2,7 @@ const game = "VipSedie"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as VipSedieFunc from './VipSedie_Function'
+import * as GameLobbyFunc from './../GameLobby_Function'
 let result = null
 let choice = ['Even','Odd','Red4','Red3','Red2','White3','White4']
 let chip = [10,20,50,100,200,500,1000,2000,3000]
@@ -9,7 +10,7 @@ describe('VipSedie Database Testing', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
-    await VipSedieFunc.openFromLobby()
+    await GameLobbyFunc.OpenGameFromLobby(game)
     await VipSedieFunc.verifySignInSuccessfully()
     result = await VipSedieFunc.verifySettlement(choice[Math.floor(Math.random() * 6)],chip[Math.floor(Math.random() * 8)],true)
   })

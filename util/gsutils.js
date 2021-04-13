@@ -1,7 +1,7 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 const creds = require('../cred/secret_key.json')
 
-const jsonResult = require('../Report/parallelTest.json')
+const jsonResult = require('../Report/mochawesome.json')
 const jp = require('jsonpath')
 
 export const Doc = class {
@@ -51,17 +51,21 @@ const getTestcaseName = async(txt)=> {
     return txt.match(/(.* TC_[0-9]+)/g,'$1')[0]
 }
 
-export const repareData = async(_note)=> {
-    let note = _note || ""
+const getTestSuiteName = async(txt)=>{
+    return txt.match(/(.*) TC_/,'$1')[0].replace("Game TC_","").trim()
+}
+
+export const repareData = async(_note="")=> {
+    let note = _note
     // Get excution time
     let t = new Date().toLocaleString()
     // Get testCase List
     let rawTestcaseName = jp.query(jsonResult,'$..tests..fullTitle')
-    let testcaseName = []
+    let testcaseName = [],testSuiteName = []
     for(let i =0; i<rawTestcaseName.length ;i++) {
         testcaseName.push(await getTestcaseName(rawTestcaseName[i]))
+        testSuiteName.push(await getTestSuiteName(rawTestcaseName[i]))
     }
-
     // Get Pass/Failed
     let rawStatus = jp.query(jsonResult,'$..tests..pass')
     let status =[]
@@ -71,12 +75,56 @@ export const repareData = async(_note)=> {
     let object = []
     // Create Object file
     for(let i=0; i<rawTestcaseName.length;i++) {
-        object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, "Note":note})
+        object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note})
     }
     return object
 }
 
+export const isFailed = async(object)=> {
+    for(let i = 0 ; i < object.length;i++){
+        if(object[i].Status === "Failed") return true
+    }
+}
 
+const msToTime = async(s)=> {
+
+    // Pad to 2 or 3 digits, default is 2
+    const pad = async(n, z)=> {
+      z = z || 2;
+      return ('00' + n).slice(-z);
+    }
+  
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    var mins = (s - secs) / 60;
+  
+    return  mins + 'm' + await pad(secs) + 's';
+  }
+
+export const prepareResult = async(objArr)=> {
+    let rs = [],flag =0, duration
+    for(let i =0 ; i < objArr.length ; i++){
+        if(rs.length === 0){
+            rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
+        } else {
+            flag = 0
+            for(let j = 0; j< rs.length ; j++){
+                if(rs[j].TestSuite === objArr[i].TestSuite) {
+                    rs[j].total = rs[j].total +1
+                    rs[j].pass = (objArr[i].Status === "Passed") ? rs[j].pass + 1 : rs[j].pass
+                    flag=1
+                    break
+                }
+            }
+            if(flag ===0){
+                rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
+            }
+        }
+    }
+    duration = await msToTime(jp.value(jsonResult,"$.stats.duration"))
+    return { Result : rs, ExecutionTime : duration}
+}
 
     // // Initialize Auth - see more available options at https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication
     // await doc.useServiceAccountAuth(creds)
