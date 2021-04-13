@@ -116,7 +116,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       if (wait == 'wait'){
         _isfail = await IsBetFail()
       }
-      else if (wait == 'nowait'){
+      else {
         _isfail = false
       }
       await utils.sleep(1000)

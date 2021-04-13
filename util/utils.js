@@ -687,8 +687,9 @@ export const gameType = {
 
 export const verifyBettingTime = async(_game) => {
     //Clear ws to reach new round data
-  wsMessageReceived = []
+  wsMessageReceived = [] //Clear old data of previous round
   let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
+  wsMessageReceived = [] // prepare free array for settlement result
   const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)
   let remaintime = await getDataJsonPath(res[1],'$..remainingTime')
   let bettime = gameType[_game]._bettime
@@ -700,16 +701,19 @@ export const verifyBettingTime = async(_game) => {
       await sleep(1000)
     }    
   //Check Settle
+  await sleep(2000)
   let  _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"finish":{"result"`));
   //Check settle ws msg should be 1 or 2 in array
+  console.log(_result.length)
   await expect(_result.length).to.be.within(1,2)
  
 }
 
 export const verifyBlockTime = async(_game,_placebetfunc,args) => {
     //ex:  await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,["Big",1,'nowait'])
-    wsMessageReceived = []
+    wsMessageReceived = [] //Clear old data of previous round
     let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
+    wsMessageReceived = [] // prepare free array for settlement result
     const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)
     let remaintime = await getDataJsonPath(res[1],'$..remainingTime')
     let bettime = gameType[_game]._bettime
@@ -722,6 +726,7 @@ export const verifyBlockTime = async(_game,_placebetfunc,args) => {
         if(i==5){
           await _placebetfunc.apply(this,args)
           let _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`));
+          console.log(_result.length)
           await expect(_result.length).to.be.within(1,2)
         }
       
