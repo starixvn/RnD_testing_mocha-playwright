@@ -45,13 +45,13 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.OpenStatistic()
     await BigSmallFunc.VerifyStatisticContent()
     await BigSmallFunc.CloseStatistic()
+  await utils.verifyBettingTime(game)
   })  
 
   it('TC_05_Full_Verify Preset Content', async () => {
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.VerifyPresetContent()
     await BigSmallFunc.ClosePreset()
-    await utils.verifyBettingTime(game)
     await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
   })  
 

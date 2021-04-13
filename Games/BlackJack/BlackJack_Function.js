@@ -432,9 +432,9 @@ export const CheckRoundHistory = async(_rid,_settleresult,_betstake,_winloss) =>
   await CloseHistory()
 }
 
-
 export const CheckSettleBalance = async(_expectBalance) => {
-  let _beforebalance = await utils.getBalance()
-  await utils.shouldBeEqual(Math.round(_beforebalance * 100) / 100, Math.round(_expectBalance * 100) / 100)
-  console.log('Compare Balance: ',_beforebalance,_expectBalance)
+  await utils.sleep(2000)
+  let _settledbalance = await utils.getBalance()
+  await utils.shouldBeEqual(Math.round(_settledbalance * 100) / 100, Math.round(_expectBalance * 100) / 100)
+  console.log('Compare Balance: ',_settledbalance,_expectBalance)
 }

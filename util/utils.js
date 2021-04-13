@@ -704,7 +704,7 @@ export const verifyBettingTime = async(_game) => {
   await sleep(2000)
   let  _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"finish":{"result"`));
   //Check settle ws msg should be 1 or 2 in array
-  console.log(_result.length)
+  //console.log(_result.length)
   await expect(_result.length).to.be.within(1,2)
  
 }
@@ -725,8 +725,9 @@ export const verifyBlockTime = async(_game,_placebetfunc,args) => {
         }
         if(i==5){
           await _placebetfunc.apply(this,args)
+          await sleep(2000)
           let _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`));
-          console.log(_result.length)
+          //console.log(_result.length)
           await expect(_result.length).to.be.within(1,2)
         }
       

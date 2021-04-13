@@ -44,13 +44,13 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.OpenStatistic()
     await TurboOddEvenFunc.VerifyStatisticContent()
     await TurboOddEvenFunc.CloseStatistic()
+    await utils.verifyBettingTime(game)
   })  
 
   it('TC_05_Full_Smoke_Verify Preset Content', async () => {
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.VerifyPresetContent()
     await TurboOddEvenFunc.ClosePreset()
-    await utils.verifyBettingTime(game)
     await utils.verifyBlockTime(game,TurboOddEvenFunc.PlaceBet,['Odd',1,'nowait'])
 
   })  

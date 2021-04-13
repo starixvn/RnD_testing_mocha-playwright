@@ -45,13 +45,13 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.OpenStatistic()
     await TurboBigSmallFunc.VerifyStatisticContent()
     await TurboBigSmallFunc.CloseStatistic()
+    await utils.verifyBettingTime(game)
   })  
 
   it('TC_05_Full_Smoke_Verify Preset Content', async () => {
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.VerifyPresetContent()
     await TurboBigSmallFunc.ClosePreset()
-    await utils.verifyBettingTime(game)
     await utils.verifyBlockTime(game,TurboBigSmallFunc.PlaceBet,['Big',1,'nowait'])
 
   })  
