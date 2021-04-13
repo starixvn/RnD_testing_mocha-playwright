@@ -31,9 +31,8 @@ export const getBalance = async() => {
 
 export const openResultPage = async() => {
     await utils.clickPos(GameLobbyLocator.Result.x, GameLobbyLocator.Result.y)
-    for(let i = 0; i < config.setting.timeout ; i++){
+    for(let i = 0; i < config.setting.loop ; i++){
         if( await pages.length === 2) { break; }
-        console.log(pages.length)
         await utils.sleep(500)
     }
     await utils.switchTabs(1)

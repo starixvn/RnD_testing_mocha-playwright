@@ -333,7 +333,6 @@ export const BigSmallTurbo = {
 
 export const OddEvenTurbo = {
     verifyResult : async(_Result) =>{
-        console.log(_Result)
         await selectGame('OddEvenTurbo')
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundid)
         await utils.clickEl(ResultLocator.btnSearch)
