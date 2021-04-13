@@ -433,8 +433,11 @@ export const CheckRoundHistory = async(_rid,_settleresult,_betstake,_winloss) =>
 }
 
 export const CheckSettleBalance = async(_expectBalance) => {
-  await utils.sleep(2000)
+  await utils.sleep(4000)
   let _settledbalance = await utils.getBalance()
-  await utils.shouldBeEqual(Math.round(_settledbalance * 100) / 100, Math.round(_expectBalance * 100) / 100)
-  console.log('Compare Balance: ',_settledbalance,_expectBalance)
+  console.log('Check Settle Balance')
+  let _val1 = Math.round(_settledbalance * 100) / 100
+  let _val2 = Math.round(_expectBalance * 100) / 100
+  console.log('Compare Balance: ',_val1,_val2)
+  await utils.shouldBeEqual(_val1,_val2)
 }
