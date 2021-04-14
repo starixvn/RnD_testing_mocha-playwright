@@ -32,7 +32,8 @@ export const cf_local ={
     gamelobbyurl: "",
     urlWebsocket: "ws://haproxy.lumigame.com:7001/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "http://l1-games1.lumigame.com",
-    protocol: "ws"
+    protocol: "ws",
+    retrieveEndGame : "http://l1-ows1.lumigame.com/SabaClub/RetrieveEndGameInfo"
 }
 
 export const cf_sit ={
