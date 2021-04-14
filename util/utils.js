@@ -653,7 +653,7 @@ export const wsClient = class {
 
 export const getSession = async()=>{
     const _rawData =  await getWsMessage('{"Authorized":true,')
-    console.log(_rawData)
+    // console.log(_rawData)
     session = await getDataJsonPath(_rawData,'$..ss.ss')
     username = await getDataJsonPath(_rawData,'$..ss.username')
     name = await getDataJsonPath(_rawData,'$..user.name')
@@ -677,12 +677,12 @@ export const mondbGetData = async(connectString, dbName, collection, query)=> {
 }
 
 export const gameType = {
-    Sedie : {_ws:"XocXoc", _bettime: 30 },
-    VipSedie :  {_ws:"VipSeDie", _bettime: 30 },
-    MiniSedie : {_ws:"MiniSeDie", _bettime: 30 },
-    BigSmall : {_ws:"taixiu", _bettime: 50 },
-    TurboBigSmall : {_ws:"TXTurbo", _bettime: 30 },
-    TurboOddEven : {_ws:"OETurbo", _bettime: 30 }
+    Sedie : {_ws:"XocXoc", _bettime: 30, Id: 2 },
+    VipSedie :  {_ws:"VipSeDie", _bettime: 30, Id: 22 },
+    MiniSedie : {_ws:"MiniSeDie", _bettime: 30, Id: 9 },
+    BigSmall : {_ws:"taixiu", _bettime: 50 , Id: 1},
+    TurboBigSmall : {_ws:"TXTurbo", _bettime: 30, Id: 4 },
+    TurboOddEven : {_ws:"OETurbo", _bettime: 30, Id: 6 }
  }
 
 export const verifyBettingTime = async(_game) => {
