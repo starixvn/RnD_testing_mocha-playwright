@@ -488,7 +488,7 @@ export const shouldBeEqual = async(_val,_expect,_mess="") => {
 export const Login = async(_env,_game) => {
     // await wsHearMessageOff()
     let flag
-    if(_env !== 'cf_local') {
+    if(_env !== 'cf_local' && _env !== 'cf_local1') {
         // Login Member Site
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
@@ -579,6 +579,7 @@ export const wsClient = class {
         this.client.onmessage = (e)=> {
             if (typeof e.data === 'string') {
                 this.wsMessage.push(e.data)
+                // console.log(e.data)
             }
         };
     
@@ -634,6 +635,7 @@ export const wsClient = class {
         }
     }
     async getBalance(username,session) {
+        // console.log(session)
         await this.waitMessage('0{')
         await this.SendMessage('40/user/roulette,')
         await this.waitMessage('40')

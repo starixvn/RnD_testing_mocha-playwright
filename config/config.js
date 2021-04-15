@@ -7,7 +7,7 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: true
+    headless: false
 
 }
 
@@ -30,7 +30,7 @@ export const cf_local ={
     password: "",
     gamelobbyurl: "",
     urlWebsocket: "ws://haproxy.lumigame.com:7000/roulette/socket.io/?EIO=3&transport=websocket",
-    urlOrigin: "http://games.lumigame.com/",
+    urlOrigin: "http://games.lumigame.com",
     protocol: "ws",
     retrieveEndGame : "http://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
     setBalance : "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer"
