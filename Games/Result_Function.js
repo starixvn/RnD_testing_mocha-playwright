@@ -219,12 +219,12 @@ export const VipSedie = {
 export const BigSmall = {
     verifyResult : async(_Result) =>{
         await selectGame('BigSmall')
-        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundid)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
         await utils.clickEl(ResultLocator.btnSearch)
         // Verify Date column
         await verifyFormatTime()
         // Verify RoundID
-        await verifyRoundIdIsExistedOnTableResult(_Result.roundid)
+        await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
         // Verify Result column
         await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmall.lblResult1,"src",`/scss/images/dice_${_Result.result[0].dice1}.png`)
         await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmall.lblResult2,"src",`/scss/images/dice_${_Result.result[0].dice2}.png`)
@@ -277,12 +277,12 @@ export const BigSmall = {
 export const BigSmallTurbo = {
     verifyResult : async(_Result) =>{
         await selectGame('BigSmallTurbo')
-        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundid)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
         await utils.clickEl(ResultLocator.btnSearch)
         // Verify Date column
         await verifyFormatTime()
         // Verify RoundID
-        await verifyRoundIdIsExistedOnTableResult(_Result.roundid)
+        await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
         // Verify Result column
         await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmallTurbo.lblResult1,"src",`/scss/images/dice_${_Result.result[0].dice1}.png`)
         await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmallTurbo.lblResult2,"src",`/scss/images/dice_${_Result.result[0].dice2}.png`)
@@ -334,12 +334,12 @@ export const BigSmallTurbo = {
 export const OddEvenTurbo = {
     verifyResult : async(_Result) =>{
         await selectGame('OddEvenTurbo')
-        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundid)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
         await utils.clickEl(ResultLocator.btnSearch)
         // Verify Date column
         await verifyFormatTime()
         // Verify RoundID
-        await verifyRoundIdIsExistedOnTableResult(_Result.roundid)
+        await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
         // Verify Result column
         await utils.isValueEqualOnAttribute(ResultLocator.tblResult.OddEvenTurbo.lblResult1,"src",`/scss/images/dice_${_Result.result[0].dice1}.png`)
         await utils.isValueEqualOnAttribute(ResultLocator.tblResult.OddEvenTurbo.lblResult2,"src",`/scss/images/dice_${_Result.result[0].dice2}.png`)

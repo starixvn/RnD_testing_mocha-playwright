@@ -1,0 +1,32 @@
+const game = "TurboOddEven"
+const addContext = require('mochawesome/addContext')
+import * as utils from '../../util/utils'
+import * as TurboOddEvenFunc from '../TurboOddEven/TurboOddEven_Function'
+import * as GameLobbyFunc from '../GameLobby_Function'
+import * as RetrieveEndGameFunc from '../RetrieveEndGame_Function'
+
+let result = null
+
+describe('TurboOddEven Verify Sub test cases', ()=>{
+  before(async function(){
+    await utils.wsHearMessageOn()
+    await utils.Login(env,game);
+    await GameLobbyFunc.OpenGameFromLobby(game)
+    await TurboOddEvenFunc.VerifySignInSuccessfully()
+    await TurboOddEvenFunc.PlaceBet('Odd',1000)
+    result = await TurboOddEvenFunc.GetSettleResult(1000)
+  })
+  afterEach(async function(){
+    if(this.currentTest.state == 'failed'){
+        var __filename = this.currentTest.title.trim()
+        await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+        await addContext (this,`./Pictures/${game}_${__filename}.png` )
+    }
+  })
+ 
+  it('TC_33_Full_Smoke_Verify Retrieve End Game', async () => {
+        await RetrieveEndGameFunc.navigateRetrieveEndGame()
+        await RetrieveEndGameFunc.verifyRetrieveEndGame(game,result)
+  })
+  
+})

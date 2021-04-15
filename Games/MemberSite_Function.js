@@ -20,7 +20,7 @@ export const login = async(_env,_game) => {
             await utils.clickEl(MemberSiteLocator.btnLogin)
         }
         if(await page.url().toString().includes('Sports') !== true){
-            console.log(page.url().toString().replace('?ReturnUrl=%2fLogin%2fVerify','').replace('demo:one23@',''))
+            //console.log(page.url().toString().replace('?ReturnUrl=%2fLogin%2fVerify','').replace('demo:one23@',''))
             // Login again   
             // Go to Membersite Url
             await utils.navigate(page.url().toString().replace('?ReturnUrl=%2fLogin%2fVerify','').replace('demo:one23@',''))

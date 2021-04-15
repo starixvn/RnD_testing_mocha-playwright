@@ -316,7 +316,7 @@ export const GetWinLossStatus = async () => {
 }
 
 //Get Settle Result
-export const GetSettleResult = async() => {
+export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
   let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"finish":{"result":')
   const res = String(_found).split("42/user/oeturbo,");
@@ -334,7 +334,17 @@ export const GetSettleResult = async() => {
   }
   // Get bet win stake
   let _getwinstake = await GetWinLossStatus()
-  return { result : _result , roundid : _roundid, settleresult : _settleresult, choicewin : _choicewin, win: _getwinstake.win , betwin : _getwinstake.stake, time: _time, betchoice: _getwinstake.betchoice}
+  return { 
+    result : _result , 
+    roundId : _roundid,
+    settleresult : _settleresult, 
+    choicewin : _choicewin, 
+    win: _getwinstake.win ,
+    betwin : _getwinstake.winloss, 
+    time: _time, 
+    betchoice: _getwinstake.betchoice, 
+    stake: _stake 
+  }
 }
 
 //Check Round History
@@ -345,8 +355,8 @@ export const CheckRoundHistory = async() => {
   let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"history"')
   const res = String(_found).split("42/user/oeturbo,");
   const obj = JSON.parse(res[1]);
-  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].result`);
-  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundid})].settlementResult`);
+  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
+  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);
   // using lodash
   await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
   await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
@@ -374,12 +384,12 @@ export const CheckSettleBalance = async() => {
 ///////////////////////////////////////////////////////////Database Functions
 
 export const verifyDBCuoc = async(_resultOnWeb) => {
-  let qrFindCuoc = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundid}]}
+  let qrFindCuoc = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundId}]}
   let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.TurboOddEven.cuoc,qrFindCuoc)
   // Verify _id is existed
   await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
   // Verify phien
-  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundid)
+  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundId)
   // // Verify win
   // await utils.shouldBeEqual(resultOnDb.win,_resultOnWeb.win)
   //Verify uid is existed
@@ -416,12 +426,12 @@ export const verifyDBCuoc = async(_resultOnWeb) => {
 }
 
 export const verifyDBPhien = async(_resultOnWeb)=>{
-  let qrFindPhien = { id :_resultOnWeb.roundid }
+  let qrFindPhien = { id :_resultOnWeb.roundId }
   let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.TurboOddEven.phien,qrFindPhien)
   // Verify column _id is existed
   await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
   // Verify id
-  await utils.shouldBeEqual(resultOnDb.id,_resultOnWeb.roundid)
+  await utils.shouldBeEqual(resultOnDb.id,_resultOnWeb.roundId)
   // Verify result
   await utils.shouldBeEqual(_.isEqual(resultOnDb.result,_resultOnWeb.result[0]),true)
   // Verify time
@@ -433,12 +443,12 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 }
 
 export const verifyDBOnes = async(_resultOnWeb)=>{
-  let qrFindPhien = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundid}]}
+  let qrFindPhien = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundId}]}
   let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.TurboOddEven.ones,qrFindPhien)
   // Verify column _id is existed
   await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
   // Verify phien
-  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundid)
+  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundId)
     //Verify uid is existed
     await utils.shouldBeEqual(("uid" in resultOnDb),true,"uid column is not existed")
   // Verify time

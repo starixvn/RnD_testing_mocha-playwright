@@ -1,6 +1,5 @@
 const game = "BigSmall"
 const addContext = require('mochawesome/addContext')
-import { dir } from 'console'
 import * as utils from '../../util/utils'
 import * as BigSmallFunc from '../BigSmall/BigSmall_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
