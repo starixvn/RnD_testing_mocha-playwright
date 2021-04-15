@@ -28,5 +28,11 @@ describe('TurboBigSmall Verify Sub test cases', ()=>{
         await RetrieveEndGameFunc.navigateRetrieveEndGame()
         await RetrieveEndGameFunc.verifyRetrieveEndGame(game,result)
   })
+
+  it('TC_34_Full_Smoke_Verify Archived RoundId in Retrieve End Game', async () => {
+    await RetrieveEndGameFunc.navigateRetrieveEndGame()
+    await RetrieveEndGameFunc.verifyArchivedRoundId(game,result)
+})
+
   
 })

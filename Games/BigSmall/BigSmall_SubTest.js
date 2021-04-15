@@ -29,4 +29,9 @@ describe('BigSmall Verify Sub test cases', ()=>{
         await RetrieveEndGameFunc.verifyRetrieveEndGame(game,result)
   })
   
+  it('TC_26_Full_Smoke_Verify Archived RoundId in Retrieve End Game', async () => {
+    await RetrieveEndGameFunc.navigateRetrieveEndGame()
+    await RetrieveEndGameFunc.verifyArchivedRoundId(game,result)
+})
+
 })

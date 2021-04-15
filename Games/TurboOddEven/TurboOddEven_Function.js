@@ -299,16 +299,16 @@ export const GetWinLossStatus = async () => {
     const obj = JSON.parse(res[1]);
     let _result = jp.value(obj[1],`$..win`);
     let _gbetchoice = jp.query(obj[1],`$..winningByChoices`)
-    let _astake
+    let _betwin
       if (_result == 'false'){
-        _astake = 0  //rule cân cửa
+        _betwin = 0  //rule cân cửa
       }
       else
       {
-        _astake = jp.value(obj, `$..bet`);
+        _betwin = jp.value(obj, `$..bet`);
       }
       let _betchoice = Object.keys(_gbetchoice[0])[0]
-      return {win: _result , stake: _astake ,betchoice:  _betchoice}
+      return {win: _result , betwin: _betwin ,betchoice:  _betchoice}
       
   } catch (e) {
       console.error(e)
@@ -340,7 +340,7 @@ export const GetSettleResult = async(_stake=null) => {
     settleresult : _settleresult, 
     choicewin : _choicewin, 
     win: _getwinstake.win ,
-    betwin : _getwinstake.winloss, 
+    betwin : _getwinstake.betwin, 
     time: _time, 
     betchoice: _getwinstake.betchoice, 
     stake: _stake 
@@ -367,10 +367,10 @@ export const CheckRoundHistory = async() => {
 export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
   let _af = await GetWinLossStatus()
-  console.log('Is Win: ',_af.win, _af.stake)
+  console.log('Is Win: ',_af.win, _af.betwin)
   await utils.sleep(1000)
   let _afterbalance = await utils.getBalance()
-  _beforebalance = _beforebalance +  _af.stake
+  _beforebalance = _beforebalance +  _af.betwin
   if ( _af.win == true){
     await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
   }
