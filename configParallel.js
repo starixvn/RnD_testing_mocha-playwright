@@ -2,6 +2,8 @@ import playwright from 'playwright'
 import * as config from './config/config'
 import uaParser from 'ua-parser-js'
 const chai = require('chai')
+const chaiHTTP = require('chai-http')
+chai.use(chaiHTTP)
 const expect = chai.expect
 
 exports.mochaHooks = {
