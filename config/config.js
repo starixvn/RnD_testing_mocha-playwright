@@ -37,7 +37,6 @@ export const cf_local ={
 }
 
 export const cf_local1 ={
-    //url: "http://gamelobby-simulator.lumigame.com/signin",
     url: "http://l1-glbs1.lumigame.com/signin",
     usernameSSO: "",
     memberId: {

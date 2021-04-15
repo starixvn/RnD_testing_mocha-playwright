@@ -35,15 +35,18 @@ exports.mochaHooks = {
     global.balance = parseFloat("0.00")
     global.env = process.env.NODE_ENV || 'cf_local'
     global.expect = expect
-    global.game = /Games\/(.*)\//ig.exec(process.argv[4])[1]
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){
-      chai.request(config[env].setBalance).post("").send(
-        `ObCustId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
-      ).end( async(err,res)=>{
-        expect(res).to.have.status(200)
-      })
+      const aMemberID = Object.values(config[env].memberId)
+      for( let i =0 ; i< aMemberID.length;i++){
+        chai.request(config[env].setBalance).post("").send(
+          `ObCustId=${aMemberID[i]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
+        ).end( async(err,res)=>{
+          expect(res).to.have.status(200)
+        })
+      }
+      
     }
-    } )  ,
+  }),
   afterAll: (async () => { await browser.close()  })
   }
