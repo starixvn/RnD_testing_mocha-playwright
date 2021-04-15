@@ -6,7 +6,7 @@ describe('Mark TestCase', ()=>{
   it('Export to Google Sheet', async() => {
     let _env = process.env.NODE_ENV || 'cf_local'
     let env = await envToString(_env)
-    let gsheet = new gsUtil.Doc('1ysx_va_Qy8I8yx9c9XTRIFjOXjZ6AqKNmkcnmP8LMqg')
+    let gsheet = new gsUtil.Doc('1fDQbvG7rm3vgLPfqRnaKMt8EGXjTGELd-1l56XwLq98')
     await gsheet.init()
     await gsheet.getSheet('AutomationLog-'+env)
 
