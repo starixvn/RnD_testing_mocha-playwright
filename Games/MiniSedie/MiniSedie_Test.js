@@ -169,12 +169,12 @@ describe('MiniSedie Game', ()=>{
     await ResultFunc.miniSedie.verifyResult(await result)
   })
 
-  it('TC_40_Full_Smoke_Verify searching an invalid roundid', async() =>{
+  it('TC_040_Full_Smoke_Verify searching an invalid roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.miniSedie.verifyInvalidRoundID()
   })
 
-  it('TC_41_Full_Smoke_Verify searching an archived roundid', async() =>{
+  it('TC_041_Full_Smoke_Verify searching an archived roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.miniSedie.verifyArchivedRoundID()
   })

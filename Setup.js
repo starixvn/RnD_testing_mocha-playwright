@@ -1,8 +1,10 @@
 import playwright from 'playwright'
 import * as config from './config/config'
 import uaParser from 'ua-parser-js'
-
+import { gameType } from './util/utils'
 const chai = require('chai')
+const chaiHTTP = require('chai-http')
+chai.use(chaiHTTP)
 const expect = chai.expect
 
 before(async () => {
@@ -33,5 +35,14 @@ before(async () => {
     global.balance = parseFloat("0.00")
     global.env = process.env.NODE_ENV || 'cf_local'
     global.expect = expect
+    global.game = /Games\/(.*)\//ig.exec(process.argv[4])[1]
+    // Set balance on Local
+    if(env === 'cf_local' || env === 'cf_local1'){
+      chai.request(config[env].setBalance).post("").send(
+        `ObCustId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
+      ).end( async(err,res)=>{
+        expect(res).to.have.status(200)
+      })
+    }
 })
 

@@ -12,6 +12,31 @@ export const setting ={
 }
 
 export const cf_local ={
+    url: "http://gamelobby-simulator.lumigame.com/signin",
+    usernameSSO: "",
+    memberId: {
+        BlackJack : "1001051",
+        Sedie : "1001052",
+        VipSedie : "1001053",
+        Sicbo:  "1001054",
+        Keno:  "1001055",
+        Baccarat:  "1001056",
+        Roulette:  "1001057",
+        BigSmall : "1001058",
+        MiniSedie: "1001059",
+        TurboBigSmall: "1001060",
+        TurboOddEven: "1001061"
+    },
+    password: "",
+    gamelobbyurl: "",
+    urlWebsocket: "ws://haproxy.lumigame.com:7000/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "http://games.lumigame.com/",
+    protocol: "ws",
+    retrieveEndGame : "http://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
+    setBalance : "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer"
+}
+
+export const cf_local1 ={
     //url: "http://gamelobby-simulator.lumigame.com/signin",
     url: "http://l1-glbs1.lumigame.com/signin",
     usernameSSO: "",
@@ -33,7 +58,8 @@ export const cf_local ={
     urlWebsocket: "ws://haproxy.lumigame.com:7001/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "http://l1-games1.lumigame.com",
     protocol: "ws",
-    retrieveEndGame : "http://l1-ows1.lumigame.com/SabaClub/RetrieveEndGameInfo"
+    retrieveEndGame : "http://l1-ows1.lumigame.com/SabaClub/RetrieveEndGameInfo",
+    setBalance : "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer"
 }
 
 export const cf_sit ={

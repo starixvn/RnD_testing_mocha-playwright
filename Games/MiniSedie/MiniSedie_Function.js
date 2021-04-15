@@ -295,7 +295,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
         allResult.stake = _chip
         allResult.countRed = countRed
         allResult.time = time
-        allResult.winloss = winloss
+        allResult.betwin = winloss
         return allResult
     }
     return null
@@ -396,7 +396,7 @@ export const verifyDBCuoc = async(_resultOnWeb) => {
     // Verify siteId (hard code on Local)
     await utils.shouldBeEqual(resultOnDb.siteId,'4100300')
     // Verify betwin
-    await utils.shouldBeEqual(resultOnDb.betwin,_resultOnWeb.winloss)
+    await utils.shouldBeEqual(resultOnDb.betwin,_resultOnWeb.betwin)
     // Verify even
     await utils.shouldBeEqual(resultOnDb.even,
         (_resultOnWeb.choice === 'Even') ? _resultOnWeb.stake : 0)

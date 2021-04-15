@@ -4,8 +4,8 @@ import * as gsutils from './../../util/gsutils'
 chai.use(chaiHttp)
 
 
-describe('Test', ()=>{
-    it('Full_Test_Demo', async () => {
+describe('Send Message', ()=>{
+    it('Send Telegram', async () => {
         let obj = await gsutils.repareData()
         let rs = await gsutils.prepareResult(obj)
         let env = await envToString(process.env.NODE_ENV || 'cf_local')
