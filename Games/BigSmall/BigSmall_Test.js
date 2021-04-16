@@ -62,8 +62,7 @@ describe('BigSmall Game', ()=>{
    await BigSmallFunc.PlaceBet(pos,5,'nowait')
    await BigSmallFunc.VerifyErrorMessage(errormsg)
    await BigSmallFunc.CheckSettleBalance()
-   await BigSmallFunc.CheckRoundHistory()
- }) 
+  }) 
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {
    const pos = "Small"
@@ -84,6 +83,7 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.PlaceBet("Small",5,'nowait')
     await BigSmallFunc.VerifyErrorMessage(errormsg)
     await BigSmallFunc.CheckSettleBalance()
+    await BigSmallFunc.CheckRoundHistory()
   }) 
 
 

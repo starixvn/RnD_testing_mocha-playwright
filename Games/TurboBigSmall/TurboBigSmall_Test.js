@@ -64,7 +64,7 @@ describe('TurboBigSmall Game', ()=>{
    await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
    await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
    await TurboBigSmallFunc.CheckSettleBalance()
-   await TurboBigSmallFunc.CheckRoundHistory()
+
  }) 
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {  
@@ -85,6 +85,7 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.PlaceBet("Small",5,'nowait')
     await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
     await TurboBigSmallFunc.CheckSettleBalance()
+    await TurboBigSmallFunc.CheckRoundHistory()
   })  
 
   it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {   

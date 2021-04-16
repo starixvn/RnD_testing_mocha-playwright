@@ -63,7 +63,7 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
    await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
    await TurboOddEvenFunc.CheckSettleBalance()
-   await TurboOddEvenFunc.CheckRoundHistory()
+
  }) 
  
  it('TC_07_Full_Verify Max Bet on Even', async () => { 
@@ -84,6 +84,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.PlaceBet("Even",5,'nowait')
     await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
     await TurboOddEvenFunc.CheckSettleBalance()
+    await TurboOddEvenFunc.CheckRoundHistory()
   })  
 
   it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {   
