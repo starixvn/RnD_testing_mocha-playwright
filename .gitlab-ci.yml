@@ -15,6 +15,7 @@ test:
   script:
     - npm install
     - echo "JOBR=$CI_JOB_ID" >> build.env
+    - echo $env
     - set NODE_ENV=$env
     - npm run $Mode
   artifacts:
