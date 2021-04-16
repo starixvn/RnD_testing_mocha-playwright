@@ -33,9 +33,10 @@ before(async () => {
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")
-    global.env = process.env.NODE_ENV || 'cf_local'
+    global.env = (process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local'
     global.expect = expect
     global.game = /Games\/(.*)\//ig.exec(process.argv[4])[1]
+    console.log(game)
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){
       chai.request(config[env].setBalance).post("").send(

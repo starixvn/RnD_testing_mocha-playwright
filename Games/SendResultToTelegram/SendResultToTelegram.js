@@ -8,7 +8,7 @@ describe('Send Message', ()=>{
     it('Send Telegram', async () => {
         let obj = await gsutils.repareData()
         let rs = await gsutils.prepareResult(obj)
-        let env = await envToString(process.env.NODE_ENV || 'cf_local')
+        let env = await envToString((process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local')
         let totalcase = await obj.length
         let testSuiteDetail = ""
         if(await gsutils.isFailed(obj) === true){
@@ -19,6 +19,7 @@ describe('Send Message', ()=>{
         let mainContent = await gsutils.isFailed(obj) === false ? `Passed total ${totalcase} testcases` : testSuiteDetail
         let day = new Date().toLocaleDateString()
         const args = await parseArg(process.argv[7])
+        console.log(args)
         chai.request("https://api.telegram.org")
         .post("/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage")
         .send({

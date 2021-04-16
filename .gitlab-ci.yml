@@ -15,10 +15,7 @@ test:
   script:
     - npm install
     - echo "JOBR=$CI_JOB_ID" >> build.env
-    - echo $env
-    - set NODE_ENV=$env
-    - echo $NODE_ENV
-    - npm run $Mode
+    - npm run $Mode --env=$env
   artifacts:
     paths:
       - Report/mochawesome.*
@@ -47,9 +44,8 @@ public_report:
     - docker-automation-test
   script:
     - npm install
-    - set NODE_ENV=$env
-    - npm run sendResultToTelegram --args=Job=$JOBR
-    - npm run exportStatus
+    - npm run sendResultToTelegram --args=Job=$JOBR --env=$env
+    - npm run exportStatus --env=$env
   when: always
 
 cleanup_job:

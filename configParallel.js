@@ -33,7 +33,7 @@ exports.mochaHooks = {
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")
-    global.env = process.env.NODE_ENV || 'cf_local'
+    global.env = (process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local'
     global.expect = expect
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){

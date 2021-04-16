@@ -4,7 +4,7 @@ import * as gsUtil from '../../util/gsutils'
 describe('Mark TestCase', ()=>{
   
   it('Export to Google Sheet', async() => {
-    let _env = process.env.NODE_ENV || 'cf_local'
+    let _env = (process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local'
     let env = await envToString(_env)
     let gsheet = new gsUtil.Doc('1fDQbvG7rm3vgLPfqRnaKMt8EGXjTGELd-1l56XwLq98')
     await gsheet.init()

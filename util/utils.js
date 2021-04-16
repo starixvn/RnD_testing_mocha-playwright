@@ -492,7 +492,7 @@ export const Login = async(_env,_game) => {
         // Login Member Site
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
-        await navigate(page.url().toString().replace(/\/Sports/g,'')+config[_env].gamelobbyurl)
+        await navigate(page.url().toString().replace(/\/[Ss]ports/g,'')+config[_env].gamelobbyurl)
     } else {
         // Navigate Sabaclub from Simulator
         await MemberSiteFunc.login_local(_env,_game)
