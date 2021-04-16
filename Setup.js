@@ -33,7 +33,7 @@ before(async () => {
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")
-    global.env = process.env.NODE_ENV || 'cf_local'
+    global.env = process.env.NODE_ENV || 'cf_local1'
     global.expect = expect
     global.game = /Games\/(.*)\//ig.exec(process.argv[4])[1]
     // Set balance on Local
