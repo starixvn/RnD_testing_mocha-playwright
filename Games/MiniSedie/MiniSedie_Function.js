@@ -162,6 +162,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     let countRed = 0, currentBalance, lowcase, result, status,time
     
     lowcase = _choice.toLowerCase()
+    wsMessageReceived = []
     // Wait to Finish Game
     await utils.wsFindMessage(remainingTime)
     await utils.sleep(3000)
@@ -281,7 +282,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     let balance = currentBalance - _chip + winloss
     // console.log('winloss: ' +winloss)
     // console.log('expected balance: ' + balance)
-    await utils.sleep(5000)
+    await utils.sleep(6000)
     currentBalance = await getBalance()
     // Verify Balance on UI
     console.log('actual Balance: ' + currentBalance)
