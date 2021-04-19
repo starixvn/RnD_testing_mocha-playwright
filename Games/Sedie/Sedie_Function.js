@@ -182,7 +182,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     lowcase = _choice.toLowerCase()
     // Wait to Finish Game
     await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
-    await utils.sleep(500)
+    await utils.sleep(3000)
     wsMessageReceived = []
     // Wait to new round
     currentBalance = await getBalance()
