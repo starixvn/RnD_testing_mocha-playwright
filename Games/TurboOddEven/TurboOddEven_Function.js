@@ -14,10 +14,27 @@ export const CloseGame = async() => {
 }
 
 export const OpenHistory = async() => {
+  let _settlestate = await IsSettle()
+  if (_settlestate === true){
+      console.log('Balanced Betting Pool')
+      await utils.sleep(5000)
+      await utils.clickPos(TurboOddEvenLocator.History.x ,TurboOddEvenLocator.History.y)
+  }
+  else
   await utils.clickPos(TurboOddEvenLocator.History.x ,TurboOddEvenLocator.History.y)
-  await utils.sleep(1000)
-
+  await utils.sleep(500)
 }
+
+//Is Round Settle
+export const IsSettle = async() => {
+  let _found = wsMessageReceived.filter(element => element.includes('42/user/oeturbo,["OETurbo",{"finish":{"result":'));
+    if (_found.length > 0){
+    return true
+  }
+  else
+  return false
+}
+
 
 export const CloseHistory = async() => {
   await utils.clickPos(TurboOddEvenLocator.HistoryClose.x,TurboOddEvenLocator.HistoryClose.y )
