@@ -71,7 +71,6 @@
         "sendResultToTelegram": "cross-var mocha --timeout 0 Games/SendResultToTelegram/*.js -r @babel/register $npm_config_args"
     },
     "dependencies": {
-        "cross-var": "^1.1.0",
         "jsonpath": "^1.1.1"
     }
 }
