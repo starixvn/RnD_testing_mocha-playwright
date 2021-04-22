@@ -13,7 +13,7 @@ test:
   tags:
     - docker-automation-test
   script:
-    - npm install
+    - npm install --no-optional
     - echo "JOBR=$CI_JOB_ID" >> build.env
     - npm run $Mode --env=$env
   artifacts:
@@ -43,7 +43,7 @@ public_report:
   tags:
     - docker-automation-test
   script:
-    - npm install
+    - npm install --no-optional
     - npm run sendResultToTelegram --args=Job=$JOBR-env=$env
     - npm run exportStatus --args=env=$env
   when: always
