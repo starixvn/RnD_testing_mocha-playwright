@@ -308,7 +308,7 @@ export const GetWinLossStatus = async () => {
     const res = String(_found).split("42/user/txturbo,");
     const obj = JSON.parse(res[1]);
     let _result = jp.value(obj[1],`$..win`);
-    let _gbetchoice = jp.query(obj[1],`$..winningByChoices`)
+    let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
     let _betwin
     if (_result == 'false'){
       _betwin = 0  //rule cân cửa
@@ -317,7 +317,7 @@ export const GetWinLossStatus = async () => {
     {
       _betwin = jp.value(obj, `$..bet`);
     }
-      let _betchoice = Object.keys(_gbetchoice[0])[0]
+      let _betchoice = Object.keys(_gbetchoice)[0]
       return {win: _result , betwin: _betwin ,betchoice:  _betchoice}
       
   } catch (e) {

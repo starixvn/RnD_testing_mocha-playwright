@@ -134,13 +134,11 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
       //console.log('Verify Stake: ',_pos,': ',_stake)
-      //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
       if (_pos == "Even"){
         findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"even":${_stake}}`
         _found = await utils.wsFindMessage(findmsg)
           }
-
        else if(_pos == "Odd"){
         findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"odd":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
@@ -298,7 +296,7 @@ export const GetWinLossStatus = async () => {
     const res = String(_found).split("42/user/oeturbo,");
     const obj = JSON.parse(res[1]);
     let _result = jp.value(obj[1],`$..win`);
-    let _gbetchoice = jp.query(obj[1],`$..winningByChoices`)
+    let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
     let _betwin
       if (_result == 'false'){
         _betwin = 0  //rule cân cửa
@@ -307,7 +305,7 @@ export const GetWinLossStatus = async () => {
       {
         _betwin = jp.value(obj, `$..bet`);
       }
-      let _betchoice = Object.keys(_gbetchoice[0])[0]
+      let _betchoice = Object.keys(_gbetchoice)[0]
       return {win: _result , betwin: _betwin ,betchoice:  _betchoice}
       
   } catch (e) {
