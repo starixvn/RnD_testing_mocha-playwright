@@ -13,7 +13,7 @@ test:
   tags:
     - docker-automation-test
   script:
-    - npm install
+    - npm install --no-optional
     - echo "JOBR=$CI_JOB_ID" >> build.env
     - npm run $Mode --env=$env
   artifacts:
