@@ -1,7 +1,6 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 const creds = require('../cred/secret_key.json')
 
-const jsonResult = require('../Report/mochawesome.json')
 const jp = require('jsonpath')
 
 export const Doc = class {
@@ -56,28 +55,33 @@ const getTestSuiteName = async(txt)=>{
 }
 
 export const repareData = async(_note="")=> {
-    let note = _note
-    // Get excution time
-    let t = new Date().toLocaleString()
-    // Get testCase List
-    let rawTestcaseName = jp.query(jsonResult,'$..tests..fullTitle')
-    let testcaseName = [],testSuiteName = []
-    for(let i =0; i<rawTestcaseName.length ;i++) {
-        testcaseName.push(await getTestcaseName(rawTestcaseName[i]))
-        testSuiteName.push(await getTestSuiteName(rawTestcaseName[i]))
+    try {
+        const jsonResult = require('../Report/mochawesome.json')
+        let note = _note
+        // Get excution time
+        let t = new Date().toLocaleString()
+        // Get testCase List
+        let rawTestcaseName = jp.query(jsonResult,'$..tests..fullTitle')
+        let testcaseName = [],testSuiteName = []
+        for(let i =0; i<rawTestcaseName.length ;i++) {
+            testcaseName.push(await getTestcaseName(rawTestcaseName[i]))
+            testSuiteName.push(await getTestSuiteName(rawTestcaseName[i]))
+        }
+        // Get Pass/Failed
+        let rawStatus = jp.query(jsonResult,'$..tests..pass')
+        let status =[]
+        for(let i=0; i<rawStatus.length ;i++) {
+            status.push( (rawStatus[i] === true ) ? 'Passed' : 'Failed')
+        }
+        let object = []
+        // Create Object file
+        for(let i=0; i<rawTestcaseName.length;i++) {
+            object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note})
+        }
+        return object
+    } catch {
+        return 'NotFound'
     }
-    // Get Pass/Failed
-    let rawStatus = jp.query(jsonResult,'$..tests..pass')
-    let status =[]
-    for(let i=0; i<rawStatus.length ;i++) {
-        status.push( (rawStatus[i] === true ) ? 'Passed' : 'Failed')
-    }
-    let object = []
-    // Create Object file
-    for(let i=0; i<rawTestcaseName.length;i++) {
-        object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note})
-    }
-    return object
 }
 
 export const isFailed = async(object)=> {
@@ -103,27 +107,32 @@ const msToTime = async(s)=> {
   }
 
 export const prepareResult = async(objArr)=> {
-    let rs = [],flag =0, duration
-    for(let i =0 ; i < objArr.length ; i++){
-        if(rs.length === 0){
-            rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
-        } else {
-            flag = 0
-            for(let j = 0; j< rs.length ; j++){
-                if(rs[j].TestSuite === objArr[i].TestSuite) {
-                    rs[j].total = rs[j].total +1
-                    rs[j].pass = (objArr[i].Status === "Passed") ? rs[j].pass + 1 : rs[j].pass
-                    flag=1
-                    break
+    try{
+        const jsonResult = require('../Report/mochawesome.json')
+        let rs = [],flag =0, duration
+        for(let i =0 ; i < objArr.length ; i++){
+            if(rs.length === 0){
+                rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
+            } else {
+                flag = 0
+                for(let j = 0; j< rs.length ; j++){
+                    if(rs[j].TestSuite === objArr[i].TestSuite) {
+                        rs[j].total = rs[j].total +1
+                        rs[j].pass = (objArr[i].Status === "Passed") ? rs[j].pass + 1 : rs[j].pass
+                        flag=1
+                        break
+                    }
+                }
+                if(flag ===0){
+                    rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
                 }
             }
-            if(flag ===0){
-                rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
-            }
         }
+        duration = await msToTime(jp.value(jsonResult,"$.stats.duration"))
+        return { Result : rs, ExecutionTime : duration}
+    } catch {
+        return 'NotFound'
     }
-    duration = await msToTime(jp.value(jsonResult,"$.stats.duration"))
-    return { Result : rs, ExecutionTime : duration}
 }
 
     // // Initialize Auth - see more available options at https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication

@@ -4,8 +4,8 @@ import * as gsUtil from '../../util/gsutils'
 describe('Mark TestCase', ()=>{
   
   it('Export to Google Sheet', async() => {
-    let _env = (process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local'
-    let env = await envToString(_env)
+    const args = await parseArg(process.argv[7])
+    let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
     let gsheet = new gsUtil.Doc('1fDQbvG7rm3vgLPfqRnaKMt8EGXjTGELd-1l56XwLq98')
     await gsheet.init()
     await gsheet.getSheet('AutomationLog-'+env)
@@ -26,4 +26,13 @@ const envToString = async(_env)=>{
   else if(_env === 'cf_sit') return 'SIT'
   else if(_env === 'cf_uat') return 'UAT'
   else if(_env === 'cf_prod') return 'PRO'
+}
+const parseArg = async(_args)=> {
+    let p = _args.split("-")
+    let args ={},tmp=[]
+    for(let i=0 ; i< p.length ; i++){
+        tmp = p[i].split("=")
+        args[tmp[0]] = tmp[1]
+    }
+    return args
 }

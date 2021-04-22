@@ -82,14 +82,14 @@ export const verifyBetChip = async() => {
 
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
-    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
     await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
-    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -97,7 +97,7 @@ export const verifyMaxBet = async(_choice) =>{
     /*  Param Explained:
          _choice : input choice option will be selected, ex: 'Even' , 'Odd', '4Red' ... 'Round' will be verify message max Round
     */
-    let flag
+    let flag, lowchoice=_choice.toLowerCase()
     if (_choice === 'Round'){
         // Wait to Finish Game
         wsMessageReceived = []
@@ -106,18 +106,18 @@ export const verifyMaxBet = async(_choice) =>{
         await utils.sleep(9000)
         await placeBet("Even")
         await selectChip(2000)
-        flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+        flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"odd","notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
         await utils.shouldBeEqual(flag.Val,true)
     }
     else if (_choice === 'Red4' || _choice === 'White4'){
         wsMessageReceived = []
         await selectChip(500)
-        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 500"}]`)
         await utils.shouldBeEqual(flag.Val,true)
     } else {
         wsMessageReceived = []
         await selectChip(2000)
-        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
         await utils.shouldBeEqual(flag.Val,true)
     }
 }
@@ -180,9 +180,10 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     */
     let countRed = 0, currentBalance, lowcase, result, status,time
     lowcase = _choice.toLowerCase()
+    wsMessageReceived = []
     // Wait to Finish Game
     await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
-    await utils.sleep(500)
+    await utils.sleep(3000)
     wsMessageReceived = []
     // Wait to new round
     currentBalance = await getBalance()

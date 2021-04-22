@@ -18,7 +18,7 @@ test:
     - npm run $Mode --env=$env
   artifacts:
     paths:
-      - Report/mochawesome.*
+      - Report/
       - build.env
     when: always
     expire_in: 1 day 
@@ -26,8 +26,8 @@ test:
 config_report:
   stage: config-report
   tags:
-  - docker-automation-test
-  script: 
+    - docker-automation-test
+  script:
     - exit 0
   when: always 
   artifacts:
@@ -44,8 +44,8 @@ public_report:
     - docker-automation-test
   script:
     - npm install
-    - npm run sendResultToTelegram --args=Job=$JOBR --env=$env
-    - npm run exportStatus --env=$env
+    - npm run sendResultToTelegram --args=Job=$JOBR-env=$env
+    - npm run exportStatus --args=env=$env
   when: always
 
 cleanup_job:

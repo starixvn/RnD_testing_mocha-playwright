@@ -27,7 +27,8 @@
         "websocket": "1.0.33",
         "ua-parser-js": "^0.7.24",
         "mongodb": "^3.6.5",
-        "chai-http": "^4.3.0"
+        "chai-http": "^4.3.0",
+        "cross-var": "1.1.0"
     },
     "@comment scripts": {
         "CI_SelGame": [
@@ -66,10 +67,11 @@
         "smoke": "SET NODE_ENV=%npm_config_env%& mocha  --timeout 0 Games/**/*_Test.js  -r @babel/register --fgrep Smoke_ --file ./Setup.js  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report",
         "p_full": "export NODE_ENV=$npm_config_env&& mocha --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report ",
         "p_smoke": "export NODE_ENV=$npm_config_env&& mocha --timeout 0 Games/**/*_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report",
-        "exportStatus": "SET NODE_ENV=%npm_config_env%& mocha  --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register",
-        "sendResultToTelegram": "SET NODE_ENV=%npm_config_env%& mocha --timeout 0 Games/SendResultToTelegram/*.js -r @babel/register %npm_config_args%"
+        "exportStatus": "cross-var mocha  --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register $npm_config_args" ,
+        "sendResultToTelegram": "cross-var mocha --timeout 0 Games/SendResultToTelegram/*.js -r @babel/register $npm_config_args"
     },
     "dependencies": {
+        "cross-var": "^1.1.0",
         "jsonpath": "^1.1.1"
     }
 }
