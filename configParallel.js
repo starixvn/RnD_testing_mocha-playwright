@@ -35,6 +35,7 @@ exports.mochaHooks = {
     global.balance = parseFloat("0.00")
     global.env = (process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local'
     global.expect = expect
+    global.game = /Games\/(.*)\//ig.exec(process.argv[4])[1]
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){
       const aMemberID = Object.values(config[env].memberId)

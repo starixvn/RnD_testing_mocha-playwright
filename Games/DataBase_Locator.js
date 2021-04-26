@@ -28,6 +28,10 @@ export const DB = {
             cuoc : 'chanleturbo_cuocs',
             phien : 'chanleturbo_phiens',
             ones : 'chanleturbo_ones'
+        }, 
+        BlackJack : {
+            cuoc : 'blackjack_cuocs',
+            phien : 'blackjack_phiens'
         }
     }
 }
