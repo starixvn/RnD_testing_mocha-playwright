@@ -1,5 +1,7 @@
 export const DB = {
-    connectString : 'mongodb://lmn_readonly:LmnReadonly@10.10.50.14:17101/',
+    connectString : {
+        cf_local : "mongodb://lmn_backend:LmnBackend@10.10.50.13:27101/?replicaSet=L1Local",
+        cf_local1 : 'mongodb://lmn_readonly:LmnReadonly@10.10.50.14:17101/'},
     dataBaseName : 'minigame',
     collection : {
         MiniSedie : {
@@ -32,6 +34,11 @@ export const DB = {
         BlackJack : {
             cuoc : 'blackjack_cuocs',
             phien : 'blackjack_phiens'
+        },
+        SedieWar : {
+            cuoc : 'vipsediewar_cuocs',
+            ones : 'vipsediewar_ones',
+            phien : 'vipsediewar_phiens'
         }
     }
 }

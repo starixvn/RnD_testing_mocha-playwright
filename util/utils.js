@@ -47,7 +47,7 @@ export const wsFindMessage = async(_mes) => {
                 // console.log(wsMessageReceived)
                 result = await FindMessage(_mes)
                 if( result === true ) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
-                await sleep(500)
+                await sleep(1000)
             }
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}
@@ -184,7 +184,22 @@ export const getAttribute = async(_el, _val) => {
         await shouldBeEqual(true,false,"Error - get Attribute")
     }
 }
-
+// Verify text is not equal strCompare
+export const isTextNotEqualOnElement = async(_el, _strCompare) => {
+    try {
+        let loop = true;
+        while(loop){
+            if(await getText(_el) != _strCompare) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
+            setTimeout(() => { 
+                loop = false
+              }, config.setting.timeout);
+        }
+        return { Val : false , Err : { IsErr : false , ErrMess : ""}}
+    } catch (error) {
+        console.log('Error '+error.message)
+        return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
+    }
+}
 // Verify value of Attribute is not equal strCompare
 export const isValueNotEqualOnAttribute = async(_el, _val, _strCompare) => {
     try {

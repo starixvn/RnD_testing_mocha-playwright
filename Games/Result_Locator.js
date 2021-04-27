@@ -79,7 +79,39 @@ export const ResultLocator = {
             lblResult3 : "//*/tr[1]//img[3]",
             total : "//*/tr[1]//td[4]",
             choicewin : "//*/tr[1]//td[5]/span"
-            }        
+            },
+        
+        SedieWar :{
+            lblPlayerResult1: "//table//tbody/tr/td[3]/i[1]",
+            lblPlayerResult2: "//table//tbody/tr/td[3]/i[2]",
+            lblPlayerResult3: "//table//tbody/tr/td[3]/i[3]",
+            lblPlayerResult4: "//table//tbody/tr/td[3]/i[4]",
+            lblBankerResult1: "//table//tbody/tr/td[4]/i[1]",
+            lblBankerResult2: "//table//tbody/tr/td[4]/i[2]",
+            lblBankerResult3: "//table//tbody/tr/td[4]/i[3]",
+            lblBankerResult4: "//table//tbody/tr/td[4]/i[4]",
+            redChip : "red-chip",
+            whiteChip : "white-chip",
+            lblChoiceWin : "//table//tbody/tr/td[5]",
+            choiceWin : {
+                optionWin : ["Nhà con", "Nhà cái", "Hòa"],
+                totalWin : ["Tổng Chẵn", "Tổng Lẻ"],
+                player : {
+                    0 : ["Nhà Con Chẵn","Nhà Con 4 trắng"],
+                    1 : ["Nhà Con lẻ","Nhà Con 1 đỏ"],
+                    2 : ["Nhà Con Chẵn",""],
+                    3 : ["Nhà Con lẻ","Nhà Con 3 đỏ"],
+                    4 : ["Nhà Con Chẵn","Nhà Con 4 đỏ"],
+                },
+                banker : {
+                    0 : ["Nhà Cái chẵn","Nhà Cái 4 trắng"],
+                    1 : ["Nhà Cái lẻ","Nhà Cái 1 đỏ"],
+                    2 : ["Nhà Cái chẵn",""],
+                    3 : ["Nhà Cái lẻ","Nhà Cái 3 đỏ"],
+                    4 : ["Nhà Cái chẵn","Nhà Cái 4 đỏ"],
+                }
+            }
+        }
     
     }
 }

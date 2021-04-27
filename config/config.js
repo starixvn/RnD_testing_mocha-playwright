@@ -7,7 +7,7 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: true,
+    headless: false,
 }
 
 export const cf_local ={
@@ -24,7 +24,8 @@ export const cf_local ={
         BigSmall : "1001058",
         MiniSedie: "1001059",
         TurboBigSmall: "1001060",
-        TurboOddEven: "1001061"
+        TurboOddEven: "1001061",
+        SedieWar: "1001062"
     },
     password: "",
     gamelobbyurl: "",
@@ -49,7 +50,8 @@ export const cf_local1 ={
         BigSmall : "1001058",
         MiniSedie: "1001059",
         TurboBigSmall: "1001060",
-        TurboOddEven: "1001061"
+        TurboOddEven: "1001061",
+        SedieWar: "1001062"
     },
     password: "",
     gamelobbyurl: "",

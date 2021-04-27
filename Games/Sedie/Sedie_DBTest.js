@@ -1,6 +1,7 @@
 const game = "Sedie"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
+import * as GameLobbyFunc from './../GameLobby_Function'
 import * as SedieFunc from './Sedie_Function'
 let result = null
 let choice = ['Even','Odd','Red4','Red3','Red2','White3','White4']
@@ -9,7 +10,7 @@ describe('Sedie Database Testing', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
-    await SedieFunc.openFromLobby()
+    await GameLobbyFunc.OpenGameFromLobby(game)
     await SedieFunc.verifySignInSuccessfully()
     result = await SedieFunc.verifySettlement(choice[Math.floor(Math.random() * 6)],chip[Math.floor(Math.random() * 8)],true)
   })

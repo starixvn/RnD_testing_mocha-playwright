@@ -55,10 +55,12 @@ export const login_local = async(_env,_game) => {
 
             // Click on Gen Token
             await utils.clickEl(MemberSiteLocator.btnGetToken)
-            flag = await utils.isValueNotEqualOnAttribute(MemberSiteLocator.lblRedirect,"href","#")
+            flag = await utils.isTextNotEqualOnElement(MemberSiteLocator.lblRedirect,"#")
+            // flag = await utils.getText(MemberSiteLocator.lblRedirect)
+
             expect(flag.Val, 'Fail on get token from Simulator').to.be.true
             // Navigate to SabaClub
-            let url = (await utils.getAttribute(MemberSiteLocator.lblRedirect,"href")).toString()
+            let url = (flag = await utils.getText(MemberSiteLocator.lblRedirect)).toString()
             await utils.navigate((await url).slice(0, -1))
             await utils.sleep(7000)//Wait for login process
         } catch (error) {

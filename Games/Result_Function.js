@@ -8,7 +8,8 @@ const gameName = {
     BigSmall : 'BigSmall',
     BigSmallTurbo : 'BigSmallTurbo',
     OddEven : 'OddEven',
-    OddEvenTurbo : 'OddEvenTurbo'
+    OddEvenTurbo : 'OddEvenTurbo',
+    SedieWar : "SeDieWar"
 
 }
 export const verifyGameInDropdownlist = async(_game) =>{
@@ -381,6 +382,89 @@ export const OddEvenTurbo = {
     },
     verifyArchivedRoundID : async()=> {
         await selectGame("OddEvenTurbo")
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
+        await utils.clickEl(ResultLocator.btnSearch)
+        await utils.waitEl(ResultLocator.lblNodata)
+        await closePage()
+    }
+}
+
+export const SedieWar = {
+    verifyResult : async(_Result,game="SedieWar")=>{
+        await selectGame(game)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
+        await utils.clickEl(ResultLocator.btnSearch)
+
+        // Verify Date column
+        await verifyFormatTime()
+        // Verify RoundID
+        await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
+        let tmp = [ "Player", "Banker"]
+        // Verify Result Player/ Banker column
+        for(let i=0;i<tmp.length;i++){
+            await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game][`lbl${tmp[i]}Result1`],"class",
+                (_Result[`${tmp[i]}Red`] >= 1) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+            await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game][`lbl${tmp[i]}Result2`],"class",
+                (_Result[`${tmp[i]}Red`] >= 2) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+            await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game][`lbl${tmp[i]}Result3`],"class",
+                (_Result[`${tmp[i]}Red`] >= 3) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+            await utils.isValueEqualOnAttribute(ResultLocator.tblResult[game][`lbl${tmp[i]}Result4`],"class",
+                (_Result[`${tmp[i]}Red`] === 4) ? ResultLocator.tblResult[game].redChip : ResultLocator.tblResult[game].whiteChip )
+        }
+
+        // Prepare result
+        let rs = ""
+        if (_Result.PlayerRed > _Result.BankerRed) { rs = ResultLocator.tblResult[game].choiceWin.optionWin[0] }
+        else if (_Result.PlayerRed < _Result.BankerRed) { rs = ResultLocator.tblResult[game].choiceWin.optionWin[1] }
+        else { rs = ResultLocator.tblResult[game].choiceWin.optionWin[2] }
+        rs = ((_Result.PlayerRed+_Result.BankerRed) % 2 === 0) ? rs + ", " +  ResultLocator.tblResult[game].choiceWin.totalWin[0] : rs + ", " +  ResultLocator.tblResult[game].choiceWin.totalWin[1]
+        rs = rs + "\n" + ResultLocator.tblResult[game].choiceWin.player[_Result.PlayerRed][0] + ", " + ResultLocator.tblResult[game].choiceWin.banker[_Result.BankerRed][0]
+        if(_Result.PlayerRed === 2 && _Result.BankerRed === 2) { rs = rs + "\n"}
+        else if(_Result.PlayerRed === 2) { rs = rs + "\n" + ResultLocator.tblResult[game].choiceWin.banker[_Result.BankerRed][1]}
+        else if(_Result.BankerRed === 2) { rs = rs + "\n" + ResultLocator.tblResult[game].choiceWin.player[_Result.PlayerRed][1]}
+        else {
+            rs = rs + "\n" + ResultLocator.tblResult[game].choiceWin.player[_Result.PlayerRed][1]
+                + ", " + ResultLocator.tblResult[game].choiceWin.banker[_Result.BankerRed][1]
+        }
+        // Verify Choice Win
+        await utils.shouldBeEqual(await utils.getText(ResultLocator.tblResult[game].lblChoiceWin),rs + "\n")
+        await closePage()
+    },
+    verifyInvalidRoundID : async(game="SedieWar") =>{
+        await selectGame(game)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,-1)
+        await utils.clickEl(ResultLocator.btnSearch)
+        await utils.waitEl(ResultLocator.lblNodata)
+        await closePage()
+    },
+    verifyRoundID0 : async(game="SedieWar") =>{
+        await selectGame(game)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,0)
+        await utils.clickEl(ResultLocator.btnSearch)
+
+        // Verify Date column
+        await verifyFormatTime()
+        
+        // Verify Round column
+        await utils.waitEl(ResultLocator.tblResult.lblRound)
+
+        // Verify Result Column
+        await utils.waitEl(ResultLocator.tblResult[game].lblPlayerResult1)
+        await utils.waitEl(ResultLocator.tblResult[game].lblPlayerResult2)
+        await utils.waitEl(ResultLocator.tblResult[game].lblPlayerResult3)
+        await utils.waitEl(ResultLocator.tblResult[game].lblPlayerResult4)
+        
+        await utils.waitEl(ResultLocator.tblResult[game].lblBankerResult1)
+        await utils.waitEl(ResultLocator.tblResult[game].lblBankerResult2)
+        await utils.waitEl(ResultLocator.tblResult[game].lblBankerResult3)
+        await utils.waitEl(ResultLocator.tblResult[game].lblBankerResult4)
+
+        // Verify ChoiceWin Column
+        await utils.waitEl(ResultLocator.tblResult[game].lblChoiceWin)
+        await closePage()
+    },
+    verifyArchivedRoundID : async(game="SedieWar")=> {
+        await selectGame(game)
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)

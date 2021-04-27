@@ -317,7 +317,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     let balance = currentBalance - _chip + winloss
     // console.log('winloss: ' +winloss)
     // console.log('expected balance: ' + balance)
-    await utils.sleep(5000)
+    await utils.sleep(6000)
     currentBalance = await getBalance()
     // Verify Balance on UI
     console.log('actual Balance: ' + currentBalance)
@@ -395,7 +395,7 @@ export const closeHistory = async() => {
 
 export const verifyDBCuoc = async(_resultOnWeb) => {
     let qrFindCuoc = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundId}]}
-    let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.Sedie.cuoc,qrFindCuoc)
+    let resultOnDb = await utils.mondbGetData(DB.connectString[env],DB.dataBaseName,DB.collection.Sedie.cuoc,qrFindCuoc)
     // Verify _id is existed
     await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
     // Verify phien
@@ -451,7 +451,7 @@ export const verifyDBCuoc = async(_resultOnWeb) => {
 
 export const verifyDBPhien = async(_resultOnWeb)=>{
     let qrFindPhien = { id :_resultOnWeb.roundId }
-    let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.Sedie.phien,qrFindPhien)
+    let resultOnDb = await utils.mondbGetData(DB.connectString[env],DB.dataBaseName,DB.collection.Sedie.phien,qrFindPhien)
     // Verify column _id is existed
     await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
     // Verify id
