@@ -522,6 +522,12 @@ export const Login = async(_env,_game) => {
 export const getDataJsonPath = async(_rawData, _jsonpath) => {
     return jp.value(JSON.parse(_rawData),_jsonpath)
 }
+
+// Get Keys of Object By Value
+export const getKeysByValue = async(object, value) => {
+    return Object.keys(object).filter(key => object[key] === value);
+}
+
 export const getUIBalance = async(_path,_left=null, _top=null, _width=null, _height=null) => {
     try {
         if(typeof _path === 'object') {
@@ -699,7 +705,8 @@ export const gameType = {
     MiniSedie : {_ws:"MiniSeDie", _bettime: 30, Id: 9 },
     BigSmall : {_ws:"taixiu", _bettime: 50 , Id: 1},
     TurboBigSmall : {_ws:"TXTurbo", _bettime: 30, Id: 4 },
-    TurboOddEven : {_ws:"OETurbo", _bettime: 30, Id: 6 }
+    TurboOddEven : {_ws:"OETurbo", _bettime: 30, Id: 6 },
+    BigSmallSicbo : {_ws:"SicBo", _bettime: 51 , Id: 25}
  }
 
 export const verifyBettingTime = async(_game) => {

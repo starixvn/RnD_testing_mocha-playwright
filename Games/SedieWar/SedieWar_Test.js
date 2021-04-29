@@ -3,6 +3,7 @@ import * as utils from '../../util/utils'
 import * as SedieWarFunc from './SedieWar_Function'
 import * as ResultFunc from './../Result_Function'
 import * as GameLobbyFunc from './../GameLobby_Function'
+const game = "SedieWar"
 
 describe('SedieWar Game', ()=>{
   before(async function(){
@@ -20,7 +21,7 @@ describe('SedieWar Game', ()=>{
 
   let result;
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-      await GameLobbyFunc.OpenGameFromLobby("SedieWar")
+      await GameLobbyFunc.OpenGameFromLobby(game)
       await SedieWarFunc.verifySignInSuccessfully()
   })  
 

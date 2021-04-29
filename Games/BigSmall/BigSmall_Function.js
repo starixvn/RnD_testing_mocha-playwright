@@ -116,7 +116,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
   }
 }
 
-//Clear Chip
+//VerifyBetStake
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
     //console.log('Verify Bet Stake: ',_pos,'Stake: ',_stake)

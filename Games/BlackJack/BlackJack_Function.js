@@ -4,6 +4,8 @@ import * as config from '../../config/config'
 const path = require('path')
 const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.sep + "BlackJack" + path.sep
 var jp = require('jsonpath');
+import {DB} from './../DataBase_Locator'
+
 
 export const ReturnHome = async() => {
   await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
@@ -440,4 +442,61 @@ export const CheckSettleBalance = async(_expectBalance) => {
   let _val2 = Math.round(_expectBalance * 100) / 100
   console.log('Compare Balance: ',_val1,_val2)
   await utils.shouldBeEqual(_val1,_val2)
+}
+
+
+///////////////////////////////////////////////////////////Database Functions
+
+export const verifyDBCuoc = async(_resultOnWeb) => {
+  let qrFindCuoc = { $and: [{ name : await utils.getName() }, {phien :_resultOnWeb.roundId}]}
+  let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.BlackJack.cuoc,qrFindCuoc)
+  // Verify _id is existed
+  await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+  // Verify phien
+  await utils.shouldBeEqual(resultOnDb.phien,_resultOnWeb.roundId)
+  // // Verify win
+  // await utils.shouldBeEqual(resultOnDb.win,_resultOnWeb.win)
+  //Verify uid is existed
+  await utils.shouldBeEqual(("uid" in resultOnDb),true,"uid column is not existed")
+  // Verify MemberId
+  await utils.shouldBeEqual(resultOnDb.memberId.toString(),await utils.getMemberId())
+  // Verify name
+  await utils.shouldBeEqual(resultOnDb.name,await utils.getName())
+  // Verify siteId (hard code on Local)
+  await utils.shouldBeEqual(resultOnDb.siteId,'4100300')
+  // Verify betwin
+  await utils.shouldBeEqual(parseFloat(resultOnDb.betwin).toFixed(1),parseFloat( _resultOnWeb.betwin).toFixed(1))
+  // Verify pos
+  await utils.shouldBeEqual(resultOnDb.pos,_resultOnWeb.pos)
+  // Verify time
+  await utils.shouldBeEqual(
+      (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+      true,"Settle time is incorrect")
+  // Verify thanhtoan
+  await utils.shouldBeEqual(resultOnDb.thanhtoan,true)
+  //Verify Choice
+  await utils.shouldBeEqual(resultOnDb.choice,_resultOnWeb.betchoice)
+  // Table taixiu_cuocs - column win (true/false)
+  await utils.shouldBeEqual(resultOnDb.win,_resultOnWeb.win)
+  // Table taixiu_cuocs - column refund
+  await utils.shouldBeEqual(("refund" in resultOnDb),true,"refund column is not existed")
+  // Table taixiu_cuocs - column amount
+  await utils.shouldBeEqual(("amount" in resultOnDb),true,"amount column is not existed")
+}
+
+export const verifyDBPhien = async(_resultOnWeb)=>{
+  let qrFindPhien = { id :_resultOnWeb.roundId }
+  let resultOnDb = await utils.mondbGetData(DB.connectString,DB.dataBaseName,DB.collection.BlackJack.phien,qrFindPhien)
+  // Verify column _id is existed
+  await utils.shouldBeEqual(("_id" in resultOnDb),true,"_id column is not existed")
+  // Verify id
+  await utils.shouldBeEqual(resultOnDb.id,_resultOnWeb.roundId)
+  // Verify result
+  await utils.shouldBeEqual(_.isEqual(resultOnDb.result,_resultOnWeb.result[0]),true)
+  // Verify time
+  await utils.shouldBeEqual(
+      (Math.abs(new Date(_resultOnWeb.time) -new Date(resultOnDb.time))/1000) < 60,
+      true,"Time is incorrect")
+  // Verify Settlement result
+  await utils.shouldBeEqual(_.isEqual(resultOnDb.settlementResult, _resultOnWeb.settleresult[0]),true)
 }

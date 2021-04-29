@@ -9,7 +9,8 @@ const gameName = {
     BigSmallTurbo : 'BigSmallTurbo',
     OddEven : 'OddEven',
     OddEvenTurbo : 'OddEvenTurbo',
-    SedieWar : "SeDieWar"
+    SedieWar : "SeDieWar",
+    BigSmallSicbo : 'SicBo',
 
 }
 export const verifyGameInDropdownlist = async(_game) =>{
@@ -465,6 +466,57 @@ export const SedieWar = {
     },
     verifyArchivedRoundID : async(game="SedieWar")=> {
         await selectGame(game)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
+        await utils.clickEl(ResultLocator.btnSearch)
+        await utils.waitEl(ResultLocator.lblNodata)
+        await closePage()
+    }
+}
+
+export const BigSmallSicbo = {
+    verifyResult : async(_Result) =>{
+        await selectGame('BigSmallSicbo')
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,_Result.roundId)
+        await utils.clickEl(ResultLocator.btnSearch)
+        // Verify Date column
+        await verifyFormatTime()
+        // Verify RoundID
+        await verifyRoundIdIsExistedOnTableResult(_Result.roundId)
+        // Verify Result column
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmallSicbo.lblResult1,"src",`/scss/images/sicbo_dice_${_Result.result.dice1}.png`)
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmallSicbo.lblResult2,"src",`/scss/images/sicbo_dice_${_Result.result.dice2}.png`)
+        await utils.isValueEqualOnAttribute(ResultLocator.tblResult.BigSmallSicbo.lblResult3,"src",`/scss/images/sicbo_dice_${_Result.result.dice3}.png`)
+        // Verify Total column
+        let _total = _Result.result.dice1 + _Result.result.dice2 + _Result.result.dice3
+        await utils.waitEl(`${ResultLocator.tblResult.BigSmallSicbo.total}[text()='${_total}']`)
+        await closePage()
+    },
+    verifyInvalidRoundID : async() =>{
+        await selectGame("BigSmallSicbo")
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,-1)
+        await utils.clickEl(ResultLocator.btnSearch)
+        await utils.waitEl(ResultLocator.lblNodata)
+        await closePage()
+    },
+    verifyRoundID0 : async() =>{
+        await selectGame("BigSmallSicbo")
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,0)
+        await utils.clickEl(ResultLocator.btnSearch)
+
+        // Verify Date column
+        await verifyFormatTime()
+        
+        // Verify Round column
+        await utils.waitEl(ResultLocator.tblResult.lblRound)
+
+        // Verify Result Column
+        await utils.waitEl(ResultLocator.tblResult.BigSmallSicbo.lblResult1)
+        await utils.waitEl(ResultLocator.tblResult.BigSmallSicbo.lblResult2)
+        await utils.waitEl(ResultLocator.tblResult.BigSmallSicbo.lblResult3)
+        await closePage()
+    },
+    verifyArchivedRoundID : async()=> {
+        await selectGame("BigSmallSicbo")
         await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)

@@ -25,7 +25,8 @@ export const cf_local ={
         MiniSedie: "1001059",
         TurboBigSmall: "1001060",
         TurboOddEven: "1001061",
-        SedieWar: "1001062"
+        SedieWar: "1001062",
+        BigSmallSicbo: "1001063"
     },
     password: "",
     gamelobbyurl: "",
@@ -51,7 +52,8 @@ export const cf_local1 ={
         MiniSedie: "1001059",
         TurboBigSmall: "1001060",
         TurboOddEven: "1001061",
-        SedieWar: "1001062"
+        SedieWar: "1001062",
+        BigSmallSicbo: "1001063"
     },
     password: "",
     gamelobbyurl: "",

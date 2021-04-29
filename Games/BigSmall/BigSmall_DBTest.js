@@ -13,6 +13,7 @@ describe('BigSmall Database Testing', ()=>{
     await BigSmallFunc.VerifySignInSuccessfully()
     await BigSmallFunc.PlaceBet('Big',5)
     result = await BigSmallFunc.GetSettleResult()
+    
   })
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){

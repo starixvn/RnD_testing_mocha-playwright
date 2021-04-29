@@ -64,6 +64,13 @@ export const ResultLocator = {
             total : "//*/tr[1]//td[4]",
             choicewin : "//*/tr[1]//td[5]/span"
             },
+    
+        BigSmallSicbo : {
+            lblResult1 : "//*/tr[1]//img[1]",
+            lblResult2 : "//*/tr[1]//img[2]",
+            lblResult3 : "//*/tr[1]//img[3]",
+            total : "//*/tr[1]//td[4]"
+            },
 
         BigSmallTurbo : {
             lblResult1 : "//*/tr[1]//img[1]",
