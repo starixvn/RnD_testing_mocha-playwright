@@ -52,9 +52,14 @@ export const CloseStatistic = async() => {
 }
 
 export const OpenPreset = async() => {
-  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y )
-  await utils.sleep(500)
-
+  let _settlestate = await IsSettle()
+  if (_settlestate === true){
+      console.log('Balanced Betting Pool')
+      await utils.sleep(5000)
+      await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
+  }
+  else
+  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
 }
 
 export const ClosePreset = async() => {
