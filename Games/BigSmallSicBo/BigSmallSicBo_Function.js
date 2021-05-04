@@ -3,7 +3,6 @@ import {BigSmallSicboLocator} from './BigSmallSicBo_Locator'
 import {DB} from '../DataBase_Locator'
 import * as config from '../../config/config'
 import _ from 'lodash';
-var jp = require('jsonpath');
 let wsbigsmallsb = '42/user/sicbo,["SicBo"'
 
 
