@@ -27,7 +27,6 @@ export const verifyRetrieveEndGame = async(_game,_result)=>{
 
     // Get Result
     let rawResult = await utils.getText(RetrieveEndGameLocator.lblResult)
-    console.log(rawResult)
     // Verify timestamp
     await utils.shouldBeEqual(new Date()-new Date(await utils.getDataJsonPath(rawResult,"$.timeStamp")) < 10000,true)
     // Verify totalAmount
@@ -45,7 +44,7 @@ export const verifyRetrieveEndGame = async(_game,_result)=>{
 }
 
 
-export const verifyArchivedRoundId = async(_game,_result)=>{
+export const verifyArchivedRoundId = async(_game)=>{
     // Input Round Id
     await utils.sendKeys(RetrieveEndGameLocator.txtRoundId,1)
     // Input GameType Id
@@ -64,7 +63,6 @@ export const verifyArchivedRoundId = async(_game,_result)=>{
                 endTime=null */
     // Get Result
     let rawResult = await utils.getText(RetrieveEndGameLocator.lblResult)
-    console.log(rawResult)
     // Verify totalAmount
     await utils.shouldBeEqual(await utils.getDataJsonPath(rawResult,"$..totalAmount"),0)
     // Verify totalWin

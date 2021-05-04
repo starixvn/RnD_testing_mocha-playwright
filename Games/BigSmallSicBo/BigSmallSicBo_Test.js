@@ -86,7 +86,27 @@ it('TC_09_Full_Smoke Verify User can bet all choice', async () => {
   await BigSmallSBFunc.getSettlementResult()  
 }) 
 
-it('TC_10_Full_Smoke Verify Maxbet 2k', async () => {
+it('TC_10_Full_Verify Settlement Big', async () => {
+  await BigSmallSBFunc.checkSettlement(BigSmallSBFunc.PlaceBet,['Big',50])
+})  
+
+it('TC_11_Full_Verify Settlement Small', async () => {
+  await BigSmallSBFunc.checkSettlement(BigSmallSBFunc.PlaceBet,['Small',50])
+})  
+
+it('TC_12_Full_Verify Settlement AnyTriple', async () => {
+  await BigSmallSBFunc.checkSettlement(BigSmallSBFunc.PlaceBet,['AnyTriple',50])
+})  
+
+it('TC_13_Full_Verify Settlement Specific1', async () => {
+  await BigSmallSBFunc.checkSettlement(BigSmallSBFunc.PlaceBet,['Specific1',50])
+})  
+
+it('TC_14_Full_Verify Settlement Total4', async () => {
+  await BigSmallSBFunc.checkSettlement(BigSmallSBFunc.PlaceBet,['Total4',50])
+}) 
+
+it('TC_15_Full_Smoke Verify Maxbet 2k', async () => {
   let maxbet = 2000
   let errormsg = 'Tiền cược tối đa ở cửa này là 2,000'
   let _Aspecific = ['Specific1','Specific2','Specific3','Specific4','Specific5','Specific6','Big','Small']
@@ -101,7 +121,7 @@ it('TC_10_Full_Smoke Verify Maxbet 2k', async () => {
 }) 
 
 
-it('TC_11_Full_Smoke Verify Max bet 100', async () => {
+it('TC_16_Full_Smoke Verify Max bet 100', async () => {
   let maxbet = 500
   await BigSmallSBFunc.PlaceBet('Big',1) 
   let errormsg = 'Tiền cược tối đa ở cửa này là 100'
@@ -116,7 +136,7 @@ it('TC_11_Full_Smoke Verify Max bet 100', async () => {
   await BigSmallSBFunc.CheckRoundHistory(settleresult)
 }) 
  
-it('TC_12_Full_Smoke Verify Max bet 500', async () => {
+it('TC_17_Full_Smoke Verify Max bet 500', async () => {
   let maxbet = 1000
   await BigSmallSBFunc.PlaceBet('Big',5) 
   let errormsg = 'Tiền cược tối đa ở cửa này là 500'
@@ -134,17 +154,17 @@ it('TC_12_Full_Smoke Verify Max bet 500', async () => {
   await ResultFunc.BigSmallSicbo.verifyResult(settleresult)
 }) 
  
-it('TC_13_Full_Smoke_Verify searching an invalid roundid', async() =>{
+it('TC_18_Full_Smoke_Verify searching an invalid roundid', async() =>{
   await GameLobbyFunc.openResultPage()
   await ResultFunc.BigSmallSicbo.verifyInvalidRoundID()
 })
 
-it('TC_14_Full_Smoke_Verify searching an archived roundid', async() =>{
+it('TC_19_Full_Smoke_Verify searching an archived roundid', async() =>{
   await GameLobbyFunc.openResultPage()
   await ResultFunc.BigSmallSicbo.verifyArchivedRoundID()
 })
 
-it('TC_15_Full_Smoke_Verify searching with roundid =0', async()=>{
+it('TC_20_Full_Smoke_Verify searching with roundid =0', async()=>{
   await GameLobbyFunc.openResultPage()
   await ResultFunc.BigSmallSicbo.verifyRoundID0()
 })

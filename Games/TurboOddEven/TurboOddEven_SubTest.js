@@ -31,7 +31,7 @@ describe('TurboOddEven Verify Sub test cases', ()=>{
 
   it('TC_34_Full_Smoke_Verify Archived RoundId in Retrieve End Game', async () => {
     await RetrieveEndGameFunc.navigateRetrieveEndGame()
-    await RetrieveEndGameFunc.verifyArchivedRoundId(game,result)
+    await RetrieveEndGameFunc.verifyArchivedRoundId(game)
 })
   
 })

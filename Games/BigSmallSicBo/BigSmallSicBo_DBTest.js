@@ -1,7 +1,7 @@
 const game = "BigSmallSicbo"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
-import * as BigSmallFunc from '../BigSmall/BigSmall_Function'
+import * as BigSmallSBFunc from '../BigSmallSicbo/BigSmallSicBo_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
 let result = null
 
@@ -10,9 +10,10 @@ describe('BigSmall Database Testing', ()=>{
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
     await GameLobbyFunc.OpenGameFromLobby(game)
-    await BigSmallFunc.VerifySignInSuccessfully()
-    await BigSmallFunc.PlaceBet('Big',5)
-    result = await BigSmallFunc.GetSettleResult()
+    await BigSmallSBFunc.VerifySignInSuccessfully()
+    await BigSmallSBFunc.PlaceBet('Big',100) 
+    result = await BigSmallSBFunc.getSettlementResult() 
+    await BigSmallSBFunc.CloseGame()
     
   })
   afterEach(async function(){
@@ -24,14 +25,14 @@ describe('BigSmall Database Testing', ()=>{
   })
  
   it('TC_022_Full_Smoke_Verify DB - Table Cuoc', async () => {
-      await BigSmallFunc.verifyDBCuoc(result)
+      await BigSmallSBFunc.verifyDBCuoc(result)
   })  
   
   it('TC_023_Full_Smoke_Verify DB - Table Phien',async()=>{
-      await BigSmallFunc.verifyDBPhien(result)
+      await BigSmallSBFunc.verifyDBPhien(result)
   })
 
   it('TC_024_Full_Smoke_Verify DB - Table Ones',async()=>{
-    await BigSmallFunc.verifyDBOnes(result)
+    await BigSmallSBFunc.verifyDBOnes(result)
 })
 })

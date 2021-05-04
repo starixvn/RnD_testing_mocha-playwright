@@ -207,6 +207,7 @@ const getRawData = async(_mes) => {
 //Get Settlement Result
 export const getSettlementResult = async () => {
   try {
+      let _time = new Date().toISOString()
       let _status = await getRawData(`${wsbigsmallsb},{"status":`)
       let _finish = await getRawData(`${wsbigsmallsb},{"finish":`)
       let _win = await utils.getDataJsonPath(_status,`$..win`)
@@ -223,7 +224,7 @@ export const getSettlementResult = async () => {
         _stakewin = 0
       }
 
-      return {win: _win , betstake: _betstake ,choicewin:  _choicewin, roundId: _roundId, stakewin: _stakewin, result: _result}
+      return {win: _win , betstake: _betstake ,choicewin:  _choicewin, roundId: _roundId, stakewin: _stakewin, result: _result, time: _time}
       } catch (e) {
       console.error(e)
   }

@@ -1,7 +1,7 @@
-const game = "BigSmall"
+const game = "BigSmallSicbo"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
-import * as BigSmallFunc from '../BigSmall/BigSmall_Function'
+import * as BigSmallSBFunc from '../BigSmallSicbo/BigSmallSicBo_Function'
 import * as GameLobbyFunc from '../GameLobby_Function'
 import * as RetrieveEndGameFunc from '../RetrieveEndGame_Function'
 
@@ -12,9 +12,12 @@ describe('BigSmall Verify Sub test cases', ()=>{
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
     await GameLobbyFunc.OpenGameFromLobby(game)
-    await BigSmallFunc.VerifySignInSuccessfully()
-    await BigSmallFunc.PlaceBet('Big',1000)
-    result = await BigSmallFunc.GetSettleResult(1000)
+    await BigSmallSBFunc.VerifySignInSuccessfully()
+    await BigSmallSBFunc.PlaceBet('Big',50) 
+    result = await BigSmallSBFunc.getSettlementResult() 
+    result.stake = 50
+    result.betwin = result.stakewin
+    await BigSmallSBFunc.CloseGame()
   })
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
@@ -30,8 +33,8 @@ describe('BigSmall Verify Sub test cases', ()=>{
   })
   
   it('TC_26_Full_Smoke_Verify Archived RoundId in Retrieve End Game', async () => {
-    await RetrieveEndGameFunc.navigateRetrieveEndGame()
-    await RetrieveEndGameFunc.verifyArchivedRoundId(game,result)
+        await RetrieveEndGameFunc.navigateRetrieveEndGame()
+        await RetrieveEndGameFunc.verifyArchivedRoundId(game)
 })
 
 })
