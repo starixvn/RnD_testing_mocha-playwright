@@ -249,14 +249,14 @@ export const VerifyGuideContent = async() => {
   let ty = 0
   let _AcheckImage = [ BlackJackLocator.Guide.ImageCompare1, BlackJackLocator.Guide.ImageCompare2, BlackJackLocator.Guide.ImageCompare3,
     BlackJackLocator.Guide.ImageCompare4, BlackJackLocator.Guide.ImageCompare5, BlackJackLocator.Guide.ImageCompare6] 
-  for(let t = 0; t< _AcheckImage.length; t++){
-    // await page.screenshot({path:`ImgCompare_BlackJack_Guide_${t+1}.png`,clip:{
+  for(let t of _AcheckImage){
+    // await page.screenshot({path:t,clip:{
     // x: BlackJackLocator.Guide.left,
     //   y: BlackJackLocator.Guide.top,
     //  width: BlackJackLocator.Guide.width,
     //  height: BlackJackLocator.Guide.height}})
     //  await utils.swipe(fx, fy, fx, ty) 
-    const _result = await utils.findImage(_AcheckImage[t],BlackJackLocator.Guide)
+    const _result = await utils.findImage(t,BlackJackLocator.Guide)
     await utils.swipe(fx, fy, fx, ty) 
     await utils.shouldBeEqual(_result.Val,true)
   

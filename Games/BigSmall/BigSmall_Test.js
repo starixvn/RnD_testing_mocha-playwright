@@ -130,7 +130,7 @@ describe('BigSmall Game', ()=>{
     for (let i =0 ; i< Achip.length ;i ++){
       await BigSmallFunc.PresetChip(Achip[i])
       _stake = _stake + Achip[i]
-      await BigSmallFunc.PlaceBet(pos,null,'wait')
+      await BigSmallFunc.PlaceBet(pos,null)
       await BigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
     await BigSmallFunc.CheckSettleBalance()

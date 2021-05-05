@@ -26,45 +26,31 @@ export const OpenHistory = async() => {
 
 export const CloseHistory = async() => {
   await utils.clickPos(BigSmallLocator.HistoryClose.x,BigSmallLocator.HistoryClose.y )
-  await utils.sleep(500)
 }
 
 export const OpenGuide = async() => {
   await utils.clickPos(BigSmallLocator.Guide.x,BigSmallLocator.Guide.y )
-  await utils.sleep(500)
 
 }
 
 export const CloseGuide = async() => {
   await utils.clickPos(BigSmallLocator.GuideClose.x,BigSmallLocator.GuideClose.y )
-  await utils.sleep(500)
 }
 
 export const OpenStatistic = async() => {
   await utils.clickPos(BigSmallLocator.Statistic.x,BigSmallLocator.Statistic.y )
-  await utils.sleep(500)
-
 }
 
 export const CloseStatistic = async() => {
   await utils.clickPos(BigSmallLocator.StatisticClose.x,BigSmallLocator.StatisticClose.y )
-  await utils.sleep(500)
 }
 
 export const OpenPreset = async() => {
-  let _settlestate = await IsSettle()
-  if (_settlestate === true){
-      console.log('Balanced Betting Pool')
-      await utils.sleep(5000)
-      await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
-  }
-  else
   await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
 }
 
 export const ClosePreset = async() => {
   await utils.clickPos(BigSmallLocator.PresetClose.x,BigSmallLocator.PresetClose.y )
-  await utils.sleep(500)
 }
 
 
@@ -91,15 +77,14 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await utils.sleep(500)
+      await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(500)
+      await utils.sleep(200)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
         const _cnumber = `Chip${_stake}`
         await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
-        await utils.sleep(500)
       }
          //SubmitChip
       await SubmitChip()
@@ -110,7 +95,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else {
         _isfail = false
       }
-      await utils.sleep(1000)
+      await utils.sleep(500)
       if (_isfail === false )
       {
         break
@@ -124,7 +109,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 //VerifyBetStake
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
-    //console.log('Verify Bet Stake: ',_pos,'Stake: ',_stake)
+      console.log('Verify Bet Stake: ',_pos,'Stake: ',_stake)
       let findmsg,_found
       if (_pos == "Big"){
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"big":${_stake}}`
@@ -182,7 +167,6 @@ export const CloseChipBoard = async () => {
 export const SubmitChip = async () => {
   try {
       await utils.clickPos(BigSmallLocator.ChipBroadAccept.x,BigSmallLocator.ChipBroadAccept.y)
-      await page.waitForTimeout(500)
   } catch (e) {
       console.error(e)
   }
