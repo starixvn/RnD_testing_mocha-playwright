@@ -196,7 +196,7 @@ export const SelectPos = async(_pos) => {
 
 //Preset Chip
 export const PresetChip = async(_chip,_clear='clear') => {
-  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
+  await OpenPreset()
   const _prechip = `PresetChip${_chip}`
   //Clear preset chip --> return 0
   if (_clear == 'clear'){

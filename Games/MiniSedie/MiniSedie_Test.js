@@ -9,6 +9,7 @@ describe('MiniSedie Game', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
+    await GameLobbyFunc.OpenGameFromLobby(game)
   })
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
@@ -20,7 +21,6 @@ describe('MiniSedie Game', ()=>{
   let result = null
  
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-      await GameLobbyFunc.OpenGameFromLobby("MiniSedie")
       await MiniSedieFunc.verifySignInSuccessfully()
   })  
 

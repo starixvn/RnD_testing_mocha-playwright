@@ -23,6 +23,8 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.sleep(1000)
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
     await utils.sleep(1000) //hard sleep wait for game load
+    let ckerror = await utils.imageShouldNotDisplay(GameLobbyLocator.errorPopup.ImageCompare,GameLobbyLocator.errorPopup)
+    await utils.shouldBeEqual(ckerror.Val,true,`Can not open game ${_Gamename} from Lobby` )
 }
 
 export const getBalance = async() => {

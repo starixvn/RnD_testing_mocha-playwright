@@ -9,6 +9,8 @@ describe('VipSedie Game', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
+    await GameLobbyFunc.OpenGameFromLobby(game)
+
   })
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
@@ -21,9 +23,7 @@ describe('VipSedie Game', ()=>{
   let result
 
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-      await GameLobbyFunc.OpenGameFromLobby("VipSedie")
       await VipSedieFunc.verifySignInSuccessfully()
-      // await utils.shouldBeEqual(true,false)
   })  
 
   it('TC_002_Full_Smoke_Verify Bet Choice', async() => {

@@ -370,6 +370,7 @@ export const imageShouldNotDisplay = async(_subimage, _x=null, _y=null, _w=null,
         let sc
         let diff = new PNG({_w, _h});
         let loop =true;
+
         while(loop){
             sc = PNG.sync.read(await page.screenshot({ clip : {x: _x, y: _y, width: _w, height : _h} }))
             flag = pixelmatch((await si).data,sc.data, diff.data, _w, _h, { threshold : 0.15 })
@@ -379,7 +380,7 @@ export const imageShouldNotDisplay = async(_subimage, _x=null, _y=null, _w=null,
             if(flag>(_w*_h*0.6)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
-              }, config.setting.timeout);
+              }, 30);
             // fs.writeFileSync('diff.png', PNG.sync.write(diff));
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}

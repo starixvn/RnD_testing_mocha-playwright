@@ -11,6 +11,7 @@ describe('BigSmall SicBo Game', ()=>{
     await utils.wsHearMessageOn()
     await utils.Login(env,game);
     await utils.sleep(3000)
+    await GameLobbyFunc.OpenGameFromLobby(game)
   })
 
   afterEach(async function(){
@@ -22,7 +23,6 @@ describe('BigSmall SicBo Game', ()=>{
   })
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-    await GameLobbyFunc.OpenGameFromLobby(game)
     await BigSmallSBFunc.VerifySignInSuccessfully()
 
   })  
