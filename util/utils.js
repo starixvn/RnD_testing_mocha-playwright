@@ -713,6 +713,7 @@ export const gameType = {
 export const verifyBettingTime = async(_game) => {
     //Clear ws to reach new round data
   wsMessageReceived = [] //Clear old data of previous round
+  await sleep(2000) //hard sleep due to recieving the socket data
   let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
   wsMessageReceived = [] // prepare free array for settlement result
   const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)
@@ -737,6 +738,7 @@ export const verifyBettingTime = async(_game) => {
 export const verifyBlockTime = async(_game,_placebetfunc,args) => {
     //ex:  await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,["Big",1,'nowait'])
     wsMessageReceived = [] //Clear old data of previous round
+    await sleep(2000) //hard sleep due to recieving the socket data
     let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
     wsMessageReceived = [] // prepare free array for settlement result
     const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)
@@ -752,10 +754,8 @@ export const verifyBlockTime = async(_game,_placebetfunc,args) => {
           await _placebetfunc.apply(this,args)
           await sleep(2000)
           let _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`));
-          //console.log(_result.length)
           await expect(_result.length).to.be.within(1,2)
         }
-      
     }    
   }
 

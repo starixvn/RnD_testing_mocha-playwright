@@ -40,17 +40,17 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.CloseGuide()
   })  
 
-  it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
+  it('TC_04_Full_Smoke_Verify Statistic and Preset Content', async () => {
     await BigSmallFunc.OpenStatistic()
     await BigSmallFunc.VerifyStatisticContent()
     await BigSmallFunc.CloseStatistic()
-  await utils.verifyBettingTime(game)
-  })  
-
-  it('TC_05_Full_Verify Preset Content', async () => {
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.VerifyPresetContent()
     await BigSmallFunc.ClosePreset()
+    await utils.verifyBettingTime(game)
+  })  
+
+  it('TC_05_Full_Verify Block bet time', async () => {
     await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
   })  
 
