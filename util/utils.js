@@ -595,7 +595,6 @@ export const wsClient = class {
         };
     
         this.client.onclose = ()=> {
-            console.log('Client Closed');
         };
     
         this.client.onmessage = (e)=> {
@@ -606,7 +605,6 @@ export const wsClient = class {
         };
     
         this.client.onopen = ()=> {
-            console.log('WebSocket Client Connected');
         };
     }
     async SendMessage(message) {
