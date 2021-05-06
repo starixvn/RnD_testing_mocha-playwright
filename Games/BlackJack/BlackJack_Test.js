@@ -221,8 +221,8 @@ describe('BlackJack Game', ()=>{
       const pos2id = await BlackJackFunc.GetPosId(2)
       const pos3id = await BlackJackFunc.GetPosId(3)
       // id order rule : pos1 < pos2 < pos3
-      await utils.shouldBeEqual(pos1id+1,pos2id)
-      await utils.shouldBeEqual(pos2id+1,pos3id)
+      await utils.shouldBeEqual(pos1id+1,pos2id,`Check order of pos1 & pos2 ${pos1id} - ${pos2id}`)
+      await utils.shouldBeEqual(pos2id+1,pos3id,`Check order of pos2 & pos3 ${pos2id} - ${pos3id}`)
       // Hit score over 15
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)

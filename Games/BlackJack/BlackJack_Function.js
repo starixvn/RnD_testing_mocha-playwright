@@ -11,9 +11,9 @@ export const ReturnHome = async() => {
   await utils.clickPos(BlackJackLocator.Menu.x,BlackJackLocator.Menu.y )
   await utils.sleep(100)
   await utils.clickPos(BlackJackLocator.Home.x,BlackJackLocator.Home.y )
-  await utils.sleep(1000)
+  await utils.sleep(3000)
   let flag = await utils.imageShouldNotDisplay(BlackJackLocator.DealerContent)
-  await utils.shouldBeEqual(flag.Val,true)
+  await utils.shouldBeEqual(flag.Val,true,'Verfiy game is closed successfully')
 }
 
 export const OpenHistory = async() => {
@@ -340,7 +340,6 @@ export const GetPosId = async(_pos) => {
   const obj = JSON.parse(res[1]);
   const _result = jp.value(obj[1], `$..hands[?(@.pos==${_pos})].id`);
   return _result
-  console.log('posid: ', _result)
 }
 
 // Get Bet stake of pos
@@ -412,7 +411,6 @@ export const GetSettleResultByPosID = async(_posid) => {
   let _betwin = jp.value(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
   _betwin = +_betwin || 0
   let _settleresult = jp.value(obj[1], `$..settlementResult`);
-   console.log(`${_posid} win : ${_betwin}`)
    return { betwin : _betwin , settleresult : _settleresult}
 }
 
@@ -428,20 +426,18 @@ export const CheckRoundHistory = async(_rid,_settleresult,_betstake,_winloss) =>
   let _getsettleresult = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].settlementResult`);
   let _getwinloss = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].betwin`)
   // check
-  await utils.shouldBeEqual(_betstake,_getbetstake)
-  await utils.shouldBeEqual(_settleresult,_getsettleresult)
-  await utils.shouldBeEqual(_winloss,_getwinloss)
+  await utils.shouldBeEqual(_betstake,_getbetstake, 'Verify Bet Stake')
+  await utils.shouldBeEqual(_settleresult,_getsettleresult,'Verify Settlement result')
+  await utils.shouldBeEqual(_winloss,_getwinloss,'Verify win loss')
   await CloseHistory()
 }
 
 export const CheckSettleBalance = async(_expectBalance) => {
   await utils.sleep(4000)
   let _settledbalance = await utils.getBalance()
-  console.log('Check Settle Balance')
   let _val1 = Math.round(_settledbalance * 100) / 100
   let _val2 = Math.round(_expectBalance * 100) / 100
-  console.log('Compare Balance: ',_val1,_val2)
-  await utils.shouldBeEqual(_val1,_val2)
+  await utils.shouldBeEqual(_val1,_val2,`Check settle balance: current balance ${_val1} and expected balance ${_val2}`)
 }
 
 
