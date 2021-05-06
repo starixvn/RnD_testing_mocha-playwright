@@ -15,8 +15,9 @@ export const CloseGame = async() => {
   await _clickPos(BigSmallSicboLocator.Menu)
   await utils.sleep(1000)
   await _clickPos(BigSmallSicboLocator.Home)
+  await utils.sleep(3000)
   let flag = await utils.imageShouldNotDisplay(BigSmallSicboLocator.Big)
-  await utils.shouldBeEqual(flag.Val,true)
+  await utils.shouldBeEqual(flag.Val,true, `Verify Game is closed successfully`)
 
 }
 
@@ -96,6 +97,7 @@ export const PlaceBet = async (_pos,_stake,wait='yes') => {
       await utils.sleep(50)
       //Select Chip
       await Sliding_Select_Chip(_stake)
+      await utils.sleep(50)
      //await utils.clickPos(BigSmallSicboLocator[`Chip${_stake}`].x,BigSmallSicboLocator[`Chip${_stake}`].y)
       //await _clickPos(`${BigSmallSicboLocator}.Chip${_stake}`)
       //Select pos
@@ -128,12 +130,12 @@ export const verifyBetPosStake = async(_pos,_stake) => {
     betchoice =_pos.toLowerCase()
   }  
   let _found = await utils.getWsMessage(`${wsbigsmallsb},{"ownBets":`)
-  await utils.shouldBeEqual(_found.includes(`"${betchoice}":${_stake}`), true)
+  await utils.shouldBeEqual(_found.includes(`"${betchoice}":${_stake}`), true,`Verify bet choice : ${_pos} and stake : ${_stake} `)
 }
 
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
-  await utils.sleep(1000)
+  await utils.sleep(500)
   let _found, _result
   _result = wsMessageReceived.filter(element => element.includes(`${wsbigsmallsb},{"endBet":-1,"notice":"${_msg}"}]`));
   if (_result.length > 0)
@@ -143,7 +145,7 @@ export const VerifyErrorMessage = async(_msg) => {
   else {
     _found = false
   }
-  await utils.shouldBeEqual(_found,true)
+  await utils.shouldBeEqual(_found,true, 'Verify Error message')
 }
 
 export const VerifyHistoryContent = async() => {
@@ -241,7 +243,7 @@ export const checkSettlement = async (placebetfunc,args) => {
       await utils.sleep(2000)
       let _afbalance = await utils.getBalance()
       //check balance
-      await utils.shouldBeEqual(_beforebalance + settle_result.stakewin,_afbalance) 
+      await utils.shouldBeEqual(_beforebalance + settle_result.stakewin,_afbalance, `verify balance`) 
      } catch (e) {
       console.error(e)
   }

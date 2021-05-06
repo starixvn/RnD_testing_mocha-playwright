@@ -16,7 +16,6 @@ export const CloseGame = async() => {
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){
-      console.log('Balanced Betting Pool')
       await utils.sleep(5000)
       await utils.clickPos(BigSmallLocator.History.x,BigSmallLocator.History.y)
   }
@@ -109,7 +108,6 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 //VerifyBetStake
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
-      console.log('Verify Bet Stake: ',_pos,'Stake: ',_stake)
       let findmsg,_found
       if (_pos == "Big"){
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"big":${_stake}}`
@@ -120,7 +118,7 @@ export const VerifyBetStake = async (_pos,_stake) => {
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"small":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
        }
-      await utils.shouldBeEqual(_found.Val,true)    
+      await utils.shouldBeEqual(_found.Val,true, `Verify bet choice : ${_pos} and stake : ${_stake} `)    
    } catch (e) {
       console.error(e)
   }
@@ -139,7 +137,7 @@ export const VerifyErrorMessage = async(_msg) => {
   else {
     _found = false
   }
-  await utils.shouldBeEqual(_found,true)
+  await utils.shouldBeEqual(_found,true,'Verify error message')
 }
 
 
@@ -366,15 +364,13 @@ export const CheckRoundHistory = async() => {
 export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
   let _af = await GetWinLossStatus()
-  console.log('Is Win: ',_af.win, _af.betwin)
   await utils.sleep(1000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
   if ( _af.win == true){
-    await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
+    await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
   }
   else {
-    console.log('Refund: ',_beforebalance, _afterbalance)
   }
 }
 

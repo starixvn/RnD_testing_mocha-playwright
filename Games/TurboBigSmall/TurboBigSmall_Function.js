@@ -9,7 +9,7 @@ export const CloseGame = async() => {
   await utils.clickPos(TurboBigSmallLocator.Close.x,TurboBigSmallLocator.Close.y )
   await utils.sleep(1000)
   let flag = await utils.imageShouldNotDisplay(TurboBigSmallLocator.Big)
-  await utils.shouldBeEqual(flag.Val,true)
+  await utils.shouldBeEqual(flag.Val,true,'Check Close Game')
 }
 
 export const OpenHistory = async() => {
@@ -144,7 +144,7 @@ export const VerifyBetStake = async (_pos,_stake) => {
         findmsg = `42/user/txturbo,["TXTurbo",{"ownBets":{"small":${_stake}}`
         _found = await utils.wsFindMessage(findmsg)
        }
-      await utils.shouldBeEqual(_found.Val,true)    
+      await utils.shouldBeEqual(_found.Val,true, `Verify bet choice: ${_pos} and stake:${_stake}`)    
   } catch (e) {
       console.error(e)
   }
@@ -163,7 +163,7 @@ export const VerifyErrorMessage = async(_msg) => {
   else {
     _found = false
   }
-  await utils.shouldBeEqual(_found,true)
+  await utils.shouldBeEqual(_found,true, 'Verify error message')
 }
 
 

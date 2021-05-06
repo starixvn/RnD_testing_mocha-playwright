@@ -380,7 +380,7 @@ export const imageShouldNotDisplay = async(_subimage, _x=null, _y=null, _w=null,
             if(flag>(_w*_h*0.6)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
             setTimeout(() => { 
                 loop = false
-              }, 30);
+              }, 300);
             // fs.writeFileSync('diff.png', PNG.sync.write(diff));
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}
@@ -736,9 +736,10 @@ export const verifyBettingTime = async(_game) => {
 }
 
 export const verifyBlockTime = async(_game,_placebetfunc,args) => {
-    //ex:  await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,["Big",1,'nowait'])
+    //ex:  await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,["Big",1])
     wsMessageReceived = [] //Clear old data of previous round
     await sleep(2000) //hard sleep due to recieving the socket data
+    await wsWaitMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
     let _found = await getWsMessage(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"remainingTime":`)
     wsMessageReceived = [] // prepare free array for settlement result
     const res = String(_found).split(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},`)

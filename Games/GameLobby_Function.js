@@ -24,7 +24,6 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
     await utils.sleep(6000) //hard sleep wait for game load
     let ckerror = await utils.imageShouldNotDisplay(GameLobbyLocator.errorPopup.ImageCompare,GameLobbyLocator.errorPopup)
-    console.log('Check error: ',ckerror.Val)
     await utils.shouldBeEqual(ckerror.Val,true,`Can not open game ${_Gamename} from Lobby` )
 }
 
