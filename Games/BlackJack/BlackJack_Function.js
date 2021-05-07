@@ -379,7 +379,7 @@ export const GetHitScore = async(_pos) => {
 // Get Total Score of Pos of first round
 export const GetDealBalance = async(_pos) => {
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
-  if(_found.length =0){
+  if(_found === null){
     console.log(`can not get deal data`)
   }
   const res = String(_found).split("42/user/blackjack,");
@@ -393,7 +393,7 @@ export const GetDealBalance = async(_pos) => {
   // Is dealer BlackJack
 export const IsDealerBLackJack = async() => {
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
-  if(_found.length =0){
+  if(_found === null){
     console.log(`can not get deal data`)
   }
   const res = String(_found).split("42/user/blackjack,");
@@ -411,7 +411,7 @@ export const IsDealerBLackJack = async() => {
 export const GetSettleResultByPosID = async(_posid) => {
   // const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
   const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"finish');
-  if(_found.length =0){
+  if(_found === null){
     console.log(`can not get finish data`)
   }
   //var last_found = _found.pop();
@@ -429,7 +429,7 @@ export const CheckRoundHistory = async(_rid,_settleresult,_betstake,_winloss) =>
   await OpenHistory()
   await utils.sleep(3000)
   let _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"history"')
-  if(_found.length =0){
+  if(_found === null){
     console.log(`can not get history data`)
   }
   const res = String(_found).split("42/user/blackjack,");
