@@ -38,6 +38,8 @@ export const CloseGuide = async() => {
 
 export const OpenStatistic = async() => {
   await utils.clickPos(BigSmallLocator.Statistic.x,BigSmallLocator.Statistic.y )
+  await utils.sleep(1000)
+
 }
 
 export const CloseStatistic = async() => {
@@ -46,6 +48,7 @@ export const CloseStatistic = async() => {
 
 export const OpenPreset = async() => {
   await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
+  await utils.sleep(1000)
 }
 
 export const ClosePreset = async() => {
@@ -208,7 +211,7 @@ export const VerifyPresetContent = async() => {
   //  width: BigSmallLocator.Preset.width,
   //  height: BigSmallLocator.Preset.height}})
   const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
-  await utils.shouldBeEqual(_result0.Val,true)    
+  await utils.shouldBeEqual(_result0.Val,true,`Verify Preset content`)    
 }
 
 export const VerifyGuideContent = async() => {
@@ -226,7 +229,7 @@ export const VerifyGuideContent = async() => {
     //  await utils.swipe(fx, fy, fx, ty) 
     const _result = await utils.findImage(_AcheckImage[t],BigSmallLocator.Guide)
     await utils.swipe(fx, fy, fx, ty) 
-    await utils.shouldBeEqual(_result.Val,true)
+    await utils.shouldBeEqual(_result.Val,true,`Verify Guide content ${_AcheckImage[t]}}`)
   
   }  
   
@@ -244,13 +247,13 @@ export const VerifyStatisticContent = async() => {
 //    height: BigSmallLocator.StatisticPoint.height}})
   //// Verify Statistic Result
   const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
-  await utils.shouldBeEqual(_result1.Val,true)    
+  await utils.shouldBeEqual(_result1.Val,true,'Verify statistic result')    
 
   //Verify Statistic Point
   await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
   const _result2= await utils.findImage(
     BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
-  await utils.shouldBeEqual(_result2.Val,true)    
+  await utils.shouldBeEqual(_result2.Val,true,'Verify statistic point')    
 
 }
 
