@@ -140,8 +140,9 @@ export const clickEl = async(_el) => {
 // Click Position
 export const clickPos = async(_x, _y) => {
     try {
+        await page.waitForTimeout(300)
         await page.mouse.click(_x,_y)
-        await page.waitForTimeout(500)
+        await page.waitForTimeout(200)
      } catch (error) {
         console.error(error.message);
         // this.screenFail()

@@ -38,8 +38,6 @@ export const CloseGuide = async() => {
 
 export const OpenStatistic = async() => {
   await utils.clickPos(BigSmallLocator.Statistic.x,BigSmallLocator.Statistic.y )
-  await utils.sleep(1000)
-
 }
 
 export const CloseStatistic = async() => {
@@ -48,7 +46,6 @@ export const CloseStatistic = async() => {
 
 export const OpenPreset = async() => {
   await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
-  await utils.sleep(1000)
 }
 
 export const ClosePreset = async() => {
@@ -248,7 +245,7 @@ export const VerifyStatisticContent = async() => {
   //// Verify Statistic Result
   const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
   await utils.shouldBeEqual(_result1.Val,true,'Verify statistic result')    
-
+  await utils.sleep(1000)
   //Verify Statistic Point
   await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
   const _result2= await utils.findImage(
