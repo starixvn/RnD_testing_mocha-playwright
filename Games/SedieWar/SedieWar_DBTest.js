@@ -24,16 +24,15 @@ describe('SedieWar Database Testing', ()=>{
     }
   })
  
-  it('TC_043_Full_Smoke_Verify DB - Table Cuoc', async () => {
-      // await utils.sleep(5000)
+  it('TC_073_Full_Smoke_Verify DB - Table Cuoc', async () => {
       await SedieWarFunc.verifyDBCuoc(result)
   })  
   
-  it('TC_044_Full_Smoke_Verify DB - Table Phien',async()=>{
+  it('TC_074_Full_Smoke_Verify DB - Table Phien',async()=>{
       await SedieWarFunc.verifyDBPhien(result)
   })
 
-  it('TC_045_Full_Smoke_Verify DB - Table Ones',async()=>{
+  it('TC_075_Full_Smoke_Verify DB - Table Ones',async()=>{
       await SedieWarFunc.verifyDBOne(result)
   })
 })

@@ -85,9 +85,12 @@ export const repareData = async(_note="")=> {
 }
 
 export const isFailed = async(object)=> {
-    for(let i = 0 ; i < object.length;i++){
-        if(object[i].Status === "Failed") return true
+    const jsonResult = require('../Report/mochawesome.json')
+    let rawStatus = jp.query(jsonResult,'$..fail')
+    for(let i=0; i<rawStatus.length ;i++) {
+        if(rawStatus[i] === true ) return true
     }
+    return false
 }
 
 const msToTime = async(s)=> {
