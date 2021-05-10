@@ -1,7 +1,7 @@
 import * as utils from '../../util/utils'
 import {TurboOddEvenLocator} from './TurboOddEven_Locator'
 import * as config from '../../config/config'
-import {DB} from './../DataBase_Locator'
+import {DB} from '../References/DataBase_Locator'
 var jp = require('jsonpath');
 import _ from 'lodash';
 

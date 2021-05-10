@@ -1,6 +1,6 @@
 import { GameLobbyLocator } from './GameLobby_Locator'
-import * as utils from '../util/utils'
-import * as config from '../config/config'
+import * as utils from '../../util/utils'
+import * as config from '../../config/config'
 
 export const verifyLoginSuccessfully = async() => {
         //console.log(GameLobbyLocator.AccountName.ImageCompareAccountName)
@@ -24,7 +24,7 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
     await utils.sleep(6000) //hard sleep wait for game load
     let ckerror = await utils.imageShouldNotDisplay(GameLobbyLocator.errorPopup.ImageCompare,GameLobbyLocator.errorPopup)
-    await utils.shouldBeEqual(ckerror.Val,true,`Can not open game ${_Gamename} from Lobby` )
+    await utils.shouldBeEqual(ckerror.Val,true,`Error Opening ${_Gamename} From Lobby` )
 }
 
 export const getBalance = async() => {

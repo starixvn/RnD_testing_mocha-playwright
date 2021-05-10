@@ -1,6 +1,6 @@
 import { MemberSiteLocator } from './MemberSite_Locator'
-import * as config from '../config/config'
-import * as utils from '../util/utils'
+import * as config from '../../config/config'
+import * as utils from '../../util/utils'
 
 export const login = async(_env,_game) => {
     // Login for SIT/UAT/PRO

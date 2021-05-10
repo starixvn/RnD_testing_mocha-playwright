@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
-import {GameLobbyLocator} from '../GameLobby_Locator'
-import {DB} from '../DataBase_Locator'
+import {GameLobbyLocator} from '../References/GameLobby_Locator'
+import {DB} from '../References/DataBase_Locator'
 import {VipSedieLocator} from './VipSedie_Locator'
 import * as config from '../../config/config'
 

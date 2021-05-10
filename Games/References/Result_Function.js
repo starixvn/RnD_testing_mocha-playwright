@@ -1,5 +1,5 @@
 import { ResultLocator } from './Result_Locator'
-import * as utils from '../util/utils'
+import * as utils from '../../util/utils'
 
 const gameName = {
     Sedie : 'SeDie',

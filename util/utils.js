@@ -1,7 +1,7 @@
 import * as config from './../config/config'
 import pixelmatch from 'pixelmatch'
-import * as MemberSiteFunc from '../Games/MemberSite_Function'
-import * as GameLobbyFunc from '../Games/GameLobby_Function'
+import * as MemberSiteFunc from '../Games/References/MemberSite_Function'
+import * as GameLobbyFunc from '../Games/References/GameLobby_Function'
 import * as Mongodb from 'mongodb'
 const W3CWebSocket = require('websocket').w3cwebsocket;
 const fs = require('fs')

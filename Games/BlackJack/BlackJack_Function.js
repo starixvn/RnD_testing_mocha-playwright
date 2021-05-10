@@ -4,7 +4,7 @@ import * as config from '../../config/config'
 const path = require('path')
 const pathImageCompare =path.join(__dirname, '../../') + "ImageCompare" + path.sep + "BlackJack" + path.sep
 var jp = require('jsonpath');
-import {DB} from './../DataBase_Locator'
+import {DB} from '../References/DataBase_Locator'
 
 
 export const ReturnHome = async() => {

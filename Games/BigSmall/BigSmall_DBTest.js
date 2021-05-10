@@ -2,7 +2,7 @@ const game = "BigSmall"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BigSmallFunc from '../BigSmall/BigSmall_Function'
-import * as GameLobbyFunc from '../GameLobby_Function'
+import * as GameLobbyFunc from '../References/GameLobby_Function'
 let result = null
 
 describe('BigSmall Database Testing', ()=>{

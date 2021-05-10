@@ -2,7 +2,7 @@ const game = "BlackJack"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
-import * as GameLobbyFunc from '../GameLobby_Function'
+import * as GameLobbyFunc from '../References/GameLobby_Function'
 let result = null
 
 describe('BlackJack Database Testing', ()=>{

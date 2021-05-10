@@ -1,7 +1,7 @@
 import * as utils from '../../util/utils'
 import {TurboBigSmallLocator} from './TurboBigSmall_Locator'
 import * as config from '../../config/config'
-import {DB} from './../DataBase_Locator'
+import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
 var jp = require('jsonpath');
 

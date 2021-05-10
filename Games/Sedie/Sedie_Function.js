@@ -1,7 +1,7 @@
 import * as utils from '../../util/utils'
-import {GameLobbyLocator} from '../GameLobby_Locator'
+import {GameLobbyLocator} from '../References/GameLobby_Locator'
 import {SedieLocator} from './Sedie_Locator'
-import {DB} from './../DataBase_Locator'
+import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 
 let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, Red2: 2.4, White3: 3.75, White4: 14.4 }

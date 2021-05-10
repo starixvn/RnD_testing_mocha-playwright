@@ -2,10 +2,10 @@ const game = "TurboOddEven"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as TurboOddEvenFunc from '../TurboOddEven/TurboOddEven_Function'
-import * as GameLobbyFunc from '../GameLobby_Function'
-import * as ResultFunc from '../Result_Function'
+import * as GameLobbyFunc from '../References/GameLobby_Function'
+import * as ResultFunc from '../References/Result_Function'
 import {TurboOddEvenLocator} from './TurboOddEven_Locator'
-import { GameLobbyLocator } from '../GameLobby_Locator'
+import { GameLobbyLocator } from '../References/GameLobby_Locator'
 
 
 describe('TurboOddEven Game', ()=>{

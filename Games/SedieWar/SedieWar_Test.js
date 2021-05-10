@@ -1,8 +1,8 @@
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as SedieWarFunc from './SedieWar_Function'
-import * as ResultFunc from './../Result_Function'
-import * as GameLobbyFunc from './../GameLobby_Function'
+import * as ResultFunc from '../References/Result_Function'
+import * as GameLobbyFunc from '../References/GameLobby_Function'
 const game = "SedieWar"
 
 describe('SedieWar Game', ()=>{

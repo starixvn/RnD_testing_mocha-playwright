@@ -104,7 +104,7 @@ export const ResultLocator = {
                 optionWin : ["Nhà con", "Nhà cái", "Hòa"],
                 totalWin : ["Tổng Chẵn", "Tổng Lẻ"],
                 player : {
-                    0 : ["Nhà Con Chẵn","Nhà Con 4 trắng"],
+                    0 : ["Nhà Con Chẵn","Nhà Con 4 Trắng"],
                     1 : ["Nhà Con lẻ","Nhà Con 1 đỏ"],
                     2 : ["Nhà Con Chẵn",""],
                     3 : ["Nhà Con lẻ","Nhà Con 3 đỏ"],

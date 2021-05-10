@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
 import {BigSmallSicboLocator} from './BigSmallSicBo_Locator'
-import {DB} from '../DataBase_Locator'
+import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 import _ from 'lodash';
 let wsbigsmallsb = '42/user/sicbo,["SicBo"'

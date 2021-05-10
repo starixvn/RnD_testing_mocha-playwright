@@ -2,8 +2,8 @@ const game = "BigSmallSicbo"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BigSmallSBFunc from '../BigSmallSicBo/BigSmallSicBo_Function'
-import * as GameLobbyFunc from '../GameLobby_Function'
-import * as ResultFunc from '../Result_Function'
+import * as GameLobbyFunc from '../References/GameLobby_Function'
+import * as ResultFunc from '../References/Result_Function'
 
 describe('BigSmall SicBo Game', ()=>{
 
