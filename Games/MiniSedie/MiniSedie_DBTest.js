@@ -2,7 +2,7 @@ const game = "MiniSedie"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as MiniSedieFunc from './MiniSedie_Function'
-import * as GameLobbyFunc from './../GameLobby_Function'
+import * as GameLobbyFunc from '../References/GameLobby_Function'
 let result = null
 let choice = ['Even','Odd','Red4','Red3','White3','White4']
 let chip = [1,5,10,50,100,200,500,1000,2000]

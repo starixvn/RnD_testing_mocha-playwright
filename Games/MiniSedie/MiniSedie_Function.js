@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
 import {MiniSedieLocator} from './MiniSedie_Locator'
-import {DB} from './../DataBase_Locator'
+import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`
 
