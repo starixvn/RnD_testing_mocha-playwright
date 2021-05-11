@@ -7,7 +7,7 @@ chai.use(chaiHTTP)
 const expect = chai.expect
 
 before(async () => {
-    const args = await parseArg(process.env.agrs)
+    const args = await parseArg(process.env.npm_config_args)
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
        headless: config.setting.headless ,
@@ -34,16 +34,30 @@ before(async () => {
     global.isHear = false
     global.balance = parseFloat("0.00")
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
-    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vn'
+    global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
     global.expect = expect
-    global.game = /Games\/(.*)\//ig.exec(process.argv[5])[1]
-    // Set balance on Local
-    if(env === 'cf_local' || env === 'cf_local1'){
-      chai.request(config[env].setBalance).post("").send(
-        `ObCustId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
-      ).end( async(err,res)=>{
-        expect(res).to.have.status(200)
-      })
+    if(typeof process.env.game !== 'undefined'){
+      global.game = process.env.game
+      // Set balance on Local
+      if(env === 'cf_local' || env === 'cf_local1'){
+        chai.request(config[env].setBalance).post("").send(
+          `ObCustId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
+        ).end( async(err,res)=>{
+          expect(res).to.have.status(200)
+        })
+      }
+    } else {
+      // Set balance on Local
+      if(env === 'cf_local' || env === 'cf_local1'){
+        const aMemberID = Object.values(config[env].memberId)
+        for( let i =0 ; i< aMemberID.length;i++){
+          chai.request(config[env].setBalance).post("").send(
+            `ObCustId=${aMemberID[i]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
+          ).end( async(err,res)=>{
+            expect(res).to.have.status(200)
+          })
+        }
+      }
     }
 })
 

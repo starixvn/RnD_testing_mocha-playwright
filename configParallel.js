@@ -8,8 +8,8 @@ const expect = chai.expect
 exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
   beforeAll: (async () => {
-    const args = async(_args)=> {
-        let p = _args.split("-")
+    const args = async()=> {
+        let p = process.env.npm_config_args.split("-")
         let args ={},tmp=[]
         for(let i=0 ; i< p.length ; i++){
             tmp = p[i].split("=")
@@ -42,7 +42,7 @@ exports.mochaHooks = {
     global.isHear = false
     global.balance = parseFloat("0.00")
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
-    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vn'
+    global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
     global.expect = expect
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){

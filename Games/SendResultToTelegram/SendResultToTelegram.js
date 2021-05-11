@@ -8,7 +8,7 @@ describe('Send Message', ()=>{
     it('Send Telegram', async () => {
         let obj = await gsutils.repareData()
         let rs = await gsutils.prepareResult(obj)
-        const args = await parseArg(process.argv[2])
+        const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         let totalcase = obj.length
         let testSuiteDetail = "",mainContent

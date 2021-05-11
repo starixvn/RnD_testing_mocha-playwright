@@ -3,7 +3,7 @@ import * as config from '../../config/config'
 let BigSmallLocator = (process.env.npm_config_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
-var jp = require('jsonpath');
+var jp = require('jsonpath')
 
 export const CloseGame = async() => {
   await utils.clickPos(BigSmallLocator.Close.x,BigSmallLocator.Close.y )
@@ -16,7 +16,6 @@ export const CloseGame = async() => {
 export const loglanguage = async() => {
   console.log('log trong bs function',BigSmallLocator.Title.ImageCompare)
 }
-
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){
