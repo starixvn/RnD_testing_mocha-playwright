@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-const BigSmallSicboLocator = (global.lang === 'vn' ? require('./BigSmallSicBo_Locator').BigSmallSicboLocator_vn : require('./BigSmallSicBo_Locator').BigSmallSicboLocator_en)
+const BigSmallSicboLocator = (process.env.npm_config_lang === 'vn' ? require('./BigSmallSicBo_Locator').BigSmallSicboLocator_vn : require('./BigSmallSicBo_Locator').BigSmallSicboLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 import _ from 'lodash';

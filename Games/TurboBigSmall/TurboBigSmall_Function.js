@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-import {TurboBigSmallLocator} from './TurboBigSmall_Locator'
+const TurboBigSmallLocator = (process.env.npm_config_lang === 'vn' ? require('./TurboBigSmall_Locator').TurboBigSmallLocator_vn : require('./TurboBigSmall_Locator').TurboBigSmallLocator_en)
 import * as config from '../../config/config'
 import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';

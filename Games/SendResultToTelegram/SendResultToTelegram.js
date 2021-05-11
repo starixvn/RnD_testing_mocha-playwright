@@ -63,5 +63,5 @@ const parseArg = async(_args)=> {
         }
         return args
       }
-      return undefined
+      return {}
 }

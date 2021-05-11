@@ -1,7 +1,8 @@
 import * as utils from '../../util/utils'
-import {GameLobbyLocator} from '../References/GameLobby_Locator'
 import {DB} from '../References/DataBase_Locator'
-import {VipSedieLocator} from './VipSedie_Locator'
+const GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('../References/GameLobby_Locator').GameLobbyLocator_vn : require('../References/GameLobby_Locator').GameLobbyLocator_en)
+const VipSedieLocator = (process.env.npm_config_lang === 'vn' ? require('./VipSedie_Locator').VipSedieLocator_vn : require('./VipSedie_Locator').VipSedieLocator_en)
+
 import * as config from '../../config/config'
 
 let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, Red2: 2.4, White3: 3.75, White4: 14.4 }

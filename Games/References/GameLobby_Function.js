@@ -1,4 +1,4 @@
-let GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('./GameLobby_Locator').GameLobbyLocator_vn : require('./GameLobby_Locator').GameLobbyLocator_en)
+const GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('./GameLobby_Locator').GameLobbyLocator_vn : require('./GameLobby_Locator').GameLobbyLocator_en)
 import * as utils from '../../util/utils'
 import * as config from '../../config/config'
 

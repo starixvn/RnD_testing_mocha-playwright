@@ -3,7 +3,7 @@ const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
-import {BlackJackLocator} from './BlackJack_Locator'
+const BlackJackLocator = (process.env.npm_config_lang  == 'vn' ? require('./BlackJack_Locator').BlackJackLocator_vn : require('./BlackJack_Locator').BlackJackLocator_en)
 
 describe('BlackJack Game', ()=>{
 

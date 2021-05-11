@@ -1,4 +1,4 @@
-const MemberSiteLocator = (global.lang === 'vn' ? require('./MemberSite_Locator').MemberSiteLocator_vn : require('./MemberSite_Locator').MemberSiteLocator_en)
+const MemberSiteLocator = (process.env.npm_config_lang == 'vn' ? require('./MemberSite_Locator').MemberSiteLocator_vn : require('./MemberSite_Locator').MemberSiteLocator_en)
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 

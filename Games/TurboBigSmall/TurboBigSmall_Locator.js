@@ -1,6 +1,53 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + "TurboBigSmall" + path.sep
-export const TurboBigSmallLocator = { 
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "TurboBigSmall" + path.sep
+
+export const TurboBigSmallLocator_vn = { 
+	Title : { top : 156, left : 516, width : 270, height : 85, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Title.png" },
+	Big : { top : 280, left : 414, width : 97, height : 55, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Big.png" },
+	Small : { top : 275, left : 758, width : 110, height : 67, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Small.png" },
+	Odds : { top : 257, left : 606, width : 80, height : 22, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Odds.png" },
+	PosBig : { x : 464, y : 404, top : 381, left : 384, width : 160, height : 47, ImageCompare1 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig1.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig5.png", ImageCompare10 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig10.png", ImageCompare50 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig50.png", ImageCompare100 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig100.png", ImageCompare200 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig200.png", ImageCompare500 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig500.png", ImageCompare1000 : pathImageCompare + "ImgCompare_TurboBigSmall_PosBig1000.png" },
+	PosSmall : { x : 816, y : 405, top : 379, left : 737, width : 158, height : 52, ImageCompare1 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall1.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall5.png", ImageCompare10 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall10.png", ImageCompare50 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall50.png", ImageCompare100 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall100.png", ImageCompare200 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall200.png", ImageCompare500 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall500.png", ImageCompare1000 : pathImageCompare + "ImgCompare_TurboBigSmall_PosSmall1000.png" },
+	ChipBroad : { top : 503, left : 424, width : 430, height : 154, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_ChipBroad.png" },
+	Chip1 : { x : 482, y : 531 },
+	Chip5 : { x : 586, y : 530 },
+	Chip10 : { x : 691, y : 531 },
+	Chip50 : { x : 797, y : 531 },
+	Chip100 : { x : 480, y : 581 },
+	Chip200 : { x : 586, y : 579 },
+	Chip500 : { x : 693, y : 579 },
+	Chip1000 : { x : 797, y : 580 },
+	ChipBroadAccept : { x : 783, y : 635, top : 616, left : 724, width : 119, height : 38, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_ChipBroadAccept.png" },
+	ChipBroadClear : { x : 638, y : 631, top : 609, left : 573, width : 131, height : 45, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_ChipBroadClear.png" },
+	ChipBroadClose : { x : 495, y : 633, top : 611, left : 432, width : 127, height : 45, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_ChipBroadClose.png" },
+	Preset : { x : 349, y : 432, top : 214, left : 418, width : 450, height : 274, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Preset.png" },
+	PresetTitle : { x : 643, y : 232, top : 216, left : 533, width : 220, height : 33, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_PresetTitle.png" },
+	PresetValue : { x : 647, y : 292, top : 273, left : 443, width : 409, height : 38, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_PresetValue.png" },
+	PresetChip1 : { x : 485, y : 353 },
+	PresetChip5 : { x : 589, y : 353 },
+	PresetChip10 : { x : 695, y : 352 },
+	PresetChip50 : { x : 802, y : 351 },
+	PresetChip100 : { x : 484, y : 404 },
+	PresetChip200 : { x : 590, y : 401 },
+	PresetChip500 : { x : 697, y : 402 },
+	PresetChip1000 : { x : 801, y : 403 },
+	PresetAccept : { x : 785, y : 467, top : 447, left : 724, width : 123, height : 41, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_PresetAccept.png" },
+	PresetClear : { x : 642, y : 466, top : 449, left : 579, width : 127, height : 34, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_PresetClear.png" },
+	PresetClose : { x : 498, y : 467, top : 446, left : 434, width : 128, height : 42, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_PresetClose.png" },
+	Statistic : { x : 341, y : 343, top : 175, left : 350, width : 588, height : 99, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Statistic.png" },
+	StatisticResult : { x : 566, y : 253, top : 191, left : 476, width : 129, height : 25, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_StatisticResult.png" },
+	StatisticPoint : { x : 712, y : 255, top : 191, left : 705, width : 128, height : 24, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_StatisticPoint.png" },
+	StatisticLeftArrow : { x : 381, y : 343 },
+	StatisticRightArrow : { x : 898, y : 346 },
+	StatisticClose : { x : 1059, y : 115 },
+	History : { x : 374, y : 265, top : 80, left : 232, width : 825, height : 119, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_History.png" },
+	HistoryClose : { x : 1035, y : 108 },
+	Guide : { x : 935, y : 344, top : 75, left : 178, width : 932, height : 560, ImageCompare1 : pathImageCompare + "ImgCompare_TurboBigSmall_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_TurboBigSmall_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_TurboBigSmall_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_TurboBigSmall_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboBigSmall_Guide_5.png" },
+	GuideClose : { x : 1088, y : 98 },
+	Close : { x : 902, y : 263 }
+}
+
+export const TurboBigSmallLocator_en = { 
 	Title : { top : 156, left : 516, width : 270, height : 85, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Title.png" },
 	Big : { top : 280, left : 414, width : 97, height : 55, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Big.png" },
 	Small : { top : 275, left : 758, width : 110, height : 67, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Small.png" },

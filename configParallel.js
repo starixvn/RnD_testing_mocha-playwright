@@ -17,7 +17,7 @@ exports.mochaHooks = {
             args[tmp[0]] = tmp[1]
         }
         return args
-      } return undefined
+      } return {}
     }
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({

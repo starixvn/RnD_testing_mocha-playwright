@@ -1,6 +1,54 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + "TurboOddEven" + path.sep
-export const TurboOddEvenLocator = { 
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "TurboOddEven" + path.sep
+
+export const TurboOddEvenLocator_vn = { 
+	Title : { top : 181, left : 535, width : 214, height : 64, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Title.png" },
+	Even : { top : 279, left : 408, width : 111, height : 62, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Even.png" },
+	Odd : { top : 275, left : 769, width : 83, height : 70, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Odd.png" },
+	Odds : { top : 255, left : 601, width : 84, height : 27, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Odds.png" },
+	PosEven : { x : 462, y : 404, top : 383, left : 383, width : 159, height : 43, ImageCompare1 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven1.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven5.png", ImageCompare10 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven10.png", ImageCompare50 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven50.png", ImageCompare100 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven100.png", ImageCompare200 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven200.png", ImageCompare500 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven500.png", ImageCompare1000 : pathImageCompare + "ImgCompare_TurboOddEven_PosEven1000.png" },
+	PosOdd : { x : 813, y : 406, top : 382, left : 734, width : 158, height : 49, ImageCompare1 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd1.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd5.png", ImageCompare10 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd10.png", ImageCompare50 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd50.png", ImageCompare100 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd100.png", ImageCompare200 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd200.png", ImageCompare500 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd500.png", ImageCompare1000 : pathImageCompare + "ImgCompare_TurboOddEven_PosOdd1000.png" },
+	ChipBroad : { top : 507, left : 428, width : 423, height : 147, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_ChipBroad.png" },
+	Chip1 : { x : 482, y : 531 },
+	Chip5 : { x : 586, y : 530 },
+	Chip10 : { x : 694, y : 530 },
+	Chip50 : { x : 797, y : 531 },
+	Chip100 : { x : 480, y : 581 },
+	Chip200 : { x : 586, y : 579 },
+	Chip500 : { x : 693, y : 579 },
+	Chip1000 : { x : 797, y : 580 },
+	ChipBroadAccept : { x : 783, y : 635, top : 616, left : 724, width : 119, height : 38, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_ChipBroadAccept.png" },
+	ChipBroadClear : { x : 638, y : 631, top : 609, left : 573, width : 131, height : 45, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_ChipBroadClear.png" },
+	ChipBroadClose : { x : 495, y : 633, top : 611, left : 432, width : 127, height : 45, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_ChipBroadClose.png" },
+	Preset : { x : 349, y : 432, top : 214, left : 415, width : 455, height : 279, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Preset.png" },
+	PresetTitle : { x : 643, y : 232, top : 216, left : 533, width : 220, height : 33, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_PresetTitle.png" },
+	PresetValue : { x : 647, y : 292, top : 273, left : 443, width : 409, height : 38, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_PresetValue.png" },
+	PresetChip1 : { x : 486, y : 354 },
+	PresetChip5 : { x : 589, y : 353 },
+	PresetChip10 : { x : 698, y : 353 },
+	PresetChip50 : { x : 802, y : 351 },
+	PresetChip100 : { x : 484, y : 404 },
+	PresetChip200 : { x : 590, y : 401 },
+	PresetChip500 : { x : 697, y : 402 },
+	PresetChip1000 : { x : 801, y : 403 },
+	PresetAccept : { x : 785, y : 467, top : 447, left : 724, width : 123, height : 41, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_PresetAccept.png" },
+	PresetClear : { x : 642, y : 466, top : 449, left : 579, width : 127, height : 34, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_PresetClear.png" },
+	PresetClose : { x : 498, y : 467, top : 446, left : 434, width : 128, height : 42, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_PresetClose.png" },
+	Statistic : { x : 341, y : 343, top : 175, left : 350, width : 588, height : 99, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Statistic.png" },
+	StatisticResult : { x : 566, y : 253, top : 191, left : 476, width : 129, height : 25, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_StatisticResult.png" },
+	StatisticPoint : { x : 712, y : 255, top : 191, left : 705, width : 128, height : 24, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_StatisticPoint.png" },
+	StatisticLeftArrow : { x : 381, y : 343 },
+	StatisticRightArrow : { x : 898, y : 346 },
+	StatisticClose : { x : 1059, y : 115 },
+	History : { x : 374, y : 265, top : 79, left : 254, width : 797, height : 118, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_History.png" },
+	HistoryClose : { x : 1035, y : 108 },
+	Guide : { x : 935, y : 344, top : 71, left : 175, width : 939, height : 567, ImageCompare1 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_5.png" },
+	GuideClose : { x : 1088, y : 98 },
+	Close : { x : 902, y : 263 }
+}
+
+
+export const TurboOddEvenLocator_en = { 
 	Title : { top : 181, left : 535, width : 214, height : 64, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Title.png" },
 	Even : { top : 279, left : 408, width : 111, height : 62, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Even.png" },
 	Odd : { top : 275, left : 769, width : 83, height : 70, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Odd.png" },

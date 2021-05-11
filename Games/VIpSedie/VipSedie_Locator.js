@@ -1,6 +1,36 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + "VipSedie" + path.sep
-export const VipSedieLocator = { 
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "VipSedie" + path.sep
+
+export const VipSedieLocator_vn = { 
+	Dealer : { top : 16, left : 547, width : 186, height : 213, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Dealer.png" },
+	Even : { x : 360, y : 310, top : 279, left : 187, width : 346, height : 63, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Even.png" },
+	Odd : { x : 920, y : 310, top : 280, left : 748, width : 345, height : 60, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Odd.png" },
+	Red4 : { x : 273, y : 484, top : 444, left : 191, width : 165, height : 81, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Red4.png" },
+	Red3 : { x : 458, y : 486, top : 443, left : 386, width : 144, height : 86, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Red3.png" },
+	Red2 : { x : 640, y : 483, top : 442, left : 568, width : 144, height : 83, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Red2.png" },
+	White3 : { x : 820, y : 483, top : 442, left : 749, width : 143, height : 83, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_White3.png" },
+	White4 : { x : 1019, y : 484, top : 442, left : 928, width : 182, height : 85, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_White4.png" },
+	Balance : { top : 675, left : 182, width : 106, height : 19, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Balance.png" },
+	ChipBroad : { x : 642, y : 633, top : 590, left : 375, width : 535, height : 86, ImageCompare1 : pathImageCompare + "ImgCompare_VipSedie_ChipBroad1.png", ImageCompare2 : pathImageCompare + "ImgCompare_VipSedie_ChipBroad2.png" },
+	LeftArrow : { x : 348, y : 631 },
+	RightArrow : { x : 928, y : 633 },
+	Chip10 : { x : 431, y : 628 },
+	Chip20 : { x : 512, y : 633 },
+	Chip50 : { x : 593, y : 633 },
+	Chip100 : { x : 674, y : 632 },
+	Chip200 : { x : 757, y : 632 },
+	Chip500 : { x : 605, y : 630 },
+	Chip1000 : { x : 688, y : 633 },
+	Chip2000 : { x : 769, y : 631 },
+	Chip3000 : { x : 851, y : 632 },
+	Home : { x : 54, y : 114 },
+	History : { x : 56, y : 199, top : 69, left : 76, width : 1132, height : 125, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_History.png" },
+	HistoryClose : { x : 1185, y : 96 },
+	Guide : { x : 55, y : 282, top : 83, left : 171, width : 939, height : 568, ImageCompare1 : pathImageCompare + "ImgCompare_VipSedie_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_VipSedie_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_VipSedie_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_VipSedie_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_VipSedie_Guide_5.png" },
+	GuideClose : { x : 1085, y : 114 }
+}
+
+export const VipSedieLocator_en = { 
 	Dealer : { top : 16, left : 547, width : 186, height : 213, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Dealer.png" },
 	Even : { x : 360, y : 310, top : 279, left : 187, width : 346, height : 63, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Even.png" },
 	Odd : { x : 920, y : 310, top : 280, left : 748, width : 345, height : 60, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_Odd.png" },

@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-import {MiniSedieLocator} from './MiniSedie_Locator'
+const MiniSedieLocator = (process.env.npm_config_lang === 'vn' ? require('./MiniSedie_Locator').MiniSedieLocator_vn : require('./MiniSedie_Locator').MiniSedieLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`

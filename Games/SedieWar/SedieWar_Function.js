@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
-import {GameLobbyLocator} from '../References/GameLobby_Locator'
-import {SedieWarLocator} from './SedieWar_Locator'
+const GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('../References/GameLobby_Locator').GameLobbyLocator_vn : require('../References/GameLobby_Locator').GameLobbyLocator_en)
+const SedieWarLocator = (process.env.npm_config_lang === 'vn' ? require('./SedieWar_Locator').SedieWarLocator_vn : require('./SedieWar_Locator').SedieWarLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 
