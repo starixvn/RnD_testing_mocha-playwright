@@ -9,6 +9,7 @@ const expect = chai.expect
 exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
   beforeAll: (async () => {
+    const args = await parseArg(process.argv[2])
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
        headless: true ,
@@ -33,7 +34,8 @@ exports.mochaHooks = {
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")
-    global.env = (process.env.NODE_ENV !== "%npm_config_env%") ? process.env.NODE_ENV : 'cf_local'
+    global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
+    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vi'
     global.expect = expect
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){
@@ -49,4 +51,14 @@ exports.mochaHooks = {
     }
   }),
   afterAll: (async () => { await browser.close()  })
+  }
+
+  const parseArg = async(_args)=> {
+    let p = _args.split("-")
+    let args ={},tmp=[]
+    for(let i=0 ; i< p.length ; i++){
+        tmp = p[i].split("=")
+        args[tmp[0]] = tmp[1]
+    }
+    return args
   }

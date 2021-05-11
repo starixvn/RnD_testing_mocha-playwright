@@ -61,15 +61,15 @@
         ]
     },
     "scripts": {
-        "CI_SelGame": "mocha  --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
-        "Win_SelGame": "SET NODE_ENV=%npm_config_env%& mocha --timeout 0 Games/%npm_config_game%/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
-        "Win_SelGameSub": "SET NODE_ENV=%npm_config_env%& mocha  --timeout 0 Games/%npm_config_game%/*_%npm_config_Sub%Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
-        "full": "SET NODE_ENV=%npm_config_env%& mocha  --timeout 0 Games/**/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
-        "smoke": "SET NODE_ENV=%npm_config_env%& mocha  --timeout 0 Games/**/*_Test.js  -r @babel/register --fgrep Smoke_ --file ./Setup.js  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report",
-        "p_full": "export NODE_ENV=$npm_config_env&& mocha --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report ",
-        "p_smoke": "export NODE_ENV=$npm_config_env&& mocha --timeout 0 Games/**/*_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report",
-        "exportStatus": "cross-var mocha  --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register $npm_config_args",
-        "sendResultToTelegram": "cross-var mocha --timeout 0 Games/SendResultToTelegram/*.js -r @babel/register $npm_config_args"
+        "CI_SelGame": "cross-var mocha $npm_config_args --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "Win_SelGame": "cross-var mocha $npm_config_args --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "Win_SelGameSub": "cross-var mocha $npm_config_args --timeout 0 Games/$npm_config_game/*_%npm_config_Sub%Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "full": "cross-var mocha $npm_config_args --timeout 0 Games/**/*_Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report ",
+        "smoke": "cross-var mocha $npm_config_args --timeout 0 Games/**/*_Test.js  -r @babel/register --fgrep Smoke_ --file ./Setup.js  --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report",
+        "p_full": "cross-var mocha $npm_config_args --timeout 0 Games/**/*_Test.js -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report ",
+        "p_smoke": "cross-var mocha $npm_config_args --timeout 0 Games/**/*_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 3 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report",
+        "exportStatus": "cross-var mocha $npm_config_args --timeout 0 Games/MarkTestCase/MarkTestCase.js -r @babel/register",
+        "sendResultToTelegram": "cross-var mocha $npm_config_args --timeout 0 Games/SendResultToTelegram/*.js -r @babel/register"
     },
     "dependencies": {
         "jsonpath": "^1.1.1"

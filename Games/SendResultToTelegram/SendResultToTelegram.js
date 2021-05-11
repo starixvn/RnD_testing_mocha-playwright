@@ -8,9 +8,9 @@ describe('Send Message', ()=>{
     it('Send Telegram', async () => {
         let obj = await gsutils.repareData()
         let rs = await gsutils.prepareResult(obj)
-        const args = await parseArg(process.argv[7])
+        const args = await parseArg(process.argv[2])
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
-        let totalcase = await obj.length
+        let totalcase = obj.length
         let testSuiteDetail = "",mainContent
         if(obj !== 'NotFound'){
             if(await gsutils.isFailed(obj) === true){
