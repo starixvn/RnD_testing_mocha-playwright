@@ -9,6 +9,7 @@ exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
   beforeAll: (async () => {
     const args = async()=> {
+      if(typeof process.env.npm_config_args !== 'undefined'){
         let p = process.env.npm_config_args.split("-")
         let args ={},tmp=[]
         for(let i=0 ; i< p.length ; i++){
@@ -16,6 +17,7 @@ exports.mochaHooks = {
             args[tmp[0]] = tmp[1]
         }
         return args
+      } return undefined
     }
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({

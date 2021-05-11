@@ -54,11 +54,14 @@ const envToString = async(_env)=>{
     else if(_env === 'cf_prod') return 'PRO'
 }
 const parseArg = async(_args)=> {
-    let p = _args.split("-")
-    let args ={},tmp=[]
-    for(let i=0 ; i< p.length ; i++){
-        tmp = p[i].split("=")
-        args[tmp[0]] = tmp[1]
-    }
-    return args
+    if(typeof _args !== 'undefined'){
+        let p = _args.split("-")
+        let args ={},tmp=[]
+        for(let i=0 ; i< p.length ; i++){
+            tmp = p[i].split("=")
+            args[tmp[0]] = tmp[1]
+        }
+        return args
+      }
+      return undefined
 }
