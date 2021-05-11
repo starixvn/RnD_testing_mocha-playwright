@@ -7,7 +7,7 @@ chai.use(chaiHTTP)
 const expect = chai.expect
 
 before(async () => {
-    const args = await parseArg(process.argv[2])
+    const args = await parseArg(process.env.agrs)
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
        headless: config.setting.headless ,

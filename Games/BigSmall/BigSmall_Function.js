@@ -1,7 +1,7 @@
 import * as utils from '../../util/utils'
-import {BigSmallLocator} from './BigSmall_Locator'
-import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
+let BigSmallLocator = (process.env.npm_config_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
+import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
 var jp = require('jsonpath');
 
@@ -11,6 +11,10 @@ export const CloseGame = async() => {
   let flag = await utils.imageShouldNotDisplay(BigSmallLocator.Big)
   await utils.shouldBeEqual(flag.Val,true)
 
+}
+
+export const loglanguage = async() => {
+  console.log('log trong bs function',BigSmallLocator.Title.ImageCompare)
 }
 
 export const OpenHistory = async() => {

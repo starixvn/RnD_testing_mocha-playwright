@@ -1,4 +1,4 @@
-import { ResultLocator } from './Result_Locator'
+const ResultLocator = (global.lang === 'vn' ? require('./Result_Locator').ResultLocator_vn : require('./Result_Locator').ResultLocator_en)
 import * as utils from '../../util/utils'
 
 const gameName = {

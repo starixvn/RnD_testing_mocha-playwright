@@ -1,4 +1,4 @@
-import { MemberSiteLocator } from './MemberSite_Locator'
+const MemberSiteLocator = (global.lang === 'vn' ? require('./MemberSite_Locator').MemberSiteLocator_vn : require('./MemberSite_Locator').MemberSiteLocator_en)
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
 
