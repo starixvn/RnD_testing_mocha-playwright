@@ -5,11 +5,18 @@ const chai = require('chai')
 const chaiHTTP = require('chai-http')
 chai.use(chaiHTTP)
 const expect = chai.expect
-
 exports.mochaHooks = {
   // Runs before each file in parallel mode, or once before the whole test suite in serial mode
   beforeAll: (async () => {
-    const args = await parseArg(process.argv[2])
+    const args = async(_args)=> {
+        let p = _args.split("-")
+        let args ={},tmp=[]
+        for(let i=0 ; i< p.length ; i++){
+            tmp = p[i].split("=")
+            args[tmp[0]] = tmp[1]
+        }
+        return args
+    }
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
        headless: true ,
@@ -53,12 +60,4 @@ exports.mochaHooks = {
   afterAll: (async () => { await browser.close()  })
   }
 
-  const parseArg = async(_args)=> {
-    let p = _args.split("-")
-    let args ={},tmp=[]
-    for(let i=0 ; i< p.length ; i++){
-        tmp = p[i].split("=")
-        args[tmp[0]] = tmp[1]
-    }
-    return args
-  }
+
