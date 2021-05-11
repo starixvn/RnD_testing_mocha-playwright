@@ -15,7 +15,7 @@ test:
   script:
     - npm install --no-optional
     - echo "JOBR=$CI_JOB_ID" >> build.env
-    - npm run $Mode --args=env=$env
+    - npm run $Mode --args=env=$env-lang=$lang
   artifacts:
     paths:
       - Report/

@@ -1,7 +1,6 @@
 import playwright from 'playwright'
 import * as config from './config/config'
 import uaParser from 'ua-parser-js'
-import { gameType } from './util/utils'
 const chai = require('chai')
 const chaiHTTP = require('chai-http')
 chai.use(chaiHTTP)
@@ -35,7 +34,7 @@ before(async () => {
     global.isHear = false
     global.balance = parseFloat("0.00")
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
-    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vi'
+    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vn'
     global.expect = expect
     global.game = /Games\/(.*)\//ig.exec(process.argv[5])[1]
     // Set balance on Local

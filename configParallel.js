@@ -42,7 +42,7 @@ exports.mochaHooks = {
     global.isHear = false
     global.balance = parseFloat("0.00")
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
-    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vi'
+    global.lang = (typeof args.lang !== 'undefined') ? args.lang : 'vn'
     global.expect = expect
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){
