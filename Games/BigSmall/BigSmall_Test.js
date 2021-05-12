@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as BigSmallFunc from './BigSmall_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
-import {BigSmallLocator} from './BigSmall_Locator'
+let BigSmallLocator = (process.env.npm_config_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
 
 describe('BigSmall Game', ()=>{
 
@@ -26,7 +26,7 @@ describe('BigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
    await BigSmallFunc.VerifySignInSuccessfully()
-  })  
+    }) 
 
   it('TC_02_Full_Smoke_Verify History Content', async () => {
     await BigSmallFunc.OpenHistory()
