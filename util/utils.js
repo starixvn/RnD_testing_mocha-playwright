@@ -310,6 +310,17 @@ export const CaptureSubImageToFile = async(_path,_x, _y , _w, _h) => {
         console.log('Error '+error.message)
     } 
 }
+
+export const compareImages = async(_image1, _image2, _w,_h) => {
+    let _i1 =await readImageData(_image1)
+    let _i2 =await readImageData(_image2)
+    let Val, flag
+    let diff = new PNG({_w, _h});
+    flag = pixelmatch(_i1.data,_i2.data, diff.data, _w, _h, { threshold : 0.15 })
+    flag < (_w*_h*0.07) ? Val = true : Val = false
+    return Val
+}
+
 export const findImage = async(_subimage, _x=null, _y=null, _w=null, _h=null) => {
     /* Test Comment*/
     try {
