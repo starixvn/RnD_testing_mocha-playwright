@@ -1,6 +1,10 @@
 const MemberSiteLocator = (process.env.npm_config_lang == 'vn' ? require('./MemberSite_Locator').MemberSiteLocator_vn : require('./MemberSite_Locator').MemberSiteLocator_en)
 import * as config from '../../config/config'
 import * as utils from '../../util/utils'
+const chai = require('chai')
+const chaiHTTP = require('chai-http')
+chai.use(chaiHTTP)
+const expect = chai.expect
 
 export const login = async(_env,_game) => {
     // Login for SIT/UAT/PRO
@@ -45,23 +49,12 @@ export const login = async(_env,_game) => {
     //Login for local
 export const login_local = async(_env,_game) => {
         try{
-            let flag
-            // Go to Membersite Url
-            await utils.navigate(config[_env].url)
-            await utils.waitForLoadState()
-
-            // Innput MemberID
-            await utils.sendKeys(MemberSiteLocator.txtMemberId,config[_env].memberId[_game])
-
-            // Click on Gen Token
-            await utils.clickEl(MemberSiteLocator.btnGetToken)
-            flag = await utils.isTextNotEqualOnElement(MemberSiteLocator.lblRedirect,"#")
-            // flag = await utils.getText(MemberSiteLocator.lblRedirect)
-
-            expect(flag.Val, 'Fail on get token from Simulator').to.be.true
-            // Navigate to SabaClub
-            let url = (flag = await utils.getText(MemberSiteLocator.lblRedirect)).toString()
-            await utils.navigate((await url).slice(0, -1))
+            let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"GJ62Pjtn","language":"vi-VN","currency":"$US","seq":"d,y,lumi","siteId":"4100300","ip":"","browserUserAgent": userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"owUrl":""},"domain":"example.com","localhost":null,"resource":null}
+            chai.request(config[_env].url).post("/sso").send(_requestjs).end( async(err,res)=>{
+            expect(res).to.have.status(200)
+            const obj = JSON.parse(res.text);
+            await utils.navigate(obj.redirectUrl)
+            })
             await utils.sleep(7000)//Wait for login process
         } catch (error) {
             console.error(error.message)
