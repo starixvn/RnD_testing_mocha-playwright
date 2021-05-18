@@ -73,6 +73,12 @@ export const ClosePreset = async() => {
   await utils.sleep(500)
 }
 
+//Wait until new round
+export const waitUtilNewRound = async() => {
+  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
+  await utils.sleep(6000)
+  console.log('new round ready')
+}
 
 export const VerifySignInSuccessfully = async() => {
   // Verify TurboOddEven Title

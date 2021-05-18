@@ -61,6 +61,35 @@ export const ClosePreset = async() => {
   await utils.sleep(500)
 }
 
+export const checkNavStatisticbar = async() => {
+  try {
+         // Set Variables
+         let _y =480,_x = 455, temp
+       for (let i =1 ; i< 16; i++) {
+         _x += 24
+         await utils.sleep(200)
+         await clickPos(_x,_y)
+         await utils.sleep(1000)
+         //await utils.CaptureSubImageToFile(TurboBigSmallLocator.RoundDetailTitle.ImageCompare,TurboBigSmallLocator.RoundDetailTitle.left,TurboBigSmallLocator.RoundDetailTitle.top,TurboBigSmallLocator.RoundDetailTitle.width,TurboBigSmallLocator.RoundDetailTitle.height)
+         temp = await utils.findImage(TurboBigSmallLocator.RoundDetailTitle.ImageCompare,TurboBigSmallLocator.RoundDetailTitle)
+         await clickPos(1062,161)
+         await utils.sleep(500)
+         await utils.shouldBeEqual(temp.Val, true,`Check round titlte of ${i}`)
+         }
+ } catch (err) {
+       console.error(err)
+}
+
+}
+
+// QuickClick pos
+export const clickPos = async(_x, _y) => {
+ try {
+     await page.mouse.click(_x,_y)
+  } catch (error) {
+     console.error(error.message);
+  }
+}
 
 export const VerifySignInSuccessfully = async() => {
   //   await page.screenshot({path:TurboBigSmallLocator.Title.ImageCompare,clip:{x: TurboBigSmallLocator.Title.left,
@@ -400,6 +429,12 @@ export const CheckSettleBalance = async() => {
   }
 }
 
+//Wait until new round
+export const waitUtilNewRound = async() => {
+  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"remainingTime":36}]')
+  await utils.sleep(6000)
+  console.log('new round ready')
+}
 
 
 

@@ -4,8 +4,7 @@ import * as utils from '../../util/utils'
 import * as TurboOddEvenFunc from '../TurboOddEven/TurboOddEven_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
-import {TurboOddEvenLocator} from './TurboOddEven_Locator'
-import { GameLobbyLocator } from '../References/GameLobby_Locator'
+const TurboOddEvenLocator = (process.env.npm_config_lang === 'vn' ? require('./TurboOddEven_Locator').TurboOddEvenLocator_vn : require('./TurboOddEven_Locator').TurboOddEvenLocator_en)
 
 
 describe('TurboOddEven Game', ()=>{
@@ -26,7 +25,6 @@ describe('TurboOddEven Game', ()=>{
   })
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-    //await GameLobbyFunc.OpenGameFromLobby(game)
     await TurboOddEvenFunc.VerifySignInSuccessfully()
 
   })  
@@ -150,7 +148,8 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Odd', async () => {   
+  it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Odd', async () => {  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0

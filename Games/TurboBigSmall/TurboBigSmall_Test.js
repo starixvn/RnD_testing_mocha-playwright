@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as TurboBigSmallFunc from '../TurboBigSmall/TurboBigSmall_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
-import {TurboBigSmallLocator} from './TurboBigSmall_Locator'
+const TurboBigSmallLocator = (process.env.npm_config_lang === 'vn' ? require('./TurboBigSmall_Locator').TurboBigSmallLocator_vn : require('./TurboBigSmall_Locator').TurboBigSmallLocator_en)
 
 describe('TurboBigSmall Game', ()=>{
 
@@ -26,7 +26,7 @@ describe('TurboBigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await TurboBigSmallFunc.VerifySignInSuccessfully()
-
+    //await TurboBigSmallFunc.checkNavStatisticbar()
   })  
 
   it('TC_02_Full_Smoke_Verify History Content', async () => {
@@ -152,6 +152,7 @@ describe('TurboBigSmall Game', ()=>{
     const Achip =  [1,5,10,50]
     const pos = "Big"
     let _stake =0
+    await TurboBigSmallFunc.waitUtilNewRound()
     for (let i =0 ; i< Achip.length ;i ++){
       await TurboBigSmallFunc.PresetChip(Achip[i])
       _stake = _stake + Achip[i]
