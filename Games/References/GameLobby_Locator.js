@@ -23,6 +23,7 @@ export const GameLobbyLocator_vn = {
 	BlackJackIcon : { x : 1187, y : 274 },
 	RouletteIcon : { x : 1185, y : 447 },
 	Result : { x: 50, y : 660 },
+	FourGuardiansFunc : {x: 284, y:353},
 	errorPopup: { top : 411, left : 233, width : 445, height : 80, ImageCompare : pathImageCompare + "ImgCompare_GameLobby_Error.png" }
 }
 
@@ -49,5 +50,6 @@ export const GameLobbyLocator_en = {
 	BlackJackIcon : { x : 1187, y : 274 },
 	RouletteIcon : { x : 1185, y : 447 },
 	Result : { x: 50, y : 660 },
+	FourGuardiansFunc : {x: 284, y:353},
 	errorPopup: { top : 411, left : 233, width : 445, height : 80, ImageCompare : pathImageCompare + "ImgCompare_GameLobby_Error.png" }
 }

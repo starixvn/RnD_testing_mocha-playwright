@@ -36,8 +36,8 @@ before(async () => {
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
     global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
     global.expect = expect
-    if(typeof process.env.game !== 'undefined'){
-      global.game = process.env.game
+    if(typeof process.env.npm_config_game !== 'undefined'){
+      global.game = process.env.npm_config_game
       // Set balance on Local
       if(env === 'cf_local' || env === 'cf_local1'){
         chai.request(config[env].setBalance).post("").send(

@@ -26,7 +26,8 @@ export const cf_local ={
         TurboBigSmall: "1001060",
         TurboOddEven: "1001061",
         SedieWar: "1001062",
-        BigSmallSicbo: "1001063"
+        BigSmallSicbo: "1001063",
+        FourGuardians: "1001064"
     },
     password: "",
     gamelobbyurl: "",
@@ -53,7 +54,8 @@ export const cf_local1 ={
         TurboBigSmall: "1001060",
         TurboOddEven: "1001061",
         SedieWar: "1001062",
-        BigSmallSicbo: "1001063"
+        BigSmallSicbo: "1001063",
+        FourGuardians: "1001064"
     },
     password: "",
     gamelobbyurl: "",

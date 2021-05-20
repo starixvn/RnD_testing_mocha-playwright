@@ -9,7 +9,7 @@ export const verifyLoginSuccessfully = async() => {
 export const OpenGameFromLobby = async(_Gamename) => {
     //Game in Screen1
     let _game = `${_Gamename}Icon`
-    const Gscreen1 = ['VipSedie','Sedie','SedieWar','MiniSedie','BigSmallSicbo','BigSmall','TurboBigSmall','TurboOddEven','KenoProMax','KenoProViet','VipBaccarat','Baccarat']
+    const Gscreen1 = ['VipSedie','Sedie','SedieWar','MiniSedie','BigSmallSicbo','BigSmall','TurboBigSmall','TurboOddEven','KenoProMax','KenoProViet','VipBaccarat','Baccarat','FourGuardians']
     const Gscreen2 = ['VipFishPrawnCrab','FishPrawnCrab','DragonTiger','BlackJack','Roulette']
     if(Gscreen2.includes(_Gamename) === true){
         await utils.sleep(500)

@@ -431,6 +431,7 @@ export const CheckSettleBalance = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
+  wsMessageReceived = []
   let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"remainingTime":36}]')
   await utils.sleep(6000)
   console.log('new round ready')
