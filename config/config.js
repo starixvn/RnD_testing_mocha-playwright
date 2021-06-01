@@ -11,7 +11,7 @@ export const setting ={
 }
 
 export const cf_local ={
-    url: "http://gamelobby-simulator.lumigame.com/signin",
+    url: "http://l1-glbs2.lumigame.com/signin",
     usernameSSO: "",
     memberId: {
         BlackJack : "1001051",
@@ -31,11 +31,11 @@ export const cf_local ={
     },
     password: "",
     gamelobbyurl: "",
-    urlWebsocket: "ws://haproxy.lumigame.com:7000/roulette/socket.io/?EIO=3&transport=websocket",
+    urlWebsocket: "ws://haproxy.lumigame.com:7002/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "http://games.lumigame.com",
     protocol: "ws",
-    retrieveEndGame : "http://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
-    setBalance : "http://owapi-simulator.lumigame.com/SabaClub/CreateCustomer"
+    retrieveEndGame : "http://l1-ows2.lumigame.com/SabaClub/RetrieveEndGameInfo",
+    setBalance : "http://l1-ows2.lumigame.com/SabaClub/CreateCustomer"
 }
 
 export const cf_local1 ={
