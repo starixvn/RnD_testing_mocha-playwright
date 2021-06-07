@@ -31,9 +31,9 @@ export const cf_local ={
     },
     password: "",
     gamelobbyurl: "",
-    urlWebsocket: "ws://haproxy.lumigame.com:7002/roulette/socket.io/?EIO=3&transport=websocket",
-    urlOrigin: "http://games.lumigame.com",
-    protocol: "ws",
+    urlWebsocket: "wss://l1-proxy2.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "https://l1-games2.lumigame.com",
+    protocol: "wss",
     retrieveEndGame : "https://l1-ows2.lumigame.com/SabaClub/RetrieveEndGameInfo",
     setBalance : "https://l1-ows2.lumigame.com/SabaClub/CreateCustomer"
 }
