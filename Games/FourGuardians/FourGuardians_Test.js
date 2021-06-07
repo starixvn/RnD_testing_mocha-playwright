@@ -25,41 +25,41 @@ describe('FourGuardians Game', ()=>{
     await FourGuardiansFunc.VerifySignInSuccessfully()
   })  
 
-  // it('TC_02_Full_Smoke_Verify History Content', async () => {
-  //     await FourGuardiansFunc.VerifyHistoryContent()
-  // })  
-
-  // it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-  //   await FourGuardiansFunc.VerifyGuideContent()
-  // })  
-
-  // it('TC_04_Full_Smoke_Verify Left Right payline', async () => {
-  //   await FourGuardiansFunc.VerifyRightPayline()
-  //   await FourGuardiansFunc.VerifyLeftPayline()
-  // })  
-
-  // it('TC_05_Full_Smoke_Verify payline Detail Default', async () => {
-  //   await FourGuardiansFunc.VerifyPaylineDetail()
-  // }) 
-  
-  // it('TC_06_Full_Smoke_Verify payline Detail Odd', async () => {
-  //   await FourGuardiansFunc.VerifyPaylinelOdd()
-  // })  
-
-  // it('TC_07_Full_Smoke_Verify payline Detail Even', async () => {
-  //   await FourGuardiansFunc.VerifyPaylineEven()
-  // })  
-
-  // it('TC_08_Full_Smoke_Verify payline Detail All', async () => {
-  //   await FourGuardiansFunc.VerifyPaylineAll()
-  // })  
-
-  it('TC_09_Full_Smoke_Verify payline Detail All', async () => {
-    for(let i=1; i<=24; i++){
-      let temp = 'L'+i
-      await FourGuardiansFunc.checkSettlement(FourGuardiansFunc.PlaceBet,[temp,1])
-    }
+  it('TC_02_Full_Smoke_Verify History Content', async () => {
+      await FourGuardiansFunc.VerifyHistoryContent()
   })  
+
+  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+    await FourGuardiansFunc.VerifyGuideContent()
+  })  
+
+  it('TC_04_Full_Smoke_Verify Left Right payline', async () => {
+    await FourGuardiansFunc.VerifyRightPayline()
+    await FourGuardiansFunc.VerifyLeftPayline()
+  })  
+
+  it('TC_05_Full_Smoke_Verify payline Detail Default', async () => {
+    await FourGuardiansFunc.VerifyPaylineDetail()
+  }) 
+  
+  it('TC_06_Full_Smoke_Verify payline Detail Odd', async () => {
+    await FourGuardiansFunc.VerifyPaylinelOdd()
+  })  
+
+  it('TC_07_Full_Smoke_Verify payline Detail Even', async () => {
+    await FourGuardiansFunc.VerifyPaylineEven()
+  })  
+
+  it('TC_08_Full_Smoke_Verify payline Detail All', async () => {
+    await FourGuardiansFunc.VerifyPaylineAll()
+  })  
+
+  // it('TC_09_Full_Smoke_Verify payline Detail All', async () => {
+  //   for(let i=1; i<=24; i++){
+  //     let temp = 'L'+i
+  //     await FourGuardiansFunc.checkSettlement(FourGuardiansFunc.PlaceBet,[temp,1])
+  //   }
+  // })  
 
 //   it('TC_06_Full_Smoke_Verify bet chips', async () => {
 //     let pos = "Big"

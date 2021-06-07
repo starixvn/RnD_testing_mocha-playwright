@@ -78,14 +78,14 @@ export const verifyBetChip = async() => {
 
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
-    let _result = await utils.betProcess(VipSedieLocator.Even.x,VipSedieLocator.Even.y,`42/user/vipsedie,["VipSeDie",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(VipSedieLocator.Even.x,VipSedieLocator.Even.y,`"notice":"Vui lòng đặt cược ở phiên sau."}]`)
     global.expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
-    await utils.wsFindMessage(`42/user/vipsedie,["VipSeDie",{"remainingTime":39}]`)
-    let _result = await utils.betProcess(VipSedieLocator.Even.x,VipSedieLocator.Even.y,`42/user/vipsedie,["VipSeDie",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    42/user/vipsedie,["VipSeDie", {remainingTime: 39}]
+    let _result = await utils.betProcess(VipSedieLocator.Even.x,VipSedieLocator.Even.y,`"notice":"Vui lòng đặt cược ở phiên sau."}]`)
     global.expect(_result.Val).to.equal(true)
 }
 

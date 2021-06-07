@@ -383,7 +383,7 @@ export const OddEvenTurbo = {
     },
     verifyArchivedRoundID : async()=> {
         await selectGame("OddEvenTurbo")
-        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,1)
+        await utils.sendKeys(ResultLocator.formSearching.txtRoundID,-1)
         await utils.clickEl(ResultLocator.btnSearch)
         await utils.waitEl(ResultLocator.lblNodata)
         await closePage()
