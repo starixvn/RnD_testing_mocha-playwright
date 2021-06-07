@@ -92,7 +92,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       await SubmitChip()
       // Wait until betting success
       if (wait == 'wait'){
-        _isfail = await IsBetFail()
+        _isfail = await IsBetFail(_pos.toLowerCase())
       }
       else {
         _isfail = false
@@ -100,6 +100,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       await utils.sleep(500)
       if (_isfail === false )
       {
+        await utils.sleep(200)
         break
       }
     }   
@@ -111,6 +112,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 //VerifyBetStake
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
+      await utils.sleep(100)
       let findmsg,_found
       if (_pos == "Big"){
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"big":${_stake}}`
@@ -132,7 +134,7 @@ export const VerifyBetStake = async (_pos,_stake) => {
 export const VerifyErrorMessage = async(_msg) => {
   await utils.sleep(1000)
   let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`42/user/taixiu,["taixiu",{"endBet":-1,"notice":"${_msg}"}]`));
+  _result = wsMessageReceived.filter(element => element.includes(`"notice":"${_msg}"}]`));
   if (_result.length > 0)
   {
     _found = true
@@ -168,6 +170,7 @@ export const CloseChipBoard = async () => {
 export const SubmitChip = async () => {
   try {
       await utils.clickPos(BigSmallLocator.ChipBroadAccept.x,BigSmallLocator.ChipBroadAccept.y)
+      await utils.sleep(200)
   } catch (e) {
       console.error(e)
   }
@@ -259,10 +262,8 @@ export const VerifyStatisticContent = async() => {
 
 
 //Is Round Error after betting
-export const IsBetFail = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('42/user/taixiu,["taixiu",{"endBet":-1,"notice'));
-  // const res = String(_found).split("42/user/taixiu,");
-  // const obj = JSON.parse(res[1]);
+export const IsBetFail = async(_pos) => {
+  let _found = wsMessageReceived.filter(element => element.includes(`42/user/taixiu,["taixiu",{"endBet":-1,"betChoice":"${_pos}","notice"`));
   if (_found.length > 0){
     return true
   }
