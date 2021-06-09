@@ -84,7 +84,6 @@ export const verifyBetAtBlockBettingTime = async() => {
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
-    42/user/vipsedie,["VipSeDie", {remainingTime: 39}]
     let _result = await utils.betProcess(VipSedieLocator.Even.x,VipSedieLocator.Even.y,`"notice":"Vui lòng đặt cược ở phiên sau."}]`)
     global.expect(_result.Val).to.equal(true)
 }
