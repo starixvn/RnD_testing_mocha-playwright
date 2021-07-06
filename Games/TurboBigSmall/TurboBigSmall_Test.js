@@ -58,7 +58,7 @@ describe('TurboBigSmall Game', ()=>{
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {   
     const pos = "Big"
-    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+    const errormsg = `"errorCode":"SB1911","maxBet":2000`
    await TurboBigSmallFunc.PlaceBet(pos,1000)
    await TurboBigSmallFunc.PlaceBet(pos,1000)
    await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
@@ -70,7 +70,7 @@ describe('TurboBigSmall Game', ()=>{
  it('TC_07_Full_Verify Max Bet on Small', async () => {  
   await TurboBigSmallFunc.waitUtilNewRound()
    const pos = "Small"
-   const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+   const errormsg = `"errorCode":"SB1911","maxBet":2000`
   await TurboBigSmallFunc.PlaceBet(pos,1000)
   await TurboBigSmallFunc.PlaceBet(pos,1000)
   await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
@@ -81,7 +81,7 @@ describe('TurboBigSmall Game', ()=>{
   it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {  
     await TurboBigSmallFunc.waitUtilNewRound()
      const pos = "Big"
-     const errormsg = 'Chỉ được cược 1 bên.'
+     const errormsg = '"errorCode":"SB1927"'
     await TurboBigSmallFunc.PlaceBet(pos,1)
     await TurboBigSmallFunc.VerifyBetStake(pos,1)
     await TurboBigSmallFunc.PlaceBet("Small",5,'nowait')
@@ -92,7 +92,7 @@ describe('TurboBigSmall Game', ()=>{
 
   it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {   
     const pos = "Small"
-    const errormsg = 'Chỉ được cược 1 bên.'
+    const errormsg = '"errorCode":"SB1927"'
    await TurboBigSmallFunc.PlaceBet(pos,1)
    await TurboBigSmallFunc.VerifyBetStake(pos,1)
    await TurboBigSmallFunc.PlaceBet("Big",5,'nowait')

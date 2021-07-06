@@ -39,10 +39,10 @@ const getMessage = async(_mes) => {
     }
 }
 
-export const wsFindMessage = async(_mes) => {
+export const wsFindMessage = async(_mes,cfloop=config.setting.loop) => {
     try {
         let result
-        for(let t = 0 ; t< config.setting.loop ; t++){
+        for(let t = 0 ; t< cfloop ; t++){
             if(typeof wsMessageReceived !== 'undefined'){
                 // console.log(wsMessageReceived)
                 result = await FindMessage(_mes)
@@ -765,7 +765,7 @@ export const verifyBlockTime = async(_game,_placebetfunc,args) => {
           await _placebetfunc.apply(this,args)
           await sleep(2000)
           //let _result =await wsMessageReceived.filter(element => element.includes(`42/user/${gameType[_game]._ws.toLocaleLowerCase()},["${gameType[_game]._ws}",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`));
-          let _result =await wsMessageReceived.filter(element => element.includes(`"notice":"Vui lòng đặt cược ở phiên sau."}]`));
+          let _result =await wsMessageReceived.filter(element => element.includes(`"notice"`));
           await expect(_result.length).to.be.within(1,2)
         }
     }    

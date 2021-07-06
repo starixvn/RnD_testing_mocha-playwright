@@ -59,16 +59,16 @@ export const ClosePreset = async() => {
 export const VerifySignInSuccessfully = async() => {
   // Verify BigSmall Title
     const _title= await utils.findImage(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title)
-    await utils.shouldBeEqual(_title.Val,true)  
+    await utils.shouldBeEqual(_title.Val,true,'Check title')  
   // Verify Big
   const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
-  await utils.shouldBeEqual(_big.Val,true)  
+  await utils.shouldBeEqual(_big.Val,true,'Check big')  
   // Verify Small
   const _small= await utils.findImage(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small)
-  await utils.shouldBeEqual(_small.Val,true)  
+  await utils.shouldBeEqual(_small.Val,true,'Check small')  
   // Verify odd
   const _odd= await utils.findImage(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds)
-  await utils.shouldBeEqual(_odd.Val,true)  
+  await utils.shouldBeEqual(_odd.Val,true,'Check odd')  
 }
 
 
@@ -97,7 +97,6 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else {
         _isfail = false
       }
-      await utils.sleep(500)
       if (_isfail === false )
       {
         await utils.sleep(200)
@@ -112,16 +111,15 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 //VerifyBetStake
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
-      await utils.sleep(100)
       let findmsg,_found
       if (_pos == "Big"){
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"big":${_stake}}`
-          _found = await utils.wsFindMessage(findmsg)
+          _found = await utils.wsFindMessage(findmsg,5)
        }
 
        else if(_pos == "Small"){
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"small":${_stake}}`
-          _found = await utils.wsFindMessage(findmsg)
+          _found = await utils.wsFindMessage(findmsg,5)
        }
       await utils.shouldBeEqual(_found.Val,true, `Verify bet choice : ${_pos} and stake : ${_stake} `)    
    } catch (e) {
@@ -133,16 +131,8 @@ export const VerifyBetStake = async (_pos,_stake) => {
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
   await utils.sleep(1000)
-  let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`"notice":"${_msg}"}]`));
-  if (_result.length > 0)
-  {
-    _found = true
-  }
-  else {
-    _found = false
-  }
-  await utils.shouldBeEqual(_found,true,'Verify error message')
+  let  _result =await utils.wsFindMessage(`${_msg}`,2);
+  await utils.shouldBeEqual(_result.Val,true,'Verify error message')
 }
 
 
@@ -262,13 +252,15 @@ export const VerifyStatisticContent = async() => {
 
 
 //Is Round Error after betting
-export const IsBetFail = async(_pos) => {
-  let _found = wsMessageReceived.filter(element => element.includes(`42/user/taixiu,["taixiu",{"endBet":-1,"betChoice":"${_pos}","notice"`));
-  if (_found.length > 0){
-    return true
-  }
-  else
-  return false
+export const IsBetFail = async() => {
+  let _found = await utils.wsFindMessage("notice",2)
+  return _found.Val
+  // let _found = wsMessageReceived.filter(element => element.includes(`42/user/taixiu,["taixiu",{"endBet":-1,"betChoice":"${_pos}","notice"`));
+  // if (_found.length > 0){
+  //   return true
+  // }
+  // else
+  // return false
 }
 
 //Is Round Settle
@@ -375,7 +367,9 @@ export const CheckSettleBalance = async() => {
     await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
   }
   else {
+    console.log('Refund: ',_beforebalance, _afterbalance)
   }
+  await utils.sleep(4000)
 }
 
 export const checkNavStatisticbar = async() => {

@@ -176,17 +176,9 @@ export const VerifyBetStake = async (_pos,_stake) => {
 
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
-  await utils.sleep(2000)
-  let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`"notice":"${_msg}"}]`));
-   if (_result.length > 0)
-  {
-    _found = true
-  }
-  else {
-    _found = false
-  }
-  await utils.shouldBeEqual(_found,true)
+    await utils.sleep(1000)
+    let  _result =await utils.wsFindMessage(`${_msg}`,2);
+    await utils.shouldBeEqual(_result.Val,true,'Verify error message')
 }
 
 
@@ -305,12 +297,8 @@ export const VerifyStatisticContent = async() => {
 
 //Is Round Error after betting
 export const IsBetFail = async(_pos) => {
-  let _found = wsMessageReceived.filter(element => element.includes(`42/user/oeturbo,["OETurbo",{"endBet":-1,"betChoice":"${_pos}","notice"`));
-  if (_found.length > 0){
-    return true
-  }
-  else
-  return false
+  let _found = await utils.wsFindMessage("notice",2)
+  return _found.Val
 }
 
 //GetWinLossStatus

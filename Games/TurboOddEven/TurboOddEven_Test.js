@@ -58,7 +58,7 @@ describe('TurboOddEven Game', ()=>{
 
   it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {
     const pos = "Odd"
-    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+    const errormsg =  `"errorCode":"SB1911","maxBet":2000`
    await TurboOddEvenFunc.PlaceBet(pos,1000)
    await TurboOddEvenFunc.PlaceBet(pos,1000)
    await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
@@ -70,7 +70,7 @@ describe('TurboOddEven Game', ()=>{
  it('TC_07_Full_Verify Max Bet on Even', async () => { 
   await TurboOddEvenFunc.waitUtilNewRound()
    const pos = "Even"
-   const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+   const errormsg =  `"errorCode":"SB1911","maxBet":2000`
   await TurboOddEvenFunc.PlaceBet(pos,1000)
   await TurboOddEvenFunc.PlaceBet(pos,1000)
   await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
@@ -81,7 +81,7 @@ describe('TurboOddEven Game', ()=>{
   it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Odd', async () => {   
     await TurboOddEvenFunc.waitUtilNewRound()
      const pos = "Odd"
-     const errormsg = 'Chỉ được cược 1 bên.'
+     const errormsg = '"errorCode":"SB1927"'
     await TurboOddEvenFunc.PlaceBet(pos,1)
     await TurboOddEvenFunc.VerifyBetStake(pos,1)
     await TurboOddEvenFunc.PlaceBet("Even",5,'nowait')
@@ -93,7 +93,7 @@ describe('TurboOddEven Game', ()=>{
   it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {   
     await TurboOddEvenFunc.waitUtilNewRound()
     const pos = "Even"
-    const errormsg = 'Chỉ được cược 1 bên.'
+    const errormsg = '"errorCode":"SB1927"'
    await TurboOddEvenFunc.PlaceBet(pos,1)
    await TurboOddEvenFunc.VerifyBetStake(pos,1)
    await TurboOddEvenFunc.PlaceBet("Odd",5,'nowait')

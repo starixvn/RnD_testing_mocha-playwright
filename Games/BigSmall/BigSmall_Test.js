@@ -53,11 +53,12 @@ describe('BigSmall Game', ()=>{
 
   it('TC_05_Full_Verify Block bet time', async () => {
     await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
+    await utils.sleep(5000)
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
     const pos = "Big"
-    const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+    const errormsg = `"errorCode":"SB1911","maxBet":2000`
    await BigSmallFunc.PlaceBet(pos,1000)
    await BigSmallFunc.PlaceBet(pos,1000)
    await BigSmallFunc.PlaceBet(pos,5,'nowait')
@@ -67,7 +68,7 @@ describe('BigSmall Game', ()=>{
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {
    const pos = "Small"
-   const errormsg = 'Tổng tiền cược tối đa ở phiên này là 2,000'
+   const errormsg = `"errorCode":"SB1911","maxBet":2000`
   await BigSmallFunc.PlaceBet(pos,1000)
   await BigSmallFunc.PlaceBet(pos,1000)
   await BigSmallFunc.PlaceBet(pos,5,'nowait')
@@ -78,7 +79,7 @@ describe('BigSmall Game', ()=>{
 
   it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
      const pos = "Big"
-     const errormsg = 'Chỉ được cược 1 bên.'
+     const errormsg = '"errorCode":"SB1927"'
     await BigSmallFunc.PlaceBet(pos,1)
     await BigSmallFunc.VerifyBetStake(pos,1)
     await BigSmallFunc.PlaceBet("Small",5,'nowait')
@@ -90,7 +91,7 @@ describe('BigSmall Game', ()=>{
 
   it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {
     const pos = "Small"
-    const errormsg = 'Chỉ được cược 1 bên.'
+    const errormsg = '"errorCode":"SB1927"'
    await BigSmallFunc.PlaceBet(pos,1)
    await BigSmallFunc.VerifyBetStake(pos,1)
    await BigSmallFunc.PlaceBet("Big",5,'nowait')
