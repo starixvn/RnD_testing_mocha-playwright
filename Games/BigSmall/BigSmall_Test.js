@@ -13,7 +13,6 @@ describe('BigSmall Game', ()=>{
     await utils.Login(env,game);
     await utils.sleep(3000)
     await GameLobbyFunc.OpenGameFromLobby(game)
-
   })
 
   afterEach(async function(){

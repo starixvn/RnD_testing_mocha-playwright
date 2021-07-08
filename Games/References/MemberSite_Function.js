@@ -51,7 +51,6 @@ export const login_local = async(_env,_game) => {
         try{
             let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"GJ62Pjtn","language":"vi-VN","currency":"$US","seq":"d,y,lumi","siteId":"4100300","ip":"","browserUserAgent": userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"owUrl":""},"domain":"example.com","localhost":null,"resource":null}
             chai.request(config[_env].url).post("/sso").send(_requestjs).end( async(err,res)=>{
-            expect(res).to.have.status(200)
             const obj = JSON.parse(res.text);
             await utils.navigate(obj.redirectUrl)
             })

@@ -13,9 +13,6 @@ export const CloseGame = async() => {
 
 }
 
-export const loglanguage = async() => {
-  console.log('log trong bs function',BigSmallLocator.Title.ImageCompare)
-}
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){
@@ -81,27 +78,31 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       wsMessageReceived = []
       await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(200)
+      await utils.sleep(300)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
-      {
-        const _cnumber = `Chip${_stake}`
-        await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
-      }
-         //SubmitChip
+          {
+            const _cnumber = `Chip${_stake}`
+            await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
+          }
+      //SubmitChip
       await SubmitChip()
       // Wait until betting success
-      if (wait == 'wait'){
-        _isfail = await IsBetFail(_pos.toLowerCase())
-      }
-      else {
-        _isfail = false
-      }
+      if (wait == 'wait')
+          {
+            _isfail = await IsBetFail(_pos,_stake)
+          }
+      // set _isfail value to exit loop
+      else 
+          {
+            _isfail = false
+          }
+      //exit loop if bet success
       if (_isfail === false )
-      {
-        await utils.sleep(200)
-        break
-      }
+          {
+            await utils.sleep(100)
+            break
+          } 
     }   
   } catch (e) {
       console.error(e)
@@ -252,8 +253,9 @@ export const VerifyStatisticContent = async() => {
 
 
 //Is Round Error after betting
-export const IsBetFail = async() => {
+export const IsBetFail = async(_pos,_stake) => {
   let _found = await utils.wsFindMessage("notice",2)
+  //console.log('bet fai: ',_found.Val,'pos: ', _pos,'stake: ',_stake)
   return _found.Val
   // let _found = wsMessageReceived.filter(element => element.includes(`42/user/taixiu,["taixiu",{"endBet":-1,"betChoice":"${_pos}","notice"`));
   // if (_found.length > 0){

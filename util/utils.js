@@ -528,7 +528,6 @@ export const Login = async(_env,_game) => {
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     await getSession()
-        // console.log(flag)
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
 }
 
@@ -667,15 +666,14 @@ export const wsClient = class {
         }
     }
     async getBalance(username,session) {
-        // console.log(session)
         await this.waitMessage('0{')
         await this.SendMessage('40/user/roulette,')
         await this.waitMessage('40')
         await this.SendMessage(`42/user/roulette,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`)
         await this.waitMessage('42/user/roulette,["signedIn"]')
         await this.SendMessage('42/user/roulette,["inGame"]')
-        await this.waitMessage('42/user/roulette,["Roulette",{"gameConfigs')
-        let mess =  await this.getMessage('42/user/roulette,["Roulette",{"gameConfigs')
+        await this.waitMessage('gameConfigs')
+        let mess =  await this.getMessage('gameConfigs')
         mess = await this.getRawData(mess)
         await this.closeSocket()
         return await getDataJsonPath(mess,'$..user.red')
@@ -686,8 +684,7 @@ export const wsClient = class {
 }
 
 export const getSession = async()=>{
-    const _rawData =  await getWsMessage('{"Authorized":true,')
-    // console.log(_rawData)
+    const _rawData =  await getWsMessage('{"Authorized":true')
     session = await getDataJsonPath(_rawData,'$..ss.ss')
     username = await getDataJsonPath(_rawData,'$..ss.username')
     name = await getDataJsonPath(_rawData,'$..user.name')
