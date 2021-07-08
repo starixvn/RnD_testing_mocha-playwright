@@ -47,7 +47,7 @@ export const wsFindMessage = async(_mes,cfloop=config.setting.loop) => {
                 // console.log(wsMessageReceived)
                 result = await FindMessage(_mes)
                 if( result === true ) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
-                await sleep(1000)
+                await sleep(500)
             }
         }
         return { Val : false , Err : { IsErr : false , ErrMess : ""}}

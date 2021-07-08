@@ -78,7 +78,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       wsMessageReceived = []
       await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(300)
+      await utils.sleep(100)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
           {
@@ -371,7 +371,7 @@ export const CheckSettleBalance = async() => {
   else {
     console.log('Refund: ',_beforebalance, _afterbalance)
   }
-  await utils.sleep(4000)
+  await utils.sleep(8000)
 }
 
 export const checkNavStatisticbar = async() => {

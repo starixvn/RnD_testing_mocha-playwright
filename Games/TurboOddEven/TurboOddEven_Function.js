@@ -86,8 +86,8 @@ export const VerifySignInSuccessfully = async() => {
   //   y: TurboOddEvenLocator.Title.top,
   //  width: TurboOddEvenLocator.Title.width,
   //  height: TurboOddEvenLocator.Title.height}})
-  const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
-  await utils.shouldBeEqual(_title.Val,true)  
+  // const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
+  // await utils.shouldBeEqual(_title.Val,true)  
   //Verify Odd
   // await page.screenshot({path:TurboOddEvenLocator.Odd.ImageCompare,clip:{x: TurboOddEvenLocator.Odd.left,
   //   y: TurboOddEvenLocator.Odd.top,

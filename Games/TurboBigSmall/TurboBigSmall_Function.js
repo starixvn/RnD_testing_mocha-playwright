@@ -109,8 +109,8 @@ export const VerifySignInSuccessfully = async() => {
   //  width: TurboBigSmallLocator.Odds.width,
   //  height: TurboBigSmallLocator.Odds.height}})
   // Verify TurboBigSmall Title
-  const _title= await utils.findImage(TurboBigSmallLocator.Title.ImageCompare,TurboBigSmallLocator.Title)
-  await utils.shouldBeEqual(_title.Val,true)  
+  // const _title= await utils.findImage(TurboBigSmallLocator.Title.ImageCompare,TurboBigSmallLocator.Title)
+  // await utils.shouldBeEqual(_title.Val,true)  
   //Verify Big
   const _big= await utils.findImage(TurboBigSmallLocator.Big.ImageCompare,TurboBigSmallLocator.Big)
   await utils.shouldBeEqual(_big.Val,true)  
