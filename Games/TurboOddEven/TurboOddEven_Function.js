@@ -177,7 +177,7 @@ export const VerifyBetStake = async (_pos,_stake) => {
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
     await utils.sleep(1000)
-    let  _result =await utils.wsFindMessage(`${_msg}`,2);
+    let  _result =await utils.wsFindMessage(`${_msg}`,5);
     await utils.shouldBeEqual(_result.Val,true,'Verify error message')
 }
 
@@ -389,7 +389,7 @@ export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
   let _af = await GetWinLossStatus()
   console.log('Is Win: ',_af.win, _af.betwin)
-  await utils.sleep(1000)
+  await utils.sleep(2000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
   if ( _af.win == true){

@@ -306,7 +306,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
       _stake = _stake + Achip[i]
         } 
-    await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
+    await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
     await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
@@ -325,7 +325,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
       _stake = _stake + Achip[i]
         } 
-    await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
+    await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
     await TurboOddEvenFunc.CheckSettleBalance()
     //Post-condition: clear preset value
@@ -344,7 +344,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
       _stake = _stake + Achip[i]
         } 
-    await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
+    await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
     await TurboOddEvenFunc.CheckSettleBalance()
      //Post-condition: clear preset value
@@ -363,7 +363,7 @@ describe('TurboOddEven Game', ()=>{
       await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
       _stake = _stake + Achip[i]
         } 
-    await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
+    await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
     await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
     await TurboOddEvenFunc.CheckSettleBalance()
     let settleresult = await TurboOddEvenFunc.GetSettleResult()
