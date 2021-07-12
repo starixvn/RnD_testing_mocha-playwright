@@ -168,11 +168,8 @@ describe('TurboBigSmall Game', ()=>{
       await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
       await TurboBigSmallFunc.VerifyBetStake(pos,_stake)   
          } 
-    await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+      await TurboBigSmallFunc.ClearPreset()    
+      await TurboBigSmallFunc.CheckSettleBalance()
   })  
 
   it('TC_15_Full_Verify Preset Betting [100-1000] Chips on Big', async () => {   
@@ -185,11 +182,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
          } 
+    await TurboBigSmallFunc.ClearPreset()    
     await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   })
 
   it('TC_16_Full_Verify Preset Betting [1 -50] Chips on Big', async () => {   
@@ -202,11 +196,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
          } 
+    await TurboBigSmallFunc.ClearPreset()    
     await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
 
   it('TC_17_Full_Verify Preset Betting [100-1000] Chips on Big', async () => {   
@@ -219,11 +210,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
       await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
          } 
+    await TurboBigSmallFunc.ClearPreset()    
     await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
 
   it('TC_18_Full_Smoke_Verify Betting [1-50] on Big with specific Preset Chip + extra Chip on Board', async () => {
@@ -238,11 +226,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i] * 2
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'nowait')
          } 
-    await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+         await TurboBigSmallFunc.ClearPreset()    
+         await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
   it('TC_19_Full_Verify Betting [100-500] on Big with specific Preset Chip + extra Chip on Board', async () => {
@@ -257,11 +242,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i] * 2
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'nowait')
          } 
-    await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+         await TurboBigSmallFunc.ClearPreset()    
+         await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
   it('TC_20_Full_Verify Betting [1-50] on Small with specific Preset Chip + extra Chip on Board', async () => {
@@ -276,11 +258,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i] * 2
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'nowait')
          } 
-    await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+         await TurboBigSmallFunc.ClearPreset()    
+         await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
   it('TC_21_Full_Verify Betting [100-500] on Small with specific Preset Chip + extra Chip on Board', async () => {
@@ -295,11 +274,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i] * 2
       await TurboBigSmallFunc.PlaceBet(pos,Achip[i],'nowait')
          } 
-     await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+         await TurboBigSmallFunc.ClearPreset()    
+         await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
     it('TC_22_Full_Smoke_Verify Betting [1-50] on Big with accumulate presetchip', async () => {
@@ -314,11 +290,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
+    await TurboBigSmallFunc.ClearPreset()    
     await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
 
   it('TC_23_Full_Verify Betting [100 -500] on Big with accumulate presetchip', async () => {
@@ -333,11 +306,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
+    await TurboBigSmallFunc.ClearPreset()    
     await TurboBigSmallFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.ClearPresetChip()
-    await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
 
   it('TC_24_Full_Verify Betting [1-50] on Small with accumulate presetchip', async () => {
@@ -352,11 +322,8 @@ describe('TurboBigSmall Game', ()=>{
       _stake = _stake + Achip[i]
         } 
     await TurboBigSmallFunc.PlaceBet(pos,null,'nowait')
+    await TurboBigSmallFunc.ClearPreset()    
     await TurboBigSmallFunc.CheckSettleBalance()
-     //Post-condition: clear preset value
-     await TurboBigSmallFunc.OpenPreset()
-     await TurboBigSmallFunc.ClearPresetChip()
-     await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
   }) 
 
   it('TC_25_Full_Smoke_Verify Betting [100-500] on Small with accumulate presetchip and Result page', async () => {
@@ -376,9 +343,7 @@ describe('TurboBigSmall Game', ()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmallTurbo.verifyResult(settleresult)
      //Post-condition: clear preset value
-     await TurboBigSmallFunc.OpenPreset()
-     await TurboBigSmallFunc.ClearPresetChip()
-     await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+     await TurboBigSmallFunc.ClearPreset()    
   }) 
   
   it('TC_26_Full_Smoke_Verify searching an invalid roundid', async() =>{

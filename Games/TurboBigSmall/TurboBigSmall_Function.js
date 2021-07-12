@@ -426,6 +426,11 @@ export const waitUtilNewRound = async() => {
   console.log('new round ready')
 }
 
+export const ClearPreset = async()=>{
+  await OpenPreset()
+  await ClearPresetChip()
+  await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)
+}
 
 
 ///////////////////////////////////////////////////////////Database Functions

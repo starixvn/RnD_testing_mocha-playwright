@@ -88,6 +88,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
     await TurboOddEvenFunc.CheckSettleBalance()
     await TurboOddEvenFunc.CheckRoundHistory()
+    wsMessageReceived =[]
   })  
 
   it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {   
@@ -102,11 +103,12 @@ describe('TurboOddEven Game', ()=>{
   })  
 
   it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Odd', async () => {  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i])
+      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
@@ -115,11 +117,12 @@ describe('TurboOddEven Game', ()=>{
   })  
 
   it('TC_11_Full_Verify Betting [100-1000] Chips on Odd', async () => {   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500,1000]
     const pos = "Odd"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i])
+      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
@@ -128,11 +131,12 @@ describe('TurboOddEven Game', ()=>{
   })  
 
   it('TC_12_Full_Verify Betting [1 -50] Chips on Even', async () => {   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i])
+      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
@@ -140,11 +144,12 @@ describe('TurboOddEven Game', ()=>{
   })  
 
   it('TC_13_Full_Verify Betting [100-1000] Chips on Even', async () => {   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500,1000]
     const pos = "Even"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i])
+      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
       _stake = _stake + Achip[i]
       await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
          } 
@@ -156,223 +161,212 @@ describe('TurboOddEven Game', ()=>{
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i]
-      await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
-         } 
-         await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+    for (let i =0 ; i< Achip.length ;i ++)
+    {
+            await TurboOddEvenFunc.PresetChip(Achip[i])
+           _stake = _stake + Achip[i]
+            await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
+            await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
+    } 
+    await TurboOddEvenFunc.ClearPreset()   
+    await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
   it('TC_15_Full_Verify Preset Betting [100-1000] Chips on Odd', async () => {  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500,1000]
     const pos = "Odd"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i]
-      await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
-         } 
-         await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+    for (let i =0 ; i< Achip.length ;i ++)
+    {
+            await TurboOddEvenFunc.PresetChip(Achip[i])
+            _stake = _stake + Achip[i]
+            await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
+           // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
+   } 
+   await TurboOddEvenFunc.ClearPreset() 
+   await TurboOddEvenFunc.CheckSettleBalance()
   })
 
-  it('TC_16_Full_Verify Preset Betting [1 -50] Chips on Odd', async () => {   
+  it('TC_16_Full_Verify Preset Betting [1 -50] Chips on Odd', async () => {  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
       await TurboOddEvenFunc.PresetChip(Achip[i])
       _stake = _stake + Achip[i]
-      await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
+      await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
+      //await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-         await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
-  }) 
+    await TurboOddEvenFunc.ClearPreset()     
+    await TurboOddEvenFunc.CheckSettleBalance()
+    }) 
 
-  it('TC_17_Full_Verify Preset Betting [100-1000] Chips on Even', async () => {   
+  it('TC_17_Full_Verify Preset Betting [100-1000] Chips on Even', async () => { 
+    await TurboOddEvenFunc.waitUtilNewRound() 
     const Achip =  [100,200,500,1000]
     const pos = "Even"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i]
-      await TurboOddEvenFunc.PlaceBet(pos,null,'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+           await TurboOddEvenFunc.PresetChip(Achip[i])
+          _stake = _stake + Achip[i]
+           await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
+            // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-         await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+     await TurboOddEvenFunc.ClearPreset()   
+    await TurboOddEvenFunc.CheckSettleBalance()
   }) 
 
   it('TC_18_Full_Smoke_Verify Betting [1-50] on Odd with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Odd
     //Verify all preset and chips on board can be bet success  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i] * 2
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+           await TurboOddEvenFunc.PresetChip(Achip[i])
+           _stake = _stake + Achip[i] * 2
+           await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
+          //  await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-         await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+    await TurboOddEvenFunc.ClearPreset()       
+    await TurboOddEvenFunc.CheckSettleBalance()
   }) 
 
   it('TC_19_Full_Verify Betting [100-500] on Odd with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Odd
     //Verify all preset and chips on board can be bet success   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500]
     const pos = "Odd"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i] * 2
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+          await TurboOddEvenFunc.PresetChip(Achip[i])
+         _stake = _stake + Achip[i] * 2
+          await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
+        //  await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
-         await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+    await TurboOddEvenFunc.ClearPreset()       
+    await TurboOddEvenFunc.CheckSettleBalance()
   }) 
 
   it('TC_20_Full_Verify Betting [1-50] on Even with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Even
     //Verify all preset and chips on board can be bet success   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i] * 2
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
-         } 
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+          await TurboOddEvenFunc.PresetChip(Achip[i])
+          _stake = _stake + Achip[i] * 2
+          await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
+          // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
+        } 
+    await TurboOddEvenFunc.ClearPreset()   
     await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+
   }) 
 
   it('TC_21_Full_erify Betting [100-500] on Even with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Even
     //Verify all preset and chips on board can be bet success   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500]
     const pos = "Even"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i])
-      _stake = _stake + Achip[i] * 2
-      await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'wait')
-      await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+           await TurboOddEvenFunc.PresetChip(Achip[i])
+            _stake = _stake + Achip[i] * 2
+           await TurboOddEvenFunc.PlaceBet(pos,Achip[i],'nowait')
+          //  await TurboOddEvenFunc.VerifyBetStake(pos,_stake)    
          } 
+    await TurboOddEvenFunc.ClearPreset()   
     await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   }) 
 
     it('TC_22_Full_Smoke_Verify Betting [1-50] on Odd with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Odd, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Odd"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
-      _stake = _stake + Achip[i]
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+            await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
+            _stake = _stake + Achip[i]
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
-    await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
+    // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
+    await TurboOddEvenFunc.ClearPreset()   
     await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   }) 
 
   it('TC_23_Full_Verify Betting [100 -500] on Odd with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Odd, Value of preset chip will be accmulated
-    //Verify all preset and chips on board can be bet success   
+    //Verify all preset and chips on board can be bet success  
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500]
     const pos = "Odd"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
-      _stake = _stake + Achip[i]
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+           await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
+           _stake = _stake + Achip[i]
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
-    await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
+    // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)   
+    await TurboOddEvenFunc.ClearPreset()   
     await TurboOddEvenFunc.CheckSettleBalance()
-    //Post-condition: clear preset value
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.ClearPresetChip()
-    await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
   }) 
 
   it('TC_24_Full_Verify Betting [1-50] on Even with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Even, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success   
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Even"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
-      _stake = _stake + Achip[i]
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+           await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
+            _stake = _stake + Achip[i]
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
-    await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
+    // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
+    await TurboOddEvenFunc.ClearPreset()   
     await TurboOddEvenFunc.CheckSettleBalance()
-     //Post-condition: clear preset value
-     await TurboOddEvenFunc.OpenPreset()
-     await TurboOddEvenFunc.ClearPresetChip()
-     await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+
   }) 
 
   it('TC_25_Full_Verify Betting [100-500] on Even with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Even, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success    
+    await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [100,200,500]
     const pos = "Even"
     let _stake =0
-    for (let i =0 ; i< Achip.length ;i ++){
-      await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
-      _stake = _stake + Achip[i]
+    for (let i =0 ; i< Achip.length ;i ++)
+        {
+           await TurboOddEvenFunc.PresetChip(Achip[i],'noclear')
+           _stake = _stake + Achip[i]
         } 
     await TurboOddEvenFunc.PlaceBet(pos,null,'nowait')
-    await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
+    // await TurboOddEvenFunc.VerifyBetStake(pos,_stake)  
     await TurboOddEvenFunc.CheckSettleBalance()
     let settleresult = await TurboOddEvenFunc.GetSettleResult()
     await GameLobbyFunc.openResultPage()
     await ResultFunc.OddEvenTurbo.verifyResult(settleresult)
      //Post-condition: clear preset value
-     await TurboOddEvenFunc.OpenPreset()
-     await TurboOddEvenFunc.ClearPresetChip()
-     await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+     await TurboOddEvenFunc.ClearPreset()   
   }) 
 
   it('TC_26_Full_Smoke_Verify searching an invalid roundid', async() =>{

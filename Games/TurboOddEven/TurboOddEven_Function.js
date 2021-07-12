@@ -64,13 +64,13 @@ export const CloseStatistic = async() => {
 
 export const OpenPreset = async() => {
   await utils.clickPos(TurboOddEvenLocator.Preset.x,TurboOddEvenLocator.Preset.y )
-  await utils.sleep(500)
+  //await utils.sleep(200)
 
 }
 
 export const ClosePreset = async() => {
   await utils.clickPos(TurboOddEvenLocator.PresetClose.x,TurboOddEvenLocator.PresetClose.y )
-  await utils.sleep(500)
+  //await utils.sleep(200)
 }
 
 //Wait until new round
@@ -111,8 +111,11 @@ export const VerifySignInSuccessfully = async() => {
   await utils.shouldBeEqual(_odds.Val,true)  
 }
 
-export const newRound = async() =>{
-  wsMessageReceived = []
+
+export const ClearPreset = async()=>{
+  await OpenPreset()
+  await ClearPresetChip()
+  await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
 }
 
 
@@ -123,9 +126,9 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await utils.sleep(1000)
+      await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(500)
+      await utils.sleep(200)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
@@ -142,7 +145,7 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       else {
         _isfail = false
       }
-      await utils.sleep(500)
+      await utils.sleep(200)
       if (_isfail === false )
       {
         await utils.sleep(200)
@@ -297,7 +300,7 @@ export const VerifyStatisticContent = async() => {
 
 //Is Round Error after betting
 export const IsBetFail = async(_pos) => {
-  let _found = await utils.wsFindMessage("notice",2)
+  let _found = await utils.wsFindMessage("notice",1)
   return _found.Val
 }
 

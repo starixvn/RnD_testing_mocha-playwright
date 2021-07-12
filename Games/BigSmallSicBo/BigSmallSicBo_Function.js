@@ -77,11 +77,11 @@ export const Sliding_Select_Chip = async(_chip) => {
   const _chipbar2 = [200,500,1000,2000]
   if (_chipbar2.includes(_chip) === true){
     await utils.swipe(900,630,0,630)
-    await utils.sleep(100)
+    await utils.sleep(50)
      }
   else if (_chipbar1.includes(_chip) === true){
     await utils.swipe(405,630,1000,630)
-    await utils.sleep(100)
+    await utils.sleep(50)
    }
     await utils.clickPos(BigSmallSicboLocator[`Chip${_chip}`].x,BigSmallSicboLocator[`Chip${_chip}`].y)  
   }
@@ -94,16 +94,11 @@ export const PlaceBet = async (_pos,_stake,wait='yes') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await utils.sleep(50)
       //Select Chip
       await Sliding_Select_Chip(_stake)
-      await utils.sleep(50)
-     //await utils.clickPos(BigSmallSicboLocator[`Chip${_stake}`].x,BigSmallSicboLocator[`Chip${_stake}`].y)
-      //await _clickPos(`${BigSmallSicboLocator}.Chip${_stake}`)
       //Select pos
       await utils.clickPos(BigSmallSicboLocator[_pos].x,BigSmallSicboLocator[_pos].y)
       //wait _clickPos(`${BigSmallSicboLocator}[${_pos}]`)
-      await utils.sleep(100)
       // loop if place bet fail
       if (wait == 'yes'){
         _isfail = await IsBetFail()
@@ -135,17 +130,9 @@ export const verifyBetPosStake = async(_pos,_stake) => {
 
 // Verify error msg
 export const VerifyErrorMessage = async(_msg) => {
-  await utils.sleep(500)
-  let _found, _result
-  _result = wsMessageReceived.filter(element => element.includes(`${wsbigsmallsb},{"endBet":-1,"notice":"${_msg}"}]`));
-  if (_result.length > 0)
-  {
-    _found = true
-  }
-  else {
-    _found = false
-  }
-  await utils.shouldBeEqual(_found,true, 'Verify Error message')
+  await utils.sleep(1000)
+  let  _result =await utils.wsFindMessage(`${_msg}`,2);
+  await utils.shouldBeEqual(_result.Val,true,'Verify error message')
 }
 
 export const VerifyHistoryContent = async() => {
@@ -181,15 +168,20 @@ export const VerifyGuideContent = async() => {
   await CloseGuide()
 }
 
+//Wait until new round
+export const waitUtilNewRound = async() => {
+  wsMessageReceived = []
+  let _found = await utils.getWsMessage('42/user/sicbo,["SicBo",{"remainingTime":57}')
+  await utils.sleep(8000)
+  console.log('new round ready')
+}
+
 
 //Is Round Error after betting
 export const IsBetFail = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes(`${wsbigsmallsb},{"endBet":-1,"notice`));
-  if (_found.length > 0){
-    return true
-  }
-  else
-  return false
+  let _found = await utils.wsFindMessage("notice",2)
+  // console.log('betfail: ', _found.Val)
+  return _found.Val
 }
 
 const getRawData = async(_mes) => {
