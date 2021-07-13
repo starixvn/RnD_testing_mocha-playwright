@@ -57,6 +57,7 @@ describe('TurboOddEven Game', ()=>{
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {
+    await TurboOddEvenFunc.waitUtilNewRound()
     const pos = "Odd"
     const errormsg =  `"errorCode":"SB1911","maxBet":2000`
    await TurboOddEvenFunc.PlaceBet(pos,1000)

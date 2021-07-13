@@ -83,7 +83,7 @@ export const verifyBetChip = async() => {
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
     //let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
-    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`errorCode":"SB1905`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -91,7 +91,7 @@ export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
     await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
     //let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
-    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`errorCode":"SB1905`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -109,20 +109,20 @@ export const verifyMaxBet = async(_choice) =>{
         await placeBet("Even")
         await selectChip(2000)
         //flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"odd","notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
-        flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+        flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true,'Verify msg: Tổng tiền cược tối đa ở phiên này là 2,000')
     }
     else if (_choice === 'Red4' || _choice === 'White4'){
         wsMessageReceived = []
         await selectChip(500)
         // flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 500"}]`)
-        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":500`)
         await utils.shouldBeEqual(flag.Val,true,'Verify msg: Tiền cược tối đa ở cửa này là 500')
     } else {
         wsMessageReceived = []
         await selectChip(2000)
         // flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
-        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+        flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true,'Verify msg: Tiền cược tối đa ở cửa này là 2,000')
     }
 }

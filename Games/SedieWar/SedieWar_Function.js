@@ -106,14 +106,14 @@ export const verifyBetChip = async() => {
 
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
-    let _result = await utils.betProcess(SedieWarLocator.Even.x,SedieWarLocator.Even.y,`42/user/vipsediewar,["VipSedieWar",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(SedieWarLocator.Even.x,SedieWarLocator.Even.y,`notice":{"errorCode":"SB1905"`)
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
     await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]`)
-    let _result = await utils.betProcess(SedieWarLocator.Even.x,SedieWarLocator.Even.y,`42/user/vipsediewar,["VipSedieWar",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(SedieWarLocator.Even.x,SedieWarLocator.Even.y,`notice":{"errorCode":"SB1905"`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -130,18 +130,18 @@ export const verifyMaxBet = async(_choice) =>{
         await utils.sleep(9000)
         await placeBet("Even")
         await selectChip(2000)
-        flag = await utils.betProcess(SedieWarLocator.Odd.x, SedieWarLocator.Odd.y, `42/user/vipsediewar,["VipSedieWar",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+        flag = await utils.betProcess(SedieWarLocator.Odd.x, SedieWarLocator.Odd.y, `"notice":{"errorCode":"SB1910","maxBet"`)
         await utils.shouldBeEqual(flag.Val,true)
     }
     else if (_choice === 'PlayerRed4' || _choice === 'PlayerWhite4' || _choice === 'BankerRed4' || _choice === 'BankerWhite4'){
         wsMessageReceived = []
         await selectChip(500)
-        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `42/user/vipsediewar,["VipSedieWar",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `"notice":{"errorCode":"SB1910","maxBet"`)
         await utils.shouldBeEqual(flag.Val,true)
     } else {
         wsMessageReceived = []
         await selectChip(2000)
-        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `42/user/vipsediewar,["VipSedieWar",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `"notice":{"errorCode":"SB1910","maxBet"`)
         await utils.shouldBeEqual(flag.Val,true)
     }
 }
