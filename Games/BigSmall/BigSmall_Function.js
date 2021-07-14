@@ -362,7 +362,7 @@ export const CheckRoundHistory = async() => {
 export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
   let _af = await GetWinLossStatus()
-  await utils.sleep(1000)
+  await utils.sleep(3000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
   if ( _af.win == true){

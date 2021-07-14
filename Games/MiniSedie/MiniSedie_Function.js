@@ -11,7 +11,7 @@ let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, White3: 3.75, White4: 
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/minisedie,["MiniSeDie",{"gameConfigs":{')
+    let _result = await utils.wsFindMessage('42/user/minisedie,["signedIn"]')
     expect(_result.Val).to.equal(true)
 }
 
@@ -65,14 +65,14 @@ export const placeBet = async(_choice,_chip=1) => {
 
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
-    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`errorCode":"SB1905`)
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
     await utils.wsFindMessage(remainingTime)
-    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    let _result = await utils.betProcess(MiniSedieLocator.Even.x,MiniSedieLocator.Even.y,`errorCode":"SB1905`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -89,18 +89,18 @@ export const verifyMaxBet = async(_choice) =>{
         await utils.sleep(9000)
         await placeBet("Even")
         await selectChip(2000)
-        flag = await utils.betProcess(MiniSedieLocator.Odd.x, MiniSedieLocator.Odd.y, `42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+        flag = await utils.betProcess(MiniSedieLocator.Odd.x, MiniSedieLocator.Odd.y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true)
     }
     else if (_choice === 'Red4' || _choice === 'White4'){
         wsMessageReceived = []
         await selectChip(500)
-        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":500`)
         await utils.shouldBeEqual(flag.Val,true)
     } else {
         wsMessageReceived = []
         await selectChip(2000)
-        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `42/user/minisedie,["MiniSeDie",{"endBet":-1,"notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+        flag = await utils.betProcess(MiniSedieLocator[`${_choice}`].x, MiniSedieLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true)
     }
 }
@@ -362,7 +362,7 @@ export const verifyBetChip = async() => {
     let _result = await utils.findImage(MiniSedieLocator.ChipBroad.ImageCompare1, MiniSedieLocator.ChipBroad)
     expect(_result.Val).to.equal(true)
     await utils.swipe(MiniSedieLocator.ChipBroad.x,MiniSedieLocator.ChipBroad.y,0,MiniSedieLocator.ChipBroad.y)
-    await utils.sleep(1000)
+    await utils.sleep(2000)
     _result = await utils.findImage(MiniSedieLocator.ChipBroad.ImageCompare2, MiniSedieLocator.ChipBroad)
     expect(_result.Val).to.equal(true)
 }

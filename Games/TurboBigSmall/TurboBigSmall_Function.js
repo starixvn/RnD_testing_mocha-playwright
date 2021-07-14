@@ -407,7 +407,7 @@ export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
   let _af = await GetWinLossStatus()
   console.log('Is Win: ',_af.win, _af.betwin)
-  await utils.sleep(2000)
+  await utils.sleep(3000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
   if ( _af.win == true){
@@ -422,7 +422,7 @@ export const CheckSettleBalance = async() => {
 export const waitUtilNewRound = async() => {
   wsMessageReceived = []
   let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"remainingTime":36}]')
-  await utils.sleep(6000)
+  await utils.sleep(5000)
   console.log('new round ready')
 }
 

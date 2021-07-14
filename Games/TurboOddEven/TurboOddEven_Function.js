@@ -76,7 +76,7 @@ export const ClosePreset = async() => {
 //Wait until new round
 export const waitUtilNewRound = async() => {
   let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
-  await utils.sleep(6000)
+  await utils.sleep(5000)
   console.log('new round ready')
 }
 
@@ -170,7 +170,7 @@ export const VerifyBetStake = async (_pos,_stake) => {
         findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"odd":${_stake}}`
           _found = await utils.wsFindMessage(findmsg)
        }
-      await utils.shouldBeEqual(_found.Val,true)    
+      await utils.shouldBeEqual(_found.Val,true,`verify ${_pos} and ${_stake}`)    
   } catch (e) {
       console.error(e)
   }
@@ -392,8 +392,9 @@ export const CheckSettleBalance = async() => {
   let _beforebalance = await utils.getBalance()
   let _af = await GetWinLossStatus()
   console.log('Is Win: ',_af.win, _af.betwin)
-  await utils.sleep(2000)
+  await utils.sleep(3000)
   let _afterbalance = await utils.getBalance()
+  console.log('betwin', _beforebalance , _af.betwin)
   _beforebalance = _beforebalance +  _af.betwin
   if ( _af.win == true){
     await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100)
@@ -401,7 +402,6 @@ export const CheckSettleBalance = async() => {
   else {
     console.log('Refund: ',_beforebalance, _afterbalance)
   }
-  
 }
 
 
