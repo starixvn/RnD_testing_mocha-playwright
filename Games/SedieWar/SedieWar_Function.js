@@ -82,8 +82,8 @@ export const placeBet = async(_choice,_chip=1) => {
     wsMessageReceived = []
     await selectChip(_chip)
     let lowcase = _choice.charAt(0).toLowerCase() + _choice.slice(1);
-    let _result = await utils.betProcess(SedieWarLocator[`${_choice}`].x,SedieWarLocator[`${_choice}`].y,`user/vipsediewar,["VipSedieWar",{"ownBets":{"${lowcase}":${_chip}},"endBet":${_chip},`)
-    expect(_result.Val).to.equal(true)
+    let _result = await utils.betProcess(SedieWarLocator[`${_choice}`].x,SedieWarLocator[`${_choice}`].y,`"ownBets":{"${lowcase}"`)
+    await utils.shouldBeEqual(_result.Val, true,`Failed placebet ${_choice} & ${_chip}`)
 }
 
 export const verifyBetChip = async() => {
@@ -193,11 +193,11 @@ export const verifySettlement = async(_choice,_chip=1) => {
     */
     let BankerRed = 0, PlayerRed = 0, currentBalance, lowcase, result, status,time
     lowcase = _choice.charAt(0).toLowerCase() + _choice.slice(1);
+    wsMessageReceived = []
     // Wait to Finish Game
     await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]`)
     await utils.sleep(5000)
-    wsMessageReceived = []
-    // Wait to new round
+     // Wait to new round
     currentBalance = await getBalance()
     // console.log("Current Balance: "+currentBalance)
     await placeBet(_choice,_chip)

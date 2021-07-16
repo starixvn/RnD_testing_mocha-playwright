@@ -54,7 +54,7 @@ export const placeBet = async(_choice,_chip=10) => {
     wsMessageReceived = []
     await selectChip(_chip)
     let lowcase = _choice.toLowerCase()
-    let _result = await utils.betProcess(VipSedieLocator[`${_choice}`].x,VipSedieLocator[`${_choice}`].y,`user/vipsedie,["VipSeDie",{"ownBets":{"${lowcase}":${_chip}},"endBet":${_chip},`)
+    let _result = await utils.betProcess(VipSedieLocator[`${_choice}`].x,VipSedieLocator[`${_choice}`].y,`"ownBets":{"${lowcase}":${_chip}`)
     global.expect(_result.Val).to.equal(true)
 }
 
@@ -99,8 +99,8 @@ export const verifyMaxBet = async(_choice) =>{
         await utils.wsFindMessage(`42/user/vipsedie,["VipSeDie",{"remainingTime":39}]`)
         // Wait to new round
         await utils.sleep(9000)
-        await placeBet("Even")
-        await selectChip(3000)
+        await placeBet("Even",3000)
+        //await selectChip(3000)
         //flag = await utils.betProcess(VipSedieLocator.Odd.x, VipSedieLocator.Odd.y, `42/user/vipsedie,["VipSeDie",{"endBet":-1,"notice":"Tổng tiền cược tối đa ở phiên này là 3,000"}]`)
         flag = await utils.betProcess(VipSedieLocator.Odd.x, VipSedieLocator.Odd.y, `errorCode":"SB1910","maxBet":3000`)
         await utils.shouldBeEqual(flag.Val,true,`Verify error message Tổng tiền cược tối đa ở phiên này là 3,000`)
@@ -177,15 +177,16 @@ export const verifySettlement = async(_choice,_chip=10,_saveResult=false) => {
     */
     let countRed = 0, currentBalance, lowcase, result, status,time
     lowcase = _choice.toLowerCase()
+    wsMessageReceived = []
     // Wait to Finish Game
     await utils.wsFindMessage(`42/user/vipsedie,["VipSeDie",{"remainingTime":39}]`)
-    await utils.sleep(500)
-    wsMessageReceived = []
+    await utils.sleep(6000)
     // Wait to new round
     currentBalance = await getBalance()
-    console.log("Current Balance: "+currentBalance)
+    // console.log("Current Balance: "+currentBalance)
     await placeBet(_choice,_chip)
     result = await getResult()
+    // console.log('result',result)
     time = new Date().toISOString()
     
     for(let i=1; i<5 ; i++){
@@ -263,16 +264,16 @@ export const verifySettlement = async(_choice,_chip=10,_saveResult=false) => {
     } else if (_choice === 'Red2') {
         if(countRed === 2) {
             // Verify Status win/loss
-            await utils.shouldBeEqual(status.win,true)
+            await utils.shouldBeEqual(status.win,true,'check status win= true')
             // Verify WinLoss
-            await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`])
+            await utils.shouldBeEqual(status.bet,_chip*Odd[`${_choice}`],'check winloss')
             // Verify Choice WinLoss
-            await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`])
+            await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],_chip*Odd[`${_choice}`],'check choice wl')
         } else {
             // Verify Status win/loss
-            await utils.shouldBeEqual(status.win,false)
+            await utils.shouldBeEqual(status.win,false,'check status win= false')
             // Verify WinLoss
-            await utils.shouldBeEqual(status.bet,_chip)
+            await utils.shouldBeEqual(status.bet,_chip,'check winloss')
             // Verify Choice WinLoss
             await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],0)
         }
