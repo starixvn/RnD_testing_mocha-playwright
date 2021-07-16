@@ -358,7 +358,7 @@ export const verifyBetChip = async() => {
     // await utils.sleep(3000)
     // await utils.CaptureSubImageToFile(MiniSedieLocator.ChipBroad.ImageCompare2,
     //     MiniSedieLocator.ChipBroad.left, MiniSedieLocator.ChipBroad.top, MiniSedieLocator.ChipBroad.width, MiniSedieLocator.ChipBroad.height)
-    // End
+    // // End
     let _result = await utils.findImage(MiniSedieLocator.ChipBroad.ImageCompare1, MiniSedieLocator.ChipBroad)
     expect(_result.Val).to.equal(true)
     await utils.swipe(MiniSedieLocator.ChipBroad.x,MiniSedieLocator.ChipBroad.y,0,MiniSedieLocator.ChipBroad.y)
