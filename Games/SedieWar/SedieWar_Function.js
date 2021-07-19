@@ -196,7 +196,8 @@ export const verifySettlement = async(_choice,_chip=1) => {
     wsMessageReceived = []
     // Wait to Finish Game
     await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]`)
-    await utils.sleep(5000)
+    wsMessageReceived = []
+    await utils.sleep(3000)
      // Wait to new round
     currentBalance = await getBalance()
     // console.log("Current Balance: "+currentBalance)
