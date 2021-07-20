@@ -49,7 +49,8 @@ export const login = async(_env,_game) => {
     //Login for local
 export const login_local = async(_env,_game) => {
         try{
-            let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"GJ62Pjtn","language":"vi-VN","currency":"$US","seq":"d,y,lumi","siteId":"4100300","ip":"","browserUserAgent": userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"owUrl":""},"domain":"example.com","localhost":null,"resource":null}
+            const cflang = process.env.npm_config_lang=='vn'?'vi-VN':'en-US'
+            let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"GJ62Pjtn","language":cflang,"currency":"$US","seq":"d,y,lumi","siteId":"4100300","ip":"","browserUserAgent": userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"owUrl":""},"domain":"example.com","localhost":null,"resource":null}
             chai.request(config[_env].url).post("/sso").send(_requestjs).end( async(err,res)=>{
             const obj = JSON.parse(res.text);
             await utils.navigate(obj.redirectUrl)

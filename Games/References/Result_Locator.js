@@ -124,10 +124,10 @@ export const ResultLocator_vn = {
 }
 
 export const ResultLocator_en = {
-    lblTitle : '"Kết Quả"',
+    lblTitle : '"Game Round Result"',
     lblNote : 'id=txtPW',
     btnSearch : "//button",
-    lblNodata : '"Không có dữ liệu."',
+    lblNodata : '"No data available."',
     formSearching : {
         drpGameType : '//*[@id="GameType"]',
         txtRoundID : 'id=RoundId',
@@ -145,11 +145,11 @@ export const ResultLocator_en = {
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[4]",
             choiceWin : [
-                "Chẵn, 4 trắng",
-                "Lẻ, 1 đỏ",
-                "Chẵn, 2 đỏ",
-                "Lẻ, 3 đỏ",
-                "Chẵn, 4 đỏ" ]
+                "Even, 4 white",
+                "Odd, 1 red",
+                "Even, 2 red",
+                "Odd, 3 red",
+                "Even, 4 red" ]
             
         },
         MiniSedie : {
@@ -161,11 +161,11 @@ export const ResultLocator_en = {
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[4]",
             choiceWin : [
-                "Chẵn, 4 trắng",
-                "Lẻ, 1 đỏ",
-                "Chẵn",
-                "Lẻ, 3 đỏ",
-                "Chẵn, 4 đỏ" ]
+                "Even, 4 white",
+                "Odd, 1 red",
+                "Even",
+                "Odd, 3 red",
+                "Even, 4 red" ]
         },
         VipSedie : {
             lblResult1 : "//table//tbody/tr/td[3]/i[1]",
@@ -176,11 +176,11 @@ export const ResultLocator_en = {
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[4]",
             choiceWin : [
-                "Chẵn, 4 trắng",
-                "Lẻ, 1 đỏ",
-                "Chẵn, 2 đỏ",
-                "Lẻ, 3 đỏ",
-                "Chẵn, 4 đỏ"]
+                "Even, 4 white",
+                "Odd, 1 red",
+                "Even, 2 red",
+                "Odd, 3 red",
+                "Even, 4 red"]
         },
         BigSmall : {
             lblResult1 : "//*/tr[1]//img[1]",
@@ -226,21 +226,21 @@ export const ResultLocator_en = {
             whiteChip : "white-chip",
             lblChoiceWin : "//table//tbody/tr/td[5]",
             choiceWin : {
-                optionWin : ["Nhà con", "Nhà cái", "Hòa"],
-                totalWin : ["Tổng Chẵn", "Tổng Lẻ"],
+                optionWin : ["Player", "Banker", "Tie"],
+                totalWin : ["Total Even", "Total Odd"],
                 player : {
-                    0 : ["Nhà Con Chẵn","Nhà Con 4 Trắng"],
-                    1 : ["Nhà Con lẻ","Nhà Con 1 đỏ"],
-                    2 : ["Nhà Con Chẵn",""],
-                    3 : ["Nhà Con lẻ","Nhà Con 3 đỏ"],
-                    4 : ["Nhà Con Chẵn","Nhà Con 4 đỏ"],
+                    0 : ["Player - Even","Player - 4 White"],
+                    1 : ["Player - Odd","Player - 1 Red"],
+                    2 : ["Player - Even",""],
+                    3 : ["Player - Odd","Player - 3 Red"],
+                    4 : ["Player - Even","Player - 4 Red"],
                 },
                 banker : {
-                    0 : ["Nhà Cái chẵn","Nhà Cái 4 trắng"],
-                    1 : ["Nhà Cái lẻ","Nhà Cái 1 đỏ"],
-                    2 : ["Nhà Cái chẵn",""],
-                    3 : ["Nhà Cái lẻ","Nhà Cái 3 đỏ"],
-                    4 : ["Nhà Cái chẵn","Nhà Cái 4 đỏ"],
+                    0 : ["Banker - Even","Banker - 4 White"],
+                    1 : ["Banker - Odd","Banker - 1 Red"],
+                    2 : ["Banker - Even",""],
+                    3 : ["Banker - Odd","Banker - 3 Red"],
+                    4 : ["Banker - Even","Banker - 4 Red"],
                 }
             }
         }

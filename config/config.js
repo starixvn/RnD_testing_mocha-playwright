@@ -39,7 +39,7 @@ export const cf_local ={
 }
 
 export const cf_local1 ={
-    url: "http://l1-glbs1.lumigame.com/signin",
+    url: "https://gamelobby-simulator.lumigame.com/signin",
     usernameSSO: "",
     memberId: {
         BlackJack : "1001051",
@@ -59,11 +59,11 @@ export const cf_local1 ={
     },
     password: "",
     gamelobbyurl: "",
-    urlWebsocket: "ws://haproxy.lumigame.com:7001/roulette/socket.io/?EIO=3&transport=websocket",
-    urlOrigin: "http://l1-games1.lumigame.com",
-    protocol: "ws",
-    retrieveEndGame : "http://l1-ows1.lumigame.com/SabaClub/RetrieveEndGameInfo",
-    setBalance : "http://l1-ows1.lumigame.com/SabaClub/CreateCustomer"
+    urlWebsocket: "wss://l1-proxy.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "https://gamelobby-simulator.lumigame.com",
+    protocol: "wss",
+    retrieveEndGame : "https://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
+    setBalance : "https://owapi-simulator.lumigame.com/SabaClub/CreateCustomer"
 }
 
 export const cf_sit ={

@@ -136,12 +136,12 @@ export const verifyMaxBet = async(_choice) =>{
     else if (_choice === 'PlayerRed4' || _choice === 'PlayerWhite4' || _choice === 'BankerRed4' || _choice === 'BankerWhite4'){
         wsMessageReceived = []
         await selectChip(500)
-        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `"errorCode":"SB1911","maxBet":500`)
+        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":500`)
         await utils.shouldBeEqual(flag.Val,true)
     } else {
         wsMessageReceived = []
         await selectChip(2000)
-        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `"errorCode":"SB1911","maxBet":2000`)
+        flag = await utils.betProcess(SedieWarLocator[`${_choice}`].x, SedieWarLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true)
     }
 }
