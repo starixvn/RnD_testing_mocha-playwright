@@ -195,9 +195,9 @@ export const verifySettlement = async(_choice,_chip=1) => {
     lowcase = _choice.charAt(0).toLowerCase() + _choice.slice(1);
     wsMessageReceived = []
     // Wait to Finish Game
-    await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]`)
-    wsMessageReceived = []
-    await utils.sleep(3000)
+    await utils.wsWaitMessage(`42/user/vipsediewar,["VipSedieWar",{"finish"`)
+    //await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"finish"`)
+    await utils.sleep(9000)
      // Wait to new round
     currentBalance = await getBalance()
     // console.log("Current Balance: "+currentBalance)
@@ -213,16 +213,15 @@ export const verifySettlement = async(_choice,_chip=1) => {
             PlayerRed = PlayerRed +1
         }
     }
-    
     // Check on Websocket
     status = await getUserResult()
     // Verify Status win/loss
-    await utils.shouldBeEqual(status.win,result.settlementResult[lowcase])
+    await utils.shouldBeEqual(status.win,result.settlementResult[lowcase],'check wl status')
     // Verify WinLoss
-    await utils.shouldBeEqual(status.bet,(result.settlementResult[lowcase] === true) ? _chip*Odd[`${_choice}`]: _chip)
+    await utils.shouldBeEqual(status.bet,(result.settlementResult[lowcase] === true) ? _chip*Odd[`${_choice}`]: _chip,'check wl ammount')
     // Verify Choice WinLoss
     await utils.shouldBeEqual(status.winningByChoices[`${lowcase}`],
-        (result.settlementResult[lowcase] === true) ? _chip*Odd[`${_choice}`] :0)
+        (result.settlementResult[lowcase] === true) ? _chip*Odd[`${_choice}`] :0,'check choice')
 
     let winloss = (status.win === true) ? _chip*Odd[`${_choice}`] : 0;
     let balance = currentBalance - _chip + winloss
