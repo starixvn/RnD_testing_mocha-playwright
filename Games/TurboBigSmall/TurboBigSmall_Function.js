@@ -70,7 +70,7 @@ export const checkNavStatisticbar = async() => {
          await utils.sleep(200)
          await clickPos(_x,_y)
          await utils.sleep(1000)
-         //await utils.CaptureSubImageToFile(TurboBigSmallLocator.RoundDetailTitle.ImageCompare,TurboBigSmallLocator.RoundDetailTitle.left,TurboBigSmallLocator.RoundDetailTitle.top,TurboBigSmallLocator.RoundDetailTitle.width,TurboBigSmallLocator.RoundDetailTitle.height)
+        //  await utils.CaptureSubImageToFile(TurboBigSmallLocator.RoundDetailTitle)
          temp = await utils.findImage(TurboBigSmallLocator.RoundDetailTitle.ImageCompare,TurboBigSmallLocator.RoundDetailTitle)
          await clickPos(1062,161)
          await utils.sleep(500)
@@ -108,7 +108,7 @@ export const VerifySignInSuccessfully = async() => {
   //   y: TurboBigSmallLocator.Odds.top,
   //  width: TurboBigSmallLocator.Odds.width,
   //  height: TurboBigSmallLocator.Odds.height}})
-  // Verify TurboBigSmall Title
+  // // Verify TurboBigSmall Title
   // const _title= await utils.findImage(TurboBigSmallLocator.Title.ImageCompare,TurboBigSmallLocator.Title)
   // await utils.shouldBeEqual(_title.Val,true)  
   //Verify Big
@@ -261,6 +261,7 @@ export const VerifyPresetContent = async() => {
 }
 
 export const VerifyGuideContent = async() => {
+  await utils.sleep(5000)
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
@@ -290,7 +291,7 @@ export const VerifyStatisticContent = async() => {
   //   y: TurboBigSmallLocator.StatisticPoint.top,
   //  width: TurboBigSmallLocator.StatisticPoint.width,
   //  height: TurboBigSmallLocator.StatisticPoint.height}})
-  //Verify Statistic Result
+  // //Verify Statistic Result
   const _result1= await utils.findImage(TurboBigSmallLocator.StatisticResult.ImageCompare,TurboBigSmallLocator.StatisticResult)
   await utils.shouldBeEqual(_result1.Val,true)    
 

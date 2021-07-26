@@ -17,6 +17,12 @@ export const verifySignInSuccessfully = async() => {
 
 
 export const verifyBetChoice = async() => {
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.Even)
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.Odd)
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.Red4)
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.Red3)
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.White3)
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.White4)
     let _result = await utils.findImage(MiniSedieLocator.Even)
     expect(_result.Val).to.equal(true)
     _result = await utils.findImage(MiniSedieLocator.Odd)
@@ -327,6 +333,7 @@ export const closeGuide = async() => {
 }
 
 export const verifyGuideContent = async()=> {
+    await utils.sleep(5000)
     let fx = config.setting.viewport.width /2
     let fy = config.setting.viewport.height /2
     let ty = 0
@@ -372,6 +379,8 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
+    await utils.sleep(1000)
+    // await utils.CaptureSubImageToFile(MiniSedieLocator.History)
     let flag = await utils.findImage(MiniSedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
 }

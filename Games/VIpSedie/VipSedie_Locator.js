@@ -53,7 +53,7 @@ export const VipSedieLocator_en = {
 	Chip2000 : { x : 769, y : 631 },
 	Chip3000 : { x : 851, y : 632 },
 	Home : { x : 54, y : 114 },
-	History : { x : 56, y : 199, top : 69, left : 76, width : 1132, height : 125, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_History.png" },
+	History : { x : 56, y : 285, top : 69, left : 76, width : 1132, height : 125, ImageCompare : pathImageCompare + "ImgCompare_VipSedie_History.png" },
 	HistoryClose : { x : 1185, y : 96 },
 	Guide : { x : 55, y : 282, top : 83, left : 171, width : 939, height : 568, ImageCompare1 : pathImageCompare + "ImgCompare_VipSedie_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_VipSedie_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_VipSedie_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_VipSedie_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_VipSedie_Guide_5.png" },
 	GuideClose : { x : 1085, y : 114 }

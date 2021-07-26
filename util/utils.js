@@ -254,7 +254,7 @@ export const selectDrp = async(_el, _val) => {
         await page.waitForSelector(
             _el, { state: 'attached'}
         )
-        await page.selectOption(_el, { value : _val })
+        await page.selectOption(_el, { label : _val })
     }  catch (error) {
         console.log('Error '+error.message)
         await shouldBeEqual(true,false,"Error - select item on dropdown list")
@@ -303,9 +303,16 @@ export const readImageData = async(_path) => {
         console.log('Error '+error.message)
     }
 }
-export const CaptureSubImageToFile = async(_path,_x, _y , _w, _h) => {
+export const CaptureSubImageToFile = async(_subimage,_x, _y , _w, _h) => {
     try {
-        return (await page.screenshot({path: _path , clip : {x: _x, y: _y, width: _w, height : _h} }))
+        if(typeof _subimage === 'object'){
+            _x = _subimage.left
+            _y = _subimage.top
+            _w = _subimage.width
+            _h = _subimage.height
+            _subimage = _subimage.ImageCompare
+        } 
+        await page.screenshot({path: _subimage , clip : {x: _x, y: _y, width: _w, height : _h} })
     } catch (error) {
         console.log('Error '+error.message)
     } 

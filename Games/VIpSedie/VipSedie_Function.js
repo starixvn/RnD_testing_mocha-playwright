@@ -15,6 +15,16 @@ export const verifySignInSuccessfully = async() => {
 
 
 export const verifyBetChoice = async() => {
+    //capture screenshoot
+    // await utils.wsWaitMessage('42/user/vipsedie,["VipSeDie",{"remainingTime":39}]')
+    // await utils.sleep(5000)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.Even)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.Odd)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.Red4)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.Red3)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.Red2)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.White4)
+    // await utils.CaptureSubImageToFile(VipSedieLocator.White3)
     let _result = await utils.findImage(VipSedieLocator.Even)
     global.expect(_result.Val).to.equal(true)
     _result = await utils.findImage(VipSedieLocator.Odd)
@@ -354,6 +364,7 @@ export const closeGuide = async() => {
 }
 
 export const verifyGuideContent = async()=> {
+    await utils.sleep(5000)
     let fx = config.setting.viewport.width /2
     let fy = config.setting.viewport.height /2
     let ty = 0
@@ -386,6 +397,7 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
+    // await utils.CaptureSubImageToFile(VipSedieLocator.History)
     let flag = await utils.findImage(VipSedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
 }

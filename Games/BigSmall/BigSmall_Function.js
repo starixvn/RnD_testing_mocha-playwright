@@ -29,6 +29,7 @@ export const CloseHistory = async() => {
 
 export const OpenGuide = async() => {
   await utils.clickPos(BigSmallLocator.Guide.x,BigSmallLocator.Guide.y )
+  await utils.sleep(1000)
 
 }
 
@@ -55,15 +56,19 @@ export const ClosePreset = async() => {
 
 export const VerifySignInSuccessfully = async() => {
   // Verify BigSmall Title
+  // await utils.CaptureSubImageToFile(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title.left,BigSmallLocator.Title.top,BigSmallLocator.Title.width,BigSmallLocator.Title.height)
     const _title= await utils.findImage(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title)
     await utils.shouldBeEqual(_title.Val,true,'Check title')  
   // Verify Big
+  // await utils.CaptureSubImageToFile(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big.left,BigSmallLocator.Big.top,BigSmallLocator.Big.width,BigSmallLocator.Big.height)
   const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
   await utils.shouldBeEqual(_big.Val,true,'Check big')  
   // Verify Small
+  // await utils.CaptureSubImageToFile(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small.left,BigSmallLocator.Small.top,BigSmallLocator.Small.width,BigSmallLocator.Small.height)
   const _small= await utils.findImage(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small)
   await utils.shouldBeEqual(_small.Val,true,'Check small')  
   // Verify odd
+  // await utils.CaptureSubImageToFile(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds.left,BigSmallLocator.Odds.top,BigSmallLocator.Odds.width,BigSmallLocator.Odds.height)
   const _odd= await utils.findImage(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds)
   await utils.shouldBeEqual(_odd.Val,true,'Check odd')  
 }
@@ -191,31 +196,33 @@ export const ClearPresetChip = async() => {
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BigSmall_History.png',clip:{x: BigSmallLocator.History.left,
-  //   y: BigSmallLocator.History.top,
-  //  width: BigSmallLocator.History.width,
-  //  height: BigSmallLocator.History.height}})
-  const _result0= await utils.findImage(BigSmallLocator.History.ImageCompare,BigSmallLocator.History)
-  await utils.shouldBeEqual(_result0.Val,true)    
+  await utils.sleep(2000)
+  await page.screenshot({path:BigSmallLocator.History.ImageCompare,clip:{x: BigSmallLocator.History.left,
+    y: BigSmallLocator.History.top,
+   width: BigSmallLocator.History.width,
+   height: BigSmallLocator.History.height}})
+  // const _result0= await utils.findImage(BigSmallLocator.History.ImageCompare,BigSmallLocator.History)
+  // await utils.shouldBeEqual(_result0.Val,true)    
 }
 
 export const VerifyPresetContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BigSmall_Preset.png',clip:{x: BigSmallLocator.Preset.left,
-  //   y: BigSmallLocator.Preset.top,
-  //  width: BigSmallLocator.Preset.width,
-  //  height: BigSmallLocator.Preset.height}})
-  const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
-  await utils.shouldBeEqual(_result0.Val,true,`Verify Preset content`)    
+  await utils.sleep(2000)
+  await page.screenshot({path:BigSmallLocator.Preset.ImageCompare,clip:{x: BigSmallLocator.Preset.left,
+    y: BigSmallLocator.Preset.top,
+   width: BigSmallLocator.Preset.width,
+   height: BigSmallLocator.Preset.height}})
+  // const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
+  // await utils.shouldBeEqual(_result0.Val,true,`Verify Preset content`)    
 }
 
 export const VerifyGuideContent = async() => {
+  await utils.sleep(5000)
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
-  let _AcheckImage = [ BigSmallLocator.Guide.ImageCompare1, BigSmallLocator.Guide.ImageCompare2, BigSmallLocator.Guide.ImageCompare3,
-    BigSmallLocator.Guide.ImageCompare4] 
+  let _AcheckImage = [ BigSmallLocator.Guide.ImageCompare1, BigSmallLocator.Guide.ImageCompare2, BigSmallLocator.Guide.ImageCompare3] 
   for(let t = 0; t< _AcheckImage.length; t++){
-    // await page.screenshot({path:`ImgCompare_BigSmall_Guide_${t+1}.png`,clip:{
+    // await page.screenshot({path:_AcheckImage[t],clip:{
     // x: BigSmallLocator.Guide.left,
     //   y: BigSmallLocator.Guide.top,
     //  width: BigSmallLocator.Guide.width,
@@ -223,23 +230,25 @@ export const VerifyGuideContent = async() => {
     //  await utils.swipe(fx, fy, fx, ty) 
     const _result = await utils.findImage(_AcheckImage[t],BigSmallLocator.Guide)
     await utils.swipe(fx, fy, fx, ty) 
-    await utils.shouldBeEqual(_result.Val,true,`Verify Guide content ${_AcheckImage[t]}}`)
+    await utils.shouldBeEqual(_result.Val,true,`Verify Guide content ${_AcheckImage[t]}`)
   
   }  
   
 }
 
 export const VerifyStatisticContent = async() => {
-//  await page.screenshot({path:'ImgCompare_BigSmall_StatisticResult.png',clip:{x: BigSmallLocator.StatisticResult.left,
+//   await utils.sleep(2000)
+//  await page.screenshot({path:BigSmallLocator.StatisticResult.ImageCompare,clip:{x: BigSmallLocator.StatisticResult.left,
 //     y: BigSmallLocator.StatisticResult.top,
 //    width: BigSmallLocator.StatisticResult.width,
 //    height: BigSmallLocator.StatisticResult.height}})
 //    await utils.clickPos(BigSmallLocator.StatisticPoint.x,BigSmallLocator.StatisticPoint.y)
-//    await page.screenshot({path:'ImgCompare_BigSmall_StatisticPoint.png',clip:{x: BigSmallLocator.StatisticPoint.left,
+//    await page.screenshot({path:BigSmallLocator.StatisticPoint.ImageCompare,clip:{x: BigSmallLocator.StatisticPoint.left,
 //     y: BigSmallLocator.StatisticPoint.top,
 //    width: BigSmallLocator.StatisticPoint.width,
 //    height: BigSmallLocator.StatisticPoint.height}})
-  //// Verify Statistic Result
+  // Verify Statistic Result
+  await utils.sleep(2000)
   const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
   await utils.shouldBeEqual(_result1.Val,true,'Verify statistic result')    
   await utils.sleep(1000)
@@ -248,7 +257,6 @@ export const VerifyStatisticContent = async() => {
   const _result2= await utils.findImage(
     BigSmallLocator.StatisticPoint.ImageCompare,BigSmallLocator.StatisticPoint)
   await utils.shouldBeEqual(_result2.Val,true,'Verify statistic point')    
-
 }
 
 
@@ -311,10 +319,10 @@ export const GetSettleResult = async(_stake=null) => {
   let _bigwin = jp.value(obj[1],`$..settlementResult.big`);
   let _choicewin = _bigwin
   if (_choicewin == true){
-    _choicewin = 'Tài'
+       _choicewin = process.env.npm_config_lang  == 'vn'?'Tài':'Big'
   }
   else {
-    _choicewin = 'Xỉu'
+    _choicewin = process.env.npm_config_lang  == 'vn'? 'Xỉu':'Small'
   }
   // Get bet win stake
   let _getwinstake = await GetWinLossStatus()

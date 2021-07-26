@@ -46,26 +46,36 @@ export const CloseGuide = async() => {
 
 export const VerifySignInSuccessfully = async() => {
   // Verify Big
+  // await utils.CaptureSubImageToFile(BigSmallSicboLocator.Big)
   const _big= await utils.findImage(BigSmallSicboLocator.Big.ImageCompare,BigSmallSicboLocator.Big)
   await utils.shouldBeEqual(_big.Val,true)  
   // Verify Small
+  // await utils.CaptureSubImageToFile(BigSmallSicboLocator.Small)
+
   const _small= await utils.findImage(BigSmallSicboLocator.Small.ImageCompare,BigSmallSicboLocator.Small)
   await utils.shouldBeEqual(_small.Val,true)  
   // Verify AnyTriple
+  // await utils.CaptureSubImageToFile(BigSmallSicboLocator.AnyTriple)
+
   const _triple= await utils.findImage(BigSmallSicboLocator.AnyTriple.ImageCompare,BigSmallSicboLocator.AnyTriple)
   await utils.shouldBeEqual(_triple.Val,true)  
   // Check Default Chip
-  const _defaultchip= await utils.findImage(BigSmallSicboLocator.ChipBroad.ImageCompare1,BigSmallSicboLocator.ChipBroad)
-  await utils.shouldBeEqual(_defaultchip.Val,true) 
+  // const _defaultchip= await utils.findImage(BigSmallSicboLocator.ChipBroad.ImageCompare1,BigSmallSicboLocator.ChipBroad)
+  // await utils.shouldBeEqual(_defaultchip.Val,true) 
   // Verify specific number bettype in table
   let _Aspecific = ['Specific1','Specific2','Specific3','Specific4','Specific5','Specific6']
   for (let i of _Aspecific){
+    // await utils.CaptureSubImageToFile(BigSmallSicboLocator[i])
+
     let found1= await utils.findImage(BigSmallSicboLocator[i].ImageCompare,BigSmallSicboLocator[i])
     await utils.shouldBeEqual(found1.Val,true) 
   }
   // Verify total point bettypes in table
   let _Atotal = ['Total4','Total5','Total6','Total7','Total8','Total9','Total10','Total11','Total12','Total13','Total14','Total15','Total16','Total17']
   for (let i of _Atotal){
+    // await utils.CaptureSubImageToFile(BigSmallSicboLocator[i])
+
+
     let found2= await utils.findImage(BigSmallSicboLocator[i].ImageCompare,BigSmallSicboLocator[i])
     await utils.shouldBeEqual(found2.Val,true) 
   }
@@ -136,11 +146,13 @@ export const VerifyErrorMessage = async(_msg) => {
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BigSmall_History.png',clip:{x: BigSmallSicboLocator.History.left,
+  await OpenHistory()
+  await utils.sleep(2000)
+  // await page.screenshot({path:BigSmallSicboLocator.History.ImageCompare,clip:{x: BigSmallSicboLocator.History.left,
   //   y: BigSmallSicboLocator.History.top,
   //  width: BigSmallSicboLocator.History.width,
   //  height: BigSmallSicboLocator.History.height}})
-  await OpenHistory()
+
   const _result0= await utils.findImage(BigSmallSicboLocator.History.ImageCompare,BigSmallSicboLocator.History)
   await utils.shouldBeEqual(_result0.Val,true)    
   await CloseHistory()
@@ -148,14 +160,14 @@ export const VerifyHistoryContent = async() => {
 
 export const VerifyGuideContent = async() => {
   await OpenGuide()
-  await utils.sleep(1000)
+  await utils.sleep(5000)
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
   let _AcheckImage = [ BigSmallSicboLocator.Guide.ImageCompare1, BigSmallSicboLocator.Guide.ImageCompare2, BigSmallSicboLocator.Guide.ImageCompare3,
     BigSmallSicboLocator.Guide.ImageCompare4,BigSmallSicboLocator.Guide.ImageCompare5] 
   for(let t = 0; t< _AcheckImage.length; t++){
-    // await page.screenshot({path:`ImgCompare_BigSmallSicbo_Guide_${t}.png`,clip:{
+    // await page.screenshot({path:_AcheckImage[t],clip:{
     // x: BigSmallSicboLocator.Guide.left,
     //   y: BigSmallSicboLocator.Guide.top,
     //  width: BigSmallSicboLocator.Guide.width,

@@ -17,6 +17,25 @@ export const verifySignInSuccessfully = async() => {
 }
 
 export const verifyBetChoice = async() => {
+    // await utils.sleep(5000)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.Even)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.Odd)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.Tie)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.Player)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.PlayerEven)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.PlayerOdd)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.PlayerRed4)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.PlayerRed3)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.PlayerWhite3)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.PlayerWhite4)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.Banker)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.BankerEven)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.BankerOdd)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.BankerRed4)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.BankerRed3)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.BankerWhite3)
+    // await utils.CaptureSubImageToFile(SedieWarLocator.BankerWhite4)
+
     let _result = await utils.findImage(SedieWarLocator.Even)
     expect(_result.Val).to.equal(true)
     _result = await utils.findImage(SedieWarLocator.Odd)
@@ -263,6 +282,7 @@ export const closeGuide = async() => {
 }
 
 export const verifyGuideContent = async()=> {
+    await utils.sleep(5000)
     let fx = config.setting.viewport.width /2
     let fy = config.setting.viewport.height /2
     let ty = 0
@@ -294,6 +314,7 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
+    // await utils.CaptureSubImageToFile(SedieWarLocator.History)
     let flag = await utils.findImage(SedieWarLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
 }

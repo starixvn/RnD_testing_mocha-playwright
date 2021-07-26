@@ -1,4 +1,15 @@
 export const ResultLocator_vn = {
+    gameName : {
+        Sedie : 'Xóc Đĩa',
+        MiniSedie : ' Mini Xóc Đĩa',
+        VipSedie : 'Xóc Đĩa VIP',
+        BigSmall : 'Tài Xỉu',
+        BigSmallTurbo : 'Tài Xỉu Siêu Tốc',
+        OddEven : 'Chẵn Lẻ',
+        OddEvenTurbo : 'Chẵn Lẻ Siêu Tốc',
+        SedieWar : "Xóc Đĩa Đối Kháng",
+        BigSmallSicbo : 'Tài Xỉu Sic Bo',
+    },
     lblTitle : '"Kết Quả"',
     lblNote : 'id=txtPW',
     btnSearch : "//button",
@@ -124,12 +135,24 @@ export const ResultLocator_vn = {
 }
 
 export const ResultLocator_en = {
+    gameName: {
+        Sedie : 'Se Die',
+        MiniSedie : 'Mini Se Die',
+        VipSedie : 'VIP Se Die',
+        BigSmall : 'Big Small',
+        BigSmallTurbo : 'Turbo Big Small',
+        OddEven : 'Odd Even',
+        OddEvenTurbo : 'Turbo Odd Even',
+        SedieWar : "Se Die War",
+        BigSmallSicbo : 'Sic Bo',
+    },
     lblTitle : '"Game Round Result"',
     lblNote : 'id=txtPW',
     btnSearch : "//button",
     lblNodata : '"No data available."',
     formSearching : {
-        drpGameType : '//*[@id="GameType"]',
+        //drpGameType : '//*[@id="GameType"]',
+        drpGameType : 'id=GameType',
         txtRoundID : 'id=RoundId',
         txtDate : 'id=Date'
     },

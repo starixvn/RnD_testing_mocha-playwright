@@ -81,32 +81,22 @@ export const waitUtilNewRound = async() => {
 }
 
 export const VerifySignInSuccessfully = async() => {
+  //capture screenshot
+  // await utils.sleep(10000)
+  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Title)
+  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Odd)
+  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Even)
+  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Odds)
   // Verify TurboOddEven Title
-  // await page.screenshot({path:TurboOddEvenLocator.Title.ImageCompare,clip:{x: TurboOddEvenLocator.Title.left,
-  //   y: TurboOddEvenLocator.Title.top,
-  //  width: TurboOddEvenLocator.Title.width,
-  //  height: TurboOddEvenLocator.Title.height}})
-  // const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
-  // await utils.shouldBeEqual(_title.Val,true)  
+  const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
+  await utils.shouldBeEqual(_title.Val,true)  
   //Verify Odd
-  // await page.screenshot({path:TurboOddEvenLocator.Odd.ImageCompare,clip:{x: TurboOddEvenLocator.Odd.left,
-  //   y: TurboOddEvenLocator.Odd.top,
-  //  width: TurboOddEvenLocator.Odd.width,
-  //  height: TurboOddEvenLocator.Odd.height}})
   const _odd= await utils.findImage(TurboOddEvenLocator.Odd.ImageCompare,TurboOddEvenLocator.Odd)
   await utils.shouldBeEqual(_odd.Val,true)  
-  // Verify Even
-  // await page.screenshot({path:TurboOddEvenLocator.Even.ImageCompare,clip:{x: TurboOddEvenLocator.Even.left,
-  //   y: TurboOddEvenLocator.Even.top,
-  //  width: TurboOddEvenLocator.Even.width,
-  //  height: TurboOddEvenLocator.Even.height}})
+  // // Verify Even
   const _even= await utils.findImage(TurboOddEvenLocator.Even.ImageCompare,TurboOddEvenLocator.Even)
   await utils.shouldBeEqual(_even.Val,true)  
-  // Verify odds
-  // await page.screenshot({path:TurboOddEvenLocator.Odds.ImageCompare,clip:{x: TurboOddEvenLocator.Odds.left,
-  //   y: TurboOddEvenLocator.Odds.top,
-  //  width: TurboOddEvenLocator.Odds.width,
-  //  height: TurboOddEvenLocator.Odds.height}})
+  // // Verify odds
   const _odds = await utils.findImage(TurboOddEvenLocator.Odds.ImageCompare,TurboOddEvenLocator.Odds)
   await utils.shouldBeEqual(_odds.Val,true)  
 }
@@ -248,7 +238,7 @@ export const VerifyHistoryContent = async() => {
 }
 
 export const VerifyPresetContent = async() => {
-  // await page.screenshot({path:'ImgCompare_TurboOddEven_Preset.png',clip:{x: TurboOddEvenLocator.Preset.left,
+  // await page.screenshot({path:TurboOddEvenLocator.Preset.ImageCompare,clip:{x: TurboOddEvenLocator.Preset.left,
   //   y: TurboOddEvenLocator.Preset.top,
   //  width: TurboOddEvenLocator.Preset.width,
   //  height: TurboOddEvenLocator.Preset.height}})
@@ -257,12 +247,13 @@ export const VerifyPresetContent = async() => {
 }
 
 export const VerifyGuideContent = async() => {
+  await utils.sleep(5000)
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
   let _AcheckImage = [ TurboOddEvenLocator.Guide.ImageCompare1, TurboOddEvenLocator.Guide.ImageCompare2, TurboOddEvenLocator.Guide.ImageCompare3] 
   for(let t = 0; t< _AcheckImage.length; t++){
-    // await page.screenshot({path:`ImgCompare_TurboOddEven_Guide_${t+1}.png`,clip:{
+    // await page.screenshot({path:_AcheckImage[t],clip:{
     // x: TurboOddEvenLocator.Guide.left,
     //   y: TurboOddEvenLocator.Guide.top,
     //  width: TurboOddEvenLocator.Guide.width,
@@ -286,11 +277,11 @@ export const VerifyStatisticContent = async() => {
   //   y: TurboOddEvenLocator.StatisticPoint.top,
   //  width: TurboOddEvenLocator.StatisticPoint.width,
   //  height: TurboOddEvenLocator.StatisticPoint.height}})
-  //Verify Statistic Result
+  // //Verify Statistic Result
   const _result1= await utils.findImage(TurboOddEvenLocator.StatisticResult.ImageCompare,TurboOddEvenLocator.StatisticResult)
   await utils.shouldBeEqual(_result1.Val,true)    
 
-  //Verify Statistic Point
+  // //Verify Statistic Point
   await utils.clickPos(TurboOddEvenLocator.StatisticPoint.x,TurboOddEvenLocator.StatisticPoint.y)
   const _result2= await utils.findImage(
   TurboOddEvenLocator.StatisticPoint.ImageCompare,TurboOddEvenLocator.StatisticPoint)

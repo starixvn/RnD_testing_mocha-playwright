@@ -1,20 +1,8 @@
 const ResultLocator = (process.env.npm_config_lang == 'vn' ? require('./Result_Locator').ResultLocator_vn : require('./Result_Locator').ResultLocator_en)
 import * as utils from '../../util/utils'
 
-const gameName = {
-    Sedie : 'SeDie',
-    MiniSedie : 'MiniSeDie',
-    VipSedie : 'VipSeDie',
-    BigSmall : 'BigSmall',
-    BigSmallTurbo : 'BigSmallTurbo',
-    OddEven : 'OddEven',
-    OddEvenTurbo : 'OddEvenTurbo',
-    SedieWar : "SeDieWar",
-    BigSmallSicbo : 'SicBo',
-
-}
 export const verifyGameInDropdownlist = async(_game) =>{
-    await utils.waitEl(ResultLocator.formSearching.drpGameType + `/option[@value='` + gameName[_game] + `']`,'attached')
+    await utils.waitEl(ResultLocator.formSearching.drpGameType + `/option[text()='` + ResultLocator.gameName[_game] + `']`,'attached')
 }
 
 export const verifyRoundIdIsExistedOnTableResult = async(_roundId) => {
@@ -28,8 +16,7 @@ export const verifyFormatTime = async() => {
 }
 
 export const selectGame = async(_game) =>{
-    await verifyGameInDropdownlist(_game)
-    await utils.selectDrp(ResultLocator.formSearching.drpGameType,gameName[_game])
+    await utils.selectDrp(ResultLocator.formSearching.drpGameType,ResultLocator.gameName[_game])
 }
 const closePage = async() =>{
     await page.close()
