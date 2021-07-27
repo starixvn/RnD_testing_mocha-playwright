@@ -56,10 +56,11 @@ export const CloseHistory = async() => {
 export const StandCard = async() => {
   try {
     await utils.sleep(100)
-    await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
+    await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top)
+    //await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
-    const _Stand= await utils.findImage(BlackJackLocator.Stand.ImageCompare,BlackJackLocator.Stand)
-      if (_Stand.Val === true){
+    let _Stand = await utils.findImage(BlackJackLocator.Stand)
+      if(_Stand.Val === true){
        // console.log('Stand')
         await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
         await utils.sleep(1000)
@@ -75,7 +76,8 @@ export const StandCard = async() => {
 export const HitCard = async() => {
   try {
     await utils.sleep(100)
-    await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
+    await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top)
+    //await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
     const _Hit= await utils.findImage(BlackJackLocator.Hit.ImageCompare,BlackJackLocator.Hit)
       if (_Hit.Val === true){
@@ -92,7 +94,8 @@ export const HitCard = async() => {
 export const NewRound = async() => {
   try {
     await utils.sleep(100)
-    await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
+    await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top)
+    //await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(1000)
     const _Newbet= await utils.findImage(BlackJackLocator.New.ImageCompare,BlackJackLocator.New)
       if (_Newbet.Val === true){
@@ -111,7 +114,8 @@ export const NewRound = async() => {
 export const Rebet = async() => {
   try {
     await utils.sleep(100)
-    await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
+    await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top)
+    // await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(1000)
     const _Rebet= await utils.findImage(BlackJackLocator.Renew.ImageCompare,BlackJackLocator.Renew)
       if (_Rebet.Val === true){
@@ -230,33 +234,32 @@ export const BetSettle_HitToQuizzed = async (_pos) => {
 }
 
 export const VerifyDealerContent = async() => {
+  // await utils.CaptureSubImageToFile(BlackJackLocator.DealerContent)
   const _result= await utils.findImage(BlackJackLocator.DealerContent.ImageCompare,BlackJackLocator.DealerContent)
   await utils.shouldBeEqual(_result.Val,true)    
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:'ImgCompare_BlackJack_History.png',clip:{x: BlackJackLocator.History.left,
-  //   y: BlackJackLocator.History.top,
-  //  width: BlackJackLocator.History.width,
-  //  height: BlackJackLocator.History.height}})
+  // await utils.CaptureSubImageToFile(BlackJackLocator.History)
   const _result0= await utils.findImage(BlackJackLocator.History.ImageCompare,BlackJackLocator.History)
   await utils.shouldBeEqual(_result0.Val,true)    
 }
 
 export const VerifyGuideContent = async() => {
+  await utils.sleep(5000)
   let fx = config.setting.viewport.width /2
   let fy = config.setting.viewport.height /2
   let ty = 0
   let _AcheckImage = [ BlackJackLocator.Guide.ImageCompare1, BlackJackLocator.Guide.ImageCompare2, BlackJackLocator.Guide.ImageCompare3,
     BlackJackLocator.Guide.ImageCompare4, BlackJackLocator.Guide.ImageCompare5, BlackJackLocator.Guide.ImageCompare6] 
-  for(let t of _AcheckImage){
-    // await page.screenshot({path:t,clip:{
+    for(let t = 0; t< _AcheckImage.length; t++){
+      // await page.screenshot({path:t,clip:{
     // x: BlackJackLocator.Guide.left,
     //   y: BlackJackLocator.Guide.top,
     //  width: BlackJackLocator.Guide.width,
     //  height: BlackJackLocator.Guide.height}})
     //  await utils.swipe(fx, fy, fx, ty) 
-    const _result = await utils.findImage(t,BlackJackLocator.Guide)
+    const _result = await utils.findImage(_AcheckImage[t],BlackJackLocator.Guide)
     await utils.swipe(fx, fy, fx, ty) 
     await utils.shouldBeEqual(_result.Val,true)
   
@@ -266,10 +269,12 @@ export const VerifyGuideContent = async() => {
 
 export const VerifyDefaultState = async() => {
 //Check default pos and stakes, min & maxbet  
+// await utils.CaptureSubImageToFile(BlackJackLocator.DefaultState)
   const _result= await utils.findImage(BlackJackLocator.DefaultState.ImageCompare,BlackJackLocator.DefaultState)
 await utils.shouldBeEqual(_result.Val,true)    
 
   //Check default Chip
+  // await utils.CaptureSubImageToFile(BlackJackLocator.DefaultChip)
   const _chip= await utils.findImage(BlackJackLocator.DefaultChip.ImageCompare,BlackJackLocator.DefaultChip)
 await utils.shouldBeEqual(_chip.Val,true)  
 }

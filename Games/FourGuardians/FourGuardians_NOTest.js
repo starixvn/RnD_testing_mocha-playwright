@@ -1,7 +1,7 @@
 const game = "FourGuardians"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
-import * as FourGuardiansFunc from '../FourGuardians/FourGuardians_Function'
+import * as FourGuardiansFunc from './FourGuardians_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
