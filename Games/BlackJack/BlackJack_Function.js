@@ -253,7 +253,7 @@ export const VerifyGuideContent = async() => {
   let _AcheckImage = [ BlackJackLocator.Guide.ImageCompare1, BlackJackLocator.Guide.ImageCompare2, BlackJackLocator.Guide.ImageCompare3,
     BlackJackLocator.Guide.ImageCompare4, BlackJackLocator.Guide.ImageCompare5, BlackJackLocator.Guide.ImageCompare6] 
     for(let t = 0; t< _AcheckImage.length; t++){
-      // await page.screenshot({path:t,clip:{
+    //   await page.screenshot({path:_AcheckImage[t],clip:{
     // x: BlackJackLocator.Guide.left,
     //   y: BlackJackLocator.Guide.top,
     //  width: BlackJackLocator.Guide.width,

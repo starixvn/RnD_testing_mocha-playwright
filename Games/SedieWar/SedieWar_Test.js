@@ -282,6 +282,7 @@ describe('SedieWar Game', ()=>{
   it('TC_065_Full_Smoke_Verify Settlement on BankerWhite4 Choice', async() =>{
       result = await SedieWarFunc.verifySettlement("BankerWhite4")
   })
+
   it('TC_066_Full_Smoke_Verify Game Guide', async()=>{
     await SedieWarFunc.openGuide()
     await SedieWarFunc.verifyGuideContent()

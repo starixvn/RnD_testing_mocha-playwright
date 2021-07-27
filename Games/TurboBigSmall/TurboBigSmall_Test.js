@@ -26,7 +26,7 @@ describe('TurboBigSmall Game', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await TurboBigSmallFunc.VerifySignInSuccessfully()
-    await TurboBigSmallFunc.checkNavStatisticbar()
+    //await TurboBigSmallFunc.checkNavStatisticbar()
   })  
 
   it('TC_02_Full_Smoke_Verify History Content', async () => {

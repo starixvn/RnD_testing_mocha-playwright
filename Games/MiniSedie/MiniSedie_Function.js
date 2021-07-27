@@ -329,7 +329,6 @@ export const openGuide = async() => {
 
 export const closeGuide = async() => {
     await utils.clickPos(MiniSedieLocator.GuideClose.x, MiniSedieLocator.GuideClose.y)
-    await verifyStatistic()
 }
 
 export const verifyGuideContent = async()=> {

@@ -237,7 +237,7 @@ export const VerifyGuideContent = async() => {
 }
 
 export const VerifyStatisticContent = async() => {
-//   await utils.sleep(2000)
+  await utils.sleep(2000)
 //  await page.screenshot({path:BigSmallLocator.StatisticResult.ImageCompare,clip:{x: BigSmallLocator.StatisticResult.left,
 //     y: BigSmallLocator.StatisticResult.top,
 //    width: BigSmallLocator.StatisticResult.width,
@@ -248,7 +248,6 @@ export const VerifyStatisticContent = async() => {
 //    width: BigSmallLocator.StatisticPoint.width,
 //    height: BigSmallLocator.StatisticPoint.height}})
   // Verify Statistic Result
-  await utils.sleep(2000)
   const _result1= await utils.findImage(BigSmallLocator.StatisticResult.ImageCompare,BigSmallLocator.StatisticResult)
   await utils.shouldBeEqual(_result1.Val,true,'Verify statistic result')    
   await utils.sleep(1000)

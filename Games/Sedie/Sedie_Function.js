@@ -358,7 +358,6 @@ export const openGuide = async() => {
 
 export const closeGuide = async() => {
     await utils.clickPos(SedieLocator.GuideClose.x, SedieLocator.GuideClose.y)
-    await verifyDealer()
 }
 
 export const verifyGuideContent = async()=> {
@@ -389,13 +388,13 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
+    // await utils.CaptureSubImageToFile(SedieLocator.History)
     let flag = await utils.findImage(SedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const closeHistory = async() => {
     await utils.clickPos(SedieLocator.HistoryClose.x, SedieLocator.HistoryClose.y)
-    await verifyDealer()
 }
 
 export const verifyDBCuoc = async(_resultOnWeb) => {

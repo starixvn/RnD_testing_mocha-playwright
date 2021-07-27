@@ -278,7 +278,6 @@ export const openGuide = async() => {
 
 export const closeGuide = async() => {
     await utils.clickPos(SedieWarLocator.GuideClose.x, SedieWarLocator.GuideClose.y)
-    await verifyBetChoice()
 }
 
 export const verifyGuideContent = async()=> {
@@ -314,6 +313,7 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
+    await utils.sleep(2000)
     // await utils.CaptureSubImageToFile(SedieWarLocator.History)
     let flag = await utils.findImage(SedieWarLocator.History)
     await utils.shouldBeEqual(flag.Val,true)
@@ -321,7 +321,6 @@ export const verifyHistoryPopup = async() => {
 
 export const closeHistory = async() => {
     await utils.clickPos(SedieWarLocator.HistoryClose.x, SedieWarLocator.HistoryClose.y)
-    await verifyBetChoice()
 }
 
 export const verifyDBCuoc = async(_resultOnWeb) => {

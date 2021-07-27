@@ -70,7 +70,7 @@ export const checkNavStatisticbar = async() => {
          await utils.sleep(200)
          await clickPos(_x,_y)
          await utils.sleep(1000)
-        //  await utils.CaptureSubImageToFile(TurboBigSmallLocator.RoundDetailTitle)
+          // await utils.CaptureSubImageToFile(TurboBigSmallLocator.RoundDetailTitle)
          temp = await utils.findImage(TurboBigSmallLocator.RoundDetailTitle.ImageCompare,TurboBigSmallLocator.RoundDetailTitle)
          await clickPos(1062,161)
          await utils.sleep(500)
@@ -92,25 +92,9 @@ export const clickPos = async(_x, _y) => {
 }
 
 export const VerifySignInSuccessfully = async() => {
-  //   await page.screenshot({path:TurboBigSmallLocator.Title.ImageCompare,clip:{x: TurboBigSmallLocator.Title.left,
-  //   y: TurboBigSmallLocator.Title.top,
-  //  width: TurboBigSmallLocator.Title.width,
-  //  height: TurboBigSmallLocator.Title.height}})
-  //  await page.screenshot({path:TurboBigSmallLocator.Big.ImageCompare,clip:{x: TurboBigSmallLocator.Big.left,
-  //   y: TurboBigSmallLocator.Big.top,
-  //  width: TurboBigSmallLocator.Big.width,
-  //  height: TurboBigSmallLocator.Big.height}})
-  //  await page.screenshot({path:TurboBigSmallLocator.Small.ImageCompare,clip:{x: TurboBigSmallLocator.Small.left,
-  //   y: TurboBigSmallLocator.Small.top,
-  //  width: TurboBigSmallLocator.Small.width,
-  //  height: TurboBigSmallLocator.Small.height}})
-  //  await page.screenshot({path:TurboBigSmallLocator.Odds.ImageCompare,clip:{x: TurboBigSmallLocator.Odds.left,
-  //   y: TurboBigSmallLocator.Odds.top,
-  //  width: TurboBigSmallLocator.Odds.width,
-  //  height: TurboBigSmallLocator.Odds.height}})
-  // // Verify TurboBigSmall Title
-  // const _title= await utils.findImage(TurboBigSmallLocator.Title.ImageCompare,TurboBigSmallLocator.Title)
-  // await utils.shouldBeEqual(_title.Val,true)  
+// await utils.sleep(10000)
+// await utils.CaptureSubImageToFile(TurboBigSmallLocator.Big)
+// await utils.CaptureSubImageToFile(TurboBigSmallLocator.Small)
   //Verify Big
   const _big= await utils.findImage(TurboBigSmallLocator.Big.ImageCompare,TurboBigSmallLocator.Big)
   await utils.shouldBeEqual(_big.Val,true)  
@@ -243,7 +227,7 @@ export const ClearPresetChip = async() => {
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:'ImgCompare_TurboBigSmall_History.png',clip:{x: TurboBigSmallLocator.History.left,
+  // await page.screenshot({path:TurboBigSmallLocator.History.ImageCompare,clip:{x: TurboBigSmallLocator.History.left,
   //   y: TurboBigSmallLocator.History.top,
   //  width: TurboBigSmallLocator.History.width,
   //  height: TurboBigSmallLocator.History.height}})
@@ -267,7 +251,7 @@ export const VerifyGuideContent = async() => {
   let ty = 0
   let _AcheckImage = [ TurboBigSmallLocator.Guide.ImageCompare1, TurboBigSmallLocator.Guide.ImageCompare2, TurboBigSmallLocator.Guide.ImageCompare3] 
   for(let t = 0; t< _AcheckImage.length; t++){
-    // await page.screenshot({path:`ImgCompare_TurboBigSmall_Guide_${t+1}.png`,clip:{
+    // await page.screenshot({path:_AcheckImage[t],clip:{
     // x: TurboBigSmallLocator.Guide.left,
     //   y: TurboBigSmallLocator.Guide.top,
     //  width: TurboBigSmallLocator.Guide.width,
