@@ -360,7 +360,6 @@ export const openGuide = async() => {
 
 export const closeGuide = async() => {
     await utils.clickPos(VipSedieLocator.GuideClose.x, VipSedieLocator.GuideClose.y)
-    await verifyDealer()
 }
 
 export const verifyGuideContent = async()=> {
@@ -404,7 +403,6 @@ export const verifyHistoryPopup = async() => {
 
 export const closeHistory = async() => {
     await utils.clickPos(VipSedieLocator.HistoryClose.x, VipSedieLocator.HistoryClose.y)
-    await verifyDealer()
 }
 
 export const verifyDBCuoc = async(_resultOnWeb) => {

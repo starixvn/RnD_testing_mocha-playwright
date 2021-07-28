@@ -254,7 +254,7 @@ export const selectDrp = async(_el, _val) => {
         await page.waitForSelector(
             _el, { state: 'attached'}
         )
-        await page.selectOption(_el, { label : _val })
+        await page.selectOption(_el, { value : _val })
     }  catch (error) {
         console.log('Error '+error.message)
         await shouldBeEqual(true,false,"Error - select item on dropdown list")

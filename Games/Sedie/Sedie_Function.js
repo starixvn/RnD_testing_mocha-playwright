@@ -361,6 +361,7 @@ export const closeGuide = async() => {
 }
 
 export const verifyGuideContent = async()=> {
+    await utils.sleep(5000)
     let fx = config.setting.viewport.width /2
     let fy = config.setting.viewport.height /2
     let ty = 0
