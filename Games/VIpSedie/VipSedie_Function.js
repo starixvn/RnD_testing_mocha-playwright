@@ -396,6 +396,7 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
+    await utils.sleep(1000)
     // await utils.CaptureSubImageToFile(VipSedieLocator.History)
     let flag = await utils.findImage(VipSedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)

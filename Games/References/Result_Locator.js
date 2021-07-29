@@ -6,7 +6,7 @@ export const ResultLocator_vn = {
         BigSmall : 'BigSmall',
         BigSmallTurbo : 'BigSmallTurbo',
         OddEven : 'OddEven',
-        OddEvenTurbo : 'OddEven',
+        OddEvenTurbo : 'OddEvenTurbo',
         SedieWar : "SeDieWar",
         BigSmallSicbo : 'SicBo'
     },
@@ -142,7 +142,7 @@ export const ResultLocator_en = {
         BigSmall : 'BigSmall',
         BigSmallTurbo : 'BigSmallTurbo',
         OddEven : 'OddEven',
-        OddEvenTurbo : 'OddEven',
+        OddEvenTurbo : 'OddEvenTurbo',
         SedieWar : "SeDieWar",
         BigSmallSicbo : 'SicBo'
     },
