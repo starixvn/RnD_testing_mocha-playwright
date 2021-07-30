@@ -1,6 +1,5 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 const creds = require('../cred/secret_key.json')
-
 const jp = require('jsonpath')
 
 export const Doc = class {
@@ -54,9 +53,39 @@ const getTestSuiteName = async(txt)=>{
     return txt.match(/(.*) TC_/,'$1')[0].replace("Game TC_","").trim()
 }
 
-export const repareData = async(_note="")=> {
+export const repareData_vn = async(_note="")=> {
     try {
-        const jsonResult = require('../Report/mochawesome.json')
+        const jsonResult = require(`../Report/vn/mochawesome.json`)
+        let note = _note
+        // Get excution time
+        let t = new Date().toLocaleString()
+        // Get testCase List
+        let rawTestcaseName = jp.query(jsonResult,'$..tests..fullTitle')
+        let testcaseName = [],testSuiteName = []
+        for(let i =0; i<rawTestcaseName.length ;i++) {
+            testcaseName.push(await getTestcaseName(rawTestcaseName[i]))
+            testSuiteName.push(await getTestSuiteName(rawTestcaseName[i]))
+        }
+        // Get Pass/Failed
+        let rawStatus = jp.query(jsonResult,'$..tests..pass')
+        let status =[]
+        for(let i=0; i<rawStatus.length ;i++) {
+            status.push( (rawStatus[i] === true ) ? 'Passed' : 'Failed')
+        }
+        let object = []
+        // Create Object file
+        for(let i=0; i<rawTestcaseName.length;i++) {
+            object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note})
+        }
+        return object
+    } catch {
+        return 'NotFound'
+    }
+}
+
+export const repareData_en = async(_note="")=> {
+    try {
+        const jsonResult = require(`../Report/en/mochawesome.json`)
         let note = _note
         // Get excution time
         let t = new Date().toLocaleString()
@@ -85,7 +114,7 @@ export const repareData = async(_note="")=> {
 }
 
 export const isFailed = async(object)=> {
-    const jsonResult = require('../Report/mochawesome.json')
+    const jsonResult = require(`../Report/vn/mochawesome.json`)
     let rawStatus = jp.query(jsonResult,'$..fail')
     for(let i=0; i<rawStatus.length ;i++) {
         if(rawStatus[i] === true ) return true
@@ -109,9 +138,38 @@ const msToTime = async(s)=> {
     return  mins + 'm' + await pad(secs) + 's';
   }
 
-export const prepareResult = async(objArr)=> {
+export const prepareResult_vn = async(objArr)=> {
     try{
-        const jsonResult = require('../Report/mochawesome.json')
+        const jsonResult = require('../Report/vn/mochawesome.json')
+        let rs = [],flag =0, duration
+        for(let i =0 ; i < objArr.length ; i++){
+            if(rs.length === 0){
+                rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
+            } else {
+                flag = 0
+                for(let j = 0; j< rs.length ; j++){
+                    if(rs[j].TestSuite === objArr[i].TestSuite) {
+                        rs[j].total = rs[j].total +1
+                        rs[j].pass = (objArr[i].Status === "Passed") ? rs[j].pass + 1 : rs[j].pass
+                        flag=1
+                        break
+                    }
+                }
+                if(flag ===0){
+                    rs.push({ TestSuite: objArr[i].TestSuite , total : 1 , pass : ((objArr[i].Status === "Passed") ? 1 : 0)})
+                }
+            }
+        }
+        duration = await msToTime(jp.value(jsonResult,"$.stats.duration"))
+        return { Result : rs, ExecutionTime : duration}
+    } catch {
+        return 'NotFound'
+    }
+}
+
+export const prepareResult_en = async(objArr)=> {
+    try{
+        const jsonResult = require('../Report/en/mochawesome.json')
         let rs = [],flag =0, duration
         for(let i =0 ; i < objArr.length ; i++){
             if(rs.length === 0){

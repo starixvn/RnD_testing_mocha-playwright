@@ -6,8 +6,8 @@ chai.use(chaiHttp)
 
 describe('Send Message', ()=>{
     it('Send Telegram', async () => {
-        let obj = await gsutils.repareData()
-        let rs = await gsutils.prepareResult(obj)
+        let obj = await gsutils.repareData_vn()
+        let rs = await gsutils.prepareResult_vn(obj)
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         let totalcase = obj.length
@@ -25,7 +25,7 @@ describe('Send Message', ()=>{
             .send({
                 chat_id: -507838201,
                 parse_mode: "markdown",
-                text: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime}*\n`
+                text: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} Language: VN *\n`
                 +`Environment - *[${env}]*\nReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})${mainContent}`
             }).end( async(err,res)=>{
             expect(res).to.have.status(200)

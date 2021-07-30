@@ -207,12 +207,12 @@ export const VerifyHistoryContent = async() => {
 
 export const VerifyPresetContent = async() => {
   await utils.sleep(2000)
-  await page.screenshot({path:BigSmallLocator.Preset.ImageCompare,clip:{x: BigSmallLocator.Preset.left,
-    y: BigSmallLocator.Preset.top,
-   width: BigSmallLocator.Preset.width,
-   height: BigSmallLocator.Preset.height}})
-  // const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
-  // await utils.shouldBeEqual(_result0.Val,true,`Verify Preset content`)    
+  // await page.screenshot({path:BigSmallLocator.Preset.ImageCompare,clip:{x: BigSmallLocator.Preset.left,
+  //   y: BigSmallLocator.Preset.top,
+  //  width: BigSmallLocator.Preset.width,
+  //  height: BigSmallLocator.Preset.height}})
+  const _result0= await utils.findImage(BigSmallLocator.Preset.ImageCompare, BigSmallLocator.Preset)
+  await utils.shouldBeEqual(_result0.Val,true,`Verify Preset content`)    
 }
 
 export const VerifyGuideContent = async() => {
