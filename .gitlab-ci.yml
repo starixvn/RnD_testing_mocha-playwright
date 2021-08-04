@@ -9,7 +9,7 @@ stages:
   - public-report
   - cleanup
 
-test:
+test1:
   stage: full-test
   tags:
     - docker-automation-test
@@ -24,7 +24,7 @@ test:
     when: always
     expire_in: 1 day 
 
-test:
+test2:
   stage: smoke-test
   tags:
     - docker-automation-test
