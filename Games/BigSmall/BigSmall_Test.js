@@ -18,7 +18,7 @@ describe('BigSmall Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -47,7 +47,6 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.VerifyPresetContent()
     await BigSmallFunc.ClosePreset()
-    // await utils.verifyBettingTime(game)
   })  
 
   it('TC_05_Full_Verify Block bet time', async () => {
@@ -76,7 +75,7 @@ describe('BigSmall Game', ()=>{
 
 }) 
 
-  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
+  it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Big', async () => {
      const pos = "Big"
      const errormsg = '"errorCode":"SB1927"'
     await BigSmallFunc.PlaceBet(pos,1)
@@ -99,7 +98,7 @@ describe('BigSmall Game', ()=>{
 
   })  
  
-   it('TC_10_Full_Smoke_Verify Betting Full Chips on Big', async () => {
+   it('TC_10_Full_Verify Betting Full Chips on Big', async () => {
     const Achip =  [1,5,10,50,100,200,500,1000]
     const pos = "Big"
     let _stake =0
@@ -124,7 +123,7 @@ describe('BigSmall Game', ()=>{
          await BigSmallFunc.CheckSettleBalance()
   })  
 
-  it('TC_12_Full_Smoke_Verify Preset Betting Full Chips on Big', async () => {
+  it('TC_12_Full_Verify Preset Betting Full Chips on Big', async () => {
     const Achip =  [1,5,10,50,100,200,500,1000]
     const pos = "Big"
     let _stake =0
@@ -196,7 +195,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-    it('TC_16_Full_Smoke_Verify Betting on Big with accumulate presetchip', async () => {
+    it('TC_16_Full_Verify Betting on Big with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
     const Achip =  [1,5,10,50,100,200,500, 1000]
@@ -215,7 +214,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_17_Full_Smoke_Verify Betting on Small with accumulate presetchip and Result page', async () => {
+  it('TC_17_Full_Verify Betting on Small with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
     const Achip =  [1,5,10,50,100,200,500, 1000]
@@ -237,17 +236,17 @@ describe('BigSmall Game', ()=>{
      await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_18_Full_Smoke_Verify searching an invalid roundid', async() =>{
+  it('TC_18_Full_Verify searching an invalid roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmall.verifyInvalidRoundID()
   })
 
-  it('TC_19_Full_Smoke_Verify searching an archived roundid', async() =>{
+  it('TC_19_Full_Verify searching an archived roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmall.verifyArchivedRoundID()
   })
 
-  it('TC_20_Full_Smoke_Verify searching with roundid =0', async()=>{
+  it('TC_20_Full_Verify searching with roundid =0', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmall.verifyRoundID0()
   })

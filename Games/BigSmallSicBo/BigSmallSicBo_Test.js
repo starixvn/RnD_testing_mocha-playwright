@@ -17,7 +17,7 @@ describe('BigSmall SicBo Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -43,7 +43,7 @@ describe('BigSmall SicBo Game', ()=>{
     await utils.verifyBlockTime(game,BigSmallSBFunc.PlaceBet,['Big',1,'nowait'])
   })  
 
-  it('TC_06_Full_Smoke_Verify bet chips', async () => {
+  it('TC_06_Full_Verify bet chips', async () => {
     await BigSmallSBFunc.waitUtilNewRound()
     let pos = "Big"
     let chips = [1,5,10,50,100,200,500,1000]
@@ -66,7 +66,7 @@ describe('BigSmall SicBo Game', ()=>{
 }) 
 
 
-it('TC_08_1Full_Smoke Verify User can bet all total score', async () => {
+it('TC_08_1_Full_Smoke Verify User can bet all total score', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let _chip = 1
   let _Aspecific = ['Total4','Total5','Total6','Total7','Total8','Total9','Total10']
@@ -78,7 +78,7 @@ it('TC_08_1Full_Smoke Verify User can bet all total score', async () => {
    await BigSmallSBFunc.getSettlementResult()  
 }) 
 
-it('TC_08_2Full_Smoke Verify User can bet all total score', async () => {
+it('TC_08_2_Full_Verify User can bet all total score', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let _chip = 1
   let _Aspecific = ['Total11','Total12','Total13','Total14','Total15','Total16','Total17']
@@ -122,7 +122,7 @@ it('TC_14_Full_Verify Settlement Total4', async () => {
   await BigSmallSBFunc.checkSettlement(BigSmallSBFunc.PlaceBet,['Total4',50])
 }) 
 
-it('TC_15_Full_Smoke Verify Maxbet 2k', async () => {
+it('TC_15_Full_Verify Maxbet 2k', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let maxbet = 2000
   const errormsg = `"errorCode":"SB1910","maxBet":2000`
@@ -137,8 +137,7 @@ it('TC_15_Full_Smoke Verify Maxbet 2k', async () => {
      } 
 }) 
 
-
-it('TC_16_Full_Smoke Verify Max bet 100', async () => {
+it('TC_16_Full_Verify Max bet 100', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let maxbet = 500
   await BigSmallSBFunc.PlaceBet('Big',1) 
@@ -154,7 +153,7 @@ it('TC_16_Full_Smoke Verify Max bet 100', async () => {
   await BigSmallSBFunc.CheckRoundHistory(settleresult)
 }) 
  
-it('TC_17_Full_Smoke Verify Max bet 500', async () => {
+it('TC_17_Full_Verify Max bet 500', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let maxbet = 1000
   await BigSmallSBFunc.PlaceBet('Big',5) 
@@ -173,17 +172,17 @@ it('TC_17_Full_Smoke Verify Max bet 500', async () => {
   await ResultFunc.BigSmallSicbo.verifyResult(settleresult)
 }) 
  
-it('TC_18_Full_Smoke_Verify searching an invalid roundid', async() =>{
+it('TC_18_Full_Verify searching an invalid roundid', async() =>{
   await GameLobbyFunc.openResultPage()
   await ResultFunc.BigSmallSicbo.verifyInvalidRoundID()
 })
 
-it('TC_19_Full_Smoke_Verify searching an archived roundid', async() =>{
+it('TC_19_Full_Verify searching an archived roundid', async() =>{
   await GameLobbyFunc.openResultPage()
   await ResultFunc.BigSmallSicbo.verifyArchivedRoundID()
 })
 
-it('TC_20_Full_Smoke_Verify searching with roundid =0', async()=>{
+it('TC_20_Full_Verify searching with roundid =0', async()=>{
   await GameLobbyFunc.openResultPage()
   await ResultFunc.BigSmallSicbo.verifyRoundID0()
 })

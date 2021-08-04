@@ -19,7 +19,7 @@ describe('TurboBigSmall Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -41,14 +41,14 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.CloseGuide()
   })  
 
-  it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
+  it('TC_04_Full_Verify Statistic Content', async () => {
     await TurboBigSmallFunc.OpenStatistic()
     await TurboBigSmallFunc.VerifyStatisticContent()
     await TurboBigSmallFunc.CloseStatistic()
     await utils.verifyBettingTime(game)
   })  
 
-  it('TC_05_Full_Smoke_Verify Preset Content', async () => {
+  it('TC_05_Full_Verify Preset Content', async () => {
     await TurboBigSmallFunc.OpenPreset()
     await TurboBigSmallFunc.VerifyPresetContent()
     await TurboBigSmallFunc.ClosePreset()
@@ -214,7 +214,7 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
-  it('TC_18_Full_Smoke_Verify Betting [1-50] on Big with specific Preset Chip + extra Chip on Board', async () => {
+  it('TC_18_Full_Verify Betting [1-50] on Big with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Big
     //Verify all preset and chips on board can be bet success   
     await TurboBigSmallFunc.waitUtilNewRound()
@@ -278,7 +278,7 @@ describe('TurboBigSmall Game', ()=>{
          await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
-    it('TC_22_Full_Smoke_Verify Betting [1-50] on Big with accumulate presetchip', async () => {
+    it('TC_22_Full_Verify Betting [1-50] on Big with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success   
     await TurboBigSmallFunc.waitUtilNewRound()
@@ -326,7 +326,7 @@ describe('TurboBigSmall Game', ()=>{
     await TurboBigSmallFunc.CheckSettleBalance()
   }) 
 
-  it('TC_25_Full_Smoke_Verify Betting [100-500] on Small with accumulate presetchip and Result page', async () => {
+  it('TC_25_Full_Verify Betting [100-500] on Small with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success   
     await TurboBigSmallFunc.waitUtilNewRound()
@@ -346,17 +346,17 @@ describe('TurboBigSmall Game', ()=>{
      await TurboBigSmallFunc.ClearPreset()    
   }) 
   
-  it('TC_26_Full_Smoke_Verify searching an invalid roundid', async() =>{
+  it('TC_26_Full_Verify searching an invalid roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmallTurbo.verifyInvalidRoundID()
   })
 
-  it('TC_27_Full_Smoke_Verify searching an archived roundid', async() =>{
+  it('TC_27_Full_Verify searching an archived roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmallTurbo.verifyArchivedRoundID()
   })
 
-  it('TC_28_Full_Smoke_Verify searching with roundid =0', async()=>{
+  it('TC_28_Full_Verify searching with roundid =0', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.BigSmallTurbo.verifyRoundID0()
   })

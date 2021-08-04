@@ -25,7 +25,7 @@ describe('Send Message', ()=>{
             .send({
                 chat_id: -507838201,
                 parse_mode: "markdown",
-                text: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} Language: VN *\n`
+                text: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , Language: VN *\n`
                 +`Environment - *[${env}]*\nReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})${mainContent}`
             }).end( async(err,res)=>{
             expect(res).to.have.status(200)

@@ -16,7 +16,7 @@ describe('Sedie Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -62,39 +62,39 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifyBetChip()
   })
 
-  it('TC_011_Full_Smoke_Verify betting by chip 5', async() =>{
+  it('TC_011_Full_Verify betting by chip 5', async() =>{
     await SedieFunc.placeBet("Even",5)
   })
 
-  it('TC_012_Full_Smoke_Verify betting by chip 10', async() =>{
+  it('TC_012_Full_Verify betting by chip 10', async() =>{
     await SedieFunc.placeBet("Even",10)
   })
 
-  it('TC_013_Full_Smoke_Verify betting by chip 50', async() =>{
+  it('TC_013_Full_Verify betting by chip 50', async() =>{
     await SedieFunc.placeBet("Even",50)
   })
 
-  it('TC_014_Full_Smoke_Verify betting by chip 100', async() =>{
+  it('TC_014_Full_Verify betting by chip 100', async() =>{
     await SedieFunc.placeBet("Even",100)
   })
 
-  it('TC_015_Full_Smoke_Verify betting by chip 200', async() =>{
+  it('TC_015_Full_Verify betting by chip 200', async() =>{
     await SedieFunc.placeBet("Even",200)
   })
 
-  it('TC_016_Full_Smoke_Verify betting by chip 500', async() =>{
+  it('TC_016_Full_Verify betting by chip 500', async() =>{
     await SedieFunc.placeBet("Even",500)
   })
 
-  it('TC_017_Full_Smoke_Verify betting by chip 1000', async() =>{
+  it('TC_017_Full_Verify betting by chip 1000', async() =>{
     await SedieFunc.placeBet("Even",1000)
   })
 
-  it('TC_018_Full_Smoke_Verify betting by chip 2000', async() =>{
+  it('TC_018_Full_Verify betting by chip 2000', async() =>{
     await SedieFunc.placeBet("Even",2000)
   })
 
-  it('TC_019_Full_Smoke_Verify betting at Block Betting Time', async() =>{
+  it('TC_019_Full_Verify betting at Block Betting Time', async() =>{
     await SedieFunc.verifyBetAtBlockBettingTime()
   })
 
@@ -102,63 +102,63 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_021_Full_Smoke_Verify maxbet of Even', async() =>{
+  it('TC_021_Full_Verify maxbet of Even', async() =>{
     await SedieFunc.verifyMaxBet('Even')
   })
 
-  it('TC_022_Full_Smoke_Verify maxbet of Odd', async() =>{
+  it('TC_022_Full_Verify maxbet of Odd', async() =>{
     await SedieFunc.verifyMaxBet('Odd')
   })
 
-  it('TC_023_Full_Smoke_Verify maxbet of Red4', async() =>{
+  it('TC_023_Full_Verify maxbet of Red4', async() =>{
     await SedieFunc.verifyMaxBet('Red4')
   })
 
-  it('TC_024_Full_Smoke_Verify maxbet of Red3', async() =>{
+  it('TC_024_Full_Verify maxbet of Red3', async() =>{
     await SedieFunc.verifyMaxBet('Red3')
   })
 
-  it('TC_025_Full_Smoke_Verify maxbet of Red2', async() =>{
+  it('TC_025_Full_Verify maxbet of Red2', async() =>{
     await SedieFunc.verifyMaxBet('Red2')
   })
 
-  it('TC_026_Full_Smoke_Verify maxbet of White3', async() =>{
+  it('TC_026_Full_Verify maxbet of White3', async() =>{
     await SedieFunc.verifyMaxBet('White3')
   })
 
-  it('TC_027_Full_Smoke_Verify maxbet of White4', async() =>{
+  it('TC_027_Full_Verify maxbet of White4', async() =>{
     await SedieFunc.verifyMaxBet('White4')
   })
   
-  it('TC_028_Full_Smoke_Verify maxbet of Round', async() =>{
+  it('TC_028_Full_Verify maxbet of Round', async() =>{
     await SedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
     await SedieFunc.verifySettlement("Even",5)
   })
 
-  it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
+  it('TC_030_Full_Verify Settlement on choice Odd', async() =>{  
     await SedieFunc.verifySettlement("Odd",10)
   })
 
-  it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
+  it('TC_031_Full_Verify Settlement on choice Red4', async() =>{  
     await SedieFunc.verifySettlement("Red4",200)
   })
 
-  it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
+  it('TC_032_Full_Verify Settlement on choice Red3', async() =>{  
     await SedieFunc.verifySettlement("Red3",50)
   })
 
-  it('TC_033_Full_Smoke_Verify Settlement on choice Red2', async() =>{  
+  it('TC_033_Full_Verify Settlement on choice Red2', async() =>{  
     await SedieFunc.verifySettlement("Red2",1)
   })
 
-  it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
+  it('TC_034_Full_Verify Settlement on choice White3', async() =>{  
     await SedieFunc.verifySettlement("White3",100)
   })
   
-  it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
+  it('TC_035_Full_Verify Settlement on choice White4', async() =>{  
     result = await SedieFunc.verifySettlement("White4",10,true)
     console.log(result)
   })
@@ -179,22 +179,22 @@ describe('Sedie Game', ()=>{
     await SedieFunc.returnHome()
   })
 
-  it('TC_039_Full_Smoke_Verify Result Page', async()=>{
+  it('TC_039_Full_Verify Result Page', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.Sedie.verifyResult(await result)
   })
 
-  it('TC_040_Full_Smoke_Verify searching an invalid roundid', async() =>{
+  it('TC_040_Full_Verify searching an invalid roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.Sedie.verifyInvalidRoundID()
   })
 
-  it('TC_041_Full_Smoke_Verify searching an archived roundid', async() =>{
+  it('TC_041_Full_Verify searching an archived roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.Sedie.verifyArchivedRoundID()
   })
 
-  it('TC_042_Full_Smoke_Verify searching with roundid =0', async()=>{
+  it('TC_042_Fulle_Verify searching with roundid =0', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.Sedie.verifyRoundID0()
   })

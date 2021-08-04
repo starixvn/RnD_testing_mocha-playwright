@@ -19,7 +19,7 @@ describe('TurboOddEven Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -41,14 +41,14 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CloseGuide()
   })  
 
-  it('TC_04_Full_Smoke_Verify Statistic Content', async () => {
+  it('TC_04_Full_Verify Statistic Content', async () => {
     await TurboOddEvenFunc.OpenStatistic()
     await TurboOddEvenFunc.VerifyStatisticContent()
     await TurboOddEvenFunc.CloseStatistic()
     await utils.verifyBettingTime(game)
   })  
 
-  it('TC_05_Full_Smoke_Verify Preset Content', async () => {
+  it('TC_05_Full_Verify Preset Content', async () => {
     await TurboOddEvenFunc.OpenPreset()
     await TurboOddEvenFunc.VerifyPresetContent()
     await TurboOddEvenFunc.ClosePreset()
@@ -220,7 +220,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   }) 
 
-  it('TC_18_Full_Smoke_Verify Betting [1-50] on Odd with specific Preset Chip + extra Chip on Board', async () => {
+  it('TC_18_Full_Verify Betting [1-50] on Odd with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Odd
     //Verify all preset and chips on board can be bet success  
     await TurboOddEvenFunc.waitUtilNewRound()
@@ -275,7 +275,7 @@ describe('TurboOddEven Game', ()=>{
 
   }) 
 
-  it('TC_21_Full_erify Betting [100-500] on Even with specific Preset Chip + extra Chip on Board', async () => {
+  it('TC_21_Full_Verify Betting [100-500] on Even with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Even
     //Verify all preset and chips on board can be bet success   
     await TurboOddEvenFunc.waitUtilNewRound()
@@ -293,7 +293,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   }) 
 
-    it('TC_22_Full_Smoke_Verify Betting [1-50] on Odd with accumulate presetchip', async () => {
+    it('TC_22_Full_Verify Betting [1-50] on Odd with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Odd, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success  
     await TurboOddEvenFunc.waitUtilNewRound()
@@ -370,17 +370,17 @@ describe('TurboOddEven Game', ()=>{
      await TurboOddEvenFunc.ClearPreset()   
   }) 
 
-  it('TC_26_Full_Smoke_Verify searching an invalid roundid', async() =>{
+  it('TC_26_Full_Verify searching an invalid roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.OddEvenTurbo.verifyInvalidRoundID()
   })
 
-  it('TC_27_Full_Smoke_Verify searching an archived roundid', async() =>{
+  it('TC_27_Full_Verify searching an archived roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.OddEvenTurbo.verifyArchivedRoundID()
   })
 
-  it('TC_28_Full_Smoke_Verify searching with roundid =0', async()=>{
+  it('TC_28_Full_Verify searching with roundid =0', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.OddEvenTurbo.verifyRoundID0()
   })

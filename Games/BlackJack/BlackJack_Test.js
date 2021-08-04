@@ -17,7 +17,7 @@ describe('BlackJack Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -400,7 +400,7 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
     })
 
-    it('TC_20_Full_Smoke_Verify Re-bet Of Triple Hands', async () => {
+    it('TC_20_Full_Verify Re-bet Of Triple Hands', async () => {
       const pos1 = 'Pos1'
       const pos2 = 'Pos2'
       const pos3 = 'Pos3'

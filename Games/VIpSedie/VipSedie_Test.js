@@ -15,7 +15,7 @@ describe('VipSedie Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })
@@ -62,83 +62,83 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifyBetChip()
   })
 
-  it('TC_011_Full_Smoke_Verify betting by chip 20', async() =>{
+  it('TC_011_Full_Verify betting by chip 20', async() =>{
     await VipSedieFunc.placeBet("Even",20)
   })
 
-  it('TC_012_Full_Smoke_Verify betting by chip 50', async() =>{
+  it('TC_012_Full_Verify betting by chip 50', async() =>{
     await VipSedieFunc.placeBet("Even",50)
   })
 
-  it('TC_013_Full_Smoke_Verify betting by chip 100', async() =>{
+  it('TC_013_Full_Verify betting by chip 100', async() =>{
     await VipSedieFunc.placeBet("Even",100)
   })
 
-  it('TC_014_Full_Smoke_Verify betting by chip 200', async() =>{
+  it('TC_014_Full_Verify betting by chip 200', async() =>{
     await VipSedieFunc.placeBet("Even",200)
   })
 
-  it('TC_015_Full_Smoke_Verify betting by chip 500', async() =>{
+  it('TC_015_Full_Verify betting by chip 500', async() =>{
     await VipSedieFunc.placeBet("Even",500)
   })
 
-  it('TC_016_Full_Smoke_Verify betting by chip 1000', async() =>{
+  it('TC_016_Full_Verify betting by chip 1000', async() =>{
     await VipSedieFunc.placeBet("Even",1000)
   })
 
-  it('TC_017_Full_Smoke_Verify betting by chip 2000', async() =>{
+  it('TC_017_Full_Verify betting by chip 2000', async() =>{
     await VipSedieFunc.placeBet("Even",2000)
   })
 
-  it('TC_018_Full_Smoke_Verify betting by chip 3000', async() =>{
+  it('TC_018_Full_Verify betting by chip 3000', async() =>{
     await VipSedieFunc.placeBet("Even",3000)
   })
 
-  it('TC_019_Full_Smoke_Verify betting at Block Betting Time', async() =>{
+  it('TC_019_Full_Verify betting at Block Betting Time', async() =>{
     await VipSedieFunc.verifyBetAtBlockBettingTime()
   })
 
-  it('TC_020_Full_Smoke_Verify betting at Settlement Time', async() =>{
+  it('TC_020_Full_Verify betting at Settlement Time', async() =>{
     await VipSedieFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_021_Full_Smoke_Verify maxbet of Even', async() =>{
+  it('TC_021_Full_Verify maxbet of Even', async() =>{
     await VipSedieFunc.verifyMaxBet('Even')
   })
 
-  it('TC_022_Full_Smoke_Verify maxbet of Odd', async() =>{
+  it('TC_022_Full__Verify maxbet of Odd', async() =>{
     await VipSedieFunc.verifyMaxBet('Odd')
   })
 
-  it('TC_023_Full_Smoke_Verify maxbet of Red4', async() =>{
+  it('TC_023_Full_Verify maxbet of Red4', async() =>{
     await VipSedieFunc.verifyMaxBet('Red4')
   })
 
-  it('TC_024_Full_Smoke_Verify maxbet of Red3', async() =>{
+  it('TC_024_Full_Verify maxbet of Red3', async() =>{
     await VipSedieFunc.verifyMaxBet('Red3')
   })
 
-  it('TC_025_Full_Smoke_Verify maxbet of Red2', async() =>{
+  it('TC_025_Full_Verify maxbet of Red2', async() =>{
     await VipSedieFunc.verifyMaxBet('Red2')
   })
 
-  it('TC_026_Full_Smoke_Verify maxbet of White3', async() =>{
+  it('TC_026_Full_Verify maxbet of White3', async() =>{
     await VipSedieFunc.verifyMaxBet('White3')
   })
 
-  it('TC_027_Full_Smoke_Verify maxbet of White4', async() =>{
+  it('TC_027_Full_Verify maxbet of White4', async() =>{
     await VipSedieFunc.verifyMaxBet('White4')
   })
   
-  it('TC_028_Full_Smoke_Verify maxbet of Round', async() =>{
+  it('TC_028_Full_Verify maxbet of Round', async() =>{
     await VipSedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
     await VipSedieFunc.verifySettlement("Even",20)
   })
 
-  it('TC_030_Full_Smoke_Verify Settlement on choice Odd', async() =>{  
+  it('TC_030_Full_Verify Settlement on choice Odd', async() =>{  
     await VipSedieFunc.verifySettlement("Odd",50)
   })
 
@@ -146,19 +146,19 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifySettlement("Red4",500)
   })
 
-  it('TC_032_Full_Smoke_Verify Settlement on choice Red3', async() =>{  
+  it('TC_032_Full_Verify Settlement on choice Red3', async() =>{  
     await VipSedieFunc.verifySettlement("Red3",50)
   })
 
-  it('TC_033_Full_Smoke_Verify Settlement on choice Red2', async() =>{  
+  it('TC_033_Full_Verify Settlement on choice Red2', async() =>{  
     await VipSedieFunc.verifySettlement("Red2",20)
   })
 
-  it('TC_034_Full_Smoke_Verify Settlement on choice White3', async() =>{  
+  it('TC_034_Full_Verify Settlement on choice White3', async() =>{  
     await VipSedieFunc.verifySettlement("White3",100)
   })
   
-  it('TC_035_Full_Smoke_Verify Settlement on choice White4', async() =>{  
+  it('TC_035_Full_Verify Settlement on choice White4', async() =>{  
     result = await VipSedieFunc.verifySettlement("White4",50,true)
   })
 
@@ -178,22 +178,22 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.returnHome()
   })
 
-  it('TC_039_Full_Smoke_Verify Result Page', async()=>{
+  it('TC_039_Full_Verify Result Page', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.VipSedie.verifyResult(await result)
   })
 
-  it('TC_040_Full_Smoke_Verify searching an invalid roundid', async() =>{
+  it('TC_040_Full_Verify searching an invalid roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.VipSedie.verifyInvalidRoundID()
   })
 
-  it('TC_041_Full_Smoke_Verify searching an archived roundid', async() =>{
+  it('TC_041_Full_Verify searching an archived roundid', async() =>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.VipSedie.verifyArchivedRoundID()
   })
 
-  it('TC_042_Full_Smoke_Verify searching with roundid =0', async()=>{
+  it('TC_042_Full_Verify searching with roundid =0', async()=>{
     await GameLobbyFunc.openResultPage()
     await ResultFunc.VipSedie.verifyRoundID0()
   })
