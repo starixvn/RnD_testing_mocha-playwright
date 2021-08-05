@@ -51,10 +51,14 @@ export const login_local = async(_env,_game) => {
         try{
             const cflang = process.env.npm_config_lang=='vn'?'vi-VN':'en-US'
             let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"GJ62Pjtn","language":cflang,"currency":"$US","seq":"d,y,lumi","siteId":"4100300","ip":"10.0.0.11","browserUserAgent": userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"owUrl":""},"domain":"example.com","localhost":null,"resource":null}
-            chai.request(config[_env].url).post("/sso").send(_requestjs).end( async(err,res)=>{
-            const obj = JSON.parse(res.text);
+            let res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
+            let obj = new Object()
+            if(res.statusCode != 200) {
+                await console.log('re-sso');
+                res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
+            }
+            obj = JSON.parse(res.text)
             await utils.navigate(obj.redirectUrl)
-            })
             await utils.sleep(7000)//Wait for login process
         } catch (error) {
             console.error(error.message)
