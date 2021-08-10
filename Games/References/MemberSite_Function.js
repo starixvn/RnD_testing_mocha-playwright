@@ -53,7 +53,7 @@ export const login_local = async(_env,_game) => {
             let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"GJ62Pjtn","language":cflang,"currency":"$US","seq":"d,y,lumi","siteId":"4100300","ip":"10.0.0.11","browserUserAgent": userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"owUrl":""},"domain":"example.com","localhost":null,"resource":null}
             let res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
             let obj = new Object()
-            if(res.statusCode != 200) {
+            if(res.text.length == 0) {
                 await console.log('re-sso');
                 res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
             }
