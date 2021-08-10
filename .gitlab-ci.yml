@@ -30,7 +30,7 @@ test2:
     - docker-automation-test
   script:
     - npm install --no-optional
-    - npm run p_smoke --lang=en
+    - npm run p_smoke --lang=$lang_smoke
   artifacts:
     paths:
       - Report/en
