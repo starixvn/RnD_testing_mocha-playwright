@@ -33,7 +33,7 @@ test2:
     - npm run p_smoke --lang=$lang_smoke
   artifacts:
     paths:
-      - Report/en
+      - Report/$lang_smoke
       - build.env
     when: always
     expire_in: 1 day 
