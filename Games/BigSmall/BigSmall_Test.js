@@ -99,7 +99,7 @@ describe('BigSmall Game', ()=>{
   })  
  
    it('TC_10_Full_Verify Betting Full Chips on Big', async () => {
-    const Achip =  [1,5,10,50,100,200,500,1000]
+    const Achip =  [200,500,1000]
     const pos = "Big"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -112,7 +112,7 @@ describe('BigSmall Game', ()=>{
   })  
 
   it('TC_11_Full_Verify Betting Full Chips on Small', async () => {
-    const Achip =  [1,5,10,50,100,200,500,1000]
+    const Achip =  [1,5,10,50,100]
     const pos = "Small"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -124,7 +124,7 @@ describe('BigSmall Game', ()=>{
   })  
 
   it('TC_12_Full_Verify Preset Betting Full Chips on Big', async () => {
-    const Achip =  [1,5,10,50,100,200,500,1000]
+    const Achip =  [200,500,1000]
     const pos = "Big"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -141,7 +141,7 @@ describe('BigSmall Game', ()=>{
   })  
 
   it('TC_13_Full_Verify Preset Betting Full Chips on Big', async () => {
-    const Achip =  [1,5,10,50,100,200,500,1000]
+    const Achip =  [1,5,10,50,100]
     const pos = "Small"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -155,12 +155,12 @@ describe('BigSmall Game', ()=>{
     await BigSmallFunc.OpenPreset()
     await BigSmallFunc.ClearPresetChip()
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
-  }) 
-
+  })
+  
   it('TC_14_Full_Verify Betting on Big with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Big
     //Verify all preset and chips on board can be bet success
-    const Achip =  [1,5,10,50,100,200,500]
+    const Achip =  [1,5,10,50]
     const pos = "Big"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -179,7 +179,7 @@ describe('BigSmall Game', ()=>{
   it('TC_15_Full_Smoke_Verify Betting on Small with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Small
     //Verify all preset and chips on board can be bet success
-    const Achip =  [1,5,10,50,100,200,500]
+    const Achip =  [100,200,500]
     const pos = "Small"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -198,7 +198,7 @@ describe('BigSmall Game', ()=>{
     it('TC_16_Full_Verify Betting on Big with accumulate presetchip', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
-    const Achip =  [1,5,10,50,100,200,500, 1000]
+    const Achip =  [1,5,10,50,100]
     const pos = "Big"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
@@ -217,7 +217,7 @@ describe('BigSmall Game', ()=>{
   it('TC_17_Full_Verify Betting on Small with accumulate presetchip and Result page', async () => {
     //Test senario: Set Preset Chip Then Place Bet on Big, Value of preset chip will be accmulated
     //Verify all preset and chips on board can be bet success
-    const Achip =  [1,5,10,50,100,200,500, 1000]
+    const Achip =  [200,500, 1000]
     const pos = "Small"
     let _stake =0
     for (let i =0 ; i< Achip.length ;i ++){
