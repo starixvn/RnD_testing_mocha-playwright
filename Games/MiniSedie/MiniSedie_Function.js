@@ -339,7 +339,7 @@ export const verifyGuideContent = async()=> {
     let _AcheckImage = [ MiniSedieLocator.Guide.ImageCompare1, MiniSedieLocator.Guide.ImageCompare2, MiniSedieLocator.Guide.ImageCompare3,
         MiniSedieLocator.Guide.ImageCompare4, MiniSedieLocator.Guide.ImageCompare5] 
     for(let t = 0; t< _AcheckImage.length; t++){
-        // Get Screen Shot for Guide content
+        // // Get Screen Shot for Guide content
         // await page.screenshot({path: _AcheckImage[t] ,clip:{
         // x: MiniSedieLocator.Guide.left,
         //     y: MiniSedieLocator.Guide.top,

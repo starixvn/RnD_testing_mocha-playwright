@@ -10,7 +10,7 @@ export const setting ={
     headless: true,
 }
 
-export const cf_local2 ={
+export const cf_local ={
     url: "https://l1-glbs2.lumigame.com/signin",
     usernameSSO: "",
     memberId: {
@@ -38,7 +38,7 @@ export const cf_local2 ={
     setBalance : "https://l1-ows2.lumigame.com/SabaClub/CreateCustomer"
 }
 
-export const cf_local ={
+export const cf_local1 ={
     url: "https://l1-glbs1.lumigame.com/signin",
     usernameSSO: "",
     memberId: {
@@ -66,33 +66,33 @@ export const cf_local ={
     setBalance : "https://l1-ows1.lumigame.com/SabaClub/CreateCustomer"
 }
 
-export const cf_local1 ={
-    url: "https://gamelobby-simulator.lumigame.com/signin",
-    usernameSSO: "",
-    memberId: {
-        BlackJack : "1001051",
-        Sedie : "1001052",
-        VipSedie : "1001053",
-        Sicbo:  "1001054",
-        Keno:  "1001055",
-        Baccarat:  "1001056",
-        Roulette:  "1001057",
-        BigSmall : "1001058",
-        MiniSedie: "1001059",
-        TurboBigSmall: "1001060",
-        TurboOddEven: "1001061",
-        SedieWar: "1001062",
-        BigSmallSicbo: "1001063",
-        FourGuardians: "1001064"
-    },
-    password: "",
-    gamelobbyurl: "",
-    urlWebsocket: "wss://l1-proxy.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
-    urlOrigin: "https://gamelobby-simulator.lumigame.com",
-    protocol: "wss",
-    retrieveEndGame : "https://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
-    setBalance : "https://owapi-simulator.lumigame.com/SabaClub/CreateCustomer"
-}
+// export const cf_local1 ={
+//     url: "https://gamelobby-simulator.lumigame.com/signin",
+//     usernameSSO: "",
+//     memberId: {
+//         BlackJack : "1001051",
+//         Sedie : "1001052",
+//         VipSedie : "1001053",
+//         Sicbo:  "1001054",
+//         Keno:  "1001055",
+//         Baccarat:  "1001056",
+//         Roulette:  "1001057",
+//         BigSmall : "1001058",
+//         MiniSedie: "1001059",
+//         TurboBigSmall: "1001060",
+//         TurboOddEven: "1001061",
+//         SedieWar: "1001062",
+//         BigSmallSicbo: "1001063",
+//         FourGuardians: "1001064"
+//     },
+//     password: "",
+//     gamelobbyurl: "",
+//     urlWebsocket: "wss://l1-proxy.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
+//     urlOrigin: "https://gamelobby-simulator.lumigame.com",
+//     protocol: "wss",
+//     retrieveEndGame : "https://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
+//     setBalance : "https://owapi-simulator.lumigame.com/SabaClub/CreateCustomer"
+// }
 
 export const cf_sit ={
     url: "http://demo:one23@qawer.playthefun.com:5068/login",
