@@ -41,6 +41,7 @@ describe('BigSmall Game', ()=>{
   })  
 
   it('TC_04_Full_Smoke_Verify Statistic and Preset Content', async () => {
+    await BigSmallFunc.waitUtilNewRound()
     await BigSmallFunc.OpenStatistic()
     await BigSmallFunc.VerifyStatisticContent()
     await BigSmallFunc.CloseStatistic()
@@ -51,10 +52,10 @@ describe('BigSmall Game', ()=>{
 
   it('TC_05_Full_Verify Block bet time', async () => {
     await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
-    await utils.sleep(8000)
   })  
 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
+  await BigSmallFunc.waitUtilNewRound()
     const pos = "Big"
     const errormsg = `"errorCode":"SB1911","maxBet":2000`
    await BigSmallFunc.PlaceBet(pos,1000)

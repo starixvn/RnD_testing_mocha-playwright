@@ -13,6 +13,14 @@ export const CloseGame = async() => {
 
 }
 
+//Wait until new round
+export const waitUtilNewRound = async() => {
+  wsMessageReceived = []
+  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"remainingTime":61}]')
+  await utils.sleep(5000)
+  console.log('new round ready')
+}
+
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){
