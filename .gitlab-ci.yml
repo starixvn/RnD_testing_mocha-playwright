@@ -17,6 +17,8 @@ test1:
     - npm install --no-optional
     - echo "JOBR=$CI_JOB_ID" >> build.env
     - npm run $Mode --args=env=$env --lang=$lang
+  rules:
+    - if: $PRODUCT == "All"
   artifacts:
     paths:
       - Report/$lang
@@ -29,8 +31,10 @@ test2:
   tags:
     - docker-automation-test
   script:
-    - npm install --no-optional
-    - npm run p_smoke --lang=$lang_smoke
+    - npm install --no-optional 
+    - npm run CI_SelGame --lang=$lang_smoke --game=$PRODUCT
+  rules:
+    - if: $PRODUCT != "All"
   artifacts:
     paths:
       - Report/$lang_smoke
