@@ -32,7 +32,7 @@ test2:
     - docker-automation-test
   script:
     - npm install --no-optional 
-    - npm run CI_SelGame --lang=$lang_smoke --game=$PRODUCT
+    - npm run CI_SelGame_Smoke --lang=$lang_smoke --game=$PRODUCT
   rules:
     - if: $PRODUCT != "All"
   artifacts:
