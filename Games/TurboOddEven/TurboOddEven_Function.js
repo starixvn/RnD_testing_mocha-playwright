@@ -75,8 +75,10 @@ export const ClosePreset = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
-  await utils.sleep(5000)
+  const _title= await utils.findImage(TurboOddEvenLocator.NewRound.ImageCompare,TurboOddEvenLocator.NewRound)
+  // let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
+  // await utils.sleep(6000)
+  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.NewRound)
   console.log('new round ready')
 }
 
@@ -199,7 +201,6 @@ export const CloseChipBoard = async () => {
 export const SubmitChip = async () => {
   try {
       await utils.clickPos(TurboOddEvenLocator.ChipBroadAccept.x,TurboOddEvenLocator.ChipBroadAccept.y)
-      await page.waitForTimeout(500)
   } catch (e) {
       console.error(e)
   }
@@ -291,7 +292,7 @@ export const VerifyStatisticContent = async() => {
 
 //Is Round Error after betting
 export const IsBetFail = async(_pos) => {
-  let _found = await utils.wsFindMessage("notice",1)
+  let _found = await utils.wsFindMessage("notice",2)
   return _found.Val
 }
 

@@ -66,6 +66,7 @@ describe('BigSmall Game', ()=>{
   }) 
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {
+  await BigSmallFunc.waitUtilNewRound()
    const pos = "Small"
    const errormsg = `"errorCode":"SB1911","maxBet":2000`
   await BigSmallFunc.PlaceBet(pos,1000)
@@ -77,6 +78,7 @@ describe('BigSmall Game', ()=>{
 }) 
 
   it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Big', async () => {
+    await BigSmallFunc.waitUtilNewRound()
      const pos = "Big"
      const errormsg = '"errorCode":"SB1927"'
     await BigSmallFunc.PlaceBet(pos,1)
@@ -89,6 +91,7 @@ describe('BigSmall Game', ()=>{
 
 
   it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {
+    await BigSmallFunc.waitUtilNewRound()
     const pos = "Small"
     const errormsg = '"errorCode":"SB1927"'
    await BigSmallFunc.PlaceBet(pos,1)

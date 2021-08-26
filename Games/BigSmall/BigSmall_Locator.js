@@ -47,6 +47,7 @@ export const BigSmallLocator_vn = {
 	Guide : { x : 935, y : 344, top : 73, left : 177, width : 938, height : 560, ImageCompare1 : pathImageCompare + "ImgCompare_BigSmall_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BigSmall_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BigSmall_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BigSmall_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BigSmall_Guide_5.png" },
 	GuideClose : { x : 1088, y : 98 },
 	Close : { x : 902, y : 263},
+	NewRound : { top : 333, left : 583, width : 110, height : 70, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_NewRound.png"  },
 	RoundDetailTitle: { left : 480, top : 130, width : 300, height : 40, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_RoundDetailTitle.png"}
 	}
 
@@ -96,5 +97,6 @@ export const BigSmallLocator_en = {
 	Guide : { x : 935, y : 344, top : 73, left : 177, width : 938, height : 560, ImageCompare1 : pathImageCompare + "ImgCompare_BigSmall_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BigSmall_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BigSmall_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BigSmall_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BigSmall_Guide_5.png" },
 	GuideClose : { x : 1088, y : 98 },
 	Close : { x : 902, y : 263},
+	NewRound : { top : 333, left : 583, width : 110, height : 70, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_NewRound.png"  },
 	RoundDetailTitle: { left : 480, top : 130, width : 300, height : 40, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_RoundDetailTitle.png"}
 	}	

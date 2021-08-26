@@ -15,10 +15,10 @@ export const CloseGame = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  wsMessageReceived = []
-  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"remainingTime":61}]')
-  await utils.sleep(5000)
-  console.log('new round ready')
+  // let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"remainingTime":61}]')
+  // await utils.sleep(11000)
+  // /await utils.CaptureSubImageToFile(BigSmallLocator.NewRound)
+  const _title= await utils.findImage(BigSmallLocator.NewRound.ImageCompare,BigSmallLocator.NewRound)
 }
 
 export const OpenHistory = async() => {

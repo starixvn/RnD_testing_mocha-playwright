@@ -44,6 +44,7 @@ export const TurboOddEvenLocator_vn = {
 	HistoryClose : { x : 1035, y : 108 },
 	Guide : { x : 935, y : 344, top : 71, left : 175, width : 939, height : 567, ImageCompare1 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_5.png" },
 	GuideClose : { x : 1088, y : 98 },
+	NewRound : { top : 333, left : 583, width : 110, height : 70, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_NewRound.png"  },
 	Close : { x : 902, y : 263 }
 }
 
@@ -91,5 +92,6 @@ export const TurboOddEvenLocator_en = {
 	HistoryClose : { x : 1035, y : 108 },
 	Guide : { x : 935, y : 344, top : 71, left : 175, width : 939, height : 567, ImageCompare1 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_TurboOddEven_Guide_5.png" },
 	GuideClose : { x : 1088, y : 98 },
+	NewRound : { top : 333, left : 583, width : 110, height : 60, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_NewRound.png"  },
 	Close : { x : 902, y : 263 }
 }
