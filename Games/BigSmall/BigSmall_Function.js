@@ -135,7 +135,10 @@ export const VerifyBetStake = async (_pos,_stake) => {
           findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"small":${_stake}}`
           _found = await utils.wsFindMessage(findmsg,5)
        }
-      await utils.shouldBeEqual(_found.Val,true, `Verify bet choice : ${_pos} and stake : ${_stake} `)    
+       if(_found.Val==false){
+         console.log('ws message to trace bet choice',wsMessageReceived);
+       }
+       await utils.shouldBeEqual(_found.Val,true, `Verify bet choice : ${_pos} and stake : ${_stake} `)    
    } catch (e) {
       console.error(e)
   }

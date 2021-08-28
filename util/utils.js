@@ -535,7 +535,11 @@ export const Login = async(_env,_game) => {
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     await getSession()
+    if(flag.Val ==false){
+        await page.screenShot({path:`Failed_login_${_game}.png`})
+    }
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
+    
 }
 
 export const getDataJsonPath = async(_rawData, _jsonpath) => {
