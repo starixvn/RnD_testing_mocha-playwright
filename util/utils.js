@@ -142,7 +142,7 @@ export const clickPos = async(_x, _y) => {
     try {
         await page.waitForTimeout(300)
         await page.mouse.click(_x,_y)
-        await page.waitForTimeout(200)
+        await page.waitForTimeout(500)
      } catch (error) {
         console.error(error.message);
         // this.screenFail()
@@ -536,7 +536,7 @@ export const Login = async(_env,_game) => {
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     await getSession()
     if(flag.Val ==false){
-        await screenShot(`Login_Failed_${_game}`)
+        await screenShot(`./Report/${lang}/Pictures/Login_Failed_${_game}`)
     }
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
     

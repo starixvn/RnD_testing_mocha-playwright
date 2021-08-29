@@ -134,7 +134,7 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
     await SedieFunc.verifySettlement("Even",5)
   })
 

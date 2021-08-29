@@ -53,11 +53,14 @@ export const login_local = async(_env,_game) => {
             let _requestjs = {"memberId": Number(config[_env].memberId[_game]),"memberName":"UdCApuxt","language":cflang,"currency":"$US","seq":"d,y,lumi","siteId":"4100300","siteName":"lumi","ip":"10.0.0.142","browserUserAgent":userAgent,"auth":{"clientId":"gamesimulator","clientSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":0,"setting":{"apiUrl":"http://l1_game_api_local_2:5000","authUrl":"http://l1_auth_api_local_2:5000","client":{"id":"game-server","secret":"gameserver@20luminet&"},"expireIn":1629190238,"useAuthenticate":true,"requestTimeout":10000,"owUrl":"https://l1-ows2.lumigame.com/SabaClub/CreateCustomer","localhost":"http://localhost:7456","mobileLocalhost":"http://localhost:3000","port":5000},"domain":"example.com","localhost":null,"appType":1,"resource":null}
             let res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
             let obj = new Object()
-            if(res.text.length == 0) {
-                await console.log('re-sso');
+            let _ssotrue = res.text.includes('redirectUrl')
+            console.log('sso value',_game, _ssotrue);
+            if(_ssotrue === false) {
+                await utils.sleep(5000)
+                await console.log('re-sso',res.text);
                 res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
             }
-            obj = JSON.parse(res.text)
+            obj = await JSON.parse(res.text)
             await utils.navigate(obj.redirectUrl)
             await utils.sleep(7000)//Wait for login process
         } catch (error) {

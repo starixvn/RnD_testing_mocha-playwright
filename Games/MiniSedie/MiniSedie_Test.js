@@ -96,7 +96,7 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_021_Full_Verify maxbet of Even', async() =>{
+  it('TC_021_Full_Smoke_Verify maxbet of Even', async() =>{
     await MiniSedieFunc.verifyMaxBet('Even')
   })
 
@@ -124,7 +124,7 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
     await MiniSedieFunc.verifySettlement("Even",5)
   })
 

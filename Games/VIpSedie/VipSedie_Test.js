@@ -94,7 +94,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.placeBet("Even",3000)
   })
 
-  it('TC_019_Full_Verify betting at Block Betting Time', async() =>{
+  it('TC_019_Full_Smoke_Verify betting at Block Betting Time', async() =>{
     await VipSedieFunc.verifyBetAtBlockBettingTime()
   })
 
@@ -102,7 +102,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_021_Full_Verify maxbet of Even', async() =>{
+  it('TC_021_Full_Smoke_Verify maxbet of Even', async() =>{
     await VipSedieFunc.verifyMaxBet('Even')
   })
 
@@ -134,7 +134,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
     await VipSedieFunc.verifySettlement("Even",20)
   })
 

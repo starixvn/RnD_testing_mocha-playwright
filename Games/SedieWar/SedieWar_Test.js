@@ -143,7 +143,7 @@ describe('SedieWar Game', ()=>{
     await SedieWarFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_031_Full_Verify maxbet of Player Choice', async() =>{
+  it('TC_031_Full_Smoke_Verify maxbet of Player Choice', async() =>{
       await SedieWarFunc.verifyMaxBet("Player")
   })
   
@@ -215,7 +215,7 @@ describe('SedieWar Game', ()=>{
       await SedieWarFunc.verifyMaxBet('Round')
   })
 
-  it('TC_049_Full_Verify Settlement on Player Choice', async() =>{
+  it('TC_049_Full_Smoke_Verify Settlement on Player Choice', async() =>{
       await SedieWarFunc.verifySettlement("Player",5)
   })
   

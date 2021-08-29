@@ -102,7 +102,7 @@ describe('BigSmall Game', ()=>{
 
   })  
  
-   it('TC_10_Full_Verify Betting Full Chips on Big', async () => {
+   it('TC_10_Full_Smoke_Verify Betting Full Chips on Big', async () => {
     const Achip =  [200,500,1000]
     const pos = "Big"
     let _stake =0
