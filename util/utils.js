@@ -536,7 +536,7 @@ export const Login = async(_env,_game) => {
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     await getSession()
     if(flag.Val ==false){
-        await page.screenShot({path:`Failed_login_${_game}.png`})
+        await screenShot(`Login_Failed_${_game}`)
     }
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
     
