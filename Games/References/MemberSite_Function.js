@@ -54,7 +54,6 @@ export const login_local = async(_env,_game) => {
             let res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
             let obj = new Object()
             await console.log(res.text,res.status);
-            console.log('sso value',_game, _ssotrue);
             if(res.status != 200) {
                 await utils.sleep(10000)
                 await console.log('re-sso');
