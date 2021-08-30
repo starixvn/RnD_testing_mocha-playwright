@@ -40,7 +40,7 @@ export const Doc = class {
     }
 
     async setDefaultHeader() {
-        await this.sheet.setHeaderRow(["Automation ID","Status","Execution Time","Note"])
+        await this.sheet.setHeaderRow(["Automation ID","Status","Duration","Execution Time","Note"])
     }
 
 }
@@ -72,10 +72,17 @@ export const repareData_vn = async(_note="")=> {
         for(let i=0; i<rawStatus.length ;i++) {
             status.push( (rawStatus[i] === true ) ? 'Passed' : 'Failed')
         }
+        // push duration
+        let rawduration = jp.query(jsonResult,'$..tests..duration')
+        let _duration =[]
+        for(let i=0; i<rawduration.length ;i++) {
+            _duration.push(parseFloat(Number(rawduration[i])/1000).toFixed(2))            
+        }
+
         let object = []
         // Create Object file
         for(let i=0; i<rawTestcaseName.length;i++) {
-            object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note})
+            object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note, "Duration": _duration[i]})
         }
         return object
     } catch {
@@ -102,10 +109,17 @@ export const repareData_en = async(_note="")=> {
         for(let i=0; i<rawStatus.length ;i++) {
             status.push( (rawStatus[i] === true ) ? 'Passed' : 'Failed')
         }
+        // push duration
+        let rawduration = jp.query(jsonResult,'$..tests..duration')
+        let _duration =[]
+        for(let i=0; i<rawduration.length ;i++) {
+            _duration.push(parseFloat(Number(rawduration[i])/1000).toFixed(2))            
+        }
+
         let object = []
         // Create Object file
         for(let i=0; i<rawTestcaseName.length;i++) {
-            object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note})
+            object.push({"Automation ID":testcaseName[i], Status: status[i], "Execution Time": t, TestSuite: testSuiteName[i] , "Note":note, "Duration": _duration[i]})
         }
         return object
     } catch {
