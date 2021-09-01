@@ -356,6 +356,9 @@ export const findImage = async(_subimage, _x=null, _y=null, _w=null, _h=null) =>
             // console.log('a_pixeldiff:'+flag.toString())
             // console.log('e_pixelmatch'+(_w*_h*0.07).toString())
             if(flag<(_w*_h*0.07)) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
+            if(flag>(_w*_h*0.07)) {
+                await sleep(500)
+            }
             setTimeout(() => { 
                 loop = false
                 }, config.setting.timeout);

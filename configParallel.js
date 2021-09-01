@@ -21,8 +21,15 @@ exports.mochaHooks = {
     }
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
-       headless: true ,
-       args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
+       headless: true 
+      //  args: ['--disable-dev-shm-usage', 
+      //  '--no-sandbox',
+      //  '--disable-setuid-sandbox',
+      //  '--no-zygote',
+      //   '--disable-gpu',
+      //   '--disable-accelerated-2d-canvas',
+      //    '--use-gl=swiftshader',
+      //    '--enable-webgl']
       })
     const context = await browser.newContext({
         viewport: {
