@@ -28,33 +28,7 @@ describe('BigSmall Game', ()=>{
    //await BigSmallFunc.checkNavStatisticbar()
     }) 
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
-    await BigSmallFunc.OpenHistory()
-    await BigSmallFunc.VerifyHistoryContent()
-    await BigSmallFunc.CloseHistory()
-  })  
-
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-    await BigSmallFunc.OpenGuide()
-    await BigSmallFunc.VerifyGuideContent()
-    await BigSmallFunc.CloseGuide()
-  })  
-
-  it('TC_04_Full_Smoke_Verify Statistic and Preset Content', async () => {
-    await BigSmallFunc.waitUtilNewRound()
-    await BigSmallFunc.OpenStatistic()
-    await BigSmallFunc.VerifyStatisticContent()
-    await BigSmallFunc.CloseStatistic()
-    await BigSmallFunc.OpenPreset()
-    await BigSmallFunc.VerifyPresetContent()
-    await BigSmallFunc.ClosePreset()
-  })  
-
-  it('TC_05_Full_Verify Block bet time', async () => {
-    await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
-  })  
-
-  it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
+   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
   await BigSmallFunc.waitUtilNewRound()
     const pos = "Big"
     const errormsg = `"errorCode":"SB1911","maxBet":2000`
@@ -255,6 +229,32 @@ describe('BigSmall Game', ()=>{
     await ResultFunc.BigSmall.verifyRoundID0()
   })
 
+  it('TC_02_Full_Smoke_Verify History Content', async () => {
+    await BigSmallFunc.OpenHistory()
+    await BigSmallFunc.VerifyHistoryContent()
+    await BigSmallFunc.CloseHistory()
+  })  
+
+  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+    await BigSmallFunc.OpenGuide()
+    await BigSmallFunc.VerifyGuideContent()
+    await BigSmallFunc.CloseGuide()
+  })  
+
+  it('TC_04_Full_Smoke_Verify Statistic and Preset Content', async () => {
+    await BigSmallFunc.waitUtilNewRound()
+    await BigSmallFunc.OpenStatistic()
+    await BigSmallFunc.VerifyStatisticContent()
+    await BigSmallFunc.CloseStatistic()
+    await BigSmallFunc.OpenPreset()
+    await BigSmallFunc.VerifyPresetContent()
+    await BigSmallFunc.ClosePreset()
+  })  
+
+  it('TC_05_Full_Verify Block bet time', async () => {
+    await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
+  })  
+  
   it('TC_21_Full_Smoke_Verify Close Game Success', async () => {
     await BigSmallFunc.CloseGame()
   }) 

@@ -405,11 +405,11 @@ export const CheckSettleBalance = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  // let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"remainingTime":36}]')
-  // await utils.sleep(6000)
-  // await utils.CaptureSubImageToFile(TurboBigSmallLocator.NewRound)
-  const _title= await utils.findImage(TurboBigSmallLocator.NewRound.ImageCompare,TurboBigSmallLocator.NewRound)
-  console.log('new round ready')
+  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"remainingTime":36}]')
+  await utils.sleep(6000)
+  // // await utils.CaptureSubImageToFile(TurboBigSmallLocator.NewRound)
+  // const _title= await utils.findImage(TurboBigSmallLocator.NewRound.ImageCompare,TurboBigSmallLocator.NewRound)
+  // console.log('new round ready')
 }
 
 export const ClearPreset = async()=>{

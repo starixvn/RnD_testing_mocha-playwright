@@ -29,33 +29,6 @@ describe('TurboOddEven Game', ()=>{
 
   })  
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
-    await TurboOddEvenFunc.OpenHistory()
-    await TurboOddEvenFunc.VerifyHistoryContent()
-    await TurboOddEvenFunc.CloseHistory()
-  })  
-
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-    await TurboOddEvenFunc.OpenGuide()
-    await TurboOddEvenFunc.VerifyGuideContent()
-    await TurboOddEvenFunc.CloseGuide()
-  })  
-
-  it('TC_04_Full_Verify Statistic Content', async () => {
-    await TurboOddEvenFunc.OpenStatistic()
-    await TurboOddEvenFunc.VerifyStatisticContent()
-    await TurboOddEvenFunc.CloseStatistic()
-    await utils.verifyBettingTime(game)
-  })  
-
-  it('TC_05_Full_Verify Preset Content', async () => {
-    await TurboOddEvenFunc.OpenPreset()
-    await TurboOddEvenFunc.VerifyPresetContent()
-    await TurboOddEvenFunc.ClosePreset()
-    await utils.verifyBlockTime(game,TurboOddEvenFunc.PlaceBet,['Odd',1,'nowait'])
-
-  })  
-
   it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {
     await TurboOddEvenFunc.waitUtilNewRound()
     const pos = "Odd"
@@ -385,6 +358,33 @@ describe('TurboOddEven Game', ()=>{
     await ResultFunc.OddEvenTurbo.verifyRoundID0()
   })
 
+  it('TC_02_Full_Smoke_Verify History Content', async () => {
+    await TurboOddEvenFunc.OpenHistory()
+    await TurboOddEvenFunc.VerifyHistoryContent()
+    await TurboOddEvenFunc.CloseHistory()
+  })  
+
+  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+    await TurboOddEvenFunc.OpenGuide()
+    await TurboOddEvenFunc.VerifyGuideContent()
+    await TurboOddEvenFunc.CloseGuide()
+  })  
+
+  it('TC_04_Full_Verify Statistic Content', async () => {
+    await TurboOddEvenFunc.OpenStatistic()
+    await TurboOddEvenFunc.VerifyStatisticContent()
+    await TurboOddEvenFunc.CloseStatistic()
+    await utils.verifyBettingTime(game)
+  })  
+
+  it('TC_05_Full_Verify Preset Content', async () => {
+    await TurboOddEvenFunc.OpenPreset()
+    await TurboOddEvenFunc.VerifyPresetContent()
+    await TurboOddEvenFunc.ClosePreset()
+    await utils.verifyBlockTime(game,TurboOddEvenFunc.PlaceBet,['Odd',1,'nowait'])
+
+  })  
+  
   it('TC_29_Full_Smoke_Verify Close Game Success', async () => {
     await TurboOddEvenFunc.CloseGame()
   }) 

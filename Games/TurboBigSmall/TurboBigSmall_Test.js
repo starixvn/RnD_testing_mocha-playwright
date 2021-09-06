@@ -29,33 +29,7 @@ describe('TurboBigSmall Game', ()=>{
     //await TurboBigSmallFunc.checkNavStatisticbar()
   })  
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
-    await TurboBigSmallFunc.OpenHistory()
-    await TurboBigSmallFunc.VerifyHistoryContent()
-    await TurboBigSmallFunc.CloseHistory()
-  })  
-
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-    await TurboBigSmallFunc.OpenGuide()
-    await TurboBigSmallFunc.VerifyGuideContent()
-    await TurboBigSmallFunc.CloseGuide()
-  })  
-
-  it('TC_04_Full_Verify Statistic Content', async () => {
-    await TurboBigSmallFunc.OpenStatistic()
-    await TurboBigSmallFunc.VerifyStatisticContent()
-    await TurboBigSmallFunc.CloseStatistic()
-    await utils.verifyBettingTime(game)
-  })  
-
-  it('TC_05_Full_Verify Preset Content', async () => {
-    await TurboBigSmallFunc.OpenPreset()
-    await TurboBigSmallFunc.VerifyPresetContent()
-    await TurboBigSmallFunc.ClosePreset()
-    await utils.verifyBlockTime(game,TurboBigSmallFunc.PlaceBet,['Big',1,'nowait'])
-    await utils.sleep(5000)
-  })  
-
+ 
   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {   
     await TurboBigSmallFunc.waitUtilNewRound()
     const pos = "Big"
@@ -361,6 +335,33 @@ describe('TurboBigSmall Game', ()=>{
     await ResultFunc.BigSmallTurbo.verifyRoundID0()
   })
 
+  it('TC_02_Full_Smoke_Verify History Content', async () => {
+    await TurboBigSmallFunc.OpenHistory()
+    await TurboBigSmallFunc.VerifyHistoryContent()
+    await TurboBigSmallFunc.CloseHistory()
+  })  
+
+  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+    await TurboBigSmallFunc.OpenGuide()
+    await TurboBigSmallFunc.VerifyGuideContent()
+    await TurboBigSmallFunc.CloseGuide()
+  })  
+
+  it('TC_04_Full_Verify Statistic Content', async () => {
+    await TurboBigSmallFunc.OpenStatistic()
+    await TurboBigSmallFunc.VerifyStatisticContent()
+    await TurboBigSmallFunc.CloseStatistic()
+    await utils.verifyBettingTime(game)
+  })  
+
+  it('TC_05_Full_Verify Preset Content', async () => {
+    await TurboBigSmallFunc.OpenPreset()
+    await TurboBigSmallFunc.VerifyPresetContent()
+    await TurboBigSmallFunc.ClosePreset()
+    await utils.verifyBlockTime(game,TurboBigSmallFunc.PlaceBet,['Big',1,'nowait'])
+    await utils.sleep(5000)
+  })  
+  
   it('TC_29_Full_Smoke_Verify Close Game Success', async () => {
     await TurboBigSmallFunc.CloseGame()
   }) 

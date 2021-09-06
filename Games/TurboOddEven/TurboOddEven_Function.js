@@ -75,11 +75,11 @@ export const ClosePreset = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  const _title= await utils.findImage(TurboOddEvenLocator.NewRound.ImageCompare,TurboOddEvenLocator.NewRound)
-  // let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
-  // await utils.sleep(6000)
+  // const _title= await utils.findImage(TurboOddEvenLocator.NewRound.ImageCompare,TurboOddEvenLocator.NewRound)
+  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
+  await utils.sleep(6000)
   // await utils.CaptureSubImageToFile(TurboOddEvenLocator.NewRound)
-  console.log('new round ready')
+  // console.log('new round ready')
 }
 
 export const VerifySignInSuccessfully = async() => {
