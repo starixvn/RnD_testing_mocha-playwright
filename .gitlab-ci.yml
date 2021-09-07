@@ -24,30 +24,30 @@ test1:
     expire_in: 1 day 
 
 
-# config_report:
-#   stage: config-report
-#   tags:
-#     - docker-automation-test
-#   script:
-#     - exit 0
-#   when: always 
-#   artifacts:
-#     reports:
-#       dotenv: 
-#         - build.env
-#     when: always
-#     expire_in: 1 day
+config_report:
+  stage: config-report
+  tags:
+    - docker-automation-test
+  script:
+    - exit 0
+  when: always 
+  artifacts:
+    reports:
+      dotenv: 
+        - build.env
+    when: always
+    expire_in: 1 day
 
 
-# public_report:
-#   stage: public-report
-#   tags:
-#     - docker-automation-test
-#   script:
-#     - npm install --no-optional
-#     - npm run sendResultToTelegram --args=Job=$JOBR-env=$env
-#     - npm run exportStatus --args=env=$env
-#   when: always
+public_report:
+  stage: public-report
+  tags:
+    - docker-automation-test
+  script:
+    - npm install --no-optional
+    - npm run sendResultToTelegram --args=Job=$JOBR-env=$env
+    - npm run exportStatus --args=env=$env
+  when: always
 
 cleanup_job:
   stage: cleanup
