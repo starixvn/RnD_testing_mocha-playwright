@@ -37,9 +37,10 @@ describe('BigSmall Game', ()=>{
    await BigSmallFunc.PlaceBet(pos,5,'nowait')
    await BigSmallFunc.VerifyErrorMessage(errormsg)
    await BigSmallFunc.CheckSettleBalance()
+   await BigSmallFunc.CheckRoundHistory()
   }) 
  
- it('TC_07_Full_Verify Max Bet on Small', async () => {
+ it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {
   await BigSmallFunc.waitUtilNewRound()
    const pos = "Small"
    const errormsg = `"errorCode":"SB1911","maxBet":2000`
@@ -48,7 +49,7 @@ describe('BigSmall Game', ()=>{
   await BigSmallFunc.PlaceBet(pos,5,'nowait')
   await BigSmallFunc.VerifyErrorMessage(errormsg)
   await BigSmallFunc.CheckSettleBalance()
-
+  await BigSmallFunc.CheckRoundHistory()
 }) 
 
   it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Big', async () => {
@@ -76,7 +77,7 @@ describe('BigSmall Game', ()=>{
 
   })  
  
-   it('TC_10_Full_Smoke_Verify Betting Full Chips on Big', async () => {
+   it('TC_10_Full_Verify Betting Full Chips on Big', async () => {
     const Achip =  [200,500,1000]
     const pos = "Big"
     let _stake =0
@@ -154,7 +155,7 @@ describe('BigSmall Game', ()=>{
     await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)
   }) 
 
-  it('TC_15_Full_Smoke_Verify Betting on Small with specific Preset Chip + extra Chip on Board', async () => {
+  it('TC_15_Full_Verify Betting on Small with specific Preset Chip + extra Chip on Board', async () => {
     //Test senario: Set Specific Preset Chip Then Place Bet extra chip-board on Small
     //Verify all preset and chips on board can be bet success
     const Achip =  [100,200,500]
@@ -229,19 +230,19 @@ describe('BigSmall Game', ()=>{
     await ResultFunc.BigSmall.verifyRoundID0()
   })
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
+  it('TC_02_Full_Verify History Content', async () => {
     await BigSmallFunc.OpenHistory()
     await BigSmallFunc.VerifyHistoryContent()
     await BigSmallFunc.CloseHistory()
   })  
 
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+  it('TC_03_Full_Verify Guide Content', async () => {
     await BigSmallFunc.OpenGuide()
     await BigSmallFunc.VerifyGuideContent()
     await BigSmallFunc.CloseGuide()
   })  
 
-  it('TC_04_Full_Smoke_Verify Statistic and Preset Content', async () => {
+  it('TC_04_Full_Verify Statistic and Preset Content', async () => {
     await BigSmallFunc.waitUtilNewRound()
     await BigSmallFunc.OpenStatistic()
     await BigSmallFunc.VerifyStatisticContent()

@@ -38,10 +38,12 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
    await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
    await TurboOddEvenFunc.CheckSettleBalance()
+   await TurboOddEvenFunc.CheckRoundHistory()
+
 
  }) 
  
- it('TC_07_Full_Verify Max Bet on Even', async () => { 
+ it('TC_07_Full_Smoke_Verify Max Bet on Even', async () => { 
   await TurboOddEvenFunc.waitUtilNewRound()
    const pos = "Even"
    const errormsg =  `"errorCode":"SB1911","maxBet":2000`
@@ -50,6 +52,8 @@ describe('TurboOddEven Game', ()=>{
   await TurboOddEvenFunc.PlaceBet(pos,5,'nowait')
   await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
   await TurboOddEvenFunc.CheckSettleBalance()
+  await TurboOddEvenFunc.CheckRoundHistory()
+
 }) 
 
   it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Odd', async () => {   
@@ -62,10 +66,9 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.VerifyErrorMessage(errormsg)
     await TurboOddEvenFunc.CheckSettleBalance()
     await TurboOddEvenFunc.CheckRoundHistory()
-    wsMessageReceived =[]
   })  
 
-  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Even', async () => {   
+  it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Even', async () => {   
     await TurboOddEvenFunc.waitUtilNewRound()
     const pos = "Even"
     const errormsg = '"errorCode":"SB1927"'
@@ -76,7 +79,7 @@ describe('TurboOddEven Game', ()=>{
    await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Odd', async () => {  
+  it('TC_10_Full_Verify Betting [1 -50] Chips on Odd', async () => {  
     await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Odd"
@@ -130,7 +133,7 @@ describe('TurboOddEven Game', ()=>{
     await TurboOddEvenFunc.CheckSettleBalance()
   })  
 
-  it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Odd', async () => {  
+  it('TC_14_Full_Verify Preset Betting [1-50] Chips on Odd', async () => {  
     await TurboOddEvenFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Odd"
@@ -358,13 +361,13 @@ describe('TurboOddEven Game', ()=>{
     await ResultFunc.OddEvenTurbo.verifyRoundID0()
   })
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
+  it('TC_02_Full_Verify History Content', async () => {
     await TurboOddEvenFunc.OpenHistory()
     await TurboOddEvenFunc.VerifyHistoryContent()
     await TurboOddEvenFunc.CloseHistory()
   })  
 
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+  it('TC_03_Full_Verify Guide Content', async () => {
     await TurboOddEvenFunc.OpenGuide()
     await TurboOddEvenFunc.VerifyGuideContent()
     await TurboOddEvenFunc.CloseGuide()

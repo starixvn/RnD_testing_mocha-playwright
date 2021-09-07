@@ -385,6 +385,7 @@ export const CheckRoundHistory = async() => {
    await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].choice`),_checkres.betchoice),true)
   await CloseHistory() // close round detail
   await CloseHistory() // close history
+  wsMessageReceived =[]
 }
 
 

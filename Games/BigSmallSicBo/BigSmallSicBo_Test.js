@@ -27,22 +27,6 @@ describe('BigSmall SicBo Game', ()=>{
 
   })  
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
-      await BigSmallSBFunc.VerifyHistoryContent()
-  })  
-
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
-    await BigSmallSBFunc.VerifyGuideContent()
-  })  
-
-  it('TC_04_Full_Smoke_Verify Valid betting time', async () => {
-  await utils.verifyBettingTime(game)
-  })  
-
-  it('TC_05_Full_Verify Block betting time', async () => {
-    await utils.verifyBlockTime(game,BigSmallSBFunc.PlaceBet,['Big',1,'nowait'])
-  })  
-
   it('TC_06_Full_Verify bet chips', async () => {
     await BigSmallSBFunc.waitUtilNewRound()
     let pos = "Big"
@@ -152,6 +136,23 @@ it('TC_16_Full_Verify Max bet 100', async () => {
   //Check history
   await BigSmallSBFunc.CheckRoundHistory(settleresult)
 }) 
+
+it('TC_02_Full_Verify History Content', async () => {
+  await BigSmallSBFunc.VerifyHistoryContent()
+})  
+
+it('TC_03_Full_Verify Guide Content', async () => {
+await BigSmallSBFunc.VerifyGuideContent()
+})  
+
+it('TC_04_Full_Verify Valid betting time', async () => {
+await utils.verifyBettingTime(game)
+})  
+
+it('TC_05_Full_Verify Block betting time', async () => {
+await utils.verifyBlockTime(game,BigSmallSBFunc.PlaceBet,['Big',1,'nowait'])
+})  
+
  
 it('TC_17_Full_Verify Max bet 500', async () => {
   await BigSmallSBFunc.waitUtilNewRound()

@@ -39,10 +39,11 @@ describe('TurboBigSmall Game', ()=>{
    await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
    await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
    await TurboBigSmallFunc.CheckSettleBalance()
+   await TurboBigSmallFunc.CheckRoundHistory()
 
  }) 
  
- it('TC_07_Full_Verify Max Bet on Small', async () => {  
+ it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {  
   await TurboBigSmallFunc.waitUtilNewRound()
    const pos = "Small"
    const errormsg = `"errorCode":"SB1911","maxBet":2000`
@@ -51,9 +52,11 @@ describe('TurboBigSmall Game', ()=>{
   await TurboBigSmallFunc.PlaceBet(pos,5,'nowait')
   await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
   await TurboBigSmallFunc.CheckSettleBalance()
+  await TurboBigSmallFunc.CheckRoundHistory()
+
 }) 
 
-  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {  
+  it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Big', async () => {  
     await TurboBigSmallFunc.waitUtilNewRound()
      const pos = "Big"
      const errormsg = '"errorCode":"SB1927"'
@@ -76,7 +79,7 @@ describe('TurboBigSmall Game', ()=>{
    await TurboBigSmallFunc.CheckSettleBalance()
   })  
  
-  it('TC_10_Full_Smoke_Verify Betting [1 -50] Chips on Big', async () => {
+  it('TC_10_Full_Verify Betting [1 -50] Chips on Big', async () => {
     await TurboBigSmallFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Big"
@@ -130,7 +133,7 @@ describe('TurboBigSmall Game', ()=>{
      await TurboBigSmallFunc.CheckSettleBalance()
   })  
 
-  it('TC_14_Full_Smoke_Verify Preset Betting [1-50] Chips on Big', async () => {   
+  it('TC_14_Full_Verify Preset Betting [1-50] Chips on Big', async () => {   
     await TurboBigSmallFunc.waitUtilNewRound()
     const Achip =  [1,5,10,50]
     const pos = "Big"
@@ -335,13 +338,13 @@ describe('TurboBigSmall Game', ()=>{
     await ResultFunc.BigSmallTurbo.verifyRoundID0()
   })
 
-  it('TC_02_Full_Smoke_Verify History Content', async () => {
+  it('TC_02_Full_Verify History Content', async () => {
     await TurboBigSmallFunc.OpenHistory()
     await TurboBigSmallFunc.VerifyHistoryContent()
     await TurboBigSmallFunc.CloseHistory()
   })  
 
-  it('TC_03_Full_Smoke_Verify Guide Content', async () => {
+  it('TC_03_Full_Verify Guide Content', async () => {
     await TurboBigSmallFunc.OpenGuide()
     await TurboBigSmallFunc.VerifyGuideContent()
     await TurboBigSmallFunc.CloseGuide()
