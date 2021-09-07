@@ -28,31 +28,31 @@ describe('MiniSedie Game', ()=>{
       await MiniSedieFunc.verifyBetChoice()
   })
   
-  it('TC_003_Full_Smoke_Verify betting on Even Choice', async() =>{
+  it('TC_003_Full_Verify betting on Even Choice', async() =>{
     await MiniSedieFunc.placeBet("Even")
   })
 
-  it('TC_004_Full_Smoke_Verify betting on Odd Choice', async() =>{
+  it('TC_004_Full_Verify betting on Odd Choice', async() =>{
     await MiniSedieFunc.placeBet("Odd")
   })
 
-  it('TC_005_Full_Smoke_Verify betting on Red4 Choice', async() =>{
+  it('TC_005_Full_Verify betting on Red4 Choice', async() =>{
     await MiniSedieFunc.placeBet("Red4")
   })
 
-  it('TC_006_Full_Smoke_Verify betting on Red3 Choice', async() =>{
+  it('TC_006_Full_Verify betting on Red3 Choice', async() =>{
     await MiniSedieFunc.placeBet("Red3")
   })
 
-  it('TC_008_Full_Smoke_Verify betting on White3 Choice', async() =>{
+  it('TC_008_Full_Verify betting on White3 Choice', async() =>{
     await MiniSedieFunc.placeBet("White3")
   })
 
-  it('TC_009_Full_Smoke_Verify betting on White4 Choice', async() =>{
+  it('TC_009_Full_Verify betting on White4 Choice', async() =>{
     await MiniSedieFunc.placeBet("White4")
   })
 
-  it('TC_010_Full_Smoke_Verify Bet Chip', async() =>{
+  it('TC_010_Full_Verify Bet Chip', async() =>{
     await MiniSedieFunc.verifyBetChip()
   })
 
@@ -88,15 +88,15 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.placeBet("Even",2000)
   })
 
-  it('TC_019_Full_Smoke_Verify betting at Block Betting Time', async() =>{
+  it('TC_019_Full_Verify betting at Block Betting Time', async() =>{
     await MiniSedieFunc.verifyBetAtBlockBettingTime()
   })
 
-  it('TC_020_Full_Smoke_Verify betting at Settlement Time', async() =>{
+  it('TC_020_Full_Verify betting at Settlement Time', async() =>{
     await MiniSedieFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_021_Full_Smoke_Verify maxbet of Even', async() =>{
+  it('TC_021_Full_Verify maxbet of Even', async() =>{
     await MiniSedieFunc.verifyMaxBet('Even')
   })
 
@@ -112,11 +112,11 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.verifyMaxBet('Red3')
   })
 
-  it('TC_026_Full__Verify maxbet of White3', async() =>{
+  it('TC_026_Full_Verify maxbet of White3', async() =>{
     await MiniSedieFunc.verifyMaxBet('White3')
   })
 
-  it('TC_027_Full__Verify maxbet of White4', async() =>{
+  it('TC_027_Full_Verify maxbet of White4', async() =>{
     await MiniSedieFunc.verifyMaxBet('White4')
   })
   
@@ -148,19 +148,19 @@ describe('MiniSedie Game', ()=>{
     result = await MiniSedieFunc.verifySettlement("White4",10,true)
   })
 
-  it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
+  it('TC_036_Full_Verify Game Guide', async()=>{
     await MiniSedieFunc.openGuide()
     await MiniSedieFunc.verifyGuideContent()
     await MiniSedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Smoke_Verify History', async() => {
+  it('TC_037_Full_Verify History', async() => {
     await MiniSedieFunc.openHistory()
     await MiniSedieFunc.verifyHistoryPopup()
     await MiniSedieFunc.closeHistory()
   })
 
-  it('TC_038_Full_Smoke_Verify Home', async() => {
+  it('TC_038_Full_Verify Home', async() => {
     await MiniSedieFunc.returnClose()
   })
 
