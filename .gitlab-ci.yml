@@ -15,7 +15,7 @@ test1:
   script:
     - npm install --no-optional
     - echo "JOBR=$CI_JOB_ID" >> build.env
-    - npm run CI_SelGame_$Mode --args=env=$env --game=$PRODUCT
+    - npm run CI_SelGame_$Mode --args=env=$env --game=$PRODUCT --lang=$lang
   artifacts:
     paths:
       - Report
