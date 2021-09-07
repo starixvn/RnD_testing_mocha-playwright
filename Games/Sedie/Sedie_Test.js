@@ -30,31 +30,31 @@ describe('Sedie Game', ()=>{
       await SedieFunc.verifyBetChoice()
   })
   
-  it('TC_003_Full_Smoke_Verify betting on Even Choice', async() =>{
+  it('TC_003_Full_Verify betting on Even Choice', async() =>{
     await SedieFunc.placeBet("Even")
   })
 
-  it('TC_004_Full_Smoke_Verify betting on Odd Choice', async() =>{
+  it('TC_004_Full_Verify betting on Odd Choice', async() =>{
     await SedieFunc.placeBet("Odd")
   })
 
-  it('TC_005_Full_Smoke_Verify betting on Red4 Choice', async() =>{
+  it('TC_005_Full_Verify betting on Red4 Choice', async() =>{
     await SedieFunc.placeBet("Red4")
   })
 
-  it('TC_006_Full_Smoke_Verify betting on Red3 Choice', async() =>{
+  it('TC_006_Full_Verify betting on Red3 Choice', async() =>{
     await SedieFunc.placeBet("Red3")
   })
 
-  it('TC_007_Full_Smoke_Verify betting on Red2 Choice', async() =>{
+  it('TC_007_Full_Verify betting on Red2 Choice', async() =>{
     await SedieFunc.placeBet("Red2")
   })
 
-  it('TC_008_Full_Smoke_Verify betting on White3 Choice', async() =>{
+  it('TC_008_Full_Verify betting on White3 Choice', async() =>{
     await SedieFunc.placeBet("White3")
   })
 
-  it('TC_009_Full_Smoke_Verify betting on White4 Choice', async() =>{
+  it('TC_009_Full_Verify betting on White4 Choice', async() =>{
     await SedieFunc.placeBet("White4")
   })
 
@@ -98,7 +98,7 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifyBetAtBlockBettingTime()
   })
 
-  it('TC_020_Full_Smoke_Verify betting at Settlement Time', async() =>{
+  it('TC_020_Full_Verify betting at Settlement Time', async() =>{
     await SedieFunc.verifyBetAtSettlementTime()
   })
 
@@ -163,19 +163,19 @@ describe('Sedie Game', ()=>{
     console.log(result)
   })
 
-  it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
+  it('TC_036_Full_Verify Game Guide', async()=>{
     await SedieFunc.openGuide()
     await SedieFunc.verifyGuideContent()
     await SedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Smoke_Verify History', async() => {
+  it('TC_037_Full_Verify History', async() => {
     await SedieFunc.openHistory()
     await SedieFunc.verifyHistoryPopup()
     await SedieFunc.closeHistory()
   })
 
-  it('TC_038_Full_Smoke_Verify Home', async() => {
+  it('TC_038_Full_Verify Home', async() => {
     await SedieFunc.returnHome()
   })
 

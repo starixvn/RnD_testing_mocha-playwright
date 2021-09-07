@@ -30,35 +30,35 @@ describe('VipSedie Game', ()=>{
       await VipSedieFunc.verifyBetChoice()
   })
   
-  it('TC_003_Full_Smoke_Verify betting on Even Choice', async() =>{
+  it('TC_003_Full_Verify betting on Even Choice', async() =>{
     await VipSedieFunc.placeBet("Even")
   })
 
-  it('TC_004_Full_Smoke_Verify betting on Odd Choice', async() =>{
+  it('TC_004_Full_Verify betting on Odd Choice', async() =>{
     await VipSedieFunc.placeBet("Odd")
   })
 
-  it('TC_005_Full_Smoke_Verify betting on Red4 Choice', async() =>{
+  it('TC_005_Full_Verify betting on Red4 Choice', async() =>{
     await VipSedieFunc.placeBet("Red4")
   })
 
-  it('TC_006_Full_Smoke_Verify betting on Red3 Choice', async() =>{
+  it('TC_006_Full_Verify betting on Red3 Choice', async() =>{
     await VipSedieFunc.placeBet("Red3")
   })
 
-  it('TC_007_Full_Smoke_Verify betting on Red2 Choice', async() =>{
+  it('TC_007_Full_Verify betting on Red2 Choice', async() =>{
     await VipSedieFunc.placeBet("Red2")
   })
 
-  it('TC_008_Full_Smoke_Verify betting on White3 Choice', async() =>{
+  it('TC_008_Full_Verify betting on White3 Choice', async() =>{
     await VipSedieFunc.placeBet("White3")
   })
 
-  it('TC_009_Full_Smoke_Verify betting on White4 Choice', async() =>{
+  it('TC_009_Full_Verify betting on White4 Choice', async() =>{
     await VipSedieFunc.placeBet("White4")
   })
 
-  it('TC_010_Full_Smoke_Verify Bet Chip', async() =>{
+  it('TC_010_Full_Verify Bet Chip', async() =>{
     await VipSedieFunc.verifyBetChip()
   })
 
@@ -94,7 +94,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.placeBet("Even",3000)
   })
 
-  it('TC_019_Full_Smoke_Verify betting at Block Betting Time', async() =>{
+  it('TC_019_Full_Verify betting at Block Betting Time', async() =>{
     await VipSedieFunc.verifyBetAtBlockBettingTime()
   })
 
@@ -102,7 +102,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_021_Full_Smoke_Verify maxbet of Even', async() =>{
+  it('TC_021_Full_Verify maxbet of Even', async() =>{
     await VipSedieFunc.verifyMaxBet('Even')
   })
 
@@ -142,7 +142,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.verifySettlement("Odd",50)
   })
 
-  it('TC_031_Full_Smoke_Verify Settlement on choice Red4', async() =>{  
+  it('TC_031_Full_Verify Settlement on choice Red4', async() =>{  
     await VipSedieFunc.verifySettlement("Red4",500)
   })
 
@@ -162,19 +162,19 @@ describe('VipSedie Game', ()=>{
     result = await VipSedieFunc.verifySettlement("White4",50,true)
   })
 
-  it('TC_036_Full_Smoke_Verify Game Guide', async()=>{
+  it('TC_036_Full_Verify Game Guide', async()=>{
     await VipSedieFunc.openGuide()
     await VipSedieFunc.verifyGuideContent()
     await VipSedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Smoke_Verify History', async() => {
+  it('TC_037_Full_Verify History', async() => {
     await VipSedieFunc.openHistory()
     await VipSedieFunc.verifyHistoryPopup()
     await VipSedieFunc.closeHistory()
   })
 
-  it('TC_038_Full_Smoke_Verify Home', async() => {
+  it('TC_038_Full_Verify Home', async() => {
     await VipSedieFunc.returnHome()
   })
 
