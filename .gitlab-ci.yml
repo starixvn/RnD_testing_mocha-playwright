@@ -18,7 +18,7 @@ test1:
     - npm run CI_SelGame_$Mode --args=env=$env --game=$PRODUCT --lang=$lang
   artifacts:
     paths:
-      - Report
+      - Report/$lang
       - build.env
     when: always
     expire_in: 1 day 
