@@ -36,7 +36,7 @@ describe('BigSmall Game', ()=>{
    await BigSmallFunc.PlaceBet(pos,1000)
    await BigSmallFunc.PlaceBet(pos,5,'nowait')
    await BigSmallFunc.VerifyErrorMessage(errormsg)
-   await BigSmallFunc.CheckSettleBalance()
+  await BigSmallFunc.CheckSettleBalance()
    await BigSmallFunc.CheckRoundHistory()
   }) 
  

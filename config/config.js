@@ -116,20 +116,45 @@ export const cf_sit ={
     protocol: "wss"
 }
 
-// export const cf_uat ={
-//     url: "http://demo:one23@qawer.viva88.com:6100/Login/",
-//     username: {
-//         Sedie: "IT57Test789"
-//     },
-//     password: "1234aaAA",
-//     gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=0",
-//     urlWebsocket: "ws://haproxy.lumigame.com:7002/roulette/socket.io/?EIO=3&transport=websocket",
-//     urlOrigin: "http://l1-games1.lumigame.com"
-// }
+export const cf_uat ={
+    url: "http://demo:one23@qawer.viva88.com:6100/Login/",
+    username: {
+        BlackJack : "IT55Test789",
+        Sedie : "IT56Test789",
+        VipSedie : "IT57Test789",
+        Sicbo:  "IT58Test789",
+        Keno:  "IT59Test789",
+        Baccarat:  "IT60Test789",
+        Roulette:  "IT61Test789",
+        BigSmall : "IT62Test789",
+        MiniSedie: "IT63Test789",
+        TurboBigSmall: "IT64Test789",
+        TurboOddEven: "IT65Test789"
+    },
+    password: "1234aaAA",
+    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=0",
+    urlWebsocket: "wss://uatproxy.sgamesuat.com/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "https://l1uat.sgamesuat.com"
+}
 
-// export const cf_prod ={
-//     env: "uaprot",
-//     url: "",
-//     username: "",
-//     password: ""
-// }
+export const cf_prod ={
+    url: "https://www.viva88.net/login888.aspx",
+    username: {
+        BlackJack : "IT55Test789",
+        Sedie : "IT56Test789",
+        VipSedie : "IT57Test789",
+        Sicbo:  "IT58Test789",
+        Keno:  "IT59Test789",
+        Baccarat:  "IT60Test789",
+        Roulette:  "IT61Test789",
+        BigSmall : "IT62Test789",
+        MiniSedie: "IT63Test789",
+        TurboBigSmall: "IT64Test789",
+        TurboOddEven: "IT65Test789"
+    },
+    password: "1234aaAA",
+    gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
+    urlWebsocket: "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "https://www.sabagame.com",
+    protocol: "wss"
+}

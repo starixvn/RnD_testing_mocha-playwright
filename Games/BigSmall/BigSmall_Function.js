@@ -363,19 +363,19 @@ export const CheckRoundHistory = async() => {
   await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
   await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
   // Check Round History Detail
-  //click first round of history
-  await utils.clickPos(454,230)
-  await utils.sleep(3000)
-  let _founddetail = await utils.getWsMessage('42/user/taixiu,["taixiu",{"round"')
-  const resdetail = String(_founddetail).split("42/user/taixiu,");
-  const objdetail = JSON.parse(resdetail[1]);
-  let username =  await utils.getName()
-   //check data
-  await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].win`),_checkres.win),true)
-  await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].choice`),_checkres.betchoice),true)
-  await CloseHistory() // close round detail
+  // //click first round of history
+  // await utils.clickPos(454,230)
+  // await utils.sleep(3000)
+  // let _founddetail = await utils.getWsMessage('42/user/taixiu,["taixiu",{"round"')
+  // const resdetail = String(_founddetail).split("42/user/taixiu,");
+  // const objdetail = JSON.parse(resdetail[1]);
+  // let username =  await utils.getName()
+  // await CloseHistory() // close round detail
   await CloseHistory() // close history
   wsMessageReceived =[]
+   //check data
+  // await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].win`),_checkres.win),true)
+  // await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].choice`),_checkres.betchoice),true)
 }
 
 export const CheckSettleBalance = async() => {

@@ -534,12 +534,13 @@ export const Login = async(_env,_game) => {
     } else {
         // Navigate Sabaclub from Simulator
         await MemberSiteFunc.login_local(_env,_game)
+        await sleep(5000)
     }
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     await getSession()
     if(flag.Val ==false){
-        await screenShot(`./Report/${lang}/Pictures/Login_Failed_${_game}`)
+        await page.screenshot({ path:`./Report/${lang}/Pictures/Login_Failed_${_game}.png`})
     }
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
     

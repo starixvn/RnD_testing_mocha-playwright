@@ -24,23 +24,6 @@ export const login = async(_env,_game) => {
             await utils.clickEl(MemberSiteLocator.btnLogin)
         }
         await utils.waitEl(MemberSiteLocator.imgLogo)
-        // if(await page.url().toString().includes('Sports') !== true){
-        //     //console.log(page.url().toString().replace('?ReturnUrl=%2fLogin%2fVerify','').replace('demo:one23@',''))
-        //     // Login again   
-        //     // Go to Membersite Url
-        //     await utils.navigate(page.url().toString().replace('?ReturnUrl=%2fLogin%2fVerify','').replace('demo:one23@',''))
-        //     await utils.waitForLoadState() 
-        //     // Input Username and Password
-        //     await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
-        //     await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
-        //     // Enter Login button
-        //     if(_env == 'cf_prod'){
-        //         await utils.clickEl(MemberSiteLocator.btnLoginPro)
-        //     } else {
-        //         await utils.clickEl(MemberSiteLocator.btnLogin)
-        //     }
-        // }
-        // await utils.waitEl(MemberSiteLocator.imgLogo)
     } catch (error) {
         console.error(error.message);
     }
