@@ -11,14 +11,15 @@ describe('Send Message', ()=>{
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         let totalcase = obj.length
-        let testSuiteDetail = "",mainContent
+        let testSuiteDetail = "",mainContent       
         if(obj !== 'NotFound'){
             if(await gsutils.isFailed(obj) === true){
                 for(let i=0 ; i < rs.Result.length;i++){
                     testSuiteDetail += `\n*${rs.Result[i].TestSuite}*   :   ${rs.Result[i].pass}/${rs.Result[i].total} (${Math.round(rs.Result[i].pass/rs.Result[i].total*100)}%)`
                 }
             }
-            mainContent = await gsutils.isFailed(obj) === false ? `Passed total ${totalcase} testcases` : testSuiteDetail
+            //mainContent = await gsutils.isFailed(obj) === false ? ` ${obj[1].TestSuite} Passed total ${totalcase} testcases` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite} Passed total ${rs.Result[0].pass} testcases` : testSuiteDetail
             let day = new Date().toLocaleDateString()
             chai.request("https://api.telegram.org")
             .post("/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage")
