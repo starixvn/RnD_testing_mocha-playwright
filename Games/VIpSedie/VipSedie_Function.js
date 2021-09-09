@@ -487,3 +487,35 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
     await utils.shouldBeEqual(resultOnDb.settlementResult.white3,_resultOnWeb.white3)
     await utils.shouldBeEqual(resultOnDb.settlementResult.white4,_resultOnWeb.white4)
 }
+
+//Wait until new round
+export const waitUtilNewRound = async() => {
+    let _found = await utils.getWsMessage('42/user/vipsedie,["VipSeDie",{"remainingTime":39}]')
+    await utils.sleep(9000)
+  }
+
+
+ //Place bet multiple choices and check settle
+export const verifySettlementMultipleChoices = async(_choices,_chip) => {
+   await waitUtilNewRound()
+   await selectChip(_chip)
+   // Select All Choices
+   for(let i of _choices){
+     await utils.clickPos(VipSedieLocator[`${i}`].x,VipSedieLocator[`${i}`].y)
+    }
+    await utils.sleep(1000)
+    let currentBalance = await getBalance()
+    console.log('balance after placebet',currentBalance)
+ // Get Settle
+    wsMessageReceived = []
+    let status = await getUserResult()
+    let winloss = status.bet
+    let balance = currentBalance + winloss
+    await utils.sleep(5000)
+    currentBalance = await getBalance()
+    // Verify Balance on UI
+    // console.log('actual Balance: ' + currentBalance)
+    let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
+    // console.log(Math.abs(currentBalance-balance))
+    await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
+  } 
