@@ -169,13 +169,13 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Verify History', async() => {
+  it('TC_037_Full_Smoke_Verify History', async() => {
     await VipSedieFunc.openHistory()
     await VipSedieFunc.verifyHistoryPopup()
     await VipSedieFunc.closeHistory()
   })
 
-  it('TC_043_Full_Smoke_Verify searching with roundid =0', async()=>{
+  it('TC_043_Full_Smoke_Verify Settlement all Bet Choices', async()=>{
       let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
        await VipSedieFunc.verifySettlementMultipleChoices(_choice,10)
   })

@@ -490,6 +490,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
+    wsMessageReceived = []
     let _found = await utils.getWsMessage('42/user/vipsedie,["VipSeDie",{"remainingTime":39}]')
     await utils.sleep(9000)
   }
@@ -505,7 +506,6 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     }
     await utils.sleep(1000)
     let currentBalance = await getBalance()
-    console.log('balance after placebet',currentBalance)
  // Get Settle
     wsMessageReceived = []
     let status = await getUserResult()
