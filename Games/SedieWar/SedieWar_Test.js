@@ -30,27 +30,27 @@ describe('SedieWar Game', ()=>{
       await SedieWarFunc.verifyBetChoice()
   })
 
-  it('TC_003_Full_Smoke_Verify betting on Player Choice', async() =>{
+  it('TC_003_Full_Verify betting on Player Choice', async() =>{
       await SedieWarFunc.placeBet("Player")
   })
   
-  it('TC_004_Full_Smoke_Verify betting on Banker Choice', async() =>{
+  it('TC_004_Full_Verify betting on Banker Choice', async() =>{
       await SedieWarFunc.placeBet("Banker")
   })
 
-  it('TC_005_Full_Smoke_Verify betting on Tie Choice', async() =>{
+  it('TC_005_Full_Verify betting on Tie Choice', async() =>{
       await SedieWarFunc.placeBet("Tie")
   })
 
-  it('TC_006_Full_Smoke_Verify betting on Even Choice', async() =>{
+  it('TC_006_Full_Verify betting on Even Choice', async() =>{
       await SedieWarFunc.placeBet("Even")
   })
 
-  it('TC_007_Full_Smoke_Verify betting on Odd Choice', async() =>{
+  it('TC_007_Full_Verify betting on Odd Choice', async() =>{
       await SedieWarFunc.placeBet("Odd")
   })
 
-  it('TC_008_Full_Smoke_Verify betting on PlayerEven Choice', async() =>{
+  it('TC_008_Full_Verify betting on PlayerEven Choice', async() =>{
       await SedieWarFunc.placeBet("PlayerEven")
   })
 
@@ -98,7 +98,7 @@ describe('SedieWar Game', ()=>{
       await SedieWarFunc.placeBet("BankerWhite4")
   })
 
-  it('TC_020_Full_Smoke_Verify Bet Chip', async() =>{
+  it('TC_020_Full_Verify Bet Chip', async() =>{
       await SedieWarFunc.verifyBetChip()
   })
 
@@ -135,15 +135,15 @@ describe('SedieWar Game', ()=>{
   })
 
   
-  it('TC_029_Full_Smoke_Verify betting at Block Betting Time', async() =>{
+  it('TC_029_Full_Verify betting at Block Betting Time', async() =>{
     await SedieWarFunc.verifyBetAtBlockBettingTime()
   })
 
-  it('TC_030_Full_Smoke_Verify betting at Settlement Time', async() =>{
+  it('TC_030_Full_Verify betting at Settlement Time', async() =>{
     await SedieWarFunc.verifyBetAtSettlementTime()
   })
 
-  it('TC_031_Full_Smoke_Verify maxbet of Player Choice', async() =>{
+  it('TC_031_Full_Verify maxbet of Player Choice', async() =>{
       await SedieWarFunc.verifyMaxBet("Player")
   })
   
@@ -215,7 +215,7 @@ describe('SedieWar Game', ()=>{
       await SedieWarFunc.verifyMaxBet('Round')
   })
 
-  it('TC_049_Full_Smoke_Verify Settlement on Player Choice', async() =>{
+  it('TC_049_Full_Verify Settlement on Player Choice', async() =>{
       await SedieWarFunc.verifySettlement("Player",5)
   })
   
@@ -283,7 +283,7 @@ describe('SedieWar Game', ()=>{
       result = await SedieWarFunc.verifySettlement("BankerWhite4")
   })
 
-  it('TC_066_Full_Smoke_Verify Game Guide', async()=>{
+  it('TC_066_Full_Verify Game Guide', async()=>{
     await SedieWarFunc.openGuide()
     await SedieWarFunc.verifyGuideContent()
     await SedieWarFunc.closeGuide()
@@ -293,6 +293,11 @@ describe('SedieWar Game', ()=>{
     await SedieWarFunc.openHistory()
     await SedieWarFunc.verifyHistoryPopup()
     await SedieWarFunc.closeHistory()
+  })
+
+  it('TC_073_Smoke_Verify Settlement all Bet Choices', async()=>{
+    let _choice = ['Player','Banker','Tie','Even','Odd','PlayerEven','PlayerOdd','PlayerRed4','PlayerRed3','PlayerWhite3','PlayerWhite4','BankerEven','BankerOdd','BankerRed4','BankerRed3','BankerWhite3','BankerWhite4']
+     await SedieWarFunc.verifySettlementMultipleChoices(_choice,1)
   })
 
   it('TC_068_Full_Smoke_Verify Home', async() => {

@@ -397,3 +397,35 @@ export const verifyDBOne = async(_resultOnWeb)=>{
     }
 
 }
+
+//Wait until new round
+export const waitUtilNewRound = async() => {
+    wsMessageReceived = []
+    let _found = await utils.getWsMessage('42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]')
+    await utils.sleep(9000)
+  }
+
+
+ //Place bet multiple choices and check settle
+export const verifySettlementMultipleChoices = async(_choices,_chip) => {
+   await waitUtilNewRound()
+   await selectChip(_chip)
+   // Select All Choices
+   for(let i of _choices){
+     await utils.clickPos(SedieWarLocator[`${i}`].x,SedieWarLocator[`${i}`].y)
+     await utils.sleep(200)
+    }
+    await utils.sleep(1000)
+    let currentBalance = await getBalance()
+ // Get Settle
+    wsMessageReceived = []
+    let status = await getUserResult()
+    let balance = currentBalance +  status.bet
+    await utils.sleep(8000)
+    currentBalance = await getBalance()
+    // Verify Balance on UI
+    // console.log('actual Balance: ' + currentBalance)
+    let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
+    // console.log(Math.abs(currentBalance-balance))
+    await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
+  } 

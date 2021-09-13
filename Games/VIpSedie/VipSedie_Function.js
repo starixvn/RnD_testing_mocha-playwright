@@ -509,8 +509,7 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
  // Get Settle
     wsMessageReceived = []
     let status = await getUserResult()
-    let winloss = status.bet
-    let balance = currentBalance + winloss
+    let balance = currentBalance +  status.bet
     await utils.sleep(5000)
     currentBalance = await getBalance()
     // Verify Balance on UI

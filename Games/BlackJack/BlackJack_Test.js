@@ -31,20 +31,20 @@ describe('BlackJack Game', ()=>{
     await BlackJackFunc.VerifyDealerContent()
     })  
 
- it('TC_03_Full_Smoke_Verify History ', async () => {
+ it('TC_03_Full_Verify History ', async () => {
     await BlackJackFunc.OpenHistory()
    //Expected: Clicking on it to open icon menu: Home, History, Guide icons
     await BlackJackFunc.VerifyHistoryContent()
     await BlackJackFunc.CloseHistory()
     })  
 
-  it('TC_04_Full_Smoke_Verify Guide', async () => {
+  it('TC_04_Full_Verify Guide', async () => {
     await BlackJackFunc.OpenGuide()
     await BlackJackFunc.VerifyGuideContent()
     await BlackJackFunc.CloseGuide()
     })  
 
-  it('TC_05_Full_Smoke_Verify Default State', async () => {
+  it('TC_05_Full_Verify Default State', async () => {
       await BlackJackFunc.PlaceBet(1,'Pos3')
       await BlackJackFunc.ClickCancel()
       await utils.sleep(500)
@@ -74,7 +74,7 @@ describe('BlackJack Game', ()=>{
         
     })  
         
-    it('TC_07_Full_Smoke_Verify PlaceBet all Chips to Pos2', async () => {
+    it('TC_07_Full_Verify PlaceBet all Chips to Pos2', async () => {
       const AStake = ['Stake1','Stake5','Stake10','Stake50','Stake100','Stake200','Stake500','Stake1k','Stake2k']
       let pos = 'Pos2'
       for (let i in AStake){
@@ -203,7 +203,7 @@ describe('BlackJack Game', ()=>{
 
     })
 
-    it('TC_13_Full_Smoke_Verify User Can Betting Triple Hands-Hit Card Score OVer 15', async () => {
+    it('TC_13_Full_Verify User Can Betting Triple Hands-Hit Card Score OVer 15', async () => {
       let pos1 = 'Pos1'
       let pos2 = 'Pos2'
       let pos3 = 'Pos3'
@@ -320,7 +320,7 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.CheckSettleBalance(expectbalance)
     })
 
-    it('TC_17_Full_Smoke_Verify Maxbet Of Triple Hands', async () => {
+    it('TC_17_Full_Verify Maxbet Of Triple Hands', async () => {
       const pos1 = 'Pos1'
       const pos2 = 'Pos2'
       const pos3 = 'Pos3'
@@ -423,6 +423,46 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
       await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
+    })
+
+    it('TC_22_Smoke_Verify Maxbet Of Triple Hands', async () => {
+      const pos1 = 'Pos1'
+      const pos2 = 'Pos2'
+      const pos3 = 'Pos3'
+      const betstake1 = 1000
+      const betstake2 = 2000
+      const maxbet =6000 
+      //Place max bet
+     await BlackJackFunc.PlaceBet(betstake2,pos1)
+     await BlackJackFunc.PlaceBet(betstake2,pos2)
+     await BlackJackFunc.PlaceBet(betstake2,pos3)
+     await BlackJackFunc.PlaceBet(betstake1,pos1)
+     await BlackJackFunc.PlaceBet(betstake1,pos2)
+     await BlackJackFunc.PlaceBet(betstake1,pos3)
+     await BlackJackFunc.ClickDeal()
+     let DealBalance =await BlackJackFunc.GetDealBalance()
+       // Get Total Bet and pos bet
+      let totalbet =await BlackJackFunc.GetTotalBetAmount()
+      let pos1bet = await BlackJackFunc.GetPosBet(1)
+      let pos2bet = await BlackJackFunc.GetPosBet(2)
+      let pos3bet = await BlackJackFunc.GetPosBet(2)
+      await utils.shouldBeEqual(totalbet,maxbet)
+      await utils.shouldBeEqual(pos1bet,betstake2)
+      await utils.shouldBeEqual(pos2bet,betstake2)
+      await utils.shouldBeEqual(pos3bet,betstake2)
+       // Get PosId
+      const pos1id = await BlackJackFunc.GetPosId(1)
+      const pos2id = await BlackJackFunc.GetPosId(2)
+      const pos3id = await BlackJackFunc.GetPosId(3)
+      // Settle
+      await BlackJackFunc.BetSettle_HitCardUntilOver15(1)
+      await BlackJackFunc.BetSettle_HitCardUntilOver15(2)
+      await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
+      const wlpos1 = await BlackJackFunc.GetSettleResultByPosID(pos1id)
+      const wlpos2 = await BlackJackFunc.GetSettleResultByPosID(pos2id)
+      const wlpos3 = await BlackJackFunc.GetSettleResultByPosID(pos3id)
+      let expectbalance = DealBalance + wlpos1.betwin + wlpos2.betwin +wlpos3.betwin
+      await BlackJackFunc.CheckSettleBalance(expectbalance)
     })
 
     it('TC_21_Full_Smoke_Verify Close Game Success', async () => {

@@ -58,7 +58,7 @@ describe('Sedie Game', ()=>{
     await SedieFunc.placeBet("White4")
   })
 
-  it('TC_010_Full_Smoke_Verify Bet Chip', async() =>{
+  it('TC_010_Full_Verify Bet Chip', async() =>{
     await SedieFunc.verifyBetChip()
   })
 
@@ -134,7 +134,7 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
     await SedieFunc.verifySettlement("Even",5)
   })
 
@@ -169,13 +169,19 @@ describe('Sedie Game', ()=>{
     await SedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Verify History', async() => {
+  it('TC_037_Full_Smoke_Verify History', async() => {
     await SedieFunc.openHistory()
     await SedieFunc.verifyHistoryPopup()
     await SedieFunc.closeHistory()
   })
 
-  it('TC_038_Full_Verify Home', async() => {
+  it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
+    let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
+     await SedieFunc.verifySettlementMultipleChoices(_choice,10)
+  })
+
+
+  it('TC_038_Full_Smoke_Verify Home', async() => {
     await SedieFunc.returnHome()
   })
 

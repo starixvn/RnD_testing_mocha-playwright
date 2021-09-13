@@ -124,7 +124,7 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.verifyMaxBet('Round')
   })
   
-  it('TC_029_Full_Smoke_Verify Settlement on choice Even', async() =>{  
+  it('TC_029_Full_Verify Settlement on choice Even', async() =>{  
     await MiniSedieFunc.verifySettlement("Even",5)
   })
 
@@ -154,13 +154,18 @@ describe('MiniSedie Game', ()=>{
     await MiniSedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Verify History', async() => {
+  it('TC_037_Full_Smoke_Verify History', async() => {
     await MiniSedieFunc.openHistory()
     await MiniSedieFunc.verifyHistoryPopup()
     await MiniSedieFunc.closeHistory()
   })
 
-  it('TC_038_Full_Verify Home', async() => {
+  it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
+    let _choice = ['Even','Odd','Red4','Red3','White4','White3']
+     await MiniSedieFunc.verifySettlementMultipleChoices(_choice,10)
+  })
+
+  it('TC_038_Full_Smoke_Verify Home', async() => {
     await MiniSedieFunc.returnClose()
   })
 

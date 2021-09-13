@@ -2,6 +2,7 @@ const game = "BigSmallSicbo"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BigSmallSBFunc from '../BigSmallSicBo/BigSmallSicBo_Function'
+const BigSmallSicboLocator = (process.env.npm_config_lang === 'vn' ? require('./BigSmallSicBo_Locator').BigSmallSicboLocator_vn : require('./BigSmallSicBo_Locator').BigSmallSicboLocator_en)
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
@@ -37,7 +38,7 @@ describe('BigSmall SicBo Game', ()=>{
     await BigSmallSBFunc.verifyBetPosStake(pos,1866)
   }) 
  
- it('TC_07_Full_Smoke Verify User can bet all specific', async () => {
+ it('TC_07_Full_Verify User can bet all specific', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
    let _chip = 1
    let _Aspecific = ['Specific1','Specific2','Specific3','Specific4','Specific5','Specific6']
@@ -50,7 +51,7 @@ describe('BigSmall SicBo Game', ()=>{
 }) 
 
 
-it('TC_08_1_Full_Smoke Verify User can bet all total score', async () => {
+it('TC_08_1_Full_Verify User can bet all total score', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let _chip = 1
   let _Aspecific = ['Total4','Total5','Total6','Total7','Total8','Total9','Total10']
@@ -74,7 +75,7 @@ it('TC_08_2_Full_Verify User can bet all total score', async () => {
    await BigSmallSBFunc.getSettlementResult()  
 })
 
-it('TC_09_Full_Smoke Verify User can bet all choice', async () => {
+it('TC_09_Full_Verify User can bet all choice', async () => {
   await BigSmallSBFunc.waitUtilNewRound()
   let _chip = 1
   let _Aspecific = ['Big','Small','AnyTriple']
@@ -137,7 +138,7 @@ it('TC_16_Full_Verify Max bet 100', async () => {
   await BigSmallSBFunc.CheckRoundHistory(settleresult)
 }) 
 
-it('TC_02_Full_Verify History Content', async () => {
+it('TC_02_Full_Smoke_Verify History Content', async () => {
   await BigSmallSBFunc.VerifyHistoryContent()
 })  
 
@@ -153,6 +154,21 @@ it('TC_05_Full_Verify Block betting time', async () => {
 await utils.verifyBlockTime(game,BigSmallSBFunc.PlaceBet,['Big',1,'nowait'])
 })  
 
+it('TC_21_Smoke_Verify User can bet all specific', async () => {
+  await BigSmallSBFunc.waitUtilNewRound()
+  await utils.sleep(1000)
+   let _chip = 1
+   let _Aspecific = ['Specific1','Specific2','Specific3','Specific4','Specific5','Specific6','Total8','Total9','Total10','Total11','Total12','Total13','Big','Small','AnyTriple','Total4','Total5','Total6','Total7','Total14','Total15','Total16','Total17']
+  //Select Chip
+  await BigSmallSBFunc.Sliding_Select_Chip(_chip)
+  //Select bet choice
+   for (let i of _Aspecific) {
+        await utils.clickPos(BigSmallSicboLocator[i].x,BigSmallSicboLocator[i].y)
+        await utils.sleep(200)
+      } 
+    // Wait for settle
+   await BigSmallSBFunc.getSettlementResult() 
+}) 
  
 it('TC_17_Full_Verify Max bet 500', async () => {
   await BigSmallSBFunc.waitUtilNewRound()

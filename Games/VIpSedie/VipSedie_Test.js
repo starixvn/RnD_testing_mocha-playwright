@@ -175,7 +175,7 @@ describe('VipSedie Game', ()=>{
     await VipSedieFunc.closeHistory()
   })
 
-  it('TC_043_Full_Smoke_Verify Settlement all Bet Choices', async()=>{
+  it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
       let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
        await VipSedieFunc.verifySettlementMultipleChoices(_choice,10)
   })
