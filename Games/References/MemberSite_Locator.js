@@ -12,6 +12,11 @@ export const MemberSiteLocator_vn = {
     // Frame Lobby 
     frmMainFrame : "//iframe[@id='frmGame']",
 
+    // Change Language
+    drpLanguage : "//div[contains(@class,'language')]",
+    optLanguage : "//div[(@class='content')][text()='Tiếng Việt']",
+    verifyLanguage : "//div[(@class='selected')][@title='Tiếng Việt']",
+
     // Game lobby simulator
     txtMemberId : "//input[@id='memberId']",
     btnGetToken : "//input[@value='Get Token']",
@@ -33,6 +38,11 @@ export const MemberSiteLocator_en = {
 
     // Frame Lobby 
     frmMainFrame : "//iframe[@id='frmGame']",
+    
+    // Change Language
+    drpLanguage : "//div[contains(@class,'language')]",
+    optLanguage : "//div[(@class='content')][text()='English']",
+    verifyLanguage : "//div[(@class='selected')][@title='English']",
 
     // Game lobby simulator
     txtMemberId : "//input[@id='memberId']",

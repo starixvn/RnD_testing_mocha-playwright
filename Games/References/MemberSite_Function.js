@@ -12,7 +12,11 @@ export const login = async(_env,_game) => {
         // Go to Membersite Url
         await utils.navigate(config[_env].url)
         await utils.waitForLoadState()
-        
+
+        if(_env === 'cf_uat'){
+            await utils.navigate(config[_env].urlLog)
+            await utils.waitForLoadState()
+        }
         // Input Username and Password
         await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
         await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
@@ -23,7 +27,14 @@ export const login = async(_env,_game) => {
         } else {
             await utils.clickEl(MemberSiteLocator.btnLogin)
         }
+
         await utils.waitEl(MemberSiteLocator.imgLogo)
+        
+        // Change Language on SIT 
+        await utils.clickEl(MemberSiteLocator.drpLanguage)
+        await utils.clickEl(MemberSiteLocator.optLanguage)
+        await utils.waitForLoadState()
+        await utils.waitEl(MemberSiteLocator.verifyLanguage)
     } catch (error) {
         console.error(error.message);
     }
