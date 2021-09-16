@@ -30,7 +30,7 @@ export const login = async(_env,_game) => {
 
         await utils.waitEl(MemberSiteLocator.imgLogo)
         
-        // Change Language on SIT 
+        // Change Language
         await utils.clickEl(MemberSiteLocator.drpLanguage)
         await utils.clickEl(MemberSiteLocator.optLanguage)
         await utils.waitForLoadState()

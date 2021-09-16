@@ -141,17 +141,17 @@ export const cf_uat ={
 export const cf_prod ={
     url: "https://www.viva88.net/login888.aspx",
     username: {
-        BlackJack : "IT55Test789",
-        Sedie : "SUPERTEST30102050",
-        VipSedie : "IT57Test789",
-        Sicbo:  "IT58Test789",
-        Keno:  "IT59Test789",
-        Baccarat:  "IT60Test789",
-        Roulette:  "IT61Test789",
-        BigSmall : "IT62Test789",
-        MiniSedie: "IT63Test789",
-        TurboBigSmall: "IT64Test789",
-        TurboOddEven: "IT65Test789"
+        BlackJack : "supertestte120201001",
+        Sedie : "supertestte120201002",
+        VipSedie : "supertestte120201003",
+        Sicbo:  "supertestte120201004",
+        Keno:  "supertestte120201005",
+        Baccarat:  "supertestte120201006",
+        Roulette:  "supertestte120201007",
+        BigSmall : "supertestte120201008",
+        MiniSedie: "supertestte120201009",
+        TurboBigSmall: "supertestte120201011",
+        TurboOddEven: "supertestte120201012"
     },
     password: "1234aaAA",
     gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
