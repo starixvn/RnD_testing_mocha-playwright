@@ -153,7 +153,7 @@ export const cf_prod ={
         TurboBigSmall: "supertestte120201011",
         TurboOddEven: "supertestte120201012"
     },
-    password: "1234aaAA",
+    password: "1234aa",
     gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
     urlWebsocket: "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "https://www.sabagame.com",
