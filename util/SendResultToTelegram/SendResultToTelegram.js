@@ -1,8 +1,7 @@
-import chai, { expect } from 'chai'
+import chai, { expect, util } from 'chai'
 import chaiHttp from 'chai-http'
-import * as gsutils from './../../util/gsutils'
+import * as gsutils from '../gsutils'
 chai.use(chaiHttp)
-
 
 describe('Send Message', ()=>{
     it('Send Telegram', async () => {
@@ -20,30 +19,27 @@ describe('Send Message', ()=>{
             }
             //mainContent = await gsutils.isFailed(obj) === false ? ` ${obj[1].TestSuite} Passed total ${totalcase} testcases` : testSuiteDetail
             mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite} Passed total ${rs.Result[0].pass} testcases` : testSuiteDetail
+            console.log(mainContent);
             let day = new Date().toLocaleDateString()
-            chai.request("https://api.telegram.org")
-            .post("/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage")
+            await chai.request("https://bot.nexdev.net")
+            .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
             .send({
-                //chat_id: -507838201,
-                chat_id: -508481623,
-                parse_mode: "markdown",
-                text: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , Language: VN *\n`
+                token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+                conversationId: -1001516404043,
+                message: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , Language: VN *\n`
                 +`Environment - *[${env}]*\nReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})${mainContent}`
-            }).end( async(err,res)=>{
-            expect(res).to.have.status(200)
             })
-        } else {
+              } else {
             let day = new Date().toLocaleDateString()
-            chai.request("https://api.telegram.org")
-            .post("/bot1710698751:AAFaBfulGZHsEXdkACx-BbDwn75nJ2i1MfY/sendMessage")
+            await chai.request("https://bot.nexdev.net")
+            .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
             .send({
-                // chat_id: -507838201,
-                chat_id: -508481623,
-                parse_mode: "markdown",
-                text: `===============================================\n*Automation Test Result: ${day}*\n`
+                token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+                conversationId: -1001516404043,
+                message: `===============================================\n*Automation Test Result: ${day}*\n`
                 +`Environment - *[${env}]*\nReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})\nStatus - *Failed*`
             }).end( async(err,res)=>{
-            expect(res).to.have.status(200)
+                await shouldBeEqual(res.statusCode,200)
             })
         }
     })  
