@@ -7,7 +7,7 @@ export const setting ={
     },
     timeout : 60000,
     loop : 60,
-    headless: true,
+    headless: true
 }
 
 export const cf_local ={
@@ -45,7 +45,7 @@ export const cf_local1 ={
         BlackJack : "1001051",
         Sedie : "1001052",
         VipSedie : "1001053",
-        Sicbo:  "1001054",
+        BigSmallSicbo:  "1001054",
         Keno:  "1001055",
         Baccarat:  "1001056",
         Roulette:  "1001057",
@@ -100,14 +100,15 @@ export const cf_sit ={
         BlackJack : "supertestsaba66",
         Sedie : "supertestsaba67",
         VipSedie : "supertestsaba68",
-        Sicbo:  "supertestsaba69",
+        BigSmallSicbo:  "supertestsaba69",
         Keno:  "supertestsaba70",
         Baccarat:  "supertestsaba71",
         Roulette:  "supertestsaba72",
         BigSmall : "supertestsaba73",
         MiniSedie: "supertestsaba74",
         TurboBigSmall: "supertestsaba75",
-        TurboOddEven: "supertestsaba76"
+        TurboOddEven: "supertestsaba76",
+        SedieWar: "supertestsaba77"
     },
     password: "1234aaAA",
     gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
@@ -123,14 +124,15 @@ export const cf_uat ={
         BlackJack : "IT55Test789",
         Sedie : "IT56Test789",
         VipSedie : "IT57Test789",
-        Sicbo:  "IT58Test789",
+        BigSmallSicbo:  "IT58Test789",
         Keno:  "IT59Test789",
         Baccarat:  "IT60Test789",
         Roulette:  "IT61Test789",
         BigSmall : "IT62Test789",
         MiniSedie: "IT63Test789",
         TurboBigSmall: "IT64Test789",
-        TurboOddEven: "IT65Test789"
+        TurboOddEven: "IT65Test789",
+        SedieWar: "IT66Test789"
     },
     password: "1234aaAA",
     gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=0",
@@ -144,14 +146,16 @@ export const cf_prod ={
         BlackJack : "supertestte120201001",
         Sedie : "supertestte120201002",
         VipSedie : "supertestte120201003",
-        Sicbo:  "supertestte120201004",
+        BigSmallSicbo:  "supertestte120201004",
         Keno:  "supertestte120201005",
         Baccarat:  "supertestte120201006",
         Roulette:  "supertestte120201007",
         BigSmall : "supertestte120201008",
         MiniSedie: "supertestte120201009",
         TurboBigSmall: "supertestte120201011",
-        TurboOddEven: "supertestte120201012"
+        TurboOddEven: "supertestte120201012",
+        SedieWar: "supertestte120201013"
+
     },
     password: "1234aa",
     gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
