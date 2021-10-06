@@ -9,6 +9,7 @@ export const verifyLoginSuccessfully = async() => {
 
 export const OpenGameFromLobby = async(_Gamename) => {
     //Game in Screen1
+    await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
     let _game = `${_Gamename}Icon`
     const Gscreen1 = ['VipSedie','Sedie','SedieWar','MiniSedie','FourGuardians']
     const Gscreen2 = ['BigSmallSicbo','BigSmall','TurboBigSmall','TurboOddEven','KenoProMax','KenoProViet','VipBaccarat','Baccarat']

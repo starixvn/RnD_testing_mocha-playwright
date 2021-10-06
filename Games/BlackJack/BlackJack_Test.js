@@ -425,17 +425,13 @@ describe('BlackJack Game', ()=>{
       await BlackJackFunc.BetSettle_HitCardUntilOver15(3)
     })
 
-    it('TC_22_Smoke_Verify Maxbet Of Triple Hands', async () => {
+    it('TC_22_Smoke_Verify placebet Of Triple Hands', async () => {
       const pos1 = 'Pos1'
       const pos2 = 'Pos2'
       const pos3 = 'Pos3'
-      const betstake1 = 1000
-      const betstake2 = 2000
-      const maxbet =6000 
-      //Place max bet
-     await BlackJackFunc.PlaceBet(betstake2,pos1)
-     await BlackJackFunc.PlaceBet(betstake2,pos2)
-     await BlackJackFunc.PlaceBet(betstake2,pos3)
+      const betstake1 = 100
+      const maxbet =300 
+      //Place bet
      await BlackJackFunc.PlaceBet(betstake1,pos1)
      await BlackJackFunc.PlaceBet(betstake1,pos2)
      await BlackJackFunc.PlaceBet(betstake1,pos3)
@@ -447,9 +443,9 @@ describe('BlackJack Game', ()=>{
       let pos2bet = await BlackJackFunc.GetPosBet(2)
       let pos3bet = await BlackJackFunc.GetPosBet(2)
       await utils.shouldBeEqual(totalbet,maxbet)
-      await utils.shouldBeEqual(pos1bet,betstake2)
-      await utils.shouldBeEqual(pos2bet,betstake2)
-      await utils.shouldBeEqual(pos3bet,betstake2)
+      await utils.shouldBeEqual(pos1bet,betstake1)
+      await utils.shouldBeEqual(pos2bet,betstake1)
+      await utils.shouldBeEqual(pos3bet,betstake1)
        // Get PosId
       const pos1id = await BlackJackFunc.GetPosId(1)
       const pos2id = await BlackJackFunc.GetPosId(2)

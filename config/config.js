@@ -7,7 +7,21 @@ export const setting ={
     },
     timeout : 80000,
     loop : 60,
-    headless: true
+    headless: true,
+    gameId: {
+        BlackJack : 23,
+        Sedie : 2,
+        VipSedie : 22,
+        BigSmallSicbo:  25,
+        Baccarat:  10,
+        Roulette:  21,
+        BigSmall : 1,
+        MiniSedie: 9,
+        TurboBigSmall: 4,
+        TurboOddEven: 6,
+        SedieWar: 24
+
+    }
 }
 
 export const cf_local ={
@@ -143,7 +157,7 @@ export const cf_uat ={
 export const cf_prod ={
     url: "https://www.viva88.net/login888.aspx",
     username: {
-        BlackJack : "supertestte120201001",
+        BlackJack : "supertestte120201013",
         Sedie : "supertestte120201002",
         VipSedie : "supertestte120201003",
         BigSmallSicbo:  "supertestte120201004",
@@ -154,7 +168,7 @@ export const cf_prod ={
         MiniSedie: "supertestte120201009",
         TurboBigSmall: "supertestte120201011",
         TurboOddEven: "supertestte120201012",
-        SedieWar: "supertestte120201013"
+        SedieWar: "supertestte120201001"
 
     },
     password: "1234aa",
