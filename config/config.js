@@ -5,7 +5,7 @@ export const setting ={
         width : 1280,
         height : 720
     },
-    timeout : 60000,
+    timeout : 80000,
     loop : 60,
     headless: true
 }
@@ -158,7 +158,7 @@ export const cf_prod ={
 
     },
     password: "1234aa",
-    gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
+    gamelobbyurl: "VendorGame/OpenSabaClubLobby",
     urlWebsocket: "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "https://www.sabagame.com",
     protocol: "wss"
