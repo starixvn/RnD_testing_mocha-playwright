@@ -531,6 +531,7 @@ export const Login = async(_env,_game) => {
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
         await navigate(page.url().toString().replace(/\/[Ss]ports/g,'')+config[_env].gamelobbyurl)
+        await sleep(5000)
     } else {
         // Navigate Sabaclub from Simulator
         await MemberSiteFunc.login_local(_env,_game)
