@@ -39,7 +39,7 @@ const getMessage = async(_mes) => {
     }
 }
 
-export const wsFindMessage = async(_mes,cfloop=config.setting.loop) => {
+export const wsFindMessage = async(_mes,cfloop=config.setting.timeout) => {
     try {
         let result
         for(let t = 0 ; t< cfloop ; t++){
