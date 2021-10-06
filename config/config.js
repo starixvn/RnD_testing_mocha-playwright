@@ -9,6 +9,19 @@ export const setting ={
     loop : 60,
     headless: true,
     gameId: {
+        BlackJack : 1634,
+        Sedie : 1613,
+        VipSedie : 1633,
+        BigSmallSicbo:  1636,
+        Baccarat:  1621,
+        Roulette:  1632,
+        BigSmall : 1612,
+        MiniSedie: 1620,
+        TurboBigSmall: 1615,
+        TurboOddEven: 1617,
+        SedieWar: 1639
+    },
+    gameIdlocal: {
         BlackJack : 23,
         Sedie : 2,
         VipSedie : 22,
@@ -20,7 +33,6 @@ export const setting ={
         TurboBigSmall: 4,
         TurboOddEven: 6,
         SedieWar: 24
-
     }
 }
 
@@ -125,7 +137,7 @@ export const cf_sit ={
         SedieWar: "supertestsaba77"
     },
     password: "1234aaAA",
-    gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
+    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
     urlWebsocket: "wss://l1uatproxy.sgamesuat.com/sit/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "https://l1sit.sgamesuat.com",
     protocol: "wss"
@@ -149,7 +161,7 @@ export const cf_uat ={
         SedieWar: "IT66Test789"
     },
     password: "1234aaAA",
-    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=0",
+    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
     urlWebsocket: "wss://l1uatproxy.sgamesuat.com/uat/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "https://l1uat.sgamesuat.com"
 }
@@ -172,7 +184,7 @@ export const cf_prod ={
 
     },
     password: "1234aa",
-    gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
+    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
     urlWebsocket: "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "https://www.sabagame.com",
     protocol: "wss"
