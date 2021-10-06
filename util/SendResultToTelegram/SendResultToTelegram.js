@@ -18,7 +18,7 @@ describe('Send Message', ()=>{
                 }
             }
             //mainContent = await gsutils.isFailed(obj) === false ? ` ${obj[1].TestSuite} Passed total ${totalcase} testcases` : testSuiteDetail
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite} Passed total ${rs.Result[0].pass} testcases` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite} Passed: ${rs.Result[0].pass} ` : testSuiteDetail
             console.log(mainContent);
             let day = new Date().toLocaleDateString()
             await chai.request("https://bot.nexdev.net")
@@ -26,8 +26,9 @@ describe('Send Message', ()=>{
             .send({
                 token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
                 conversationId: -1001516404043,
-                message: `===============================================\n*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , Language: VN *\n`
-                +`Environment - *[${env}]*\nReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})${mainContent}`
+                parse_mode: "markdown",
+                message: `*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , *`
+                +`Env : *${env}* Report: ${mainContent} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
             })
               } else {
             let day = new Date().toLocaleDateString()
@@ -36,8 +37,9 @@ describe('Send Message', ()=>{
             .send({
                 token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
                 conversationId: -1001516404043,
-                message: `===============================================\n*Automation Test Result: ${day}*\n`
-                +`Environment - *[${env}]*\nReport - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})\nStatus - *Failed*`
+                parse_mode: "markdown",
+                message: `*Automation Test Result: ${day}*`
+                +`Environment - *${env}* Report - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})\nStatus - *Failed*`
             }).end( async(err,res)=>{
                 await shouldBeEqual(res.statusCode,200)
             })
