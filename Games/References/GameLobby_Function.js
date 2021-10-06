@@ -9,7 +9,6 @@ export const verifyLoginSuccessfully = async() => {
 
 export const OpenGameFromLobby = async(_Gamename) => {
     //Game in Screen1
-    await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
     let _game = `${_Gamename}Icon`
     const Gscreen1 = ['VipSedie','Sedie','SedieWar','MiniSedie','FourGuardians']
     const Gscreen2 = ['BigSmallSicbo','BigSmall','TurboBigSmall','TurboOddEven','KenoProMax','KenoProViet','VipBaccarat','Baccarat']
@@ -18,9 +17,11 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.sleep(500)
         await utils.swipe(config.setting.viewport.width/2 + 100, config.setting.viewport.height/2,0, config.setting.viewport.height/2)
         await utils.sleep(2000)
+        await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y )
         }    
     else if (Gscreen1.includes(_Gamename) === true){
+        await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
         await utils.sleep(500)
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
     else if (Gscreen3.includes(_Gamename) === true){
@@ -29,6 +30,7 @@ export const OpenGameFromLobby = async(_Gamename) => {
         await utils.sleep(2000)
         await utils.swipe(config.setting.viewport.width/2 + 100, config.setting.viewport.height/2,0, config.setting.viewport.height/2)
         await utils.sleep(2000)
+        await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
         await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y )
     }
     await utils.sleep(6000) //hard sleep wait for game load
