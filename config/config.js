@@ -172,7 +172,7 @@ export const cf_prod ={
 
     },
     password: "1234aa",
-    gamelobbyurl: "VendorGame/OpenSabaClubLobby",
+    gamelobbyurl: "/VendorGame/OpenSabaClubLobby",
     urlWebsocket: "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
     urlOrigin: "https://www.sabagame.com",
     protocol: "wss"
