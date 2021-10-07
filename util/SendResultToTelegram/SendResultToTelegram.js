@@ -18,7 +18,7 @@ describe('Send Message', ()=>{
                 }
             }
             //mainContent = await gsutils.isFailed(obj) === false ? ` ${obj[1].TestSuite} Passed total ${totalcase} testcases` : testSuiteDetail
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite} Passed: ${rs.Result[0].pass} ` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
             console.log(mainContent);
             let day = new Date().toLocaleDateString()
             await chai.request("https://bot.nexdev.net")
@@ -29,7 +29,7 @@ describe('Send Message', ()=>{
                 parse_mode: "markdown",
                 // message: `*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , *`
                 // +`Env : *${env}* Report: ${mainContent} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
-                message: `${mainContent} Env : ${env} Duration: ${rs.ExecutionTime} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
+                message: `${mainContent} - Env : ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
             })
               } else {
             let day = new Date().toLocaleDateString()
