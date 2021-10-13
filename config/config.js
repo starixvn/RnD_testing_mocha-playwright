@@ -32,7 +32,8 @@ export const setting ={
         MiniSedie: 9,
         TurboBigSmall: 4,
         TurboOddEven: 6,
-        SedieWar: 24
+        SedieWar: 24,
+        Lottery: 31
     }
 }
 
@@ -53,7 +54,8 @@ export const cf_local ={
         TurboOddEven: "1001061",
         SedieWar: "1001062",
         BigSmallSicbo: "1001063",
-        FourGuardians: "1001064"
+        FourGuardians: "1001064",
+        Lottery: "1001065"
     },
     password: "",
     gamelobbyurl: "",
