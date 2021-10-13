@@ -19,7 +19,8 @@ export const setting ={
         MiniSedie: 1620,
         TurboBigSmall: 1615,
         TurboOddEven: 1617,
-        SedieWar: 1639
+        SedieWar: 1639,
+        FishPrawnCrab: 1614
     },
     gameIdlocal: {
         BlackJack : 23,
@@ -33,7 +34,8 @@ export const setting ={
         TurboBigSmall: 4,
         TurboOddEven: 6,
         SedieWar: 24,
-        Lottery: 31
+        Lottery: 31,
+        FishPrawnCrab: 3
     }
 }
 
@@ -55,7 +57,8 @@ export const cf_local ={
         SedieWar: "1001062",
         BigSmallSicbo: "1001063",
         FourGuardians: "1001064",
-        Lottery: "1001065"
+        Lottery: "1001065",
+        FishPrawnCrab: "1001100"
     },
     password: "",
     gamelobbyurl: "",
@@ -83,7 +86,8 @@ export const cf_local1 ={
         TurboOddEven: "1001061",
         SedieWar: "1001062",
         BigSmallSicbo: "1001063",
-        FourGuardians: "1001064"
+        FourGuardians: "1001064",
+        FishPrawnCrab: "1001100"
     },
     password: "",
     gamelobbyurl: "",
@@ -111,7 +115,8 @@ export const cf_local1 ={
 //         TurboOddEven: "1001061",
 //         SedieWar: "1001062",
 //         BigSmallSicbo: "1001063",
-//         FourGuardians: "1001064"
+//         FourGuardians: "1001064",
+//         FishPrawnCrab: "1001100"
 //     },
 //     password: "",
 //     gamelobbyurl: "",

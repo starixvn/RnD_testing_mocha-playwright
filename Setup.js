@@ -11,7 +11,8 @@ before(async () => {
     global.wsMessageReceived = []
     global.browser = await playwright[config.setting.browser].launch({
        headless: config.setting.headless ,
-       args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
+      //  args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
+       args: ['--disable-gpu']
       })
     const context = await browser.newContext({
         viewport: {
