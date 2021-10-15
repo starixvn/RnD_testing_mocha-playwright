@@ -6,8 +6,18 @@ var jp = require('jsonpath');
 import _ from 'lodash';
 
 
+// QuickClick pos
+export const clickPos = async(_x, _y) => {
+  try {
+      await page.mouse.click(_x,_y)
+      await utils.sleep(250)
+   } catch (error) {
+      console.error(error.message);
+   }
+ }
+
 export const CloseGame = async() => {
-  await utils.clickPos(TurboOddEvenLocator.Close.x,TurboOddEvenLocator.Close.y )
+  await clickPos(TurboOddEvenLocator.Close.x,TurboOddEvenLocator.Close.y )
   await utils.sleep(1000)
   let flag = await utils.imageShouldNotDisplay(TurboOddEvenLocator.Even)
   await utils.shouldBeEqual(flag.Val,true)
@@ -18,10 +28,10 @@ export const OpenHistory = async() => {
   if (_settlestate === true){
       console.log('Balanced Betting Pool')
       await utils.sleep(5000)
-      await utils.clickPos(TurboOddEvenLocator.History.x ,TurboOddEvenLocator.History.y)
+      await clickPos(TurboOddEvenLocator.History.x ,TurboOddEvenLocator.History.y)
   }
   else
-  await utils.clickPos(TurboOddEvenLocator.History.x ,TurboOddEvenLocator.History.y)
+  await clickPos(TurboOddEvenLocator.History.x ,TurboOddEvenLocator.History.y)
   await utils.sleep(500)
 }
 
@@ -37,39 +47,39 @@ export const IsSettle = async() => {
 
 
 export const CloseHistory = async() => {
-  await utils.clickPos(TurboOddEvenLocator.HistoryClose.x,TurboOddEvenLocator.HistoryClose.y )
+  await clickPos(TurboOddEvenLocator.HistoryClose.x,TurboOddEvenLocator.HistoryClose.y )
   await utils.sleep(500) 
 }
 
 export const OpenGuide = async() => {
-  await utils.clickPos(TurboOddEvenLocator.Guide.x,TurboOddEvenLocator.Guide.y )
+  await clickPos(TurboOddEvenLocator.Guide.x,TurboOddEvenLocator.Guide.y )
   await utils.sleep(500)
 }
 
 export const CloseGuide = async() => {
-  await utils.clickPos(TurboOddEvenLocator.GuideClose.x,TurboOddEvenLocator.GuideClose.y )
+  await clickPos(TurboOddEvenLocator.GuideClose.x,TurboOddEvenLocator.GuideClose.y )
   await utils.sleep(500)
 }
 
 export const OpenStatistic = async() => {
-  await utils.clickPos(TurboOddEvenLocator.Statistic.x,TurboOddEvenLocator.Statistic.y )
+  await clickPos(TurboOddEvenLocator.Statistic.x,TurboOddEvenLocator.Statistic.y )
   await utils.sleep(500)
 
 }
 
 export const CloseStatistic = async() => {
-  await utils.clickPos(TurboOddEvenLocator.StatisticClose.x,TurboOddEvenLocator.StatisticClose.y )
+  await clickPos(TurboOddEvenLocator.StatisticClose.x,TurboOddEvenLocator.StatisticClose.y )
   await utils.sleep(500)
 }
 
 export const OpenPreset = async() => {
-  await utils.clickPos(TurboOddEvenLocator.Preset.x,TurboOddEvenLocator.Preset.y )
+  await clickPos(TurboOddEvenLocator.Preset.x,TurboOddEvenLocator.Preset.y )
   //await utils.sleep(200)
 
 }
 
 export const ClosePreset = async() => {
-  await utils.clickPos(TurboOddEvenLocator.PresetClose.x,TurboOddEvenLocator.PresetClose.y )
+  await clickPos(TurboOddEvenLocator.PresetClose.x,TurboOddEvenLocator.PresetClose.y )
   //await utils.sleep(200)
 }
 
@@ -107,7 +117,7 @@ export const VerifySignInSuccessfully = async() => {
 export const ClearPreset = async()=>{
   await OpenPreset()
   await ClearPresetChip()
-  await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
+  await clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)
 }
 
 
@@ -118,15 +128,13 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await utils.sleep(100)
+      await utils.sleep(300)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(200)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
         const _cnumber = `Chip${_stake}`
-        await utils.clickPos(TurboOddEvenLocator[_cnumber].x,TurboOddEvenLocator[_cnumber].y)
-        await utils.sleep(100)
+        await clickPos(TurboOddEvenLocator[_cnumber].x,TurboOddEvenLocator[_cnumber].y)
       }
          //SubmitChip
       await SubmitChip()
@@ -140,7 +148,6 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       await utils.sleep(200)
       if (_isfail === false )
       {
-        await utils.sleep(200)
         break
       }
     }   
@@ -208,25 +215,27 @@ export const SubmitChip = async () => {
 
 //Select Bet pos Big or Small
 export const SelectPos = async(_pos) => {
+  await utils.sleep(100)
   let _acpos = `Pos${_pos}`
-  await utils.clickPos(TurboOddEvenLocator[_acpos].x,TurboOddEvenLocator[_acpos].y)//click bet position
+  await clickPos(TurboOddEvenLocator[_acpos].x,TurboOddEvenLocator[_acpos].y)//click bet position
 }
 
 //Preset Chip
 export const PresetChip = async(_chip,_clear='clear') => {
-  await utils.clickPos(TurboOddEvenLocator.Preset.x,TurboOddEvenLocator.Preset.y)
+  await clickPos(TurboOddEvenLocator.Preset.x,TurboOddEvenLocator.Preset.y)
   const _prechip = `PresetChip${_chip}`
   //Clear preset chip --> return 0
   if (_clear == 'clear'){
     await ClearPresetChip()
   }
-  await utils.clickPos(TurboOddEvenLocator[_prechip].x,TurboOddEvenLocator[_prechip].y)
-  await utils.clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)//click Accept
+  await utils.sleep(100)
+  await clickPos(TurboOddEvenLocator[_prechip].x,TurboOddEvenLocator[_prechip].y)
+  await clickPos(TurboOddEvenLocator.PresetAccept.x,TurboOddEvenLocator.PresetAccept.y)//click Accept
 }
 
 //Clear Preset Chip
 export const ClearPresetChip = async() => {
-  await utils.clickPos(TurboOddEvenLocator.PresetClear.x,TurboOddEvenLocator.PresetClear.y)
+  await clickPos(TurboOddEvenLocator.PresetClear.x,TurboOddEvenLocator.PresetClear.y)
 }
 
 export const VerifyHistoryContent = async() => {

@@ -86,6 +86,7 @@ export const checkNavStatisticbar = async() => {
 export const clickPos = async(_x, _y) => {
  try {
      await page.mouse.click(_x,_y)
+     await utils.sleep(250)
   } catch (error) {
      console.error(error.message);
   }
@@ -115,13 +116,13 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
     for (let t = 0;  t< config.setting.loop; t++)
      {
       wsMessageReceived = []
-      await SelectPos(_pos)  //Big or Small
       await utils.sleep(300)
-      // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
+      await SelectPos(_pos)  //Big or Small
+            // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
       {
         const _cnumber = `Chip${_stake}`
-        await utils.clickPos(TurboBigSmallLocator[_cnumber].x,TurboBigSmallLocator[_cnumber].y)
+        await clickPos(TurboBigSmallLocator[_cnumber].x,TurboBigSmallLocator[_cnumber].y)
       }
          //SubmitChip
       await SubmitChip()
@@ -135,7 +136,6 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       await utils.sleep(500)
       if (_isfail === false )
       {
-        await utils.sleep(200)
         break
       }
     }   
@@ -150,14 +150,12 @@ export const VerifyBetStake = async (_pos,_stake) => {
       //console.log('Verify Stake: ',_pos,': ',_stake)
       //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
-      if (_pos == "Big"){
-          findmsg = `42/user/txturbo,["TXTurbo",{"ownBets":{"big":${_stake}}`
-          _found = await utils.wsFindMessage(findmsg)
-          }
-       else if(_pos == "Small"){
-        findmsg = `42/user/txturbo,["TXTurbo",{"ownBets":{"small":${_stake}}`
-        _found = await utils.wsFindMessage(findmsg)
-       }
+      _pos = _pos.toLowerCase()
+      findmsg = `"${_pos}":${_stake}}`
+      _found = await utils.wsFindMessage(findmsg)
+      if(_found.Val==false){
+        console.log('ws message to trace bet choice',wsMessageReceived);
+      }
       await utils.shouldBeEqual(_found.Val,true, `Verify bet choice: ${_pos} and stake:${_stake}`)    
   } catch (e) {
       console.error(e)
@@ -196,8 +194,7 @@ export const CloseChipBoard = async () => {
 //SubmitChip
 export const SubmitChip = async () => {
   try {
-      await utils.clickPos(TurboBigSmallLocator.ChipBroadAccept.x,TurboBigSmallLocator.ChipBroadAccept.y)
-      await page.waitForTimeout(500)
+      await clickPos(TurboBigSmallLocator.ChipBroadAccept.x,TurboBigSmallLocator.ChipBroadAccept.y)
   } catch (e) {
       console.error(e)
   }
@@ -205,25 +202,27 @@ export const SubmitChip = async () => {
 
 //Select Bet pos Big or Small
 export const SelectPos = async(_pos) => {
+  await utils.sleep(100)
   let _acpos = `Pos${_pos}`
-  await utils.clickPos(TurboBigSmallLocator[_acpos].x,TurboBigSmallLocator[_acpos].y)//click bet position
+  await clickPos(TurboBigSmallLocator[_acpos].x,TurboBigSmallLocator[_acpos].y)//click bet position
 }
 
 //Preset Chip
 export const PresetChip = async(_chip,_clear='clear') => {
-  await utils.clickPos(TurboBigSmallLocator.Preset.x,TurboBigSmallLocator.Preset.y)
+  await clickPos(TurboBigSmallLocator.Preset.x,TurboBigSmallLocator.Preset.y)
   const _prechip = `PresetChip${_chip}`
   //Clear preset chip --> return 0
   if (_clear == 'clear'){
     await ClearPresetChip()
   }
-  await utils.clickPos(TurboBigSmallLocator[_prechip].x,TurboBigSmallLocator[_prechip].y)
-  await utils.clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)//click Accept
+  await utils.sleep(100)
+  await clickPos(TurboBigSmallLocator[_prechip].x,TurboBigSmallLocator[_prechip].y)
+    await clickPos(TurboBigSmallLocator.PresetAccept.x,TurboBigSmallLocator.PresetAccept.y)//click Accept
 }
 
 //Clear Preset Chip
 export const ClearPresetChip = async() => {
-  await utils.clickPos(TurboBigSmallLocator.PresetClear.x,TurboBigSmallLocator.PresetClear.y)
+  await clickPos(TurboBigSmallLocator.PresetClear.x,TurboBigSmallLocator.PresetClear.y)
 }
 
 export const VerifyHistoryContent = async() => {

@@ -138,7 +138,6 @@ describe('TurboBigSmall Game', ()=>{
     const Achip =  [1,5,10,50]
     const pos = "Big"
     let _stake =0
-    await TurboBigSmallFunc.waitUtilNewRound()
     for (let i =0 ; i< Achip.length ;i ++){
       await TurboBigSmallFunc.PresetChip(Achip[i])
       _stake = _stake + Achip[i]
