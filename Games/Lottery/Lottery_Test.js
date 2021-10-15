@@ -6,7 +6,7 @@ let RouletteLocator = (process.env.npm_config_lang  == 'vn' ? require('./Lottery
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('BigSmall Game', ()=>{
+describe('Lottery Game', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()
@@ -46,7 +46,6 @@ describe('BigSmall Game', ()=>{
  
   it('TC_03_Full_Smoke_Verify Close Game Success', async () => {
     await LotteryFunc.CloseGame()
-    await utils.sleep(5000)
   }) 
 
 })

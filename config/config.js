@@ -35,7 +35,11 @@ export const setting ={
         TurboOddEven: 6,
         SedieWar: 24,
         Lottery: 31,
-        FishPrawnCrab: 3
+        FishPrawnCrab: 3,
+        DragonTiger: 7,
+        FourGuardians: 29,
+        SpecialSedie: 24,
+        KenoProMax: 8
     }
 }
 
@@ -58,7 +62,10 @@ export const cf_local ={
         BigSmallSicbo: "1001063",
         FourGuardians: "1001064",
         Lottery: "1001065",
-        FishPrawnCrab: "1001100"
+        FishPrawnCrab: "1001100",
+        DragonTiger:  "1001066",
+        SpecialSedie: "1001067",
+        KenoProMax: "1001068"
     },
     password: "",
     gamelobbyurl: "",
