@@ -20,7 +20,10 @@ export const setting ={
         TurboBigSmall: 1615,
         TurboOddEven: 1617,
         SedieWar: 1639,
-        FishPrawnCrab: 1614
+        FishPrawnCrab: 1614,
+        VipFishPrawnCrab: 1637,
+        VipBaccarat : 1638,
+        ThreeCards : 1643
     },
     gameIdlocal: {
         BlackJack : 23,
@@ -39,7 +42,10 @@ export const setting ={
         DragonTiger: 7,
         FourGuardians: 29,
         SpecialSedie: 24,
-        KenoProMax: 8
+        KenoProMax: 8,
+        VipFishPrawnCrab: 26,
+        VipBaccarat : 27,
+        ThreeCards : 35
     }
 }
 
@@ -65,7 +71,10 @@ export const cf_local ={
         FishPrawnCrab: "1001100",
         DragonTiger:  "1001066",
         SpecialSedie: "1001067",
-        KenoProMax: "1001068"
+        KenoProMax: "1001068",
+        VipFishPrawnCrab: "1001101",
+        VipBaccarat : "1001102",
+        ThreeCards : "1001103"
     },
     password: "",
     gamelobbyurl: "",
@@ -94,7 +103,10 @@ export const cf_local1 ={
         SedieWar: "1001062",
         BigSmallSicbo: "1001063",
         FourGuardians: "1001064",
-        FishPrawnCrab: "1001100"
+        FishPrawnCrab: "1001100",
+        VipFishPrawnCrab: "1001101",
+        VipBaccarat : "1001102",
+        ThreeCards : "1001103"
     },
     password: "",
     gamelobbyurl: "",
