@@ -161,14 +161,9 @@ export const VerifyBetStake = async (_pos,_stake) => {
   try {
       //console.log('Verify Stake: ',_pos,': ',_stake)
       let findmsg,_found
-      if (_pos == "Even"){
-        findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"even":${_stake}}`
-        _found = await utils.wsFindMessage(findmsg)
-          }
-       else if(_pos == "Odd"){
-        findmsg = `42/user/oeturbo,["OETurbo",{"ownBets":{"odd":${_stake}}`
-          _found = await utils.wsFindMessage(findmsg)
-       }
+      _pos = _pos.toLowerCase()
+      findmsg = `"${_pos}":${_stake}}`
+     _found = await utils.wsFindMessage(findmsg,2)
       await utils.shouldBeEqual(_found.Val,true,`verify ${_pos} and ${_stake}`)    
   } catch (e) {
       console.error(e)

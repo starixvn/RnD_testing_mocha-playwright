@@ -13,6 +13,16 @@ export const CloseGame = async() => {
 
 }
 
+// QuickClick pos
+export const clickPos = async(_x, _y) => {
+  try {
+      await page.mouse.click(_x,_y)
+      await utils.sleep(250)
+   } catch (error) {
+      console.error(error.message);
+   }
+ }
+
 //Wait until new round
 export const waitUtilNewRound = async() => {
   let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"remainingTime":61}]')
@@ -54,11 +64,11 @@ export const CloseStatistic = async() => {
 }
 
 export const OpenPreset = async() => {
-  await utils.clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
+  await clickPos(BigSmallLocator.Preset.x,BigSmallLocator.Preset.y)
 }
 
 export const ClosePreset = async() => {
-  await utils.clickPos(BigSmallLocator.PresetClose.x,BigSmallLocator.PresetClose.y )
+  await clickPos(BigSmallLocator.PresetClose.x,BigSmallLocator.PresetClose.y )
 }
 
 
@@ -91,12 +101,11 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       wsMessageReceived = []
       await utils.sleep(100)
       await SelectPos(_pos)  //Big or Small
-      await utils.sleep(100)
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
           {
             const _cnumber = `Chip${_stake}`
-            await utils.clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
+            await clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
           }
       //SubmitChip
       await SubmitChip()
@@ -126,15 +135,9 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
       let findmsg,_found
-      if (_pos == "Big"){
-          findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"big":${_stake}}`
-          _found = await utils.wsFindMessage(findmsg,5)
-       }
-
-       else if(_pos == "Small"){
-          findmsg = `42/user/taixiu,["taixiu",{"ownBets":{"small":${_stake}}`
-          _found = await utils.wsFindMessage(findmsg,5)
-       }
+      _pos = _pos.toLowerCase()
+      findmsg = `"${_pos}":${_stake}}`
+     _found = await utils.wsFindMessage(findmsg,2)
       //  if(_found.Val==false){
       //    console.log('ws message to trace bet choice',wsMessageReceived);
       //  }
@@ -177,7 +180,6 @@ export const CloseChipBoard = async () => {
 export const SubmitChip = async () => {
   try {
       await utils.clickPos(BigSmallLocator.ChipBroadAccept.x,BigSmallLocator.ChipBroadAccept.y)
-      await utils.sleep(200)
   } catch (e) {
       console.error(e)
   }
@@ -186,7 +188,7 @@ export const SubmitChip = async () => {
 //Select Bet pos Big or Small
 export const SelectPos = async(_pos) => {
   let _acpos = `Pos${_pos}`
-  await utils.clickPos(BigSmallLocator[_acpos].x,BigSmallLocator[_acpos].y)//click bet position
+  await clickPos(BigSmallLocator[_acpos].x,BigSmallLocator[_acpos].y)//click bet position
 }
 
 //Preset Chip
@@ -197,13 +199,13 @@ export const PresetChip = async(_chip,_clear='clear') => {
   if (_clear == 'clear'){
     await ClearPresetChip()
   }
-  await utils.clickPos(BigSmallLocator[_prechip].x,BigSmallLocator[_prechip].y)
-  await utils.clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)//click Accept
+  await clickPos(BigSmallLocator[_prechip].x,BigSmallLocator[_prechip].y)
+  await clickPos(BigSmallLocator.PresetAccept.x,BigSmallLocator.PresetAccept.y)//click Accept
 }
 
 //Clear Preset Chip
 export const ClearPresetChip = async() => {
-  await utils.clickPos(BigSmallLocator.PresetClear.x,BigSmallLocator.PresetClear.y)
+  await clickPos(BigSmallLocator.PresetClear.x,BigSmallLocator.PresetClear.y)
 }
 
 export const VerifyHistoryContent = async() => {
@@ -413,14 +415,6 @@ export const checkNavStatisticbar = async() => {
 
 }
 
-// QuickClick pos
-export const clickPos = async(_x, _y) => {
-  try {
-      await page.mouse.click(_x,_y)
-   } catch (error) {
-      console.error(error.message);
-   }
-}
 
 ///////////////////////////////////////////////////////////Database Functions
 

@@ -12,8 +12,8 @@ export const ReturnHome = async() => {
   await utils.sleep(100)
   await utils.clickPos(BlackJackLocator.Home.x,BlackJackLocator.Home.y )
   await utils.sleep(3000)
-  let flag = await utils.imageShouldNotDisplay(BlackJackLocator.DealerContent)
-  await utils.shouldBeEqual(flag.Val,true,'Verfiy game is closed successfully')
+  // let flag = await utils.imageShouldNotDisplay(BlackJackLocator.DealerContent)
+  // await utils.shouldBeEqual(flag.Val,true,'Verfiy game is closed successfully')
 }
 
 export const OpenHistory = async() => {
