@@ -206,7 +206,16 @@ export const cf_prod ={
         MiniSedie: "supertestte120201009",
         TurboBigSmall: "supertestte120201011",
         TurboOddEven: "supertestte120201012",
-        SedieWar: "supertestte120201001"
+        SedieWar: "supertestte120201001",
+        FourGuardians: "supertestte120201001",
+        Lottery: "supertestte120201013",
+        FishPrawnCrab: "supertestte120201002",
+        DragonTiger:  "supertestte120201003",
+        SpecialSedie: "supertestte120201012",
+        KenoProMax: "supertestte120201011",
+        VipFishPrawnCrab: "supertestte120201008",
+        VipBaccarat : "supertestte120201009",
+        ThreeCards : "supertestte120201004"
 
     },
     password: "1234aa",
