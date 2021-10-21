@@ -23,7 +23,13 @@ export const setting ={
         FishPrawnCrab: 1614,
         VipFishPrawnCrab: 1637,
         VipBaccarat : 1638,
-        ThreeCards : 1643
+        ThreeCards : 1643,
+        DragonTiger: 1618,
+        KenoProMax: 1619,
+        FourGuardians: 1640,
+        Lottery: 1642,
+        SpecialSedie: 1635
+
     },
     gameIdlocal: {
         BlackJack : 23,
