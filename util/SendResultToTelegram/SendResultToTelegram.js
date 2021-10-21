@@ -9,7 +9,7 @@ describe('Send Message', ()=>{
         let rs = await gsutils.prepareResult_vn(obj)
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
-        let totalcase = obj.length
+        let mode = process.env.npm_config_mode
         let testSuiteDetail = "",mainContent       
         if(obj !== 'NotFound'){
             if(await gsutils.isFailed(obj) === true){
@@ -29,7 +29,7 @@ describe('Send Message', ()=>{
                 parse_mode: "markdown",
                 // message: `*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , *`
                 // +`Env : *${env}* Report: ${mainContent} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
-                message: `${mainContent} - Env : ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
+                message: `${mainContent} -${mode} Test on ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
             })
               } else {
             let day = new Date().toLocaleDateString()

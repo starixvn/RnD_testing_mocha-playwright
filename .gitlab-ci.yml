@@ -38,16 +38,15 @@ config_report:
     when: always
     expire_in: 1 day
 
-
-# public_report:
-#   stage: public-report
-#   tags:
-#     - docker-automation-test
-#   script:
-#     - npm install --no-optional
-#     - npm run sendResultToTelegram --args=Job=$JOBR-env=$env --lang=$lang
-#     - npm run exportStatus --args=env=$env
-#   when: always
+public_report:
+  stage: public-report
+  tags:
+    - docker-automation-test
+  script:
+    - npm install --no-optional
+    - npm run sendResultToTelegram --args=Job=$JOBR-env=$env --lang=$lang --mode=$Mode
+    - npm run exportStatus --args=env=$env
+  when: always
 
 cleanup_job:
   stage: cleanup
