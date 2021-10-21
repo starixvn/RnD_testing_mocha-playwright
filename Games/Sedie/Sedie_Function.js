@@ -348,6 +348,8 @@ const verifyDealer = async() => {
 
 export const returnHome = async() => {
     await utils.clickPos(SedieLocator.Home.x, SedieLocator.Home.y)
+    // await utils.sleep(1000)
+    // await utils.CaptureSubImageToFile(GameLobbyLocator.AccountName)
     let flag = await utils.findImage(GameLobbyLocator.AccountName)
     await utils.shouldBeEqual(flag.Val,true)
 }
