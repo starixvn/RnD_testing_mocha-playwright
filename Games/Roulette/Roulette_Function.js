@@ -8,8 +8,8 @@ var jp = require('jsonpath')
 export const CloseGame = async() => {
   await utils.clickPos(RouletteLocator.BtnHome.x,RouletteLocator.BtnHome.y )
   await utils.sleep(1000)
-  let flag = await utils.wsFindMessage('42/user/roulette,["Roulette",{"outgame"')
-  await utils.shouldBeEqual(flag.Val,true)
+  // let flag = await utils.wsFindMessage('42/user/roulette,["Roulette",{"outgame"')
+  // await utils.shouldBeEqual(flag.Val,true)
 
 }
 
