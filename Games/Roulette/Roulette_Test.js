@@ -23,7 +23,7 @@ describe('Roulette Game', ()=>{
    await RouletteFunc.VerifySignInSuccessfully()
     }) 
 
-   it('TC_02_Full_Smoke_Verify Max Bet on Big', async () => {
+  it('TC_02_Full_Smoke_Verify Settlement some choices', async () => {
   await RouletteFunc.waitUtilNewRound()
   const stake = 10
   await RouletteFunc.PlaceBet("Even",stake)
@@ -32,12 +32,10 @@ describe('Roulette Game', ()=>{
   await RouletteFunc.VerifyBetStake("0",stake)
   await RouletteFunc.PlaceBet("Red",stake)
   await RouletteFunc.VerifyBetStake("Red",stake)
-  console.log('verify bet stake');
   await RouletteFunc.CheckSettleBalance()
-  console.log('check settle balance');
   await RouletteFunc.CheckRoundHistory()
-  }) 
- 
+  })
+
   it('TC_03_Full_Smoke_Verify Close Game Success', async () => {
     await RouletteFunc.CloseGame()
   }) 

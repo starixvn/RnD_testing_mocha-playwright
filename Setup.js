@@ -37,6 +37,9 @@ before(async () => {
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
     global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
     global.expect = expect
+    global.username = null
+    global.session = null
+    global.name=null
     if(typeof process.env.npm_config_game !== 'undefined'){
       global.game = process.env.npm_config_game
       // Set balance on Local

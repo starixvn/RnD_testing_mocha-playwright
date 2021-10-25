@@ -11,8 +11,6 @@ const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
 const sharp = require('sharp')
 sharp.cache({ files : 0 });
-let username=null,session=null,name=null
-
 
 // Verify Message is existed
 const FindMessage = async(_mes) => {
@@ -492,6 +490,51 @@ export const betProcess = async(_x,_y,_mes) => {
     }
 }
 
+//send ws data
+export const sendwsdata= async(client, msg)=>{
+    if (client.readyState === client.OPEN) {
+      client.send(msg.toString());
+      await sleep(1000)
+    }
+    else{
+      console.log(`failed send ${msg}`);
+    }
+  }
+
+// wait for data from array
+export const returnMachedtData= async(wsMessage,msg)=>{
+    for(let i=0;i<30;i++){
+          const _found = wsMessage.filter(element => element.includes(msg));
+          if(_found.length > 0){
+            i=30;
+            return _found
+            break
+          }     
+         console.log(`not found ${msg}`);
+        await sleep(500)
+      }
+  }  
+
+//Create new socket connection 
+export const createWSConnect= async(wsurl, urlorigin)=>{
+    var client = new W3CWebSocket(wsurl, 'wss',urlorigin, {'User-agent': userAgent});
+    let wsmsgbs= []
+    client.onerror = ()=> {
+      console.log('Connection Error');
+    }
+    client.onclose = ()=> {
+      console.log('echo-protocol Client Closed');
+    }
+    client.onmessage =(e)=> {
+      if (typeof e.data === 'string') {
+        wsmsgbs.push(e.data)
+      }
+    }
+    client.onopen = () =>{
+      console.log('WebSocket Client Connected')
+    }
+    return {client,wsmsgbs}
+  }
 
 // Check Websocket Mesage
 export const wshear = async(ws) =>{

@@ -4,6 +4,7 @@ let RouletteLocator = (process.env.npm_config_lang  == 'vn' ? require('./Roulett
 import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
 var jp = require('jsonpath')
+const W3CWebSocket = require('websocket').w3cwebsocket;
 
 export const CloseGame = async() => {
   await utils.clickPos(RouletteLocator.BtnHome.x,RouletteLocator.BtnHome.y )
@@ -78,23 +79,23 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
       if(_cnumber =='Chip50'||_cnumber =='Chip100'||_cnumber =='Chip200'){
         await utils.swipe(471,658,49,658)
         await utils.sleep(200)
-        await utils.clickPos(RouletteLocator[_cnumber].x,RouletteLocator[_cnumber].y)
+        await clickPos(RouletteLocator[_cnumber].x,RouletteLocator[_cnumber].y)
       }
       else if (_cnumber=='Chip500'||_cnumber=='Chip1000'||_cnumber=='Chip2000'){
         await utils.swipe(471,658,49,658)
         await utils.sleep(300)
         await utils.swipe(471,658,49,658)
         await utils.sleep(300)
-        await utils.clickPos(RouletteLocator[_cnumber].x,RouletteLocator[_cnumber].y)
+        await clickPos(RouletteLocator[_cnumber].x,RouletteLocator[_cnumber].y)
       }
       else      
-        await utils.clickPos(RouletteLocator[_cnumber].x,RouletteLocator[_cnumber].y)
+        await clickPos(RouletteLocator[_cnumber].x,RouletteLocator[_cnumber].y)
         await utils.sleep(300)
       // Select Pos
-      await utils.clickPos(RouletteLocator[_pos].x,RouletteLocator[_pos].y)
+      await clickPos(RouletteLocator[_pos].x,RouletteLocator[_pos].y)
       await utils.sleep(100)
       //SubmitChip
-      await utils.clickPos(RouletteLocator.BtnAgree.x,RouletteLocator.BtnAgree.y)
+      await clickPos(RouletteLocator.BtnAgree.x,RouletteLocator.BtnAgree.y)
       // Wait until betting success
       if (wait == 'wait')
           {
@@ -290,10 +291,10 @@ export const CheckRoundHistory = async() => {
 }
 
 export const CheckSettleBalance = async() => {
-  let _beforebalance = await utils.getBalance()
+  let _beforebalance = await getUserBalance()
   let _af = await GetWinLossStatus()
   await utils.sleep(3000)
-  let _afterbalance = await utils.getBalance()
+  let _afterbalance = await getUserBalance()
   _beforebalance = _beforebalance +  _af.betwin
   console.log(_af,_beforebalance,_afterbalance);
   await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
@@ -323,9 +324,28 @@ export const checkNavStatisticbar = async() => {
 export const clickPos = async(_x, _y) => {
   try {
       await page.mouse.click(_x,_y)
+      await utils.sleep(250)
    } catch (error) {
       console.error(error.message);
    }
+}
+
+export const getUserBalance = async() =>{
+  let url = config[env].urlWebsocket
+  url = url.replace("roulette","bigsmall")
+  let _origin = config[env].urlOrigin
+  let {client, wsmsgbs} = await utils.createWSConnect(url,_origin) 
+  await utils.sleep(3000)
+  await utils.sendwsdata(client,'40/user/taixiu,')
+  await utils.sendwsdata(client,`42/user/taixiu,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`)
+  await utils.sendwsdata(client,'42/user/taixiu,["inGame"]')
+  let red= await utils.returnMachedtData(wsmsgbs,'gameConfigs')
+  const res = String(red).split("42/user/taixiu,");
+  const obj = JSON.parse(res[1]);
+  let balance = jp.value(obj[1],`$..user.red`);
+  console.log(balance);
+  await client.close()
+  return balance
 }
 
 ///////////////////////////////////////////////////////////Database Functions
