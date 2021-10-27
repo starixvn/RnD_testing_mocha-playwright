@@ -175,7 +175,8 @@ export const prepareResult_vn = async(objArr)=> {
             }
         }
         duration = await msToTime(jp.value(jsonResult,"$.stats.duration"))
-        return { Result : rs, ExecutionTime : duration}
+        let testrun = await jp.value(jsonResult,"$.stats.tests")
+        return { Result : rs, ExecutionTime : duration, testsrun: testrun}
     } catch {
         return 'NotFound'
     }
@@ -204,7 +205,8 @@ export const prepareResult_en = async(objArr)=> {
             }
         }
         duration = await msToTime(jp.value(jsonResult,"$.stats.duration"))
-        return { Result : rs, ExecutionTime : duration}
+        let testrun = await jp.value(jsonResult,"$.stats.tests")
+        return { Result : rs, ExecutionTime : duration,testsrun: testrun}
     } catch {
         return 'NotFound'
     }

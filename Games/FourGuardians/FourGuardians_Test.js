@@ -16,7 +16,7 @@ describe('FourGuardians Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })

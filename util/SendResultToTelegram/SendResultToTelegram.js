@@ -13,12 +13,9 @@ describe('Send Message', ()=>{
         let testSuiteDetail = "",mainContent       
         if(obj !== 'NotFound'){
             if(await gsutils.isFailed(obj) === true){
-                for(let i=0 ; i < rs.Result.length;i++){
-                    testSuiteDetail += `\n*${rs.Result[i].TestSuite}*   :   ${rs.Result[i].pass}/${rs.Result[i].total} (${Math.round(rs.Result[i].pass/rs.Result[i].total*100)}%)`
-                }
+                testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} (${Math.round(rs.Result[0].pass/rs.testsrun*100)}% Passed)`
             }
-            //mainContent = await gsutils.isFailed(obj) === false ? ` ${obj[1].TestSuite} Passed total ${totalcase} testcases` : testSuiteDetail
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}:All Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
             console.log(mainContent);
             let day = new Date().toLocaleDateString()
             await chai.request("https://bot.nexdev.net")
