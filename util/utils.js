@@ -273,7 +273,7 @@ export const switchTabs = async(_index) => {
 
 // Clear Log Message
 export const clearLog = async() =>{
-    wsFindMessage = []
+    wsMessageReceived = []
 }
 
 export const screenShot = async(_title) => {

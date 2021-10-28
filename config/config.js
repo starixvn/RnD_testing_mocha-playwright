@@ -28,7 +28,8 @@ export const setting ={
         KenoProMax: 1619,
         FourGuardians: 1640,
         Lottery: 1642,
-        SpecialSedie: 1635
+        SpecialSedie: 1635,
+        HeroSlot: 1644
 
     },
     gameIdlocal: {
@@ -51,7 +52,8 @@ export const setting ={
         KenoProMax: 8,
         VipFishPrawnCrab: 26,
         VipBaccarat : 27,
-        ThreeCards : 35
+        ThreeCards : 35,
+        HeroSlot : 38
     }
 }
 
@@ -80,7 +82,8 @@ export const cf_local ={
         KenoProMax: "1001068",
         VipFishPrawnCrab: "1001101",
         VipBaccarat : "1001102",
-        ThreeCards : "1001103"
+        ThreeCards : "1001103",
+        HeroSlot : "1001104"
     },
     password: "",
     gamelobbyurl: "",
@@ -112,7 +115,8 @@ export const cf_local1 ={
         FishPrawnCrab: "1001100",
         VipFishPrawnCrab: "1001101",
         VipBaccarat : "1001102",
-        ThreeCards : "1001103"
+        ThreeCards : "1001103",
+        HeroSlot : "1001104"
     },
     password: "",
     gamelobbyurl: "",
