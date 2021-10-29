@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as SpecialSedieFunc from './SpecialSedie_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('BigSmall Game', ()=>{
+describe('SpecialSedie Game', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

@@ -13,7 +13,7 @@ describe('Send Message', ()=>{
         let testSuiteDetail = "",mainContent       
         if(obj !== 'NotFound'){
             if(await gsutils.isFailed(obj) === true){
-                testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} (${Math.round(rs.Result[0].pass/rs.testsrun*100)}% Passed)`
+                testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} Passed/Total Run`
             }
             mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}:All Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
             console.log(mainContent);
