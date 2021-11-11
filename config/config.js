@@ -43,7 +43,7 @@ export const setting ={
         MiniSedie: 9,
         TurboBigSmall: 4,
         TurboOddEven: 6,
-        SedieWar: 24,
+        SedieWar: 28,
         Lottery: 31,
         FishPrawnCrab: 3,
         DragonTiger: 7,
