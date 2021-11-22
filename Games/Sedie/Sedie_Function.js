@@ -14,20 +14,11 @@ export const verifySignInSuccessfully = async() => {
 
 
 export const verifyBetChoice = async() => {
-    let _result = await utils.findImage(SedieLocator.Even)
-    expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Odd)
-    expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Red4)
-    expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Red3)
-    expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.Red2)
-    expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.White3)
-    expect(_result.Val).to.equal(true)
-    _result = await utils.findImage(SedieLocator.White4)
-    expect(_result.Val).to.equal(true)
+    let _lstchk=["Even", "Odd","Red4","Red3","Red2","White3", "White4"], _result
+    for(let i of _lstchk){
+        _result = await utils.findImage(SedieLocator[i])
+        await utils.shouldBeEqual(_result.Val, true, `check ${i} image`)
+    }
 }
 export const selectChip = async(_chip=1)=>{
     /*  Param Explained:

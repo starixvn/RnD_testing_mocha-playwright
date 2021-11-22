@@ -75,8 +75,8 @@ export const ClosePreset = async() => {
 export const VerifySignInSuccessfully = async() => {
   // Verify BigSmall Title
   // await utils.CaptureSubImageToFile(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title.left,BigSmallLocator.Title.top,BigSmallLocator.Title.width,BigSmallLocator.Title.height)
-    const _title= await utils.findImage(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title)
-    await utils.shouldBeEqual(_title.Val,true,'Check title')  
+    // const _title= await utils.findImage(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title)
+    // await utils.shouldBeEqual(_title.Val,true,'Check title')  
   // Verify Big
   // await utils.CaptureSubImageToFile(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big.left,BigSmallLocator.Big.top,BigSmallLocator.Big.width,BigSmallLocator.Big.height)
   const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
