@@ -267,7 +267,8 @@ export const returnHome = async() => {
     await utils.clickPos(SedieWarLocator.Menu.x, SedieWarLocator.Menu.y)
     await utils.sleep(1000)
     await utils.clickPos(SedieWarLocator.Home.x, SedieWarLocator.Home.y)
-    let flag = await utils.findImage(GameLobbyLocator.AccountName)
+    await utils.sleep(1000)
+    let flag = await utils.imageShouldNotDisplay(SedieWarLocator.Player)
     await utils.shouldBeEqual(flag.Val,true)
 }
 

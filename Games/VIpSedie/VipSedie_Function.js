@@ -350,7 +350,7 @@ const verifyDealer = async() => {
 
 export const returnHome = async() => {
     await utils.clickPos(VipSedieLocator.Home.x, VipSedieLocator.Home.y)
-    let flag = await utils.findImage(GameLobbyLocator.AccountName)
+    let flag = await utils.imageShouldNotDisplay(VipSedieLocator.Dealer)
     await utils.shouldBeEqual(flag.Val,true)
 }
 
