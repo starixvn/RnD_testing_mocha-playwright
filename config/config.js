@@ -53,7 +53,8 @@ export const setting ={
         VipFishPrawnCrab: 26,
         VipBaccarat : 27,
         ThreeCards : 35,
-        HeroSlot : 38
+        HeroSlot : 38,
+        BitCoin: 43
     }
 }
 
@@ -83,7 +84,8 @@ export const cf_local ={
         VipFishPrawnCrab: "1001101",
         VipBaccarat : "1001102",
         ThreeCards : "1001103",
-        HeroSlot : "1001104"
+        HeroSlot : "1001104",
+        BitCoin:  "1001051"
     },
     password: "",
     gamelobbyurl: "",
@@ -131,21 +133,30 @@ export const cf_local1 ={
 //     url: "https://gamelobby-simulator.lumigame.com/signin",
 //     usernameSSO: "",
 //     memberId: {
-//         BlackJack : "1001051",
-//         Sedie : "1001052",
-//         VipSedie : "1001053",
-//         Sicbo:  "1001054",
-//         Keno:  "1001055",
-//         Baccarat:  "1001056",
-//         Roulette:  "1001057",
-//         BigSmall : "1001058",
-//         MiniSedie: "1001059",
-//         TurboBigSmall: "1001060",
-//         TurboOddEven: "1001061",
-//         SedieWar: "1001062",
-//         BigSmallSicbo: "1001063",
-//         FourGuardians: "1001064",
-//         FishPrawnCrab: "1001100"
+    // BlackJack : "1001051",
+    // Sedie : "1001052",
+    // VipSedie : "1001053",
+    // Sicbo:  "1001054",
+    // Keno:  "1001055",
+    // Baccarat:  "1001056",
+    // Roulette:  "1001057",
+    // BigSmall : "1001058",
+    // MiniSedie: "1001059",
+    // TurboBigSmall: "1001060",
+    // TurboOddEven: "1001061",
+    // SedieWar: "1001062",
+    // BigSmallSicbo: "1001063",
+    // FourGuardians: "1001064",
+    // Lottery: "1001065",
+    // FishPrawnCrab: "1001100",
+    // DragonTiger:  "1001066",
+    // SpecialSedie: "1001067",
+    // KenoProMax: "1001068",
+    // VipFishPrawnCrab: "1001101",
+    // VipBaccarat : "1001102",
+    // ThreeCards : "1001103",
+    // HeroSlot : "1001104",
+    // BitCoin:  "1001051"
 //     },
 //     password: "",
 //     gamelobbyurl: "",
