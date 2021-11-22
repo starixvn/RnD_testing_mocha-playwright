@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (lang == 'vn' ? "vn" : "en") + path.sep + "BitCoin" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (lang == 'en' ? "en" : "vn") + path.sep + "BitCoin" + path.sep
 
 export const BitCoinLocator_vn = { 
 	Title : { top : 176, left : 522, width : 244, height : 64, ImageCompare : pathImageCompare + "ImgCompare_BitCoin_Title.png" },

@@ -2,7 +2,7 @@ import * as utils from '../../util/utils'
 const BlackJackLocator = (process.env.npm_config_lang  == 'vn' ? require('./BlackJack_Locator').BlackJackLocator_vn : require('./BlackJack_Locator').BlackJackLocator_en)
 import * as config from '../../config/config'
 const path = require('path')
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "BlackJack" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "BlackJack" + path.sep
 var jp = require('jsonpath');
 import {DB} from '../References/DataBase_Locator'
 

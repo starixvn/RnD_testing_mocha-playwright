@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'vn' ? "vn" : "en") + path.sep + "Lottery" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'en' ? "en" : "vn") + path.sep + "Lottery" + path.sep
 
 export const LotteryLocator_vn = { 
 	Menu : { x: 77, y:640},

@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "BigSmallSicbo" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "BigSmallSicbo" + path.sep
 
 export const BigSmallSicboLocator_vn = { 
 	Specific1 : { x : 115, y : 196, top : 168, left : 22, width : 186, height : 57, ImageCompare : pathImageCompare + "ImgCompare_BigSmallSicbo_Specific1.png" },

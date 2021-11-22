@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "SedieWar" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "SedieWar" + path.sep
 
 export const SedieWarLocator_vn = { 
 	TotalRed : { top : 295, left : 550, width : 176, height : 28, ImageCompare : pathImageCompare + "ImgCompare_SedieWar_TotalRed.png" },

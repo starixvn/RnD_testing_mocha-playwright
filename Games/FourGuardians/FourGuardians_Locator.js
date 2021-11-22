@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "FourGuardians" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "FourGuardians" + path.sep
 
 export const FourGuardiansLocator_vn = { 
 	RoundId: {left : 900, top : 80, width : 151, height : 26, ImageCompare : pathImageCompare + "ImgCompare_RoundID.png"}, 

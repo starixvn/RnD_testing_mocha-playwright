@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang == 'vn' ? "vn" : "en") + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang == 'en' ? "en" : "vn") + path.sep
 export const GameLobbyLocator_vn = { 
 	cvGame : "GameCanvas",
 	AccountName : { top : 4, left : 457, width : 85, height : 51, ImageCompare : pathImageCompare + "ImgCompare_GameLobby_AccountName.png" },

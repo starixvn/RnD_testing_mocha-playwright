@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'vn' ? "vn" : "en")  + path.sep + "MiniSedie" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "MiniSedie" + path.sep
 
 export const MiniSedieLocator_vn = { 
 	Even : { x : 480, y : 295, top : 281, left : 417, width : 126, height : 29, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Even.png" },

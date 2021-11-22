@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'vn' ? "vn" : "en") + path.sep + "Roulette" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'en' ? "en" : "vn") + path.sep + "Roulette" + path.sep
 
 export const RouletteLocator_vn = { 
 	Even : { x: 391, y:540},
