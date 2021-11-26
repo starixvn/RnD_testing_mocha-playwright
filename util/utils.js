@@ -53,10 +53,10 @@ export const wsFindMessage = async(_mes,cfloop=config.setting.loop) => {
         return { Val : false , Err : { IsErr : true , ErrMess : "Error: "+ error.message}}
     } 
 }
-export const getWsMessage = async(_mes) => {
+export const getWsMessage = async(_mes,cfloop=config.setting.loop) => {
     try {
         let result
-        for(let t = 0 ; t< config.setting.loop ; t++){
+        for(let t = 0 ; t< cfloop ; t++){
                 // console.log(wsMessageReceived)
                 result = await getMessage(_mes)
                 if(result !== null ) return result

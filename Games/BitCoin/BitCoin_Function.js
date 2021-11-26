@@ -25,10 +25,9 @@ export const clickPos = async(_x, _y) => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"remainingTime":61}]')
-  await utils.sleep(11000)
-  // /await utils.CaptureSubImageToFile(BitCoinLocator.NewRound)
-  // const _title= await utils.findImage(BitCoinLocator.NewRound.ImageCompare,BitCoinLocator.NewRound)
+  let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"remainingTime":119}]',120)
+  console.log('new round ready');
+  await utils.sleep(15000)
 }
 
 export const OpenHistory = async() => {
@@ -73,22 +72,8 @@ export const ClosePreset = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  // Verify BitCoin Title
-  // await utils.CaptureSubImageToFile(BitCoinLocator.Title.ImageCompare,BitCoinLocator.Title.left,BitCoinLocator.Title.top,BitCoinLocator.Title.width,BitCoinLocator.Title.height)
-    const _title= await utils.findImage(BitCoinLocator.Title.ImageCompare,BitCoinLocator.Title)
-    await utils.shouldBeEqual(_title.Val,true,'Check title')  
-  // Verify Big
-  // await utils.CaptureSubImageToFile(BitCoinLocator.Big.ImageCompare,BitCoinLocator.Big.left,BitCoinLocator.Big.top,BitCoinLocator.Big.width,BitCoinLocator.Big.height)
-  const _big= await utils.findImage(BitCoinLocator.Big.ImageCompare,BitCoinLocator.Big)
-  await utils.shouldBeEqual(_big.Val,true,'Check big')  
-  // Verify Small
-  // await utils.CaptureSubImageToFile(BitCoinLocator.Small.ImageCompare,BitCoinLocator.Small.left,BitCoinLocator.Small.top,BitCoinLocator.Small.width,BitCoinLocator.Small.height)
-  const _small= await utils.findImage(BitCoinLocator.Small.ImageCompare,BitCoinLocator.Small)
-  await utils.shouldBeEqual(_small.Val,true,'Check small')  
-  // Verify odd
-  // await utils.CaptureSubImageToFile(BitCoinLocator.Odds.ImageCompare,BitCoinLocator.Odds.left,BitCoinLocator.Odds.top,BitCoinLocator.Odds.width,BitCoinLocator.Odds.height)
-  const _odd= await utils.findImage(BitCoinLocator.Odds.ImageCompare,BitCoinLocator.Odds)
-  await utils.shouldBeEqual(_odd.Val,true,'Check odd')  
+  let _found = await utils.wsFindMessage('42/user/bitcoinmaster',120)
+  await utils.shouldBeEqual(_found.Val, true,'Open Game Failed')
 }
 
 
@@ -100,16 +85,13 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
      {
       wsMessageReceived = []
       await utils.sleep(100)
-      await SelectPos(_pos)  //Big or Small
-      // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
-      if (_stake != null)
-          {
-            const _cnumber = `Chip${_stake}`
-            await clickPos(BitCoinLocator[_cnumber].x,BitCoinLocator[_cnumber].y)
-          }
-      //SubmitChip
-      await SubmitChip()
-      // Wait until betting success
+      await clickPos(BitCoinLocator[_pos].x,BitCoinLocator[_pos].y)//click bet position
+      //Select chip
+      await utils.sleep(100)
+      let chip =`Chip${_stake}`
+      await utils.clickPos(BitCoinLocator[chip].x,BitCoinLocator[chip].y)
+      await utils.clickPos(BitCoinLocator.ChipBroadAccept.x,BitCoinLocator.ChipBroadAccept.y)
+     // Wait until betting success
       if (wait == 'wait')
           {
             _isfail = await IsBetFail(_pos,_stake)
@@ -174,21 +156,6 @@ export const CloseChipBoard = async () => {
   } catch (e) {
       console.error(e)
   }
-}
-
-//SubmitChip
-export const SubmitChip = async () => {
-  try {
-      await utils.clickPos(BitCoinLocator.ChipBroadAccept.x,BitCoinLocator.ChipBroadAccept.y)
-  } catch (e) {
-      console.error(e)
-  }
-}
-
-//Select Bet pos Big or Small
-export const SelectPos = async(_pos) => {
-  let _acpos = `Pos${_pos}`
-  await clickPos(BitCoinLocator[_acpos].x,BitCoinLocator[_acpos].y)//click bet position
 }
 
 //Preset Chip
@@ -275,14 +242,7 @@ export const VerifyStatisticContent = async() => {
 //Is Round Error after betting
 export const IsBetFail = async(_pos,_stake) => {
   let _found = await utils.wsFindMessage("notice",2)
-  //console.log('bet fai: ',_found.Val,'pos: ', _pos,'stake: ',_stake)
   return _found.Val
-  // let _found = wsMessageReceived.filter(element => element.includes(`42/user/bitcoinmaster,["BitcoinMaster",{"endBet":-1,"betChoice":"${_pos}","notice"`));
-  // if (_found.length > 0){
-  //   return true
-  // }
-  // else
-  // return false
 }
 
 //Is Round Settle
@@ -298,8 +258,8 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-      let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"status":')
-      const res = String(_found).split("42/user/taixiu,");
+      let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"status"',120)
+      const res = String(_found).split("42/user/bitcoinmaster,");
       const obj = JSON.parse(res[1]);
       let _result = jp.value(obj[1],`$..win`);
       let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
@@ -323,26 +283,17 @@ export const GetWinLossStatus = async () => {
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
   let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"finish":{"result":')
-  const res = String(_found).split("42/user/taixiu,");
+  const res = String(_found).split("42/user/bitcoinmaster,");
   const obj = JSON.parse(res[1]);
   let _roundid = jp.value(obj[1],`$..roundId`);
   let _result = jp.query(obj[1],`$..result`);
   let _settleresult = jp.query(obj[1],`$..settlementResult`);
-  let _bigwin = jp.value(obj[1],`$..settlementResult.big`);
-  let _choicewin = _bigwin
-  if (_choicewin == true){
-       _choicewin = process.env.npm_config_lang  == 'vn'?'Tài':'Big'
-  }
-  else {
-    _choicewin = process.env.npm_config_lang  == 'vn'? 'Xỉu':'Small'
-  }
   // Get bet win stake
   let _getwinstake = await GetWinLossStatus()
   return { 
             result : _result , 
             roundId : _roundid,
             settleresult : _settleresult, 
-            choicewin : _choicewin, 
             win: _getwinstake.win ,
             betwin : _getwinstake.betwin, 
             time: _time, 
@@ -357,7 +308,7 @@ export const CheckRoundHistory = async() => {
   await OpenHistory()
   await utils.sleep(3000)
   let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"history"')
-  const res = String(_found).split("42/user/taixiu,");
+  const res = String(_found).split("42/user/bitcoinmaster,");
   const obj = JSON.parse(res[1]);
   let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
   let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);

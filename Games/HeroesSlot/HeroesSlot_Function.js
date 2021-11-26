@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
-const GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('../References/GameLobby_Locator').GameLobbyLocator_vn : require('../References/GameLobby_Locator').GameLobbyLocator_en)
-const HeroesSlotLocator = (process.env.npm_config_lang === 'vn' ? require('./HeroesSlot_Locator').HeroesSlotLocator_vn : require('./HeroesSlot_Locator').HeroesSlotLocator_en)
+const GameLobbyLocator = (process.env.npm_config_lang == 'en' ? require('../References/GameLobby_Locator').GameLobbyLocator_en : require('../References/GameLobby_Locator').GameLobbyLocator_vn)
+const HeroesSlotLocator = (process.env.npm_config_lang === 'en' ? require('./HeroesSlot_Locator').HeroesSlotLocator_en : require('./HeroesSlot_Locator').HeroesSlotLocator_vn)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 

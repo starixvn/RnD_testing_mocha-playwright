@@ -6,7 +6,7 @@ import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 let BigSmallLocator = (process.env.npm_config_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
 
-describe('BigSmall Game', ()=>{
+describe(game, ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

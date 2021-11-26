@@ -100,15 +100,15 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
      {
       wsMessageReceived = []
       await utils.sleep(100)
-      await SelectPos(_pos)  //Big or Small
+      await clickPos(BigSmallLocator[`Pos${_pos}`].x,BigSmallLocator[`Pos${_pos}`].y)//click bet position
       // if stake = null --> place bet without select any chip (in this case user have set preset chip before)
       if (_stake != null)
           {
             const _cnumber = `Chip${_stake}`
-            await clickPos(BigSmallLocator[_cnumber].x,BigSmallLocator[_cnumber].y)
+            await clickPos(BigSmallLocator[`Chip${_stake}`].x,BigSmallLocator[`Chip${_stake}`].y)
           }
       //SubmitChip
-      await SubmitChip()
+      await clickPos(BigSmallLocator.ChipBroadAccept.x,BigSmallLocator.ChipBroadAccept.y)
       // Wait until betting success
       if (wait == 'wait')
           {
@@ -174,21 +174,6 @@ export const CloseChipBoard = async () => {
   } catch (e) {
       console.error(e)
   }
-}
-
-//SubmitChip
-export const SubmitChip = async () => {
-  try {
-      await utils.clickPos(BigSmallLocator.ChipBroadAccept.x,BigSmallLocator.ChipBroadAccept.y)
-  } catch (e) {
-      console.error(e)
-  }
-}
-
-//Select Bet pos Big or Small
-export const SelectPos = async(_pos) => {
-  let _acpos = `Pos${_pos}`
-  await clickPos(BigSmallLocator[_acpos].x,BigSmallLocator[_acpos].y)//click bet position
 }
 
 //Preset Chip
