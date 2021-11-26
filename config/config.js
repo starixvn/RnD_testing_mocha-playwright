@@ -30,7 +30,7 @@ export const setting ={
         Lottery: 1642,
         SpecialSedie: 1635,
         HeroSlot: 1644 ,
-        BitCoin: 43
+        BitCoin: 1649
 
     },
     gameIdlocal: {
@@ -242,7 +242,8 @@ export const cf_prod ={
         KenoProMax: "supertestte120201011",
         VipFishPrawnCrab: "supertestte120201008",
         VipBaccarat : "supertestte120201009",
-        ThreeCards : "supertestte120201004"
+        ThreeCards : "supertestte120201004",
+        BitCoin: "supertestte120201005"
 
     },
     password: "1234aa",
