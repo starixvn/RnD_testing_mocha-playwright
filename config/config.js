@@ -243,6 +243,7 @@ export const cf_prod ={
         VipFishPrawnCrab: "supertestte120201008",
         VipBaccarat : "supertestte120201009",
         ThreeCards : "supertestte120201004",
+        HeroSlot: "supertestte120201006",
         BitCoin: "supertestte120201005"
 
     },
