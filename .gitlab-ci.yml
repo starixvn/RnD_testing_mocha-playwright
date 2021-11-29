@@ -4,7 +4,7 @@ image:
 
 stages: 
   - test
-  - report
+  # - report
 
 test1:
   stage: test
@@ -13,21 +13,22 @@ test1:
   script:
     - echo $CI_PIPELINE_ID
     - npm install --no-optional
-    - npm run CI_SelGame_$Mode --args=env=$env --game=$PRODUCT --lang=$lang
+    - npm run CI_SelGame_$Mode --args=env=$env --game=$PRODUCT --cf_lang=$cf_lang
+    - npm run sendResultToTelegram --args=Job=$CI_PIPELINE_ID-env=$env --cf_lang=$cf_lang --mode=$Mode
   artifacts:
     paths:
-      - Report/$lang
+      - Report/$cf_lang
     when: always
     expire_in: 1 day 
 
-report:
-  stage: report
-  tags:
-    - docker-automation-test
-  script:
-    - npm install --no-optional
-    - npm run sendResultToTelegram --args=Job=$CI_PIPELINE_ID-env=$env --lang=$lang --mode=$Mode
-    #- npm run exportStatus --args=env=$env
-    - echo "Cleaning up"
-    - rm -rf "%CACHE_PATH%/%CI_PIPELINE_ID%"
-  when: always
+# report:
+#   stage: report
+#   tags:
+#     - docker-automation-test
+#   script:
+#     - npm install --no-optional
+#     - npm run sendResultToTelegram --args=Job=$CI_PIPELINE_ID-env=$env --cf_lang=$cf_lang --mode=$Mode
+#     #- npm run exportStatus --args=env=$env
+#     - echo "Cleaning up"
+#     - rm -rf "%CACHE_PATH%/%CI_PIPELINE_ID%"
+#   when: always
