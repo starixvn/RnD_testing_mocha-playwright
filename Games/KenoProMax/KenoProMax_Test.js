@@ -2,7 +2,7 @@ const game = "KenoProMax"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as KenoProMaxFunc from './KenoProMax_Function'
-let RouletteLocator = (process.env.npm_config_lang  == 'vn' ? require('./KenoProMax_Locator').RouletteLocator_vn : require('./KenoProMax_Locator').RouletteLocator_en)
+let RouletteLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./KenoProMax_Locator').RouletteLocator_vn : require('./KenoProMax_Locator').RouletteLocator_en)
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
@@ -16,7 +16,7 @@ describe('KenoProMax Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${cf_lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })

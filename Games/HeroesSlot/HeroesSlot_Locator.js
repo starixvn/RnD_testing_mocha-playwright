@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "HeroesSlot" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "HeroesSlot" + path.sep
 
 export const HeroesSlotLocator_vn = { 
 	Spin : { x : 1120, y : 638, top : 595, left : 1072, width : 96, height : 87, ImageCompare : pathImageCompare + "ImgCompare_HeroesSlot_Spin.png" },

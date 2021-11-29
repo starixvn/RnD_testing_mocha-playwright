@@ -1,7 +1,7 @@
 import * as utils from '../../util/utils'
 import {DB} from '../References/DataBase_Locator'
-const GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('../References/GameLobby_Locator').GameLobbyLocator_vn : require('../References/GameLobby_Locator').GameLobbyLocator_en)
-const VipSedieLocator = (process.env.npm_config_lang === 'vn' ? require('./VipSedie_Locator').VipSedieLocator_vn : require('./VipSedie_Locator').VipSedieLocator_en)
+const GameLobbyLocator = (process.env.npm_config_cf_lang == 'vn' ? require('../References/GameLobby_Locator').GameLobbyLocator_vn : require('../References/GameLobby_Locator').GameLobbyLocator_en)
+const VipSedieLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./VipSedie_Locator').VipSedieLocator_vn : require('./VipSedie_Locator').VipSedieLocator_en)
 
 import * as config from '../../config/config'
 

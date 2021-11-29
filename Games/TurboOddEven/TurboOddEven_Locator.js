@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "TurboOddEven" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "TurboOddEven" + path.sep
 
 export const TurboOddEvenLocator_vn = { 
 	Title : { top : 181, left : 535, width : 214, height : 64, ImageCompare : pathImageCompare + "ImgCompare_TurboOddEven_Title.png" },

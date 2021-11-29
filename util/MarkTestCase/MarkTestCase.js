@@ -1,5 +1,5 @@
 import * as gsUtil from '../gsutils'
-global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
+global.lang = (typeof process.env.npm_config_cf_lang !== 'undefined') ? process.env.npm_config_cf_cf_lang : 'vn'
 
 describe('Mark TestCase', ()=>{
   

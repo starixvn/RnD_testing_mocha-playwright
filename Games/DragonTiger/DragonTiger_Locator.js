@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'en' ? "en" : "vn") + path.sep + "DragonTiger" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang  == 'en' ? "en" : "vn") + path.sep + "DragonTiger" + path.sep
 
 export const DragonTigerLocator_vn = { 
 	Dragon : { x: 464, y:320},

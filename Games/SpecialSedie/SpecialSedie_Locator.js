@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'en' ? "en" : "vn") + path.sep + "SpecialSedie" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang  == 'en' ? "en" : "vn") + path.sep + "SpecialSedie" + path.sep
 
 export const SpecialSedieLocator_vn = { 
 	Even : { x: 465, y:408},

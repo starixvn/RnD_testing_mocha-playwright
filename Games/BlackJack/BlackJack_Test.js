@@ -3,7 +3,7 @@ const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
-const BlackJackLocator = (process.env.npm_config_lang  == 'vn' ? require('./BlackJack_Locator').BlackJackLocator_vn : require('./BlackJack_Locator').BlackJackLocator_en)
+const BlackJackLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./BlackJack_Locator').BlackJackLocator_vn : require('./BlackJack_Locator').BlackJackLocator_en)
 
 describe('BlackJack Game', ()=>{
 
@@ -17,7 +17,7 @@ describe('BlackJack Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${cf_lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })

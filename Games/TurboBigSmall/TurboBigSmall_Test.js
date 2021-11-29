@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as TurboBigSmallFunc from '../TurboBigSmall/TurboBigSmall_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
-const TurboBigSmallLocator = (process.env.npm_config_lang === 'vn' ? require('./TurboBigSmall_Locator').TurboBigSmallLocator_vn : require('./TurboBigSmall_Locator').TurboBigSmallLocator_en)
+const TurboBigSmallLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./TurboBigSmall_Locator').TurboBigSmallLocator_vn : require('./TurboBigSmall_Locator').TurboBigSmallLocator_en)
 
 describe('TurboBigSmall Game', ()=>{
 
@@ -19,7 +19,7 @@ describe('TurboBigSmall Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${cf_lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })

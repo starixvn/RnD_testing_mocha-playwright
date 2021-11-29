@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
 import * as config from '../../config/config'
-let BitCoinLocator = (process.env.npm_config_lang  == 'vn' ? require('./BitCoin_Locator').BitCoinLocator_vn : require('./BitCoin_Locator').BitCoinLocator_en)
+let BitCoinLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./BitCoin_Locator').BitCoinLocator_vn : require('./BitCoin_Locator').BitCoinLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
 var jp = require('jsonpath')

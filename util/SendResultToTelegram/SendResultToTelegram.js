@@ -15,31 +15,15 @@ describe('Send Message', ()=>{
             if(await gsutils.isFailed(obj) === true){
                 testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} Passed/Total Run`
             }
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}:All Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: All Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
             console.log(mainContent);
-            let day = new Date().toLocaleDateString()
-            await chai.request("https://bot.nexdev.net")
-            .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+           chai.request("https://api.telegram.org")
+            .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
             .send({
-                token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-                conversationId: -1001516404043,
-                parse_mode: "markdown",
-                // message: `*Automation Test Result: ${day} Duration: ${rs.ExecutionTime} , *`
-                // +`Env : *${env}* Report: ${mainContent} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/jobs/${args.Job})`
-                message: `${mainContent} -${mode} Test on ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
-            })
-              } else {
-            let day = new Date().toLocaleDateString()
-            await chai.request("https://bot.nexdev.net")
-            .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
-            .send({
-                token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-                conversationId: -1001516404043,
-                parse_mode: "markdown",
-                message: `Environment - *${env}* Report - [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})\nStatus - *Failed*`
+                chat_id: -605245129,
+                text: `${mainContent} -${mode} Test on ${env} - Duration: ${rs.ExecutionTime}`
             }).end( async(err,res)=>{
-                await shouldBeEqual(res.statusCode,200)
-            })
+                expect(res).to.have.status(200)})     
         }
     })  
 })

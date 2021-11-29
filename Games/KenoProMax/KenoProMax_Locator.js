@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'en' ? "en" : "vn") + path.sep + "KenoProMax" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang  == 'en' ? "en" : "vn") + path.sep + "KenoProMax" + path.sep
 
 export const KenoProMaxLocator_vn = { 
 	Big : { x: 369, y:369},

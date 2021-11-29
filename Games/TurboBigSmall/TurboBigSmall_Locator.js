@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "TurboBigSmall" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "TurboBigSmall" + path.sep
 
 export const TurboBigSmallLocator_vn = { 
 	Title : { top : 156, left : 516, width : 270, height : 85, ImageCompare : pathImageCompare + "ImgCompare_TurboBigSmall_Title.png" },

@@ -583,7 +583,7 @@ export const Login = async(_env,_game) => {
     // Verify go to Game Lobby Successfully
     flag = await GameLobbyFunc.verifyLoginSuccessfully()
     if(flag.Val ==false){
-        await page.screenshot({ path:`./Report/${lang}/Pictures/Login_Failed_${_game}.png`})
+        await page.screenshot({ path:`./Report/${process.env.npm_config_cf_lang}/Pictures/Login_Failed_${_game}.png`})
     }
     else {
         await getSession()

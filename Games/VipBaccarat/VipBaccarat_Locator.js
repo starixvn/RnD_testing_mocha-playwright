@@ -1,5 +1,5 @@
 const path = require('path')  
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "VipBaccarat" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "VipBaccarat" + path.sep
 
 export const VipBaccaratLocator_vn = { 
 	Dealer : { top : 5, left : 578, width : 130, height : 166, ImageCompare : pathImageCompare + "ImgCompare_VipBaccarat_Dealer.png" },

@@ -1,4 +1,4 @@
-const ResultLocator = (process.env.npm_config_lang == 'vn' ? require('./Result_Locator').ResultLocator_vn : require('./Result_Locator').ResultLocator_en)
+const ResultLocator = (process.env.npm_config_cf_lang == 'vn' ? require('./Result_Locator').ResultLocator_vn : require('./Result_Locator').ResultLocator_en)
 import * as utils from '../../util/utils'
 
 export const verifyGameInDropdownlist = async(_game) =>{

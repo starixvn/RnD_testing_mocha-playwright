@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-const VipFishPrawnCrabLocator = (process.env.npm_config_lang === 'vn' ? require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_vn : require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_en)
+const VipFishPrawnCrabLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_vn : require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 const remainingTime = `42/user/vipfishprawncrab,["VipFishPrawnCrab",{"remainingTime":42}]`

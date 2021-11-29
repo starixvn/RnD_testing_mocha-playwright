@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as BigSmallFunc from './BigSmall_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
-let BigSmallLocator = (process.env.npm_config_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
+let BigSmallLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
 
 describe(game, ()=>{
 

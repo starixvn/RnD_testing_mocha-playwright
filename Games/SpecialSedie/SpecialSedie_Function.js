@@ -1,6 +1,6 @@
 import * as utils from '../../util/utils'
 import * as config from '../../config/config'
-let SpecialSedieLocator = (process.env.npm_config_lang  == 'vn' ? require('./SpecialSedie_Locator').SpecialSedieLocator_vn : require('./SpecialSedie_Locator').SpecialSedieLocator_en)
+let SpecialSedieLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./SpecialSedie_Locator').SpecialSedieLocator_vn : require('./SpecialSedie_Locator').SpecialSedieLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
 var jp = require('jsonpath')
@@ -248,10 +248,10 @@ export const GetSettleResult = async(_stake=null) => {
   let _bigwin = jp.value(obj[1],`$..settlementResult.big`);
   let _choicewin = _bigwin
   if (_choicewin == true){
-       _choicewin = process.env.npm_config_lang  == 'vn'?'Tài':'Big'
+       _choicewin = process.env.npm_config_cf_lang  == 'vn'?'Tài':'Big'
   }
   else {
-    _choicewin = process.env.npm_config_lang  == 'vn'? 'Xỉu':'Small'
+    _choicewin = process.env.npm_config_cf_lang  == 'vn'? 'Xỉu':'Small'
   }
   // Get bet win stake
   let _getwinstake = await GetWinLossStatus()

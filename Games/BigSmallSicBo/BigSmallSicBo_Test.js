@@ -2,7 +2,7 @@ const game = "BigSmallSicbo"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as BigSmallSBFunc from '../BigSmallSicBo/BigSmallSicBo_Function'
-const BigSmallSicboLocator = (process.env.npm_config_lang === 'vn' ? require('./BigSmallSicBo_Locator').BigSmallSicboLocator_vn : require('./BigSmallSicBo_Locator').BigSmallSicboLocator_en)
+const BigSmallSicboLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./BigSmallSicBo_Locator').BigSmallSicboLocator_vn : require('./BigSmallSicBo_Locator').BigSmallSicboLocator_en)
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
@@ -18,7 +18,7 @@ describe('BigSmall SicBo Game', ()=>{
   afterEach(async function(){
     if(this.currentTest.state == 'failed'){
       var __filename = this.currentTest.title.trim()
-      await page.screenshot({ path: `./Report/${lang}/Pictures/${game}_${__filename}.png`});
+      await page.screenshot({ path: `./Report/${cf_lang}/Pictures/${game}_${__filename}.png`});
       await addContext (this,`./Pictures/${game}_${__filename}.png` )
     }
   })

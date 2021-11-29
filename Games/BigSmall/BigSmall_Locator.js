@@ -1,5 +1,5 @@
 const path = require('path') 
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang  == 'en' ? "en" : "vn") + path.sep + "BigSmall" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang  == 'en' ? "en" : "vn") + path.sep + "BigSmall" + path.sep
 
 export const BigSmallLocator_vn = { 
 	Title : { top : 176, left : 522, width : 244, height : 64, ImageCompare : pathImageCompare + "ImgCompare_BigSmall_Title.png" },

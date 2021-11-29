@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-const FourGuardiansLocator = (process.env.npm_config_lang === 'vn' ? require('./FourGuardians_Locator').FourGuardiansLocator_vn : require('./FourGuardians_Locator').FourGuardiansLocator_en)
+const FourGuardiansLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./FourGuardians_Locator').FourGuardiansLocator_vn : require('./FourGuardians_Locator').FourGuardiansLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 import _ from 'lodash';

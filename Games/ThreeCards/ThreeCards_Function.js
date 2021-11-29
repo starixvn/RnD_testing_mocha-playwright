@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-const ThreeCardsLocator = (process.env.npm_config_lang === 'vn' ? require('./ThreeCards_Locator').ThreeCardsLocator_vn : require('./ThreeCards_Locator').ThreeCardsLocator_en)
+const ThreeCardsLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./ThreeCards_Locator').ThreeCardsLocator_vn : require('./ThreeCards_Locator').ThreeCardsLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 const remainingTime = `42/user/threecards,["ThreeCards",{"remainingTime":39}]`

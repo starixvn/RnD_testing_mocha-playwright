@@ -1,4 +1,4 @@
-const GameLobbyLocator = (process.env.npm_config_lang == 'vn' ? require('./GameLobby_Locator').GameLobbyLocator_vn : require('./GameLobby_Locator').GameLobbyLocator_en)
+const GameLobbyLocator = (process.env.npm_config_cf_lang == 'vn' ? require('./GameLobby_Locator').GameLobbyLocator_vn : require('./GameLobby_Locator').GameLobbyLocator_en)
 import * as utils from '../../util/utils'
 import * as config from '../../config/config'
 
@@ -17,11 +17,11 @@ export const OpenGameFromLobby = async(_Gamename) => {
     //     await utils.sleep(500)
     //     await utils.swipe(config.setting.viewport.width/2 + 100, config.setting.viewport.height/2,0, config.setting.viewport.height/2)
     //     await utils.sleep(2000)
-    //     await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
+    //     await page.screenshot({ path: `./Report/${cf_lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
     //     await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y )
     //     }    
     // else if (Gscreen1.includes(_Gamename) === true){
-    //     await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
+    //     await page.screenshot({ path: `./Report/${cf_lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
     //     await utils.sleep(500)
     //     await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y ) }
     // else if (Gscreen3.includes(_Gamename) === true){
@@ -30,7 +30,7 @@ export const OpenGameFromLobby = async(_Gamename) => {
     //     await utils.sleep(2000)
     //     await utils.swipe(config.setting.viewport.width/2 + 100, config.setting.viewport.height/2,0, config.setting.viewport.height/2)
     //     await utils.sleep(2000)
-    //     await page.screenshot({ path: `./Report/${lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
+    //     await page.screenshot({ path: `./Report/${cf_lang}/Pictures/OpenGameFromLobby${_Gamename}.png`});
     //     await utils.clickPos(GameLobbyLocator[_game].x,GameLobbyLocator[_game].y )
     // }
     // await utils.sleep(6000) //hard sleep wait for game load

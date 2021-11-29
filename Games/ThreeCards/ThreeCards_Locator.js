@@ -1,5 +1,5 @@
 const path = require('path')   
-const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_lang === 'en' ? "en" : "vn")  + path.sep + "ThreeCards" + path.sep
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "ThreeCards" + path.sep
 
 export const ThreeCardsLocator_vn = { 
 	Red : { x : 353, y : 316, top : 258, left : 209, width : 288, height : 116, ImageCompare : pathImageCompare + "ImgCompare_ThreeCards_Red.png" },

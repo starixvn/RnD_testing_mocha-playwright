@@ -35,7 +35,7 @@ before(async () => {
     global.isHear = false
     global.balance = parseFloat("0.00")
     global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
-    global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
+    global.cf_lang = (typeof process.env.npm_config_cf_lang !== 'undefined') ? process.env.npm_config_cf_lang : 'vn'
     global.expect = expect
     global.username = null
     global.session = null

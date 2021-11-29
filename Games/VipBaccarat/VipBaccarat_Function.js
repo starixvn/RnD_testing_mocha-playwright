@@ -1,5 +1,5 @@
 import * as utils from '../../util/utils'
-const VipBaccaratLocator = (process.env.npm_config_lang === 'vn' ? require('./VipBaccarat_Locator').VipBaccaratLocator_vn : require('./VipBaccarat_Locator').VipBaccaratLocator_en)
+const VipBaccaratLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./VipBaccarat_Locator').VipBaccaratLocator_vn : require('./VipBaccarat_Locator').VipBaccaratLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 const remainingTime = `42/user/vipbaccarat,["VipBaccarat",{"remainingTime":45}]`
