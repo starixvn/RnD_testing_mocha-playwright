@@ -45,9 +45,8 @@ export const login_local = async(_env,_game) => {
         try{
             const cflang = process.env.npm_config_cf_lang=='en'?'en-US':'vi-VN'
             let gameid = config.setting.gameIdlocal[_game]
-            let _requestjs = (typeof process.env.npm_config_pid !== 'undefined')?
+            let _requestjs = 
             {"obCustId":Number(config[_env].memberId[_game]),"memberName":"Mp0LFZap","language":cflang,"currency":"$US","seq":"d,y,lumi","siteId":"4100300","siteName":"lumi","ip":"10.0.0.142","browserUserAgent":userAgent,"auth":{"partnerId":pid,"partnerSecret":`${pid}@20luminet&`},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":gameid,"setting":{"apiUrl":"http://l1_game_api_local_1:5000","authUrl":"http://l1_auth_api_local_1:5000","client":{"id":"game-server","secret":"gameserver@20luminet&"},"expireIn":1637569728,"useAuthenticate":true,"requestTimeout":10000,"owUrl":"https://l1-ows1.lumigame.com/SabaClub/CreateCustomer","localhost":"http://localhost:7456","mobileLocalhost":"http://localhost:3000","port":5000},"domain":"example.com","localhost":null,"appType":1,"partner":"1W","resource":null}
-            :{"obCustId":Number(config[_env].memberId[_game]),"memberName":"Mp0LFZap","language":cflang,"currency":"$US","seq":"d,y,lumi","siteId":"4100300","siteName":"lumi","ip":"10.0.0.142","browserUserAgent":userAgent,"auth":{"partnerId":"gamesimulator","partnerSecret":"gamesimulator@20luminet&"},"token":null,"redirectUrl":"#","verifyResult":null,"gameId":gameid,"setting":{"apiUrl":"http://l1_game_api_local_1:5000","authUrl":"http://l1_auth_api_local_1:5000","client":{"id":"game-server","secret":"gameserver@20luminet&"},"expireIn":1637569728,"useAuthenticate":true,"requestTimeout":10000,"owUrl":"https://l1-ows1.lumigame.com/SabaClub/CreateCustomer","localhost":"http://localhost:7456","mobileLocalhost":"http://localhost:3000","port":5000},"domain":"example.com","localhost":null,"appType":1,"partner":"1W","resource":null}
             let res= await chai.request(config[_env].url).post("/sso").send(_requestjs)
             let obj = new Object()
             await console.log(res.text,res.status);
