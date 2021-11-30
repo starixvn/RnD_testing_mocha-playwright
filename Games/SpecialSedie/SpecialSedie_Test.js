@@ -2,7 +2,6 @@ const game = "SpecialSedie"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as SpecialSedieFunc from './SpecialSedie_Function'
-import * as ResultFunc from '../References/Result_Function'
 
 describe('SpecialSedie Game', ()=>{
 
@@ -23,18 +22,18 @@ describe('SpecialSedie Game', ()=>{
    await SpecialSedieFunc.VerifySignInSuccessfully()
     }) 
 
-   it('TC_02_Full_Smoke_Verify Max Bet on Big', async () => {
+   it('TC_02_Full_Smoke_Verify Settlement on Even', async () => {
   await SpecialSedieFunc.waitUtilNewRound()
-  let stake = 10, pos= 'Even'
+  let stake = 1, pos= 'Even'
   await SpecialSedieFunc.PlaceBet(pos,stake)
   await SpecialSedieFunc.VerifyBetStake(pos,stake)
   await SpecialSedieFunc.CheckSettleBalance()
   await SpecialSedieFunc.CheckRoundHistory()
   }) 
  
-  it('TC_03_Full_Smoke_Verify Max Bet on Big', async () => {
+  it('TC_03_Full_Smoke_Verify Settlement on Odd', async () => {
     await SpecialSedieFunc.waitUtilNewRound()
-    let stake = 10, pos= 'Odd'
+    let stake = 1, pos= 'Odd'
     await SpecialSedieFunc.PresetChip(stake)
     await SpecialSedieFunc.PlaceBet(pos,null,'nowait')
     await SpecialSedieFunc.VerifyBetStake(pos,stake)

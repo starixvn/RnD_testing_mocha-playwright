@@ -271,7 +271,7 @@ export const GetSettleResult = async(_stake=null) => {
 //Check Round History
 export const CheckRoundHistory = async() => {
    await OpenHistory()
-  await utils.sleep(3000)
+  await utils.sleep(1000)
   let _found = await utils.wsFindMessage('42/user/specialsedie,["SpecialSeDie",{"history"')
   await utils.shouldBeEqual(_found.Val,true)
   await CloseHistory() // close history
