@@ -29,7 +29,7 @@ describe('TurboOddEven Game', ()=>{
 
   })  
 
-  it('TC_06_Full_Smoke_Verify Max Bet on Odd', async () => {
+  it('TC_06_Full_Verify Max Bet on Odd', async () => {
     await TurboOddEvenFunc.waitUtilNewRound()
     const pos = "Odd"
     const errormsg =  `"errorCode":"SB1911"`
@@ -44,7 +44,7 @@ describe('TurboOddEven Game', ()=>{
 
  }) 
  
- it('TC_07_Full_Smoke_Verify Max Bet on Even', async () => { 
+ it('TC_07_Full_Verify Max Bet on Even', async () => { 
   await TurboOddEvenFunc.waitUtilNewRound()
    const pos = "Even"
    const errormsg =  `"errorCode":"SB1911"`
@@ -58,7 +58,7 @@ describe('TurboOddEven Game', ()=>{
 
 }) 
 
-  it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Odd', async () => {   
+  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Odd', async () => {   
     await TurboOddEvenFunc.waitUtilNewRound()
      const pos = "Odd"
      const errormsg = '"errorCode":"SB1927"'
