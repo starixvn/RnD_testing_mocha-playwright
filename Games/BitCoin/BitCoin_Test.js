@@ -6,7 +6,7 @@ import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 let BitCoinLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./BitCoin_Locator').BitCoinLocator_vn : require('./BitCoin_Locator').BitCoinLocator_en)
 
-describe(game, ()=>{
+describe('BitCoin', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()
