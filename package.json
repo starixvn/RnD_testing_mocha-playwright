@@ -24,7 +24,7 @@
         "mongodb": "4.1.0",
         "ocrad.js": "0.0.1",
         "pixelmatch": "5.2.1",
-        "playwright": "^1.16.3",
+        "playwright": "1.16.3",
         "sharp": "0.27.2",
         "tesseract.js": "2.1.4",
         "ua-parser-js": "0.7.24",
