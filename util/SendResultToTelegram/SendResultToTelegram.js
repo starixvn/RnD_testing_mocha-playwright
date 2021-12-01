@@ -15,7 +15,7 @@ describe('Send Message', ()=>{
             if(await gsutils.isFailed(obj) === true){
                 testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} Passed/Total Run`
             }
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: All Passed (${rs.Result[0].pass} tcs)` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: PASSED` : testSuiteDetail
             console.log(mainContent);
         // //#### TelegramBot
         //    chai.request("https://api.telegram.org")
@@ -31,8 +31,8 @@ describe('Send Message', ()=>{
         .send({
             token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
             conversationId: -1001516404043,
-            parse_mode: "markdown",
-            message: `${mainContent} -${mode} Test on ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
+            parse_mode: "Markdown",
+            message: `*${mainContent}* ${mode} Test ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
         }) 
         }
     })  
