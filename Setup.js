@@ -45,9 +45,8 @@ before(async () => {
       global.game = process.env.npm_config_game
       // Set balance on Local
       if(env === 'cf_local' || env === 'cf_local1'){
-        let _requestdata = (typeof process.env.npm_config_pid !== 'undefined')?
+        let _requestdata = 
         `ObCustId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00&Partner=ow`
-        :`ObCustId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
         chai.request(config[env].setBalance).post("").send(_requestdata)
         .end( async(err,res)=>{
           expect(res).to.have.status(200)
@@ -58,10 +57,9 @@ before(async () => {
       if(env === 'cf_local' || env === 'cf_local1'){
         const aMemberID = Object.values(config[env].memberId)
         for( let i =0 ; i< aMemberID.length;i++){
-          let _requestdata = (typeof process.env.npm_config_pid !== 'undefined')?
+          let _requestdata =
           `ObCustId=${aMemberID[i]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00&Partner=ow`
-          :`ObCustId=${aMemberID[i]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00`
-          chai.request(config[env].setBalance).post("").send(
+             chai.request(config[env].setBalance).post("").send(
             _requestdata
           ).end( async(err,res)=>{
             expect(res).to.have.status(200)
