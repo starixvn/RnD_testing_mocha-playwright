@@ -10,19 +10,14 @@ describe('Send Message', ()=>{
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         let mode = process.env.npm_config_mode
-        let testSuiteDetail = "",mainContent       
         if(obj !== 'NotFound'){
-            if(await gsutils.isFailed(obj) === true){
-                testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} Passed/Total Run`
-            }
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: **PASSED**` : testSuiteDetail
+            let mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: **PASSED**` : ` ${rs.Result[0].TestSuite}: **FAILED**` 
             console.log(mainContent);
-        // //#### TelegramBot
+        // // //#### TelegramBot
         //    chai.request("https://api.telegram.org")
         //     .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
         //     .send({
         //         chat_id: -605245129,
-        //         parse_mode: "Markdown",
         //         text: `${mainContent} -${mode} Test ${env} - Duration: ${rs.ExecutionTime}`
         //     }).end( async(err,res)=>{
         //         expect(res).to.have.status(200)})  
