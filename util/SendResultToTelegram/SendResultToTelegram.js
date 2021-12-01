@@ -15,24 +15,25 @@ describe('Send Message', ()=>{
             if(await gsutils.isFailed(obj) === true){
                 testSuiteDetail += `\n*${rs.Result[0].TestSuite}*   :   ${rs.Result[0].pass}/${rs.testsrun} Passed/Total Run`
             }
-            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: PASSED` : testSuiteDetail
+            mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: **PASSED**` : testSuiteDetail
             console.log(mainContent);
         // //#### TelegramBot
         //    chai.request("https://api.telegram.org")
         //     .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
         //     .send({
         //         chat_id: -605245129,
-        //         text: `${mainContent} -${mode} Test on ${env} - Duration: ${rs.ExecutionTime}`
+        //         parse_mode: "Markdown",
+        //         text: `${mainContent} -${mode} Test ${env} - Duration: ${rs.ExecutionTime}`
         //     }).end( async(err,res)=>{
         //         expect(res).to.have.status(200)})  
-        //#### Skynet 
+        // #### Skynet 
         await chai.request("https://bot.nexdev.net")
         .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
         .send({
             token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
             conversationId: -1001516404043,
             parse_mode: "Markdown",
-            message: `*${mainContent}* ${mode} Test ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
+            message: `${mainContent} ${mode} Test ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
         }) 
         }
     })  
