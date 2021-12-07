@@ -67,6 +67,7 @@ export const PresetChip = async(_chip,_clear='clear') => {
   if (_clear == 'clear'){
     await ClearPresetChip()
   }
+  await utils.sleep(2000)
   await utils.clickPos(SpecialSedieLocator[_prechip].x,SpecialSedieLocator[_prechip].y)
   await utils.clickPos(SpecialSedieLocator.PresetAccept.x,SpecialSedieLocator.PresetAccept.y)//click Accept
 }
