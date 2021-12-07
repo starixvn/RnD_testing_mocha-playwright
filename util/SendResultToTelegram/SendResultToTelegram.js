@@ -13,23 +13,23 @@ describe('Send Message', ()=>{
         if(obj !== 'NotFound'){
             let mainContent = await gsutils.isFailed(obj) === false ? ` ${rs.Result[0].TestSuite}: **PASSED**` : ` ${rs.Result[0].TestSuite}: **FAILED**` 
             console.log(mainContent);
-        // //#### TelegramBot
-           chai.request("https://api.telegram.org")
-            .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
-            .send({
-                chat_id: -605245129,
-                text: `${mainContent} -${mode} Test ${env} - Duration: ${rs.ExecutionTime}`
-            }).end( async(err,res)=>{
-                expect(res).to.have.status(200)})  
-        // // #### Skynet 
-        // await chai.request("https://bot.nexdev.net")
-        // .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
-        // .send({
-        //     token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-        //     conversationId: -1001516404043,
-        //     parse_mode: "Markdown",
-        //     message: `${mainContent} ${mode} Test ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
-        // })
+        // // //#### TelegramBot
+        //    chai.request("https://api.telegram.org")
+        //     .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
+        //     .send({
+        //         chat_id: -605245129,
+        //         text: `${mainContent} -${mode} Test ${env} - Duration: ${rs.ExecutionTime}`
+        //     }).end( async(err,res)=>{
+        //         expect(res).to.have.status(200)})  
+        // #### Skynet 
+        await chai.request("https://bot.nexdev.net")
+        .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+        .send({
+            token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+            conversationId: -1001516404043,
+            parse_mode: "Markdown",
+            message: `${mainContent} ${mode} Test ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
+        })
 
 
         }
