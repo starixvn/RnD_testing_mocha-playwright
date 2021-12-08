@@ -574,6 +574,9 @@ export const Login = async(_env,_game) => {
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub
         await navigate(page.url().toString().replace(/\/[Ss]ports/g,'')+config[_env].gamelobbyurl+config.setting.gameId[_game])
+        //select group currency
+        await selectDrp('xpath=//*/select[@id="group"]','61b048d27e6d8f000145357f')
+        await clickEl('xpath=//input[@value="Submit"]')
         await sleep(15000)
     } else {
         // Navigate Sabaclub from Simulator

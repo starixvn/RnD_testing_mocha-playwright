@@ -28,7 +28,7 @@ describe('Big Small', ()=>{
    //await BigSmallFunc.checkNavStatisticbar()
     }) 
 
-   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
+   it('TC_06_Full_Verify Max Bet on Big', async () => {
   await BigSmallFunc.waitUtilNewRound()
     const pos = "Big"
     const errormsg = `"errorCode":"SB1911","maxBet":2000`
@@ -40,7 +40,7 @@ describe('Big Small', ()=>{
    await BigSmallFunc.CheckRoundHistory()
   }) 
  
- it('TC_07_Full_Smoke_Verify Max Bet on Small', async () => {
+ it('TC_07_Full_Verify Max Bet on Small', async () => {
   await BigSmallFunc.waitUtilNewRound()
    const pos = "Small"
    const errormsg = `"errorCode":"SB1911","maxBet":2000`
@@ -52,7 +52,7 @@ describe('Big Small', ()=>{
   await BigSmallFunc.CheckRoundHistory()
 }) 
 
-  it('TC_08_Full_Verify User Can Only Bet on 1 Pos-Big', async () => {
+  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
     await BigSmallFunc.waitUtilNewRound()
      const pos = "Big"
      const errormsg = '"errorCode":"SB1927"'
@@ -65,7 +65,7 @@ describe('Big Small', ()=>{
   }) 
 
 
-  it('TC_09_Full_Verify User Can Only Bet on 1 Pos-Small', async () => {
+  it('TC_09_Full_Smoke_Verify User Can Only Bet on 1 Pos-Small', async () => {
     await BigSmallFunc.waitUtilNewRound()
     const pos = "Small"
     const errormsg = '"errorCode":"SB1927"'

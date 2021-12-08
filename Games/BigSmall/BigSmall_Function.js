@@ -137,7 +137,7 @@ export const VerifyBetStake = async (_pos,_stake) => {
       let findmsg,_found
       _pos = _pos.toLowerCase()
       findmsg = `"${_pos}":${_stake}}`
-     _found = await utils.wsFindMessage(findmsg,2)
+     _found = await utils.wsFindMessage(findmsg,3)
       //  if(_found.Val==false){
       //    console.log('ws message to trace bet choice',wsMessageReceived);
       //  }
