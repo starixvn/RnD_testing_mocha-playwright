@@ -56,7 +56,7 @@ describe('FourGuardians Game', ()=>{
 
   it('TC_09_Full_Smoke_Verify Place bet single line', async () => {
       await FourGuardiansFunc.checkSettlement(FourGuardiansFunc.PlaceBet,["L1",1])
-      await utils.sleep(3000)
+      await utils.sleep(2000)
   })  
 
   it('TC_10_Full_Smoke_Verify Place bet Odd line', async () => {
@@ -64,7 +64,7 @@ describe('FourGuardians Game', ()=>{
     await FourGuardiansFunc.VerifyHistoryContent()
   })    
 
-  it('TC_10_Full_Smoke_Verify Close Game', async () => {
+  it('TC_11_Full_Smoke_Verify Close Game', async () => {
   await FourGuardiansFunc.CloseGame()
   })  
 })

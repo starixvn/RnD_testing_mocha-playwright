@@ -6,7 +6,7 @@ export const FourGuardiansLocator_vn = {
 	Menu : { x : 44, y : 99 },
 	Home : { x : 48, y : 164 },
 	Sound : { x : 48, y : 232 },
-	History : { x : 55, y : 292, top : 32, left : 100, width : 1050, height : 95, ImageCompare : pathImageCompare + "ImgCompare_FourGuardians_History.png" },
+	History : { x : 49, y : 368, top : 32, left : 100, width : 1050, height : 95, ImageCompare : pathImageCompare + "ImgCompare_FourGuardians_History.png" },
 	ClosePopUp : { x : 1166, y : 71 },
 	Guide : { x : 48, y : 355, top : 139, left : 119, width : 995, height : 538, ImageCompare1 : pathImageCompare + "ImgCompare_FourGuardians_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_FourGuardians_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_FourGuardians_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_FourGuardians_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_FourGuardians_Guide_5.png", 
 	ImageCompare6 : pathImageCompare + "ImgCompare_FourGuardians_Guide_6.png",	ImageCompare7 : pathImageCompare + "ImgCompare_FourGuardians_Guide_7.png", ImageCompare8 : pathImageCompare + "ImgCompare_FourGuardians_Guide_8.png", ImageCompare9 : pathImageCompare + "ImgCompare_FourGuardians_Guide_9.png"},

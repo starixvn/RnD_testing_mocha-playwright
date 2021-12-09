@@ -77,10 +77,8 @@ export const VerifyHistoryContent = async() => {
   //   y: FourGuardiansLocator.History.top,
   //  width: FourGuardiansLocator.History.width,
   //  height: FourGuardiansLocator.History.height}})
-  await utils.findImage(FourGuardiansLocator.History.ImageCompare,FourGuardiansLocator.History).then((res)=>
-  {
-    utils.shouldBeEqual(res.Val, true,'Check History')
-  }) 
+  let res = await utils.findImage(FourGuardiansLocator.History.ImageCompare,FourGuardiansLocator.History)
+  await utils.shouldBeEqual(res.Val, true,'Check History')
   await ClosePopUp()
 }
 
