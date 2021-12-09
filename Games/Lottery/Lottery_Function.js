@@ -86,7 +86,7 @@ export const PlaceBet = async (_bettype,_pos,_stake,wait='wait') => {
 
       //Select bet type
       await clickPos(LotteryLocator[_bettype].x,LotteryLocator[_bettype].y)
-      
+      await utils.sleep(200)
       // Select Pos
       if (_pos.includes("Sets"))
       {
