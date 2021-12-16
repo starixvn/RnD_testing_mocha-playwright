@@ -7,7 +7,7 @@ export const verifyLoginSuccessfully = async() => {
         }
 
 export const OpenGameFromLobby = async(_Gamename) => {
-    console.log(`Open Game ${_Gamename}`);
+    //console.log(`Open Game ${_Gamename}`);
     // //Game in Screen1
     // let _game = `${_Gamename}Icon`
     // const Gscreen1 = ['VipSedie','Sedie','SedieWar','MiniSedie','FourGuardians']

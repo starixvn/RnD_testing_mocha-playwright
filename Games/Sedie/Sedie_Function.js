@@ -18,6 +18,7 @@ export const verifyBetChoice = async() => {
     for(let i of _lstchk){
         _result = await utils.findImage(SedieLocator[i])
         await utils.shouldBeEqual(_result.Val, true, `check ${i} image`)
+        // await utils.CaptureSubImageToFile(SedieLocator[i])
     }
 }
 export const selectChip = async(_chip=1)=>{
@@ -385,7 +386,7 @@ export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
     // await utils.CaptureSubImageToFile(SedieLocator.History)
     let flag = await utils.findImage(SedieLocator.History)
-    await utils.shouldBeEqual(flag.Val,true)
+    await utils.shouldBeEqual(flag.Val,true,'Does not found history popup')
 }
 
 export const closeHistory = async() => {
@@ -478,7 +479,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
     let _found = await utils.getWsMessage('42/user/xocxoc,["XocXoc",{"remainingTime":39}]')
-    await utils.sleep(9000)
+    await utils.sleep(8000)
   }
 
 

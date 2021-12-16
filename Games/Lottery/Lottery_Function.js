@@ -135,7 +135,7 @@ export const VerifyBetStake = async (_bettype,_pos,_stake) => {
           console.log(findmsg);
           _found = await utils.wsFindMessage(findmsg,5)
        if(_found.Val==false){
-         console.log('ws message to trace bet choice',wsMessageReceived);
+        console.log('Can not get placebet websocket msg for ',_pos,_stake);
        }
        await utils.shouldBeEqual(_found.Val,true, `Verify bet choice : ${_pos} and stake : ${_stake} `)    
    } catch (e) {

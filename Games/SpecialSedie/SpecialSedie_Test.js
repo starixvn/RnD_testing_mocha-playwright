@@ -18,7 +18,7 @@ describe('SpecialSedie Game', ()=>{
     }
   })
 
- it('TC_01_Full_Smoke_Verify can open game from lobby and nagvigation of statistic bar', async () => {
+ it('TC_01_Full_Smoke_Verify User Can Open Game Success', async () => {
    await SpecialSedieFunc.VerifySignInSuccessfully()
     }) 
 

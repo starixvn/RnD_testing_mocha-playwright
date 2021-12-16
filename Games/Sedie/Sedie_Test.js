@@ -22,11 +22,12 @@ describe('Sedie Game', ()=>{
   })
 
   let result;
-  it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
+  it('TC_001_Full_Smoke_Verify User Can Open Game Success', async () => {
       await SedieFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
+  it('TC_002_Full_Smoke_Verify UI of All Bet Choices', async() => {
+      await SedieFunc.waitUtilNewRound()
       await SedieFunc.verifyBetChoice()
   })
   
@@ -154,7 +155,7 @@ describe('Sedie Game', ()=>{
     await SedieFunc.verifySettlement("Red2",1)
   })
 
-  it('TC_034_Full_Verify Settlement on choice White3', async() =>{  
+  it('TC_034_Full_Verify User can Place Bet on White3 and check settlement result', async() =>{  
     await SedieFunc.verifySettlement("White3",100)
   })
   
@@ -169,19 +170,19 @@ describe('Sedie Game', ()=>{
     await SedieFunc.closeGuide()
   })
 
-  it('TC_037_Full_Smoke_Verify History', async() => {
+  it('TC_037_Full_Smoke_Veriry user can open History popup', async() => {
     await SedieFunc.openHistory()
     await SedieFunc.verifyHistoryPopup()
     await SedieFunc.closeHistory()
   })
 
-  it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
+  it('TC_043_Smoke_Verify User can place bet all bet choices and check settlement result', async()=>{
     let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
      await SedieFunc.verifySettlementMultipleChoices(_choice,10)
   })
 
 
-  it('TC_038_Full_Smoke_Verify Home', async() => {
+  it('TC_038_Full_Smoke_Verify User can exist game and return game lobby', async() => {
     await SedieFunc.returnHome()
   })
 

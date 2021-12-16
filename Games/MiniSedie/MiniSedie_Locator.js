@@ -2,12 +2,12 @@ const path = require('path')
 const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "MiniSedie" + path.sep
 
 export const MiniSedieLocator_vn = { 
-	Even : { x : 480, y : 295, top : 281, left : 417, width : 126, height : 29, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Even.png" },
-	Odd : { x : 797, y : 302, top : 275, left : 735, width : 124, height : 55, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Odd.png" },
-	Red4 : { x : 468, y : 415, top : 389, left : 425, width : 86, height : 52, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Red4.png" },
-	Red3 : { x : 586, y : 415, top : 390, left : 544, width : 85, height : 51, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Red3.png" },
-	White3 : { x : 705, y : 415, top : 386, left : 662, width : 86, height : 58, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_White3.png" },
-	White4 : { x : 824, y : 412, top : 387, left : 781, width : 87, height : 51, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_White4.png" },
+	Even : { x : 480, y : 295, top : 281, left : 417, width : 60, height : 29, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Even.png" },
+	Odd : { x : 797, y : 302, top : 275, left : 735, width : 60, height : 55, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Odd.png" },
+	Red4 : { x : 468, y : 415, top : 389, left : 425, width : 40, height : 52, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Red4.png" },
+	Red3 : { x : 586, y : 415, top : 390, left : 544, width : 40, height : 51, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_Red3.png" },
+	White3 : { x : 705, y : 415, top : 386, left : 662, width : 40, height : 58, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_White3.png" },
+	White4 : { x : 824, y : 412, top : 387, left : 781, width : 40, height : 51, ImageCompare : pathImageCompare + "ImgCompare_MiniSedie_White4.png" },
 	ChipBroad : { x : 649, y : 530, top : 497, left : 436, width : 426, height : 66, ImageCompare1 : pathImageCompare + "ImgCompare_MiniSedie_ChipBroad1.png", ImageCompare2 : pathImageCompare + "ImgCompare_MiniSedie_ChipBroad2.png" },
 	LeftArrow : { x : 398, y : 530 },
 	RightArrow : { x : 881, y : 533 },

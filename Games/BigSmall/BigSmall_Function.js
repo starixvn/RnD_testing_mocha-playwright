@@ -87,8 +87,8 @@ export const VerifySignInSuccessfully = async() => {
   await utils.shouldBeEqual(_small.Val,true,'Check small')  
   // Verify odd
   // await utils.CaptureSubImageToFile(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds.left,BigSmallLocator.Odds.top,BigSmallLocator.Odds.width,BigSmallLocator.Odds.height)
-  const _odd= await utils.findImage(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds)
-  await utils.shouldBeEqual(_odd.Val,true,'Check odd')  
+  //const _odd= await utils.findImage(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds)
+  //await utils.shouldBeEqual(_odd.Val,true,'Check odd')  
 }
 
 

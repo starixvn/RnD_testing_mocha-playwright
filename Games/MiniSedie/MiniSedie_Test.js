@@ -4,6 +4,7 @@ import * as utils from '../../util/utils'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as MiniSedieFunc from './MiniSedie_Function'
 import * as ResultFunc from '../References/Result_Function'
+import { waitUtilNewRound } from '../SpecialSedie/SpecialSedie_Function'
 
 describe('MiniSedie Game', ()=>{
   before(async function(){
@@ -25,6 +26,7 @@ describe('MiniSedie Game', ()=>{
   })  
 
   it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
+      await MiniSedieFunc.waitUtilNewRound()
       await MiniSedieFunc.verifyBetChoice()
   })
   
