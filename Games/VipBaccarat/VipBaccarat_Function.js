@@ -13,7 +13,7 @@ export const verifySignInSuccessfully = async() => {
 }
 
 export const verifyBetChoice = async() => {
-    // await waitUtilNewRound()
+    await waitUtilNewRound()
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.Big)
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.PlayerPair)
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.Player)
@@ -22,19 +22,19 @@ export const verifyBetChoice = async() => {
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.Small)
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.BankerPair)
     let _result = await utils.findImage(VipBaccaratLocator.Big)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify big")
     _result = await utils.findImage(VipBaccaratLocator.PlayerPair)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify PlayerPair")
     _result = await utils.findImage(VipBaccaratLocator.Player)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify Player")
     _result = await utils.findImage(VipBaccaratLocator.Tie)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify Tie")
     _result = await utils.findImage(VipBaccaratLocator.Banker)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify banker")
     _result = await utils.findImage(VipBaccaratLocator.Small)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify small")
     _result = await utils.findImage(VipBaccaratLocator.BankerPair)
-    expect(_result.Val).to.equal(true)
+    await utils.shouldBeEqual(_result.Val,true,"verify BankerPair")
 }
 
 export const openHistory = async() => {

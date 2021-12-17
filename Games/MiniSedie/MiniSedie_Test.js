@@ -6,7 +6,7 @@ import * as MiniSedieFunc from './MiniSedie_Function'
 import * as ResultFunc from '../References/Result_Function'
 import { waitUtilNewRound } from '../SpecialSedie/SpecialSedie_Function'
 
-describe('MiniSedie Game', ()=>{
+describe('======== AUTOMATION TEST RESULT MINI SEDIE ========', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

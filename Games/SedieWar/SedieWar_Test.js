@@ -5,7 +5,7 @@ import * as SedieWarFunc from './SedieWar_Function'
 import * as ResultFunc from '../References/Result_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 
-describe('SedieWar Game', ()=>{
+describe('======== AUTOMATION TEST RESULT SEDIE WAR ========', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

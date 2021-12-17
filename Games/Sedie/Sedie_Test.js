@@ -5,7 +5,7 @@ import * as SedieFunc from './Sedie_Function'
 import * as ResultFunc from '../References/Result_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 
-describe('Sedie Game', ()=>{
+describe('======== AUTOMATION TEST RESULT SEDIE ========', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

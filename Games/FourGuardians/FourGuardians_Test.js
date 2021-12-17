@@ -5,7 +5,7 @@ import * as FourGuardiansFunc from './FourGuardians_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('FourGuardians Game', ()=>{
+describe('======== AUTOMATION TEST RESULT FourGuardians ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()
@@ -59,12 +59,15 @@ describe('FourGuardians Game', ()=>{
       await utils.sleep(2000)
   })  
 
-  it('TC_10_Full_Smoke_Verify Place bet Odd line', async () => {
+  it('TC_10_Full_Smoke_Verify User Can Place Bet Odd Line and check settlement Result', async () => {
     await FourGuardiansFunc.checkSettlement(FourGuardiansFunc.PlaceBet,["OddLine",1])
-    await FourGuardiansFunc.VerifyHistoryContent()
   })    
 
-  it('TC_11_Full_Smoke_Verify Close Game', async () => {
+  it('TC_11_Full_Smoke_Verify User Can Open History pop-up', async () => {
+    await FourGuardiansFunc.VerifyHistoryContent()
+    })  
+  
+  it('TC_12_Full_Smoke_Verify User can go back game lobby by click Home button', async () => {
   await FourGuardiansFunc.CloseGame()
   })  
 })

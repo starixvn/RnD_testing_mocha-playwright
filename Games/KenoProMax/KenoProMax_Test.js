@@ -6,7 +6,7 @@ let RouletteLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./Keno
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('KenoProMax Game', ()=>{
+describe('======== AUTOMATION TEST RESULT KENO PRO MAX ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

@@ -5,7 +5,7 @@ import * as BlackJackFunc from '../BlackJack/BlackJack_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 const BlackJackLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./BlackJack_Locator').BlackJackLocator_vn : require('./BlackJack_Locator').BlackJackLocator_en)
 
-describe('BlackJack Game', ()=>{
+describe('======== AUTOMATION TEST RESULT BLACKJACK ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()
@@ -429,8 +429,8 @@ describe('BlackJack Game', ()=>{
       const pos1 = 'Pos1'
       const pos2 = 'Pos2'
       const pos3 = 'Pos3'
-      const betstake1 = 100
-      const maxbet =300 
+      const betstake1 = 1
+      const maxbet =3
       //Place bet
      await BlackJackFunc.PlaceBet(betstake1,pos1)
      await BlackJackFunc.PlaceBet(betstake1,pos2)
@@ -438,14 +438,15 @@ describe('BlackJack Game', ()=>{
      await BlackJackFunc.ClickDeal()
      let DealBalance =await BlackJackFunc.GetDealBalance()
        // Get Total Bet and pos bet
+       await utils.sleep(1000)
       let totalbet =await BlackJackFunc.GetTotalBetAmount()
       let pos1bet = await BlackJackFunc.GetPosBet(1)
       let pos2bet = await BlackJackFunc.GetPosBet(2)
       let pos3bet = await BlackJackFunc.GetPosBet(2)
-      await utils.shouldBeEqual(totalbet,maxbet)
-      await utils.shouldBeEqual(pos1bet,betstake1)
-      await utils.shouldBeEqual(pos2bet,betstake1)
-      await utils.shouldBeEqual(pos3bet,betstake1)
+      await utils.shouldBeEqual(totalbet,maxbet,'verify total bet')
+      await utils.shouldBeEqual(pos1bet,betstake1,'verify bet stake pos1')
+      await utils.shouldBeEqual(pos2bet,betstake1,'verify bet stake pos2')
+      await utils.shouldBeEqual(pos3bet,betstake1,'verify bet stake pos3')
        // Get PosId
       const pos1id = await BlackJackFunc.GetPosId(1)
       const pos2id = await BlackJackFunc.GetPosId(2)

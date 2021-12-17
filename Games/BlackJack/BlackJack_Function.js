@@ -60,13 +60,14 @@ export const StandCard = async() => {
     //await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
     let _Stand = await utils.findImage(BlackJackLocator.Stand)
-      if(_Stand.Val === true){
-       // console.log('Stand')
-        await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
-        await utils.sleep(1000)
-      }
-      else
-      console.log('Stand button could not be found')
+    await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
+    //   if(_Stand.Val === true){
+    //    // console.log('Stand')
+    //     await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
+    //     await utils.sleep(1000)
+    //   }
+    //   else
+    //   console.log('Stand button could not be found')
     } catch (error) {
       console.log(error)
     }
@@ -79,13 +80,14 @@ export const HitCard = async() => {
     await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top)
     //await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
     await utils.sleep(500)
-    const _Hit= await utils.findImage(BlackJackLocator.Hit.ImageCompare,BlackJackLocator.Hit)
-      if (_Hit.Val === true){
-        await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
-        await utils.sleep(1000)
-      }
-      else
-      console.log('Hit button could not be found')
+    await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
+    // const _Hit= await utils.findImage(BlackJackLocator.Hit.ImageCompare,BlackJackLocator.Hit)
+    //   if (_Hit.Val === true){
+    //     await utils.clickPos(BlackJackLocator.Hit.x,BlackJackLocator.Hit.y)
+    //     await utils.sleep(1000)
+    //   }
+    //   else
+    //   console.log('Hit button could not be found')
   } catch (error) {
     console.log(error)
   }

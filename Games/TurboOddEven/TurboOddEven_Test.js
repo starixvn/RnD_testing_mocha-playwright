@@ -7,7 +7,7 @@ import * as ResultFunc from '../References/Result_Function'
 const TurboOddEvenLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./TurboOddEven_Locator').TurboOddEvenLocator_vn : require('./TurboOddEven_Locator').TurboOddEvenLocator_en)
 
 
-describe('TurboOddEven Game', ()=>{
+describe('======== AUTOMATION TEST RESULT TURBO ODD EVEN ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

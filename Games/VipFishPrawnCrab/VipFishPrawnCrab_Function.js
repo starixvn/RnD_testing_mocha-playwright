@@ -145,5 +145,6 @@ const verifyChoiceClose = async() => {
 
 export const returnHome = async() => {
     await utils.clickPos(VipFishPrawnCrabLocator.Home.x, VipFishPrawnCrabLocator.Home.y)
+    await utils.sleep(1000)
     await verifyChoiceClose()
 }

@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as DragonTigerFunc from './DragonTiger_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('DragonTiger Game', ()=>{
+describe('======== AUTOMATION TEST RESULT DRAGON TIGER ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

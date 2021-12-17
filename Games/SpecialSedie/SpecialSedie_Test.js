@@ -3,7 +3,7 @@ const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as SpecialSedieFunc from './SpecialSedie_Function'
 
-describe('SpecialSedie Game', ()=>{
+describe('======== AUTOMATION TEST RESULT SPECIAL SEDIE ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

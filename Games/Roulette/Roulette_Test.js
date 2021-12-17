@@ -4,7 +4,7 @@ import * as utils from '../../util/utils'
 import * as RouletteFunc from './Roulette_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('Roulette Game', ()=>{
+describe('======== AUTOMATION TEST RESULT ROULETTE ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

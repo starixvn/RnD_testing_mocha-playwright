@@ -5,7 +5,7 @@ import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as VipFishPrawnCrabFunc from './VipFishPrawnCrab_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('VipFishPrawnCrab Game', ()=>{
+describe('======== AUTOMATION TEST RESULT VIP FISHPRAWNCRAB ========', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

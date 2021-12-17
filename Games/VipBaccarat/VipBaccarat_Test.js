@@ -5,7 +5,7 @@ import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as VipBaccaratFunc from './VipBaccarat_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('VipBaccarat Game', ()=>{
+describe('======== AUTOMATION TEST RESULT VIP BACCARAT ========', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

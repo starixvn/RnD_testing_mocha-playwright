@@ -5,7 +5,7 @@ import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ThreeCardsFunc from './ThreeCards_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('ThreeCards Game', ()=>{
+describe('======== AUTOMATION TEST RESULT THREE CARDS ========', ()=>{
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

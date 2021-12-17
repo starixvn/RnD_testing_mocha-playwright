@@ -109,8 +109,8 @@ export const VerifySignInSuccessfully = async() => {
   const _even= await utils.findImage(TurboOddEvenLocator.Even.ImageCompare,TurboOddEvenLocator.Even)
   await utils.shouldBeEqual(_even.Val,true)  
   // // Verify odds
-  const _odds = await utils.findImage(TurboOddEvenLocator.Odds.ImageCompare,TurboOddEvenLocator.Odds)
-  await utils.shouldBeEqual(_odds.Val,true)  
+  // const _odds = await utils.findImage(TurboOddEvenLocator.Odds.ImageCompare,TurboOddEvenLocator.Odds)
+  // await utils.shouldBeEqual(_odds.Val,true)  
 }
 
 

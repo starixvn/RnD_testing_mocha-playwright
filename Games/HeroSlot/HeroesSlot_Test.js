@@ -5,7 +5,7 @@ import * as HeroesSlotFunc from './HeroesSlot_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('Hero Slot Game', ()=>{
+describe('======== AUTOMATION TEST RESULT HERO SLOT ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

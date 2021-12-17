@@ -6,7 +6,7 @@ import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 const TurboBigSmallLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./TurboBigSmall_Locator').TurboBigSmallLocator_vn : require('./TurboBigSmall_Locator').TurboBigSmallLocator_en)
 
-describe('TurboBigSmall Game', ()=>{
+describe('======== AUTOMATION TEST RESULT TURBO BIG SMALL ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

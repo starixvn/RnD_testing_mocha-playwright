@@ -6,7 +6,7 @@ const BigSmallSicboLocator = (process.env.npm_config_cf_lang === 'vn' ? require(
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('BigSmall SicBo Game', ()=>{
+describe('======== AUTOMATION TEST RESULT BIG SMALL SICBO ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

@@ -6,7 +6,7 @@ let RouletteLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./Lott
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
-describe('Lottery Game', ()=>{
+describe('======== AUTOMATION TEST RESULT LOTTERY ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()
