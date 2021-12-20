@@ -39,7 +39,8 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
-    await utils.CaptureSubImageToFile(FishPrawnCrabLocator.History)
+    let res = await utils.wsFindMessage('42/user/baucua,["BauCua",{"history"')
+    await utils.shouldBeEqual(res.Val, true,'Check History')
     // let flag = await utils.findImage(FishPrawnCrabLocator.History)
     // await utils.shouldBeEqual(flag.Val,true)
 }

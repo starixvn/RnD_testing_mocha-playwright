@@ -43,9 +43,11 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
+    let res = await utils.wsFindMessage('42/user/vipbaccarat,["VipBaccarat",{"history"')
+    await utils.shouldBeEqual(res.Val, true,'Check History')
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.History)
-    let flag = await utils.findImage(VipBaccaratLocator.History)
-    await utils.shouldBeEqual(flag.Val,true)
+    // let flag = await utils.findImage(VipBaccaratLocator.History)
+    // await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const closeHistory = async() => {

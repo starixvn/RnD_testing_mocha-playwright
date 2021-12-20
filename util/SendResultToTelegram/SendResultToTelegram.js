@@ -20,7 +20,7 @@ describe('Send Message', ()=>{
             .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
             .send({
                 chat_id: -605245129,
-                text: `${mainContent} -${mode} Test ${env} - Duration: ${rs.ExecutionTime}`
+                text: `${mainContent} -${mode} Test ${env} - ⏱: ${rs.ExecutionTime}`
             }).end( async(err,res)=>{
                 expect(res).to.have.status(200)})  
         // // #### Skynet 
@@ -30,7 +30,7 @@ describe('Send Message', ()=>{
         //     token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
         //     conversationId: -1001516404043,
         //     parse_mode: "Markdown",
-        //     message: `${mainContent} ${mode} Test ${env} - Duration: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
+        //     message: `${mainContent} ${mode} Test ${env} - ⏱: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
         // })
 
 

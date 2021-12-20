@@ -296,7 +296,8 @@ describe('======== AUTOMATION TEST RESULT SEDIE WAR ========', ()=>{
   })
 
   it('TC_073_Smoke_Verify Settlement all Bet Choices', async()=>{
-    let _choice = ['Player','Banker','Tie','Even','Odd','PlayerEven','PlayerOdd','PlayerRed4','PlayerRed3','PlayerWhite3','PlayerWhite4','BankerEven','BankerOdd','BankerRed4','BankerRed3','BankerWhite3','BankerWhite4']
+    // let _choice = ['Player','Banker','Tie','Even','Odd','PlayerEven','PlayerOdd','PlayerRed4','PlayerRed3','PlayerWhite3','PlayerWhite4','BankerEven','BankerOdd','BankerRed4','BankerRed3','BankerWhite3','BankerWhite4']
+    let _choice = ['Player','Banker','Tie','Even','Odd','PlayerEven','PlayerOdd']
      await SedieWarFunc.verifySettlementMultipleChoices(_choice,1)
   })
 

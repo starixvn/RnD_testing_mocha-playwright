@@ -384,9 +384,11 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
+    let res = await utils.wsFindMessage('42/user/xocxoc,["XocXoc",{"history"')
+    await utils.shouldBeEqual(res.Val, true,'Check History')
     // await utils.CaptureSubImageToFile(SedieLocator.History)
-    let flag = await utils.findImage(SedieLocator.History)
-    await utils.shouldBeEqual(flag.Val,true,'Does not found history popup')
+    // let flag = await utils.findImage(SedieLocator.History)
+    // await utils.shouldBeEqual(flag.Val,true,'Does not found history popup')
 }
 
 export const closeHistory = async() => {

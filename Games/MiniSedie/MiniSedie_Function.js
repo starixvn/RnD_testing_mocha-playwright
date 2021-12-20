@@ -379,6 +379,8 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
+    let res = await utils.wsFindMessage('42/user/minisedie,["MiniSeDie",{"history"')
+    await utils.shouldBeEqual(res.Val, true,'Check History')
     // await utils.CaptureSubImageToFile(MiniSedieLocator.History)
     let flag = await utils.findImage(MiniSedieLocator.History)
     await utils.shouldBeEqual(flag.Val,true)

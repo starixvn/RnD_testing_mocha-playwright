@@ -25,10 +25,12 @@ describe('======== AUTOMATION TEST RESULT VIP BACCARAT ========', ()=>{
   })  
 
   it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
-      await VipBaccaratFunc.verifyBetChoice()
+      await VipBaccaratFunc.waitUtilNewRound()
+      // await VipBaccaratFunc.verifyBetChoice()
   })
   
   it('TC_037_Full_Smoke_Verify History', async() => {
+
     await VipBaccaratFunc.openHistory()
     await VipBaccaratFunc.verifyHistoryPopup()
     await VipBaccaratFunc.closeHistory()

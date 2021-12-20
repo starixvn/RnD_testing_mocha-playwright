@@ -25,7 +25,8 @@ describe('======== AUTOMATION TEST RESULT THREE CARDS ========', ()=>{
   })  
 
   it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
-      await ThreeCardsFunc.verifyBetChoice()
+      await ThreeCardsFunc.waitUtilNewRound()
+      // await ThreeCardsFunc.verifyBetChoice()
   })
   
   it('TC_037_Full_Smoke_Verify History', async() => {

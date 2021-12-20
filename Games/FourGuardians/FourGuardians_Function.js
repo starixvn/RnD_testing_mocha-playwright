@@ -77,9 +77,12 @@ export const VerifyHistoryContent = async() => {
   //   y: FourGuardiansLocator.History.top,
   //  width: FourGuardiansLocator.History.width,
   //  height: FourGuardiansLocator.History.height}})
-  let res = await utils.findImage(FourGuardiansLocator.History.ImageCompare,FourGuardiansLocator.History)
-  await utils.shouldBeEqual(res.Val, true,'Check History')
-  await ClosePopUp()
+ let res = await utils.wsFindMessage('42/user/fourguardians,["FourGuardians",{"history"')
+ await utils.shouldBeEqual(res.Val, true,'Check History')
+ await ClosePopUp()
+  // let res = await utils.findImage(FourGuardiansLocator.History.ImageCompare,FourGuardiansLocator.History)
+  // await utils.shouldBeEqual(res.Val, true,'Check History')
+  // await ClosePopUp()
 }
 
 export const VerifyGuideContent = async() => {

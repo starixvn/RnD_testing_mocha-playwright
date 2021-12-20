@@ -41,8 +41,10 @@ export const openHistory = async() => {
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
     // await utils.CaptureSubImageToFile(ThreeCardsLocator.History)
-    let flag = await utils.findImage(ThreeCardsLocator.History)
-    await utils.shouldBeEqual(flag.Val,true)
+    // let flag = await utils.findImage(ThreeCardsLocator.History)
+    // await utils.shouldBeEqual(flag.Val,true)
+    let res = await utils.wsFindMessage('42/user/threecards,["ThreeCards",{"history"')
+    await utils.shouldBeEqual(res.Val, true,'Check History')
 }
 
 export const closeHistory = async() => {
