@@ -171,6 +171,7 @@ describe('======== AUTOMATION TEST RESULT SEDIE ========', ()=>{
   })
 
   it('TC_037_Full_Smoke_Veriry user can open History popup', async() => {
+    await SedieFunc.waitUtilNewRound()
     await SedieFunc.openHistory()
     await SedieFunc.verifyHistoryPopup()
     await SedieFunc.closeHistory()

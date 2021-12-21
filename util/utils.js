@@ -520,10 +520,10 @@ export const createWSConnect= async(wsurl, urlorigin)=>{
     var client = new W3CWebSocket(wsurl, 'wss',urlorigin, {'User-agent': userAgent});
     let wsmsgbs= []
     client.onerror = ()=> {
-      console.log('Connection Error');
+      //console.log('Connection Error');
     }
     client.onclose = ()=> {
-      console.log('echo-protocol Client Closed');
+      //console.log('echo-protocol Client Closed');
     }
     client.onmessage =(e)=> {
       if (typeof e.data === 'string') {
@@ -531,7 +531,7 @@ export const createWSConnect= async(wsurl, urlorigin)=>{
       }
     }
     client.onopen = () =>{
-      console.log('WebSocket Client Connected')
+      //console.log('WebSocket Client Connected')
     }
     return {client,wsmsgbs}
   }

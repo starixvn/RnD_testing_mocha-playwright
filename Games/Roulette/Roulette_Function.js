@@ -124,11 +124,11 @@ export const VerifyBetStake = async (_pos,_stake) => {
       let findmsg,_found
 
           findmsg = _pos.toLowerCase()+`":${_stake}`
-          console.log(findmsg);
+          //console.log(findmsg);
           _found = await utils.wsFindMessage(findmsg,5)
-       if(_found.Val==false){
-         console.log('ws message to trace bet choice',wsMessageReceived);
-       }
+      //  if(_found.Val==false){
+      //    console.log('ws message to trace bet choice',wsMessageReceived);
+      //  }
        await utils.shouldBeEqual(_found.Val,true, `Verify bet choice : ${_pos} and stake : ${_stake} `)    
    } catch (e) {
       console.error(e)
@@ -296,7 +296,7 @@ export const CheckSettleBalance = async() => {
   await utils.sleep(3000)
   let _afterbalance = await getUserBalance()
   _beforebalance = _beforebalance +  _af.betwin
-  console.log(_af,_beforebalance,_afterbalance);
+  //console.log(_af,_beforebalance,_afterbalance);
   await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
 }
 
@@ -343,7 +343,7 @@ export const getUserBalance = async() =>{
   const res = String(red).split("42/user/taixiu,");
   const obj = JSON.parse(res[1]);
   let balance = jp.value(obj[1],`$..user.red`);
-  console.log(balance);
+ // console.log(balance);
   await client.close()
   return balance
 }
