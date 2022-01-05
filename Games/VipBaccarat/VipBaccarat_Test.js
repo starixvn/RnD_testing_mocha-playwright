@@ -30,7 +30,7 @@ describe('======== AUTOMATION TEST RESULT VIP BACCARAT ========', ()=>{
   })
   
   it('TC_037_Full_Smoke_Verify History', async() => {
-
+    await utils.sleep(3000)
     await VipBaccaratFunc.openHistory()
     await VipBaccaratFunc.verifyHistoryPopup()
     await VipBaccaratFunc.closeHistory()
