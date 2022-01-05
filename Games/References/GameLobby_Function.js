@@ -3,7 +3,7 @@ import * as utils from '../../util/utils'
 import * as config from '../../config/config'
 
 export const verifyLoginSuccessfully = async() => {
-        return await utils.wsFindMessage('["signedIn"]',300)
+        return await utils.wsFindMessage('["signedIn"]',600)
         }
 
 export const OpenGameFromLobby = async(_Gamename) => {
