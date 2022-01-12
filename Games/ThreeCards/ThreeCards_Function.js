@@ -35,6 +35,7 @@ export const verifyBetChoice = async() => {
 }
 
 export const openHistory = async() => {
+    await utils.sleep(3000)
     await utils.clickPos(ThreeCardsLocator.History.x, ThreeCardsLocator.History.y)
 }
 
@@ -49,8 +50,6 @@ export const verifyHistoryPopup = async() => {
 
 export const closeHistory = async() => {
     await utils.clickPos(ThreeCardsLocator.HistoryClose.x, ThreeCardsLocator.HistoryClose.y)
-    let _result = await utils.findImage(ThreeCardsLocator.Red)
-    expect(_result.Val).to.equal(true)
 }
 
 //Wait until new round

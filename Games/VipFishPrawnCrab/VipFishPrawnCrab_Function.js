@@ -44,6 +44,7 @@ export const verifyBetChoice = async() => {
 }
 
 export const openHistory = async() => {
+    await utils.sleep(3000)
     await utils.clickPos(VipFishPrawnCrabLocator.History.x, VipFishPrawnCrabLocator.History.y)
 }
 

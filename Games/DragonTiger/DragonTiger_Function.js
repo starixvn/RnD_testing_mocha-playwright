@@ -133,12 +133,12 @@ export const VerifyErrorMessage = async(_msg) => {
 
 export const VerifyHistoryContent = async() => {
   await utils.sleep(2000)
-  await page.screenshot({path:DragonTigerLocator.History.ImageCompare,clip:{x: DragonTigerLocator.History.left,
-    y: DragonTigerLocator.History.top,
-   width: DragonTigerLocator.History.width,
-   height: DragonTigerLocator.History.height}})
-  // const _result0= await utils.findImage(DragonTigerLocator.History.ImageCompare,DragonTigerLocator.History)
-  // await utils.shouldBeEqual(_result0.Val,true)    
+  //await page.screenshot({path:DragonTigerLocator.History.ImageCompare,clip:{x: DragonTigerLocator.History.left,
+  //   y: DragonTigerLocator.History.top,
+  //  width: DragonTigerLocator.History.width,
+  //  height: DragonTigerLocator.History.height}})
+  const _result0= await utils.findImage(DragonTigerLocator.History.ImageCompare,DragonTigerLocator.History)
+  await utils.shouldBeEqual(_result0.Val,true)    
 }
 
 

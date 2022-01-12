@@ -22,6 +22,7 @@ export const CloseGame = async() => {
 }
 
 export const OpenHistory = async() => {
+  await utils.sleep(3000)
   await _clickPos(FourGuardiansLocator.Menu)
   await utils.sleep(500)
   await _clickPos(FourGuardiansLocator.History)
