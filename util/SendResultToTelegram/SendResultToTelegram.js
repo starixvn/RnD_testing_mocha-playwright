@@ -13,9 +13,9 @@ describe('Send Message', ()=>{
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         let mode = (typeof process.env.npm_config_mode !== 'undefined') ? process.env.npm_config_mode: 'Smoke'
         if(obj !== 'NotFound'){
-            let mainContent = await gsutils.isFailed(obj) === false ? `🖥${testuite}: ✅` : `🖥${testuite}: ❌` 
+            let mainContent = await gsutils.isFailed(obj) === false ? `💻${testuite}: ✅` : `💻${testuite}: ❌` 
             console.log(mainContent);
-        // //#### TelegramBot
+        // // //#### TelegramBot
         //    chai.request("https://api.telegram.org")
         //     .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
         //     .send({
@@ -40,7 +40,7 @@ describe('Send Message', ()=>{
 })
 
 const envToString = async(_env)=>{
-    if(_env === 'cf_local') return 'Local'
+    if(_env === 'cf_local') return '🏠'
     else if(_env === 'cf_local1') return 'Local1'
     else if(_env === 'cf_sit') return 'SIT'
     else if(_env === 'cf_uat') return 'UAT'
