@@ -99,9 +99,9 @@ export const VerifySignInSuccessfully = async() => {
   // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Odd)
   // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Even)
   // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Odds)
-  // Verify TurboOddEven Title
-  const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
-  await utils.shouldBeEqual(_title.Val,true)  
+  // // Verify TurboOddEven Title
+  // const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
+  // await utils.shouldBeEqual(_title.Val,true)  
   //Verify Odd
   const _odd= await utils.findImage(TurboOddEvenLocator.Odd.ImageCompare,TurboOddEvenLocator.Odd)
   await utils.shouldBeEqual(_odd.Val,true)  

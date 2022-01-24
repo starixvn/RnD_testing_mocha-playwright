@@ -55,6 +55,7 @@ describe('======== AUTOMATION TEST RESULT FourGuardians ========', ()=>{
   // })  
 
   it('TC_09_Full_Smoke_Verify Place bet single line', async () => {
+      await utils.sleep(2000)
       await FourGuardiansFunc.checkSettlement(FourGuardiansFunc.PlaceBet,["L1",1])
       await utils.sleep(2000)
   })  
