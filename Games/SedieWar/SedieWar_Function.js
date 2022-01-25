@@ -39,8 +39,8 @@ export const verifyBetChoice = async() => {
     let _result
     // let _result = await utils.findImage(SedieWarLocator.Even)
     // await utils.shouldBeEqual(_result.Val,true,'1')
-    _result = await utils.findImage(SedieWarLocator.Odd)
-    await utils.shouldBeEqual(_result.Val,true,'2')
+    // _result = await utils.findImage(SedieWarLocator.Odd)
+    // await utils.shouldBeEqual(_result.Val,true,'2')
     _result = await utils.findImage(SedieWarLocator.Tie)
     await utils.shouldBeEqual(_result.Val,true,'3')
     _result = await utils.findImage(SedieWarLocator.Player)
