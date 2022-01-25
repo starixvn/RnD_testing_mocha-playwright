@@ -51,6 +51,7 @@ export const VerifySignInSuccessfully = async() => {
   {
     utils.shouldBeEqual(res.Val, true,'Check Title')
   })
+  await utils.sleep(5000)
    // Check default round id is blank
    await utils.findImage(FourGuardiansLocator.RoundId.ImageCompare,FourGuardiansLocator.RoundId).then((res)=>
    {
