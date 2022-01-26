@@ -18,7 +18,7 @@ export const verifySignInSuccessfully = async() => {
 
 export const verifyBetChoice = async() => {
     await utils.wsWaitMessage('42/user/vipsediewar,["VipSedieWar",{"finish"')
-    await utils.sleep(2000)
+    await utils.sleep(3000)
     // await utils.CaptureSubImageToFile(SedieWarLocator.Even)
     // await utils.CaptureSubImageToFile(SedieWarLocator.Odd)
     // await utils.CaptureSubImageToFile(SedieWarLocator.Tie)
