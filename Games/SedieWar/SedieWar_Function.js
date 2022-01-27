@@ -3,6 +3,7 @@ const GameLobbyLocator = (process.env.npm_config_cf_lang == 'vn' ? require('../R
 const SedieWarLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./SedieWar_Locator').SedieWarLocator_vn : require('./SedieWar_Locator').SedieWarLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
+const jp = require('jsonpath');
 
 let Odd = { 
     Player : 2.6, Tie : 3.5, Banker : 2.6, Even : 1.96 , Odd : 1.96, 
@@ -12,13 +13,40 @@ let Odd = {
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/vipsediewar,["message",{"toGame":"VipSedieWar"}]')
+    let _result = await utils.wsFindMessage('["message",{"toGame":"VipSedieWar"}]')
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetChoice = async() => {
-    await utils.wsWaitMessage('42/user/vipsediewar,["VipSedieWar",{"finish"')
-    await utils.sleep(3000)
+    let _found = await utils.getWsMessage('gameConfigs')
+    const res = String(_found).split("42/user/vipsediewar,");
+    const obj = JSON.parse(res[1]);
+    let gameodds = jp.value(obj[1],`$..odds`);
+    let cfodds=
+        {
+            player: 2.6,
+            banker: 2.6,
+            tie: 3.5,
+            even: 1.96,
+            odd: 1.96,
+            playerEven: 1.96,
+            playerOdd: 1.96,
+            playerRed3: 3.75,
+            playerWhite3: 3.75,
+            playerRed4: 14.4,
+            playerWhite4: 14.4,
+            bankerEven: 1.96,
+            bankerOdd: 1.96,
+            bankerRed3: 3.75,
+            bankerWhite3: 3.75,
+            bankerRed4: 14.4,
+            bankerWhite4: 14.4
+          }
+    //Compare odds
+    JSON.stringify(gameodds)  ===   JSON.stringify(cfodds)
+
+
+    //await utils.sleep(2000)
     // await utils.CaptureSubImageToFile(SedieWarLocator.Even)
     // await utils.CaptureSubImageToFile(SedieWarLocator.Odd)
     // await utils.CaptureSubImageToFile(SedieWarLocator.Tie)
@@ -36,41 +64,41 @@ export const verifyBetChoice = async() => {
     // await utils.CaptureSubImageToFile(SedieWarLocator.BankerRed3)
     // await utils.CaptureSubImageToFile(SedieWarLocator.BankerWhite3)
     // await utils.CaptureSubImageToFile(SedieWarLocator.BankerWhite4)
-    let _result
+   // let _result
     // let _result = await utils.findImage(SedieWarLocator.Even)
     // await utils.shouldBeEqual(_result.Val,true,'1')
     // _result = await utils.findImage(SedieWarLocator.Odd)
     // await utils.shouldBeEqual(_result.Val,true,'2')
-    _result = await utils.findImage(SedieWarLocator.Tie)
-    await utils.shouldBeEqual(_result.Val,true,'3')
-    _result = await utils.findImage(SedieWarLocator.Player)
-    await utils.shouldBeEqual(_result.Val,true,'4')
-    _result = await utils.findImage(SedieWarLocator.PlayerEven)
-    await utils.shouldBeEqual(_result.Val,true,'5')
-    _result = await utils.findImage(SedieWarLocator.PlayerOdd)
-    await utils.shouldBeEqual(_result.Val,true,'6')
-    _result = await utils.findImage(SedieWarLocator.PlayerRed4)
-    await utils.shouldBeEqual(_result.Val,true,'7')
-    _result = await utils.findImage(SedieWarLocator.PlayerRed3)
-    await utils.shouldBeEqual(_result.Val,true,'8')
-    _result = await utils.findImage(SedieWarLocator.PlayerWhite3)
-    await utils.shouldBeEqual(_result.Val,true,'9')
-    _result = await utils.findImage(SedieWarLocator.PlayerWhite4)
-    await utils.shouldBeEqual(_result.Val,true,'10')
-    _result = await utils.findImage(SedieWarLocator.Banker)
-    await utils.shouldBeEqual(_result.Val,true,'11')
-    _result = await utils.findImage(SedieWarLocator.BankerEven)
-    await utils.shouldBeEqual(_result.Val,true,'12')
-    _result = await utils.findImage(SedieWarLocator.BankerOdd)
-    await utils.shouldBeEqual(_result.Val,true,'13')
-    _result = await utils.findImage(SedieWarLocator.BankerRed4)
-    await utils.shouldBeEqual(_result.Val,true,'14')
-    _result = await utils.findImage(SedieWarLocator.BankerRed3)
-    await utils.shouldBeEqual(_result.Val,true,'15')
-    _result = await utils.findImage(SedieWarLocator.BankerWhite3)
-    await utils.shouldBeEqual(_result.Val,true,'16')
-    _result = await utils.findImage(SedieWarLocator.BankerWhite4)
-    await utils.shouldBeEqual(_result.Val,true,'17')
+    // _result = await utils.findImage(SedieWarLocator.Tie)
+    // await utils.shouldBeEqual(_result.Val,true,'3')
+    // _result = await utils.findImage(SedieWarLocator.Player)
+    // await utils.shouldBeEqual(_result.Val,true,'4')
+    // _result = await utils.findImage(SedieWarLocator.PlayerEven)
+    // await utils.shouldBeEqual(_result.Val,true,'5')
+    // _result = await utils.findImage(SedieWarLocator.PlayerOdd)
+    // await utils.shouldBeEqual(_result.Val,true,'6')
+    // _result = await utils.findImage(SedieWarLocator.PlayerRed4)
+    // await utils.shouldBeEqual(_result.Val,true,'7')
+    // _result = await utils.findImage(SedieWarLocator.PlayerRed3)
+    // await utils.shouldBeEqual(_result.Val,true,'8')
+    // _result = await utils.findImage(SedieWarLocator.PlayerWhite3)
+    // await utils.shouldBeEqual(_result.Val,true,'9')
+    // _result = await utils.findImage(SedieWarLocator.PlayerWhite4)
+    // await utils.shouldBeEqual(_result.Val,true,'10')
+    // _result = await utils.findImage(SedieWarLocator.Banker)
+    // await utils.shouldBeEqual(_result.Val,true,'11')
+    // _result = await utils.findImage(SedieWarLocator.BankerEven)
+    // await utils.shouldBeEqual(_result.Val,true,'12')
+    // _result = await utils.findImage(SedieWarLocator.BankerOdd)
+    // await utils.shouldBeEqual(_result.Val,true,'13')
+    // _result = await utils.findImage(SedieWarLocator.BankerRed4)
+    // await utils.shouldBeEqual(_result.Val,true,'14')
+    // _result = await utils.findImage(SedieWarLocator.BankerRed3)
+    // await utils.shouldBeEqual(_result.Val,true,'15')
+    // _result = await utils.findImage(SedieWarLocator.BankerWhite3)
+    // await utils.shouldBeEqual(_result.Val,true,'16')
+    // _result = await utils.findImage(SedieWarLocator.BankerWhite4)
+    // await utils.shouldBeEqual(_result.Val,true,'17')
 }
 
 export const selectChip = async(_chip=1)=>{
