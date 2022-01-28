@@ -6,7 +6,7 @@ import { PlaceBet } from '../FourGuardians/FourGuardians_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 const CasinoHPokerLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./CasinoHPoker_Locator').CasinoHPoker_vn : require('./CasinoHPoker_Locator').CasinoHPoker_en)
 
-describe('======== AUTOMATION TEST RESULT CasinoHPoker ========', ()=>{
+describe("======== AUTOMATION TEST RESULT CasinoH'em Poker ========", ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()

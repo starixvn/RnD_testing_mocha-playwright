@@ -62,7 +62,7 @@
         ]
     },
     "scripts": {
-        "All_Smoke": "cross-var mocha --timeout 0 Games/*/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Smoke_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_lang ",
+        "All_Smoke": "cross-var mocha --timeout 0 Games/*/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Smoke_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang ",
         "CI_SelGame_Smoke": "cross-var mocha --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Smoke_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang ",
         "CI_SelGame_Full": "cross-var mocha --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang ",
         "Win_SelGame": "cross-var mocha --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --fgrep Smoke_ --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang",

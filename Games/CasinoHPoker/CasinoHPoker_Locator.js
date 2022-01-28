@@ -21,14 +21,14 @@ export const CasinoHPoker_vn = {
 	CALL : { x : 433, y : 477 },
 	Menu : { x : 64, y : 169 },
 	Home : { x : 65, y : 255 },
-	History : { x : 65, y : 319, top : 68, left : 84, width : 1127, height : 124, ImageCompare : pathImageCompare + "ImgCompare_BlackJack_History.png" },
+	History : { x : 65, y : 319, top : 68, left : 84, width : 1127, height : 124, ImageCompare : pathImageCompare + "ImgCompare_CasinoHemPoker_History.png" },
 	PopupClose : { x : 1185, y : 60 },
-	Guide : { x : 65, y : 381, top : 68, left : 173, width : 941, height : 569, ImageCompare1 : pathImageCompare + "ImgCompare_BlackJack_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BlackJack_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BlackJack_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BlackJack_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_BlackJack_Guide_6.png" },
-	Double : { x : 230, y : 550 },
-	Newbet : { x : 1220, y : 500},
-	Bet : { x : 1060, y : 555 },
-	Cancel : { x : 1220, y : 500 },
-	Rebet : { x : 1220, y : 500},
+	Guide : { x : 65, y : 381, top : 68, left : 173, width : 941, height : 569, ImageCompare1 : pathImageCompare + "ImgCompare_CasinoHemPoker_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BlackJack_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BlackJack_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BlackJack_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_BlackJack_Guide_6.png" },
+	Double : { x : 250, y : 620 },
+	Newbet : { x : 1220, y : 560},
+	Bet : { x : 1030, y : 600 },
+	Cancel : { x : 1220, y : 560 },
+	Rebet : { x : 1220, y : 560},
   }
   
 export const CasinoHPoker_en = {

@@ -118,18 +118,22 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
       await Sliding_Select_Chip(stake)
       await utils.clickPos(CasinoHPokerLocator[pos].x,CasinoHPokerLocator[pos].y)//click bet position
       if (_double == "Double")  {
+        // console.log('click double stake');
         await utils.clickPos(CasinoHPokerLocator.Double.x,CasinoHPokerLocator.Double.y)
       } 
       if (hitCard == "HitCard")  {
+        // console.log('click hit card');
         await utils.sleep(3000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
       } 
       if (_follow == "Follow")  {
-        await utils.sleep(6000)
+        // console.log('click follow card');
+        await utils.sleep(8000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
       } 
       if (_cancel == "Cancel") {
-        await utils.sleep(3000)
+        await utils.sleep(8000)
+        // console.log('click cancel button');
         await utils.clickPos(CasinoHPokerLocator.Cancel.x,CasinoHPokerLocator.Cancel.y)
       }
   } catch (e) {
@@ -138,19 +142,19 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
 }
 
 export const VerifyDealerContent = async() => {
-  //await utils.CaptureSubImageToFile(CasinoHPokerLocator.DealerContent)
+  // await utils.sleep(30000)
+  // await utils.CaptureSubImageToFile(CasinoHPokerLocator.DealerContent)
   // await utils.CaptureSubImageToFile(CasinoHPokerLocator.ANTEODD)
   // await utils.CaptureSubImageToFile(CasinoHPokerLocator.AAODD)
-  // let _result= await utils.findImage(CasinoHPokerLocator.DealerContent.ImageCompare,CasinoHPokerLocator.DealerContent)
-  // await utils.shouldBeEqual(_result.Val,true,'check dealer content')   
-  // _result= await utils.findImage(CasinoHPokerLocator.ANTEODD.ImageCompare,CasinoHPokerLocator.ANTEODD)
-  // await utils.shouldBeEqual(_result.Val,true,'check ANTEODD content')  
-  // _result= await utils.findImage(CasinoHPokerLocator.AAODD.ImageCompare,CasinoHPokerLocator.AAODD)
-  // await utils.shouldBeEqual(_result.Val,true,'check AAODD content')    
+  let _result= await utils.findImage(CasinoHPokerLocator.DealerContent.ImageCompare,CasinoHPokerLocator.DealerContent)
+  await utils.shouldBeEqual(_result.Val,true,'check dealer content')   
+  _result= await utils.findImage(CasinoHPokerLocator.ANTEODD.ImageCompare,CasinoHPokerLocator.ANTEODD)
+  await utils.shouldBeEqual(_result.Val,true,'check ANTEODD content')  
+  _result= await utils.findImage(CasinoHPokerLocator.AAODD.ImageCompare,CasinoHPokerLocator.AAODD)
+  await utils.shouldBeEqual(_result.Val,true,'check AAODD content')    
 }
 
 export const VerifyHistoryContent = async() => {
-  await utils.CaptureSubImageToFile(CasinoHPokerLocator.History)
   let res = await utils.wsFindMessage('42/user/casinoholdempoker,["CasinoHoldemPoker",{"history"')
   await utils.shouldBeEqual(res.Val, true,'Check History')
 }
