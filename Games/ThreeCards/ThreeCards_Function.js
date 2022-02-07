@@ -35,7 +35,7 @@ export const verifyBetChoice = async() => {
 }
 
 export const openHistory = async() => {
-    await utils.sleep(3000)
+    await utils.sleep(5000)
     await utils.clickPos(ThreeCardsLocator.History.x, ThreeCardsLocator.History.y)
 }
 

@@ -67,7 +67,7 @@
         "CI_SelGame_Full": "cross-var mocha --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --file ./Setup.js  --fgrep Full_ --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang ",
         "Win_SelGame": "cross-var mocha --timeout 0 Games/$npm_config_game/*_Test.js -r @babel/register --fgrep Smoke_ --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang",
         "Win_SelGameSub": "cross-var mocha --timeout 0 Games/$npm_config_game/*_%npm_config_Sub%Test.js -r @babel/register --file ./Setup.js --file ./Teardown.js  --reporter mochawesome --reporter-options reportDir=Report/$npm_config_cf_lang ",
-        "CI_SelGame_p_smoke": "cross-var mocha --timeout 0 Games/**/*Sedie_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*Sedie_Test.js --parallel -j 2 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report/$npm_config_cf_lang",
+        "CI_SelGame_p_smoke": "cross-var mocha --timeout 0 Games/**/*Sedie_Test.js --fgrep Smoke -r @babel/register --require ./configParallel.js Games/**/*_Test.js --parallel -j 2 --reporter mochawesome --require mochawesome/register --reporter-options reportDir=Report/$npm_config_cf_lang",
         "exportStatus": "cross-var mocha --timeout 0 util/MarkTestCase/MarkTestCase.js -r @babel/register",
         "sendResultToTelegram": "cross-var mocha --timeout 0 util/SendResultToTelegram/*.js -r @babel/register"
     }

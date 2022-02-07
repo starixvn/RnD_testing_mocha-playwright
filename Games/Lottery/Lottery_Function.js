@@ -132,7 +132,7 @@ export const VerifyBetStake = async (_bettype,_pos,_stake) => {
   try {
       let findmsg,_found
           findmsg = `"${_bettype}":{"${_pos}":${_stake}`
-          console.log(findmsg);
+         // console.log(findmsg);
           _found = await utils.wsFindMessage(findmsg,5)
        if(_found.Val==false){
         console.log('Can not get placebet websocket msg for ',_pos,_stake);
@@ -304,7 +304,7 @@ export const CheckSettleBalance = async() => {
   await utils.sleep(9000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
-  console.log(_af,_beforebalance,_afterbalance);
+  // console.log(_af,_beforebalance,_afterbalance);
   await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
 }
 
@@ -332,6 +332,7 @@ export const checkNavStatisticbar = async() => {
 export const clickPos = async(_x, _y) => {
   try {
       await page.mouse.click(_x,_y)
+      await utils.sleep(100)
    } catch (error) {
       console.error(error.message);
    }

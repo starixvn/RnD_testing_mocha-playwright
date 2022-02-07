@@ -50,9 +50,13 @@ exports.mochaHooks = {
     global.context = context
     global.isHear = false
     global.balance = parseFloat("0.00")
-    global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_local'
-    global.lang = (typeof process.env.npm_config_lang !== 'undefined') ? process.env.npm_config_lang : 'vn'
+    global.env = (typeof args.env !== 'undefined') ? args.env : 'cf_prod'
+    global.cf_lang = (typeof process.env.npm_config_cf_lang !== 'undefined') ? process.env.npm_config_cf_lang : 'vn'
     global.expect = expect
+    global.username = null
+    global.session = null
+    global.name=null
+    global.pid = (typeof process.env.npm_config_pid !== 'undefined') ? process.env.npm_config_pid : 'ONEworks1'
     // Set balance on Local
     if(env === 'cf_local' || env === 'cf_local1'){
       const aMemberID = Object.values(config[env].memberId)
