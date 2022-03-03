@@ -72,11 +72,11 @@ export const selectChip = async(_chip=1)=>{
         const _chipbar2 = [500,1000,2000,3000]
         if (_chipbar2.includes(_chip) === true){
             await utils.swipe(VipBaccaratLocator.ChipBroad.x,VipBaccaratLocator.ChipBroad.y,0,VipBaccaratLocator.ChipBroad.y)
-            await utils.sleep(2000)
+            await utils.sleep(500)
         }
         else if (_chipbar1.includes(_chip) === true){
             await utils.swipe(VipBaccaratLocator.ChipBroad.x,VipBaccaratLocator.ChipBroad.y,VipBaccaratLocator.ChipBroad.x+500,VipBaccaratLocator.ChipBroad.y)
-            await utils.sleep(2000)
+            await utils.sleep(500)
         }
         await utils.clickPos(VipBaccaratLocator[`Chip${_chip}`].x,VipBaccaratLocator[`Chip${_chip}`].y) 
 
@@ -120,7 +120,7 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     for(let i of _choices){
         await utils.clickPos(VipBaccaratLocator[`${i}`].x,VipBaccaratLocator[`${i}`].y)
         }
-    await utils.sleep(1000)
+    await utils.sleep(500)
     let currentBalance = await getBalance()
     // Get Settle
     wsMessageReceived = []

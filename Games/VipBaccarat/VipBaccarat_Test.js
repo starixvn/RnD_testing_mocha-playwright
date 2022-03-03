@@ -37,7 +37,7 @@ describe('======== AUTOMATION TEST RESULT VIP BACCARAT ========', ()=>{
   })
 
   it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
-    let _choice = ['Big','PlayerPair','Player','Tie','Banker','Small','BankerPair']
+    let _choice = ['Big','PlayerPair','Player','Tie','Small','BankerPair']
      await VipBaccaratFunc.verifySettlementMultipleChoices(_choice,10)
   })
 
