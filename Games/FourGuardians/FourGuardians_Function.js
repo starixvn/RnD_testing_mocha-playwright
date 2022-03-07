@@ -42,8 +42,9 @@ export const OpenGuide = async() => {
 }
 
 export const OpenPlayLineDetail = async() => {
+  await utils.sleep(1000)
   await _clickPos(FourGuardiansLocator.PayLine)
-  await utils.sleep(500)
+  await utils.sleep(1000)
 }
 
 export const VerifySignInSuccessfully = async() => {

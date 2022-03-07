@@ -119,6 +119,7 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
       await utils.clickPos(CasinoHPokerLocator[pos].x,CasinoHPokerLocator[pos].y)//click bet position
       if (_double == "Double")  {
         // console.log('click double stake');
+        await utils.sleep(1000)
         await utils.clickPos(CasinoHPokerLocator.Double.x,CasinoHPokerLocator.Double.y)
       } 
       if (hitCard == "HitCard")  {
