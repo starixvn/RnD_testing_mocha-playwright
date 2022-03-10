@@ -31,7 +31,8 @@ export const setting ={
         SpecialSedie: 1635,
         HeroSlot: 1644 ,
         BitCoin: 1649 ,
-        CasinoHPoker: 1650
+        CasinoHPoker: 1650,
+        HiLo: 1651
 
     },
     gameIdlocal: {
@@ -57,7 +58,8 @@ export const setting ={
         ThreeCards : 35,
         HeroSlot : 38,
         BitCoin: 43 ,
-        CasinoHPoker: 39
+        CasinoHPoker: 39 ,
+        HiLo: 45
     }
 }
 
@@ -128,7 +130,8 @@ export const cf_local ={
     ThreeCards : "1001103",
     HeroSlot : "1001104",
     BitCoin:  "1001051",
-    CasinoHPoker: "1001053"
+    CasinoHPoker: "1001053",
+    HiLo: "1001054"
     },
     password: "",
     gamelobbyurl: "",
@@ -167,7 +170,10 @@ export const cf_local1 ={
     ThreeCards : "1001103",
     HeroSlot : "1001104",
     BitCoin:  "1001051",
-    CasinoHPoker: "1001053"
+    CasinoHPoker: "1001053",
+    HiLo: "1001054",
+    HedgeBets : "1001052"
+
     },
     password: "",
     gamelobbyurl: "",
@@ -271,7 +277,8 @@ export const cf_prod ={
         HeroSlot: "supertestte120201012",
         Roulette:  "supertestte120201013",
         BitCoin: "supertestte120201002" ,
-        CasinoHPoker: "supertestte120201003"  
+        CasinoHPoker: "supertestte120201003"  ,
+        HiLo: "supertestte120201004"  
 
     },
     password: "1234aa",
