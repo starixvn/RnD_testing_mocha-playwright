@@ -11,6 +11,7 @@ const PNG = require('pngjs').PNG
 const jp = require('jsonpath')
 const sharp = require('sharp')
 sharp.cache({ files : 0 });
+var msgpack = require('msgpack');
 
 // Verify Message is existed
 const FindMessage = async(_mes) => {
@@ -426,6 +427,22 @@ export const getTextFromImage = async(_path) => {
     }
 }
 
+// parse text from image
+export const getTextFromImageVN = async(_path) => {
+    try {
+        const worker = createWorker({langPath:'vie.traineddata'})
+        await worker.load();
+        await worker.loadLanguage('vie');
+        await worker.initialize('vie');
+        const { data: { text } } = await worker.recognize(_path);
+        // console.log(text)
+        await worker.terminate();
+        return text
+    } catch (error) {
+        console.log('Error '+error.message)
+    }
+}
+
 // Parse text to Number
 export const parseNumber = async(_text) => {
     try {
@@ -492,8 +509,9 @@ export const betProcess = async(_x,_y,_mes) => {
 
 //send ws data
 export const sendwsdata= async(client, msg)=>{
-    if (client.readyState === client.OPEN) {
-      client.send(msg.toString());
+     if (client.readyState === client.OPEN) {
+    //   client.send(msgpack.pack(msg));
+    client.send(msg);
       await sleep(1000)
     }
     else{
@@ -520,30 +538,49 @@ export const createWSConnect= async(wsurl, urlorigin)=>{
     var client = new W3CWebSocket(wsurl, 'wss',urlorigin, {'User-agent': userAgent});
     let wsmsgbs= []
     client.onerror = ()=> {
-      //console.log('Connection Error');
+      console.log('Connection Error');
     }
     client.onclose = ()=> {
-      //console.log('echo-protocol Client Closed');
+      console.log('echo-protocol Client Closed');
     }
     client.onmessage =(e)=> {
+        console.log(e.data,client.binaryType );
       if (typeof e.data === 'string') {
         wsmsgbs.push(e.data)
       }
+      else{
+        let temp = msgpack.unpack(e.data)
+        wsmsgbs.push(JSON.stringify(temp.data))   
+    }
     }
     client.onopen = () =>{
-      //console.log('WebSocket Client Connected')
-    }
+      console.log('WebSocket Client Connected')
+          }      
     return {client,wsmsgbs}
   }
 
-// Check Websocket Mesage
+ // Check Websocket Mesage
 export const wshear = async(ws) =>{
     if(isHear ===true) {
         ws.on('framereceived', async msg => {
             if(isHear ===true) {
-                wsMessageReceived.push(msg.payload)
+                if(typeof msg.payload != "string" ){
+                    let temp = msgpack.unpack(msg.payload)
+                    // console.log(JSON.stringify(temp.data));
+                    wsMessageReceived.push(JSON.stringify(temp.data))        
+                }
+                else{
+                    wsMessageReceived.push(msg.payload)          
+                }
             } else { wsMessageReceived = [] }
         });
+        // ws.on('framesent', async msg1 => {
+        //     console.log('framesent',msg1.payload );
+        //         if(typeof msg1.payload == "object" ){
+        //               console.log('send',typeof msg1.payload,msgpack.unpack(msg1.payload));       
+        //         }
+
+        // })
     }
 }
 
@@ -575,7 +612,13 @@ export const Login = async(_env,_game) => {
         // Navigate Sabaclub
         await navigate(page.url().toString().replace(/\/[Ss]ports/g,'')+config[_env].gamelobbyurl+config.setting.gameId[_game])
         //select group currency
-        await selectDrp('xpath=//*/select[@id="group"]','61b048d27e6d8f000145357f')
+        if(_env == 'cf_uat'){
+            await selectDrp('xpath=//*/select[@id="group"]','61a5a48b7864f80001d3cb59')
+
+        }
+        else{
+            await selectDrp('xpath=//*/select[@id="group"]','61b048d27e6d8f000145357f')
+        }  
         await clickEl('xpath=//input[@value="Submit"]')
         await sleep(15000)
     } else {
@@ -589,7 +632,7 @@ export const Login = async(_env,_game) => {
         await page.screenshot({ path:`./Report/${process.env.npm_config_cf_lang}/Pictures/Login_Failed_${_game}.png`})
     }
     else {
-        await getSession()
+         await getSession()
     }
     expect(flag.Val,"Fail on Login GameLobby").to.be.true
      
