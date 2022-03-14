@@ -56,6 +56,17 @@ export const selectChip = async(_chip=10)=>{
     }
     await utils.clickPos(VipSedieLocator[`Chip${_chip}`].x,VipSedieLocator[`Chip${_chip}`].y) 
 }
+
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+    wsMessageReceived = []
+    await selectChip(_chip)
+    await utils.clickPos(VipSedieLocator[`${_choice1}`].x,VipSedieLocator[`${_choice1}`].y)
+    await utils.sleep(200)
+    await utils.clickPos(VipSedieLocator[`${_choice2}`].x, VipSedieLocator[`${_choice2}`].y)
+    let _result = await utils.wsFindMessage(ermsg,20)
+    expect(_result.Val).to.equal(true)
+}
+
 export const placeBet = async(_choice,_chip=10) => {
     /*  Param Explained:
         _choice : input choice option will be selected, ex: 'Even' , 'Odd', '4Red' ....

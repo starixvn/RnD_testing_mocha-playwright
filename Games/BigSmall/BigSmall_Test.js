@@ -52,7 +52,7 @@ describe('======== AUTOMATION TEST RESULT BIG SMALL ========', ()=>{
   await BigSmallFunc.CheckRoundHistory()
 }) 
 
-  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Big', async () => {
+  it('TC_08_Full_Smoke_Verify Hedge Bets', async () => {
     await BigSmallFunc.waitUtilNewRound()
      const pos = "Big"
      const errormsg = '"errorCode":"SB1927"'
@@ -255,7 +255,7 @@ describe('======== AUTOMATION TEST RESULT BIG SMALL ========', ()=>{
   it('TC_05_Full_Verify Block bet time', async () => {
     await utils.verifyBlockTime(game,BigSmallFunc.PlaceBet,['Big',1,'nowait'])
   })  
-  
+
   it('TC_21_Full_Smoke_Verify Close Game Success', async () => {
     await BigSmallFunc.CloseGame()
   }) 

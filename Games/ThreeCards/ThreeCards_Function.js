@@ -59,6 +59,17 @@ export const waitUtilNewRound = async() => {
     await utils.sleep(8000)
 }
 
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+    await utils.sleep(1000)
+    wsMessageReceived = []
+    await utils.clickPos(ThreeCardsLocator[`Chip${_chip}`].x,ThreeCardsLocator[`Chip${_chip}`].y)
+    await utils.clickPos(ThreeCardsLocator[`${_choice1}`].x,ThreeCardsLocator[`${_choice1}`].y)
+    await utils.sleep(200)
+    await utils.clickPos(ThreeCardsLocator[`${_choice2}`].x, ThreeCardsLocator[`${_choice2}`].y)
+    let _result = await utils.wsFindMessage(ermsg,20)
+    expect(_result.Val).to.equal(true)
+  }
+
 export const selectChip = async(_chip=1)=>{
     /*  Param Explained:
         _chip : input chip amount will be selected, by default = 1

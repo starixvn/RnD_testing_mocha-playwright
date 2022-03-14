@@ -22,6 +22,18 @@ export const waitUtilNewRound = async() => {
   // const _title= await utils.findImage(RouletteLocator.NewRound.ImageCompare,RouletteLocator.NewRound)
 }
 
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+  await utils.sleep(1000)
+  wsMessageReceived = []
+  await utils.clickPos(RouletteLocator[`Chip${_chip}`].x,RouletteLocator[`Chip${_chip}`].y)
+  await utils.clickPos(RouletteLocator[`${_choice1}`].x,RouletteLocator[`${_choice1}`].y)
+  await utils.sleep(200)
+  await utils.clickPos(RouletteLocator[`${_choice2}`].x, RouletteLocator[`${_choice2}`].y)
+  let _result = await utils.wsFindMessage(ermsg,20)
+  await utils.shouldBeEqual(_result.Val,true,wsMessageReceived)
+  // expect(_result.Val).to.equal(true)
+}
+
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){

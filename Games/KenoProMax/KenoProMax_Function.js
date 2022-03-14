@@ -57,6 +57,17 @@ export const getRandomInt= async (max) =>{
   return Math.floor(Math.random() * max);
 }
 
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+  wsMessageReceived = []
+  await utils.clickPos(KenoProMaxLocator[`Chip${_chip}`].x,KenoProMaxLocator[`Chip${_chip}`].y)
+  await utils.clickPos(KenoProMaxLocator[`${_choice1}`].x,KenoProMaxLocator[`${_choice1}`].y)
+  await utils.sleep(200)
+  await utils.clickPos(KenoProMaxLocator[`${_choice2}`].x, KenoProMaxLocator[`${_choice2}`].y)
+  let _result = await utils.wsFindMessage(ermsg,20)
+  expect(_result.Val).to.equal(true)
+}
+
+
 //PlaceBet
 export const PlaceBet = async (_pos,_stake,wait='wait') => {
   try {

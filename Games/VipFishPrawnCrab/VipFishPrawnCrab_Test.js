@@ -24,8 +24,11 @@ describe('======== AUTOMATION TEST RESULT VIP FISHPRAWNCRAB ========', ()=>{
       await VipFishPrawnCrabFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
-      await VipFishPrawnCrabFunc.verifyBetChoice()
+  it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {
+    await VipFishPrawnCrabFunc.waitUtilNewRound()
+    await utils.sleep(3000)
+    await VipFishPrawnCrabFunc.verifyHedgeBet('Mountain','Ocean',10,'"errorCode":"SB1939","hedgeBetGroup":["mountain","ocean"]')
+
   })
   
   it('TC_037_Full_Smoke_Verify History', async() => {
@@ -35,7 +38,7 @@ describe('======== AUTOMATION TEST RESULT VIP FISHPRAWNCRAB ========', ()=>{
   })
 
   it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
-    let _choice = ['Stag','Gourd','Fish','Rooster','Crab','Prawn','Ocean','Mountain','AnyTriple']
+    let _choice = ['Stag','Gourd','Fish','Rooster','Crab','Prawn','Mountain','AnyTriple']
      await VipFishPrawnCrabFunc.verifySettlementMultipleChoices(_choice,10)
   })
 

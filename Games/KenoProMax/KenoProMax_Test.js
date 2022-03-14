@@ -25,15 +25,10 @@ describe('======== AUTOMATION TEST RESULT KENO PRO MAX ========', ()=>{
    await KenoProMaxFunc.VerifySignInSuccessfully()
     }) 
 
-   it('TC_02_Smoke_Verify Full Bet Choices', async () => {
+   it('TC_02_Smoke_Verify Hedge Bets', async () => {
   await KenoProMaxFunc.waitUtilNewRound()
-  let stake = 10
-  let Apos = ['Big','Small','Odd','Even']
-  for (let i of Apos){
-    await KenoProMaxFunc.PlaceBet(i,stake)
-    await KenoProMaxFunc.VerifyBetStake(i,stake)
-  }
-  await KenoProMaxFunc.CheckSettleBalance()
+  await KenoProMaxFunc.verifyHedgeBet('Big','Small',1,'{"errorCode":"SB1939","hedgeBetGroup":["big","small"]')
+  await KenoProMaxFunc.verifyHedgeBet('Even','Odd',1,'{"errorCode":"SB1939","hedgeBetGroup":["even","odd"]')
   }) 
 
   it('TC_03_Smoke_Verify Full Bet Choices', async () => {

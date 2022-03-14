@@ -25,8 +25,14 @@ describe('======== AUTOMATION TEST RESULT BIG SMALL SICBO ========', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await BigSmallSBFunc.VerifySignInSuccessfully()
-
   })  
+
+  it('TC_21_Full_Smoke_Verify Hedge Bets', async () => {
+    await BigSmallSBFunc.waitUtilNewRound()
+    await ultils.sleep(2000)
+    await BigSmallSBFunc.verifyHedgeBet('Big','Small',1,'{"errorCode":"SB1939","hedgeBetGroup":["big","small"]')
+  })  
+  
 
   it('TC_06_Full_Verify bet chips', async () => {
     await BigSmallSBFunc.waitUtilNewRound()

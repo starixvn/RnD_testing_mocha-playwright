@@ -24,8 +24,10 @@ describe('======== AUTOMATION TEST RESULT THREE CARDS ========', ()=>{
       await ThreeCardsFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
+  it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {
       await ThreeCardsFunc.waitUtilNewRound()
+      await ThreeCardsFunc.verifyHedgeBet('Red','Black',10,'"errorCode":"SB1939","hedgeBetGroup":["red","black"]')
+
       // await ThreeCardsFunc.verifyBetChoice()
   })
   
@@ -36,7 +38,7 @@ describe('======== AUTOMATION TEST RESULT THREE CARDS ========', ()=>{
   })
 
   it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
-    let _choice = ['Red','Black','Diamonds','Hearts','Spades','Clubs']
+    let _choice = ['Red','Diamonds','Hearts','Spades','Clubs']
      await ThreeCardsFunc.verifySettlementMultipleChoices(_choice,10)
   })
 

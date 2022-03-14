@@ -23,20 +23,24 @@ describe('======== AUTOMATION TEST RESULT DRAGON TIGER ========', ()=>{
    await DragonTigerFunc.VerifySignInSuccessfully()
     }) 
 
-   it('TC_02_Full_Smoke_Verify Max Bet on Big', async () => {
+   it('TC_02_Full_Smoke_Verify User can placebet on Dragon and Tie', async () => {
   await DragonTigerFunc.waitUtilNewRound()
   let stake = 10
   await DragonTigerFunc.PlaceBet('Dragon',stake)
   await DragonTigerFunc.VerifyBetStake("Dragon",stake)
-  await DragonTigerFunc.PlaceBet('Tiger',stake)
-  await DragonTigerFunc.VerifyBetStake("Tiger",stake)
   await DragonTigerFunc.PlaceBet('Tie',stake)
   await DragonTigerFunc.VerifyBetStake("Tie",stake)
   await DragonTigerFunc.CheckSettleBalance()
   await DragonTigerFunc.CheckRoundHistory()
   }) 
  
-  it('TC_03_Full_Smoke_Verify Close Game Success', async () => {
+  it('TC_03_Full_Smoke_Verify Hedege Bets', async () => {
+    await DragonTigerFunc.waitUtilNewRound()
+    await utils.sleep(1000)
+    await DragonTigerFunc.verifyHedgeBet('Dragon','Tiger',10,'"errorCode":"SB1939","hedgeBetGroup":["dragon","tiger"]')
+  }) 
+
+  it('TC_04_Full_Smoke_Verify Close Game Success', async () => {
     await DragonTigerFunc.CloseGame()
   }) 
 

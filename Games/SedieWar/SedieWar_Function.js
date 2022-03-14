@@ -437,6 +437,16 @@ export const waitUtilNewRound = async() => {
   }
 
 
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+    wsMessageReceived = []
+    await selectChip(_chip)
+    await utils.clickPos(SedieWarLocator[`${_choice1}`].x,SedieWarLocator[`${_choice1}`].y)
+    await utils.sleep(200)
+    await utils.clickPos(SedieWarLocator[`${_choice2}`].x, SedieWarLocator[`${_choice2}`].y)
+    let _result = await utils.wsFindMessage(ermsg,20)
+    expect(_result.Val).to.equal(true)
+}
+
  //Place bet multiple choices and check settle
 export const verifySettlementMultipleChoices = async(_choices,_chip) => {
    await waitUtilNewRound()

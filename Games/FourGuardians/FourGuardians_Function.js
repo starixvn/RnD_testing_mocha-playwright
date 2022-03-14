@@ -8,6 +8,7 @@ let wsbigsmallsb = '42/user/fourguardians,["FourGuardians"'
 
 export const _clickPos = async(_locator) => {
   await utils.clickPos(_locator.x,_locator.y )
+  await utils.sleep(1000)
 }
 
 
@@ -44,7 +45,7 @@ export const OpenGuide = async() => {
 export const OpenPlayLineDetail = async() => {
   await utils.sleep(1000)
   await _clickPos(FourGuardiansLocator.PayLine)
-  await utils.sleep(1000)
+  await utils.sleep(2000)
 }
 
 export const VerifySignInSuccessfully = async() => {

@@ -12,6 +12,16 @@ export const verifySignInSuccessfully = async() => {
     expect(_result.Val).to.equal(true)
 }
 
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+    wsMessageReceived = []
+    await utils.clickPos(VipBaccaratLocator[`${_choice1}`].x,VipBaccaratLocator[`${_choice1}`].y)
+    await utils.clickPos(VipBaccaratLocator[`${_choice1}`].x,VipBaccaratLocator[`${_choice1}`].y)
+    await utils.sleep(200)
+    await utils.clickPos(VipBaccaratLocator[`${_choice2}`].x, VipBaccaratLocator[`${_choice2}`].y)
+    let _result = await utils.wsFindMessage(ermsg,20)
+    expect(_result.Val).to.equal(true)
+}
+
 export const verifyBetChoice = async() => {
     await waitUtilNewRound()
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.Big)
@@ -39,6 +49,7 @@ export const verifyBetChoice = async() => {
 
 export const openHistory = async() => {
     await utils.clickPos(VipBaccaratLocator.History.x, VipBaccaratLocator.History.y)
+    await utils.sleep(1000)
 }
 
 export const verifyHistoryPopup = async() => {

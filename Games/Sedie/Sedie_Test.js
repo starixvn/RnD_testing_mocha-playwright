@@ -26,8 +26,9 @@ describe('======== AUTOMATION TEST RESULT SEDIE ========', ()=>{
       await SedieFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify UI of All Bet Choices', async() => {
+  it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {
       await SedieFunc.waitUtilNewRound()
+      await SedieFunc.verifyHedgeBet("Even","Odd",1,'"notice":{"errorCode":"SB1939","hedgeBetGroup":["even","odd"]')
       //await SedieFunc.verifyBetChoice()
   })
   

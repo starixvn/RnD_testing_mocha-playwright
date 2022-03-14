@@ -17,6 +17,17 @@ export const waitUtilNewRound = async() => {
   // const _title= await utils.findImage(DragonTigerLocator.NewRound.ImageCompare,DragonTigerLocator.NewRound)
 }
 
+export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+  wsMessageReceived = []
+  await utils.clickPos(DragonTigerLocator[`Chip${_chip}`].x,DragonTigerLocator[`Chip${_chip}`].y)
+  await utils.clickPos(DragonTigerLocator[`${_choice1}`].x,DragonTigerLocator[`${_choice1}`].y)
+  await utils.sleep(200)
+  await utils.clickPos(DragonTigerLocator[`${_choice2}`].x, DragonTigerLocator[`${_choice2}`].y)
+  let _result = await utils.wsFindMessage(ermsg,20,wsMessageReceived)
+  expect(_result.Val).to.equal(true)
+}
+
+
 export const OpenHistory = async() => {
   let _settlestate = await IsSettle()
   if (_settlestate === true){

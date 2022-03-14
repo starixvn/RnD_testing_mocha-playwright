@@ -544,7 +544,7 @@ export const createWSConnect= async(wsurl, urlorigin)=>{
       console.log('echo-protocol Client Closed');
     }
     client.onmessage =(e)=> {
-        console.log(e.data,client.binaryType );
+        //console.log(e.data,client.binaryType );
       if (typeof e.data === 'string') {
         wsmsgbs.push(e.data)
       }

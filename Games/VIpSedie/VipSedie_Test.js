@@ -26,8 +26,9 @@ describe('======== AUTOMATION TEST RESULT VIP SEDIE ========', ()=>{
       await VipSedieFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
-      await VipSedieFunc.verifyBetChoice()
+  it('TC_002_Full_Smoke_Verify Hedgebet', async() => {
+      await VipSedieFunc.waitUtilNewRound()
+      await VipSedieFunc.verifyHedgeBet("Even","Odd",10,`"notice":{"errorCode":"SB1939","hedgeBetGroup":["even","odd"]`)
   })
   
   it('TC_003_Full_Verify betting on Even Choice', async() =>{

@@ -26,8 +26,12 @@ describe('======== AUTOMATION TEST RESULT SEDIE WAR ========', ()=>{
       await SedieWarFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
-      await SedieWarFunc.verifyBetChoice()
+  it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {
+    await SedieWarFunc.waitUtilNewRound()
+    await SedieWarFunc.verifyHedgeBet("Player","Banker",10,'"errorCode":"SB1939","hedgeBetGroup":["player","banker"]')
+    await SedieWarFunc.verifyHedgeBet("PlayerEven","PlayerOdd",10,'"errorCode":"SB1939","hedgeBetGroup":["playerEven","playerOdd"]')
+    await SedieWarFunc.verifyHedgeBet("BankerEven","BankerOdd",10,'"errorCode":"SB1939","hedgeBetGroup":["bankerEven","bankerOdd"]')
+    await SedieWarFunc.verifyHedgeBet("Even","Odd",10,'"errorCode":"SB1939","hedgeBetGroup":["even","odd"]')
   })
 
   it('TC_003_Full_Verify betting on Player Choice', async() =>{
@@ -297,7 +301,7 @@ describe('======== AUTOMATION TEST RESULT SEDIE WAR ========', ()=>{
 
   it('TC_073_Smoke_Verify Settlement all Bet Choices', async()=>{
     // let _choice = ['Player','Banker','Tie','Even','Odd','PlayerEven','PlayerOdd','PlayerRed4','PlayerRed3','PlayerWhite3','PlayerWhite4','BankerEven','BankerOdd','BankerRed4','BankerRed3','BankerWhite3','BankerWhite4']
-    let _choice = ['Player','Banker','Tie','Even','Odd','PlayerEven','PlayerOdd']
+    let _choice = ['Player','Tie','Odd','PlayerOdd']
      await SedieWarFunc.verifySettlementMultipleChoices(_choice,1)
   })
 

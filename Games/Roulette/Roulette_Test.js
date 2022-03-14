@@ -36,7 +36,14 @@ describe('======== AUTOMATION TEST RESULT ROULETTE ========', ()=>{
   await RouletteFunc.CheckRoundHistory()
   })
 
-  it('TC_03_Full_Smoke_Verify Close Game Success', async () => {
+  // it('TC_03_Full_Smoke_Verify Hedge Bets', async () => {
+  //   await RouletteFunc.waitUtilNewRound()
+  //   await RouletteFunc.verifyHedgeBet('Even','Odd',10,'"errorCode":"SB1939","hedgeBetGroup":["even","odd"]') 
+  //   await RouletteFunc.verifyHedgeBet('Big','Small',10,'"errorCode":"SB1939","hedgeBetGroup":["big","small"]')  
+  //   await RouletteFunc.verifyHedgeBet('Red','Black',10,'"errorCode":"SB1939","hedgeBetGroup":["red","black"]')  
+  // })
+
+  it('TC_04_Full_Smoke_Verify Close Game Success', async () => {
     await RouletteFunc.CloseGame()
   }) 
 

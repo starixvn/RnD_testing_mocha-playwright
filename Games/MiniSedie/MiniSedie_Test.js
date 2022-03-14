@@ -25,9 +25,9 @@ describe('======== AUTOMATION TEST RESULT MINI SEDIE ========', ()=>{
       await MiniSedieFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify Bet Choice', async() => {
+  it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {
       await MiniSedieFunc.waitUtilNewRound()
-      //await MiniSedieFunc.verifyBetChoice()
+      await MiniSedieFunc.verifyHedgeBet("Even","Odd",10,'"notice":{"errorCode":"SB1939","hedgeBetGroup":["even","odd"]')
   })
   
   it('TC_003_Full_Verify betting on Even Choice', async() =>{

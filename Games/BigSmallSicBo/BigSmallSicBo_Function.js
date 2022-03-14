@@ -96,6 +96,16 @@ export const Sliding_Select_Chip = async(_chip) => {
     await utils.clickPos(BigSmallSicboLocator[`Chip${_chip}`].x,BigSmallSicboLocator[`Chip${_chip}`].y)  
   }
 
+  export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
+    wsMessageReceived = []
+    await Sliding_Select_Chip(_chip)
+    await utils.clickPos(BigSmallSicboLocator[`${_choice1}`].x,BigSmallSicboLocator[`${_choice1}`].y)
+    await utils.sleep(200)
+    await utils.clickPos(BigSmallSicboLocator[`${_choice2}`].x, BigSmallSicboLocator[`${_choice2}`].y)
+    let _result = await utils.wsFindMessage(ermsg,20)
+    expect(_result.Val).to.equal(true)
+}
+
 
 //PlaceBet
 export const PlaceBet = async (_pos,_stake,wait='yes') => {
