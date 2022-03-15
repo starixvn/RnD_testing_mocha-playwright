@@ -45,40 +45,41 @@ export const CloseGuide = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  // Verify Big
-  // await utils.CaptureSubImageToFile(BigSmallSicboLocator.Big)
-  const _big= await utils.findImage(BigSmallSicboLocator.Big.ImageCompare,BigSmallSicboLocator.Big)
-  await utils.shouldBeEqual(_big.Val,true)  
-  // Verify Small
-  // await utils.CaptureSubImageToFile(BigSmallSicboLocator.Small)
+  // // Verify Big
+  // // await utils.CaptureSubImageToFile(BigSmallSicboLocator.Big)
+  // const _big= await utils.findImage(BigSmallSicboLocator.Big.ImageCompare,BigSmallSicboLocator.Big)
+  // await utils.shouldBeEqual(_big.Val,true)  
+  // // Verify Small
+  // // await utils.CaptureSubImageToFile(BigSmallSicboLocator.Small)
 
-  const _small= await utils.findImage(BigSmallSicboLocator.Small.ImageCompare,BigSmallSicboLocator.Small)
-  await utils.shouldBeEqual(_small.Val,true)  
-  // Verify AnyTriple
-  // await utils.CaptureSubImageToFile(BigSmallSicboLocator.AnyTriple)
+  // const _small= await utils.findImage(BigSmallSicboLocator.Small.ImageCompare,BigSmallSicboLocator.Small)
+  // await utils.shouldBeEqual(_small.Val,true)  
+  // // Verify AnyTriple
+  // // await utils.CaptureSubImageToFile(BigSmallSicboLocator.AnyTriple)
 
-  const _triple= await utils.findImage(BigSmallSicboLocator.AnyTriple.ImageCompare,BigSmallSicboLocator.AnyTriple)
-  await utils.shouldBeEqual(_triple.Val,true)  
-  // Check Default Chip
-  // const _defaultchip= await utils.findImage(BigSmallSicboLocator.ChipBroad.ImageCompare1,BigSmallSicboLocator.ChipBroad)
-  // await utils.shouldBeEqual(_defaultchip.Val,true) 
-  // Verify specific number bettype in table
-  let _Aspecific = ['Specific1','Specific2','Specific3','Specific4','Specific5','Specific6']
-  for (let i of _Aspecific){
-    // await utils.CaptureSubImageToFile(BigSmallSicboLocator[i])
+  // const _triple= await utils.findImage(BigSmallSicboLocator.AnyTriple.ImageCompare,BigSmallSicboLocator.AnyTriple)
+  // await utils.shouldBeEqual(_triple.Val,true)  
+  // // Check Default Chip
+  // // const _defaultchip= await utils.findImage(BigSmallSicboLocator.ChipBroad.ImageCompare1,BigSmallSicboLocator.ChipBroad)
+  // // await utils.shouldBeEqual(_defaultchip.Val,true) 
+  // // Verify specific number bettype in table
+  // let _Aspecific = ['Specific1','Specific2','Specific3','Specific4','Specific5','Specific6']
+  // for (let i of _Aspecific){
+  //   // await utils.CaptureSubImageToFile(BigSmallSicboLocator[i])
 
-    let found1= await utils.findImage(BigSmallSicboLocator[i].ImageCompare,BigSmallSicboLocator[i])
-    await utils.shouldBeEqual(found1.Val,true) 
-  }
-  // Verify total point bettypes in table
-  let _Atotal = ['Total4','Total5','Total6','Total7','Total8','Total9','Total10','Total11','Total12','Total13','Total14','Total15','Total16','Total17']
-  for (let i of _Atotal){
-    // await utils.CaptureSubImageToFile(BigSmallSicboLocator[i])
+  //   let found1= await utils.findImage(BigSmallSicboLocator[i].ImageCompare,BigSmallSicboLocator[i])
+  //   await utils.shouldBeEqual(found1.Val,true) 
+  // }
+  // // Verify total point bettypes in table
+  // let _Atotal = ['Total4','Total5','Total6','Total7','Total8','Total9','Total10','Total11','Total12','Total13','Total14','Total15','Total16','Total17']
+  // for (let i of _Atotal){
+  //   // await utils.CaptureSubImageToFile(BigSmallSicboLocator[i])
+  //   let found2= await utils.findImage(BigSmallSicboLocator[i].ImageCompare,BigSmallSicboLocator[i])
+  //   await utils.shouldBeEqual(found2.Val,true) 
+  // }
+  let _result = await utils.wsFindMessage('["signedIn"]')
+  await utils.shouldBeEqual(_result.Val,true)
 
-
-    let found2= await utils.findImage(BigSmallSicboLocator[i].ImageCompare,BigSmallSicboLocator[i])
-    await utils.shouldBeEqual(found2.Val,true) 
-  }
   }
 
 //Sliding chip bar and select chip icon

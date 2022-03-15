@@ -29,7 +29,7 @@ describe('======== AUTOMATION TEST RESULT BIG SMALL SICBO ========', ()=>{
 
   it('TC_21_Full_Smoke_Verify Hedge Bets', async () => {
     await BigSmallSBFunc.waitUtilNewRound()
-    await ultils.sleep(2000)
+    await utils.sleep(5000)
     await BigSmallSBFunc.verifyHedgeBet('Big','Small',1,'{"errorCode":"SB1939","hedgeBetGroup":["big","small"]')
   })  
   

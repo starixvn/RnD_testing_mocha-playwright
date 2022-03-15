@@ -59,6 +59,7 @@ export const selectChip = async(_chip=10)=>{
 
 export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
     wsMessageReceived = []
+    await utils.sleep(3000)
     await selectChip(_chip)
     await utils.clickPos(VipSedieLocator[`${_choice1}`].x,VipSedieLocator[`${_choice1}`].y)
     await utils.sleep(200)
