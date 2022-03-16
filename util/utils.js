@@ -411,6 +411,26 @@ export const imageShouldNotDisplay = async(_subimage, _x=null, _y=null, _w=null,
     }
 }
 
+// parse number from image
+export const getNumberFromImage = async(_path) => {
+    try {
+        const worker = createWorker()
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        await worker.setParameters({
+            tessedit_char_whitelist: '0123456789',
+            preserve_interword_spaces: '0',
+          });
+        const { data: { text } } = await worker.recognize(_path);
+        // console.log(text)
+        await worker.terminate();
+        return text
+    } catch (error) {
+        console.log('Error '+error.message)
+    }
+}
+
 // parse text from image
 export const getTextFromImage = async(_path) => {
     try {

@@ -20,7 +20,11 @@ export const login = async(_env,_game) => {
         // Input Username and Password
         await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
         await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
-
+        // await utils.CaptureSubImageToFile('secode.png',530,80,55,20)
+        // let secode = await utils.getNumberFromImage('secode.png')
+        // secode = secode.toString().trim()
+        // console.log(secode);
+        // await utils.sendKeys(MemberSiteLocator.txtValidationCode,secode)
         // Enter Login button
         if(_env == 'cf_prod'){
             await utils.clickEl(MemberSiteLocator.btnLoginPro)

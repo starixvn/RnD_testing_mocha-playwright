@@ -2,6 +2,7 @@ export const MemberSiteLocator_vn = {
     // Login page
     txtUsername : "//input[@id='txtID']",
     txtPassword : "//input[@id='txtPW']",
+    txtValidationCode:  "//input[@id='txtCode']",
     btnLogin : "//button",
     btnLoginPro : "//a[contains(@class,'btn btn')]",
     imgLogo : "//div[@class='logo ']",
@@ -29,6 +30,7 @@ export const MemberSiteLocator_en = {
     // Login page
     txtUsername : "//input[@id='txtID']",
     txtPassword : "//input[@id='txtPW']",
+    txtValidationCode:  "//input[@id='txtCode']",
     btnLogin : "//button",
     btnLoginPro : "//a[contains(@class,'btn btn')]",
     imgLogo : "//div[@class='logo ']",
