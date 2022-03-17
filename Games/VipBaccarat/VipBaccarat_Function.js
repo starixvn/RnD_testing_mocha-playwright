@@ -48,13 +48,14 @@ export const verifyBetChoice = async() => {
 }
 
 export const openHistory = async() => {
+    await utils.sleep(1000)
     await utils.clickPos(VipBaccaratLocator.History.x, VipBaccaratLocator.History.y)
     await utils.sleep(1000)
 }
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
-    let res = await utils.wsFindMessage('42/user/vipbaccarat,["VipBaccarat",{"history"')
+    let res = await utils.wsFindMessage('42/user/vipbaccarat,["VipBaccarat",{"history"',20)
     await utils.shouldBeEqual(res.Val, true,'Check History')
     // await utils.CaptureSubImageToFile(VipBaccaratLocator.History)
     // let flag = await utils.findImage(VipBaccaratLocator.History)
