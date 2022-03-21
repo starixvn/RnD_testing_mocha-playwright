@@ -545,7 +545,7 @@ export const returnMachedtData= async(wsMessage,msg)=>{
           const _found = wsMessage.filter(element => element.includes(msg));
           if(_found.length > 0){
             i=30;
-            return _found
+            return _found.pop()
             break
           }     
          console.log(`not found ${msg}`);
@@ -894,3 +894,23 @@ export const verifyBlockTime = async(_game,_placebetfunc,args) => {
     }    
   }
 
+
+//handle for ws data with normal or msgpack style
+  export const getRowDataFromJS = async(_gamenamefilter,_mes) => {
+    try {
+        let raw = wsMessageReceived.filter(element => element.includes(_mes));
+        raw = raw.pop()
+        _gamenamefilter = _gamenamefilter.toLowerCase()
+        if(raw.includes(`42/user/${_gamenamefilter},`)){
+          let res = String(raw).split(`42/user/${_gamenamefilter},`);
+          return res[1]
+        } 
+        else {
+        return raw
+        }
+    } catch (error) {
+        console.log(error.message)
+        return null
+    }
+  }
+  

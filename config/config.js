@@ -33,7 +33,7 @@ export const setting ={
         BitCoin: 1649 ,
         CasinoHPoker: 1650,
         HiLo: 1651
-
+     
     },
     gameIdlocal: {
         BlackJack : 23,
@@ -59,7 +59,9 @@ export const setting ={
         HeroSlot : 38,
         BitCoin: 43 ,
         CasinoHPoker: 39 ,
-        HiLo: 45
+        HiLo: 45,
+        TexasHoldEm: 42,
+        NightClub: 46
     }
 }
 
@@ -131,7 +133,10 @@ export const cf_local ={
     HeroSlot : "1001104",
     BitCoin:  "1001051",
     CasinoHPoker: "1001053",
-    HiLo: "1001054"
+    HiLo: "1001054",
+    TexasHoldEm: "1001055",
+    NightClub: "1001056"
+
     },
     password: "",
     gamelobbyurl: "",
@@ -172,7 +177,8 @@ export const cf_local1 ={
     BitCoin:  "1001051",
     CasinoHPoker: "1001053",
     HiLo: "1001054",
-    HedgeBets : "1001052"
+    TexasHoldEm: "1001055",
+    NightClub: "1001056"
 
     },
     password: "",
@@ -256,6 +262,41 @@ export const cf_prod ={
         // HeroSlot: "supertestte120201006",
         // BitCoin: "supertestte120201005" ,
         // CasinoHPoker: "supertestte120201007",
+        Sedie : "supertestte120201002",
+        VipSedie : "supertestte120201003",
+        TurboBigSmall: "supertestte120201004",
+        BigSmall : "supertestte120201006",
+        MiniSedie: "supertestte120201007",
+        BigSmallSicbo:  "supertestte120201008",
+        BlackJack : "supertestte120201009",
+        SedieWar: "supertestte120201011",
+        TurboOddEven: "supertestte120201012",
+        DragonTiger:  "supertestte120201013",
+        KenoProMax: "supertestte120201002",
+        VipFishPrawnCrab: "supertestte120201003",
+        VipBaccarat : "supertestte120201004",
+        ThreeCards : "supertestte120201006",
+        Lottery: "supertestte120201007",
+        FourGuardians: "supertestte120201008",
+        SpecialSedie: "supertestte120201009",
+        FishPrawnCrab: "supertestte120201011",
+        HeroSlot: "supertestte120201012",
+        Roulette:  "supertestte120201013",
+        BitCoin: "supertestte120201002" ,
+        CasinoHPoker: "supertestte120201003"  ,
+        HiLo: "supertestte120201004"  
+
+    },
+    password: "1234aa",
+    gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
+    urlWebsocket: "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "https://www.sabagame.com",
+    protocol: "wss"
+}
+
+export const cf_prod_bd ={
+    url: "https://www.viva88.com/onelogin.aspx?IsSSL=1",
+    username: {
         Sedie : "supertestte120201002",
         VipSedie : "supertestte120201003",
         TurboBigSmall: "supertestte120201004",

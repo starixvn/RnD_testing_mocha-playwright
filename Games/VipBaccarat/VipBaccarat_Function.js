@@ -126,11 +126,12 @@ const getUserResult = async() => {
 //Place bet multiple choices and check settle
 export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     await waitUtilNewRound()
-    await utils.sleep(3000)
+    await utils.sleep(5000)
     await selectChip(_chip)
     // Select All Choices
     for(let i of _choices){
         await utils.clickPos(VipBaccaratLocator[`${i}`].x,VipBaccaratLocator[`${i}`].y)
+        await utils.sleep(100)
         }
     await utils.sleep(500)
     let currentBalance = await getBalance()

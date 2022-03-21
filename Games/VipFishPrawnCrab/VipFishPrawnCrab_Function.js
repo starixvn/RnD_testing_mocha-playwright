@@ -14,13 +14,19 @@ export const verifySignInSuccessfully = async() => {
 
 
 export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
-    wsMessageReceived = []
-    await utils.clickPos(VipFishPrawnCrabLocator[`Chip${_chip}`].x,VipFishPrawnCrabLocator[`Chip${_chip}`].y)
-    await utils.clickPos(VipFishPrawnCrabLocator[`${_choice1}`].x,VipFishPrawnCrabLocator[`${_choice1}`].y)
-    await utils.sleep(200)
-    await utils.clickPos(VipFishPrawnCrabLocator[`${_choice2}`].x, VipFishPrawnCrabLocator[`${_choice2}`].y)
-    let _result = await utils.wsFindMessage(ermsg,20,wsMessageReceived)
-    expect(_result.Val).to.equal(true)
+    try {
+        wsMessageReceived = []
+        await utils.clickPos(VipFishPrawnCrabLocator[`Chip${_chip}`].x,VipFishPrawnCrabLocator[`Chip${_chip}`].y)
+        await utils.clickPos(VipFishPrawnCrabLocator[`${_choice1}`].x,VipFishPrawnCrabLocator[`${_choice1}`].y)
+        await utils.sleep(500)
+        await utils.clickPos(VipFishPrawnCrabLocator[`${_choice2}`].x, VipFishPrawnCrabLocator[`${_choice2}`].y)
+        await utils.sleep(500)
+        let _result = await utils.wsFindMessage(ermsg,20,wsMessageReceived)
+        expect(_result.Val).to.equal(true)
+    } catch (error) {
+        console.log(error)
+    }
+
   }
 
 export const verifyBetChoice = async() => {
