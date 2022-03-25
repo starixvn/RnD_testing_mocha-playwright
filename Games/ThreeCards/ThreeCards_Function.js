@@ -56,7 +56,7 @@ export const closeHistory = async() => {
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
     let _found = await utils.getWsMessage(remainingTime)
-    await utils.sleep(8000)
+    await utils.sleep(9000)
 }
 
 export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {

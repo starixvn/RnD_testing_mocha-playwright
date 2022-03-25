@@ -111,8 +111,9 @@ export const VerifyGuideContent = async() => {
 
 export const SelectPayline = async(line) => {
   await _clickPos(FourGuardiansLocator.UnSelectLine)
+  await _clickPos(FourGuardiansLocator[line]) 
   // line = All, Odd and Even
-  line === 'All' ?  await _clickPos(FourGuardiansLocator.AllLine) : line === 'Odd'?  await _clickPos(FourGuardiansLocator.OddLine) :line === 'Even'? await _clickPos(FourGuardiansLocator.EvenLine):await _clickPos(FourGuardiansLocator[line])
+  // line === 'AllLine' ?  await _clickPos(FourGuardiansLocator.AllLine) : line === 'OddLine'?  await _clickPos(FourGuardiansLocator.OddLine) :line === 'EvenLine'? await _clickPos(FourGuardiansLocator.EvenLine):await _clickPos(FourGuardiansLocator[line])
   await utils.sleep(500)
 }
 

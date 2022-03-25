@@ -1,0 +1,56 @@
+const path = require('path')
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "TexasHoldEm" + path.sep
+
+export const TexasHoldEm_vn = {
+	DealerContent: { x : 380, y : 100, top : 100, left : 380, width : 525, height : 200, ImageCompare : pathImageCompare + "ImgCompare_DealerContent.png" },
+	ANTEODD: { x : 467, y : 508, top : 220, left : 25, width : 240, height : 225, ImageCompare : pathImageCompare + "ImgCompare_ANTEODD.png" },
+	LeftArrow : { x : 363, y : 650 },
+	RightArrow : { x : 905, y : 650 },
+	Chip1 : { x : 440, y : 650 },
+	Chip5 : { x : 513, y : 650 },
+	Chip10 : { x : 591, y : 650 },
+	Chip50 : { x : 664, y : 650 },
+	Chip100 : { x : 744, y : 650 },
+	Chip200 : { x : 820, y : 650 },
+	Chip500 : { x : 664, y : 650 },
+	Chip1000 : { x : 744, y : 650 },
+	Chip2000 : { x : 820, y : 650 },
+	Menu : { x : 64, y : 169 },
+	Home : { x : 65, y : 255 },
+	History : { x : 65, y : 319, top : 68, left : 84, width : 1127, height : 124, ImageCompare : pathImageCompare + "ImgCompare_CasinoHemPoker_History.png" },
+	PopupClose : { x : 1185, y : 60 },
+	Guide : { x : 65, y : 381, top : 68, left : 173, width : 941, height : 569, ImageCompare1 : pathImageCompare + "ImgCompare_CasinoHemPoker_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BlackJack_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BlackJack_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BlackJack_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_BlackJack_Guide_6.png" },
+	Double : { x : 250, y : 620 },
+	Newbet : { x : 1220, y : 560},
+	Bet :  { x : 1018, y : 644 },
+	Cancel : { x : 1154, y : 579 },
+	Rebet : { x : 1220, y : 560},
+  }
+  
+export const TexasHoldEm_en = {
+	DealerContent: { x : 380, y : 100, top : 100, left : 380, width : 525, height : 200, ImageCompare : pathImageCompare + "ImgCompare_DealerContent.png" },
+	ANTEODD: { x : 467, y : 508, top : 220, left : 25, width : 240, height : 225, ImageCompare : pathImageCompare + "ImgCompare_ANTEODD.png" },
+	LeftArrow : { x : 363, y : 650 },
+	RightArrow : { x : 905, y : 650 },
+	Chip1 : { x : 440, y : 650 },
+	Chip5 : { x : 513, y : 650 },
+	Chip10 : { x : 591, y : 650 },
+	Chip50 : { x : 664, y : 650 },
+	Chip100 : { x : 744, y : 650 },
+	Chip200 : { x : 820, y : 650 },
+	Chip500 : { x : 664, y : 650 },
+	Chip1000 : { x : 744, y : 650 },
+	Chip2000 : { x : 820, y : 650 },
+	Menu : { x : 64, y : 169 },
+	Home : { x : 65, y : 255 },
+	History : { x : 65, y : 319, top : 68, left : 84, width : 1127, height : 124, ImageCompare : pathImageCompare + "ImgCompare_CasinoHemPoker_History.png" },
+	PopupClose : { x : 1185, y : 60 },
+	Guide : { x : 65, y : 381, top : 68, left : 173, width : 941, height : 569, ImageCompare1 : pathImageCompare + "ImgCompare_CasinoHemPoker_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_BlackJack_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_BlackJack_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_BlackJack_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_BlackJack_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_BlackJack_Guide_6.png" },
+	Double : { x : 250, y : 620 },
+	Newbet : { x : 1220, y : 560},
+	Bet :  { x : 1018, y : 644 },
+	Cancel : { x : 1154, y : 579 },
+	Rebet : { x : 1220, y : 560},
+  
+    }
+    
