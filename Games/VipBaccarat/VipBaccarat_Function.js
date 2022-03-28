@@ -130,7 +130,6 @@ const getUserResult = async() => {
 //Place bet multiple choices and check settle
 export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     await waitUtilNewRound()
-    await utils.sleep(5000)
     await selectChip(_chip)
     // Select All Choices
     for(let i of _choices){
