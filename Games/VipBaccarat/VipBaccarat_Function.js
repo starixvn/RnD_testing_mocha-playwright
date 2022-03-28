@@ -76,7 +76,7 @@ export const closeHistory = async() => {
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
     let _found = await utils.getWsMessage(remainingTime)
-    await utils.sleep(8000)
+    await utils.sleep(13000)
 }
 
 export const selectChip = async(_chip=1)=>{
