@@ -63,7 +63,7 @@ export const getSettlementResult = async () => {
       let _finish = await getRawData(`{"finish"`)
       let _totalAmount = await utils.getDataJsonPath(_status,`$..totalAmount`)
       let _betchoices = await utils.getDataJsonPath(_status,`$..choices`)
-      let _md5 = await utils.getDataJsonPath(_finish,`$..md5`)
+      let _md5 = await utils.getDataJsonPath(_finish,`$..md5.key.rawValue`)
       let _settlementResult = await utils.getDataJsonPath(_finish,`$..settlementResult`)
        return {totalAmount:_totalAmount, betchoices:_betchoices,md5:_md5, settlementResult:_settlementResult }
       } catch (e) {
@@ -73,12 +73,17 @@ export const getSettlementResult = async () => {
 
 
 //Check Settlement
-export const checkSettlement = async (placebetfunc,args,_AAchoice="No") => {
+export const checkSettlement = async (placebetfunc,args,_AAchoice="No",_CheckMD5='Yes') => {
   // PlaceBet
   let _bfbalance = await utils.getBalance()
-  await placebetfunc.apply(this,args)
+  let _stringmd5 = await placebetfunc.apply(this,args)
   // get settle result
   let settle_result = await getSettlementResult()
+  if (_stringmd5 != '' && _CheckMD5 =='Yes') {
+    let hashmd5 = await utils.generateMd5(settle_result.md5)
+    console.log(_stringmd5,hashmd5);
+    await utils.shouldBeEqual(_stringmd5,hashmd5,'Check MD5')
+  }
   await utils.sleep(3000)
   let _afbalance = await utils.getBalance()
   //check balance
@@ -110,10 +115,16 @@ export const VerifySignInSuccessfully = async() => {
   await utils.shouldBeEqual(_result.Val,true)
 }
 
+export const getMD5string = async () => {
+  let _found = await utils.getRowDataFromJS("casinoholdempoker", "deal");
+  let _md5 = await utils.getDataJsonPath(_found, "$..md5.key");
+  return _md5;
+};
 
 //PlaceBet
 export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _follow="Follow",_cancel="NoCancel") => {
   try {
+      let stringmd5
       await utils.sleep(500)
       await Sliding_Select_Chip(stake)
       await utils.clickPos(CasinoHPokerLocator[pos].x,CasinoHPokerLocator[pos].y)//click bet position
@@ -123,10 +134,13 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
         await utils.clickPos(CasinoHPokerLocator.Double.x,CasinoHPokerLocator.Double.y)
       } 
       if (hitCard == "HitCard")  {
-        // console.log('click hit card');
+        console.log('click hit card');
         await utils.sleep(3000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
+        await utils.sleep(3000)
+        stringmd5 = await getMD5string();
       } 
+
       if (_follow == "Follow")  {
         // console.log('click follow card');
         await utils.sleep(8000)
@@ -137,6 +151,7 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
         // console.log('click cancel button');
         await utils.clickPos(CasinoHPokerLocator.Cancel.x,CasinoHPokerLocator.Cancel.y)
       }
+      return stringmd5
   } catch (e) {
       console.error(e)
   }

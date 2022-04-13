@@ -1,7 +1,7 @@
 const game = "HeroSlot"
 const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
-import * as HeroesSlotFunc from './HeroesSlot_Function'
+import * as HeroSlotFunc from './HeroSlot_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
 import * as ResultFunc from '../References/Result_Function'
 
@@ -23,13 +23,13 @@ describe('======== AUTOMATION TEST RESULT HERO SLOT ========', ()=>{
   let result;
 
   it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
-    await HeroesSlotFunc.verifySignInSuccessfully()
+    await HeroSlotFunc.verifySignInSuccessfully()
   })  
 
   it('TC_02_Full_Smoke_Verify User can bet this game with payline = All , stake = 0.1', async () => {
-    result = await HeroesSlotFunc.betAndGetResult()
+    result = await HeroSlotFunc.betAndGetResult()
   }) 
   it('TC_03_Full_Smoke_Verify History Content', async () => {
-    await HeroesSlotFunc.verifyHistoryContent(result)
+    await HeroSlotFunc.verifyHistoryContent()
   })  
 })

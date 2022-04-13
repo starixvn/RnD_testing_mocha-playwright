@@ -3,6 +3,7 @@ import pixelmatch from 'pixelmatch'
 import * as MemberSiteFunc from '../Games/References/MemberSite_Function'
 import * as GameLobbyFunc from '../Games/References/GameLobby_Function'
 import * as Mongodb from 'mongodb'
+// import  * as hash from 'blueimp-md5'
 const W3CWebSocket = require('websocket').w3cwebsocket;
 const fs = require('fs')
 const { createWorker } = require('tesseract.js')
@@ -12,14 +13,27 @@ const jp = require('jsonpath')
 const sharp = require('sharp')
 sharp.cache({ files : 0 });
 var msgpack = require('msgpack');
+var md5 = require('blueimp-md5')
+
+// Verify Message is existed
+export const generateMd5 = async(_string) => {
+    let txt = md5(_string)
+    return txt
+}
+
+// Verify Message is existed
+export const getclipboardtext = async() => {
+    let _txt=  await page.evaluate(() => console.log(navigator.clipboard.readText()))
+    // let _txt=  await context.readText();
+    return _txt
+}
 
 // Verify Message is existed
 const FindMessage = async(_mes) => {
     try {
         for(let i = 0; i < wsMessageReceived.length ; i++){
-            // console.log(wsMessageReceived[i])
             if(wsMessageReceived[i].includes(_mes)) return true
-        }
+         }
         return false
     } catch (error) {
         return false
@@ -43,7 +57,6 @@ export const wsFindMessage = async(_mes,cfloop=config.setting.loop) => {
         let result
         for(let t = 0 ; t< cfloop ; t++){
             if(typeof wsMessageReceived !== 'undefined'){
-                // console.log(wsMessageReceived)
                 result = await FindMessage(_mes)
                 if( result === true ) return { Val : true , Err : { IsErr : false , ErrMess : ""}}
                 await sleep(500)
