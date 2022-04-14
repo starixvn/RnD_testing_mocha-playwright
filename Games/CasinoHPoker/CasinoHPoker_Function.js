@@ -74,6 +74,7 @@ export const getSettlementResult = async () => {
 
 //Check Settlement
 export const checkSettlement = async (placebetfunc,args,_AAchoice="No",_CheckMD5='Yes') => {
+  wsMessageReceived.length=0
   // PlaceBet
   let _bfbalance = await utils.getBalance()
   let _stringmd5 = await placebetfunc.apply(this,args)

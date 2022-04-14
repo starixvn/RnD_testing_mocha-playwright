@@ -503,6 +503,12 @@ export const swipe = async(__fx, _fy,__tx, _ty,) => {
 }
 
 
+//  log ws message
+export const logMsg = async() => {
+  console.log(wsMessageReceived);
+}
+
+
 // Place bet until get message
 export const verifyWsMessageForBetProcess = async(_mes) => {
     try {
@@ -639,7 +645,7 @@ export const shouldBeEqual = async(_val,_expect,_mess="") => {
 export const Login = async(_env,_game) => {
     // await wsHearMessageOff()
     let flag
-    if(_env !== 'cf_local' && _env !== 'cf_local1') {
+    if(_env == 'cf_prod' || _env == 'cf_uat') {
         // Login Member Site
         await MemberSiteFunc.login(_env,_game)
         // Navigate Sabaclub

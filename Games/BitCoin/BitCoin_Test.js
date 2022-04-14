@@ -27,7 +27,7 @@ describe('======== AUTOMATION TEST RESULT BITCOIN ========', ()=>{
   await BitCoinFunc.VerifySignInSuccessfully()
     }) 
 
-   it('TC_06_Full_Smoke_Verify Max Bet on Big', async () => {
+   it('TC_06_Full_Verify Max Bet on Big', async () => {
   await BitCoinFunc.waitUtilNewRound()
     const pos = "Up"
     const errormsg = `"errorCode":"SB1910"`
