@@ -77,10 +77,11 @@ export const verifyMd5 = async() => {
   wsMessageReceived = []
   await waitUtilNewRound()
   let _found = await utils.getWsMessage("resultHash");
+  _found = (_found === null) ? await utils.getRowDataFromJS('BigSmall','"BigSmall",{"md5"'): _found
   let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
   wsMessageReceived = []
   await utils.sleep(40000)
-  let _settle = await utils.getWsMessage('["BigSmall",{"finish"')
+  let _settle = await utils.getRowDataFromJS('BigSmall','{"finish"')
   let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
   afmd5 = await utils.generateMd5(afmd5);
   console.log(bfmd5, afmd5);
