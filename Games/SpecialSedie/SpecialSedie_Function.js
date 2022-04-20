@@ -49,8 +49,7 @@ export const CloseStatistic = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  let val=  await utils.wsFindMessage('42/user/specialsedie,["signedIn"]')
-  await utils.shouldBeEqual(val.Val, true,'Can not open SpecialSedie game')
+  await utils.verifySignInSuccessfully()
 }
 
 //Clear Preset Chip

@@ -8,7 +8,7 @@ let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, Red2: 2.4, White3: 3.7
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/xocxoc,["message",{"toGame":"XocXoc"}]')
+    let _result = await utils.wsFindMessage('signedIn')
     expect(_result.Val).to.equal(true)
 }
 
@@ -50,7 +50,7 @@ export const placeBet = async(_choice,_chip=1) => {
     wsMessageReceived = []
     await selectChip(_chip)
     let lowcase = _choice.toLowerCase()
-    let _result = await utils.betProcess(SedieLocator[`${_choice}`].x,SedieLocator[`${_choice}`].y,`user/xocxoc,["XocXoc",{"ownBets":{"${lowcase}":${_chip}},"endBet":${_chip},`)
+    let _result = await utils.betProcess(SedieLocator[`${_choice}`].x,SedieLocator[`${_choice}`].y,`{"ownBets":{"${lowcase}":${_chip}},"endBet":${_chip},`)
     expect(_result.Val).to.equal(true)
 }
 
@@ -64,6 +64,18 @@ export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
     let _result = await utils.wsFindMessage(ermsg,20)
     expect(_result.Val).to.equal(true)
 }
+
+export const verifyMd5 = async() => {
+    wsMessageReceived = []
+    await waitUtilNewRound()
+    let _found = await utils.getRowDataFromJS("sedie", "resultHash");
+    let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+    wsMessageReceived.length=0
+    let _result = await getResult('md5')
+    let afmd5 = await utils.generateMd5(_result.md5);
+    await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
+}
+
 
 
 export const verifyBetChip = async() => {
@@ -86,15 +98,15 @@ export const verifyBetChip = async() => {
 
 export const verifyBetAtBlockBettingTime = async() => {
     wsMessageReceived = []
-    //let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    //let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/sedie,["SeDie",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
     let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`errorCode":"SB1905`)
     expect(_result.Val).to.equal(true)
 }
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
-    await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
-    //let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
+    await utils.wsFindMessage(`42/user/sedie,["SeDie",{"remainingTime":39}]`)
+    //let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`42/user/sedie,["SeDie",{"endBet":-1,"betChoice":"even","notice":"Vui lòng đặt cược ở phiên sau."}]`)
     let _result = await utils.betProcess(SedieLocator.Even.x,SedieLocator.Even.y,`errorCode":"SB1905`)
     expect(_result.Val).to.equal(true)
 }
@@ -107,25 +119,25 @@ export const verifyMaxBet = async(_choice) =>{
     if (_choice === 'Round'){
         // Wait to Finish Game
         wsMessageReceived = []
-        await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
+        await utils.wsFindMessage(`42/user/sedie,["SeDie",{"remainingTime":39}]`)
         // Wait to new round
         await utils.sleep(9000)
         await placeBet("Even")
         await selectChip(2000)
-        //flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"odd","notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
+        //flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `42/user/sedie,["SeDie",{"endBet":-1,"betChoice":"odd","notice":"Tổng tiền cược tối đa ở phiên này là 2,000"}]`)
         flag = await utils.betProcess(SedieLocator.Odd.x, SedieLocator.Odd.y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true,'Verify msg: Tổng tiền cược tối đa ở phiên này là 2,000')
     }
     else if (_choice === 'Red4' || _choice === 'White4'){
         wsMessageReceived = []
         await selectChip(500)
-        // flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 500"}]`)
+        // flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/sedie,["SeDie",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 500"}]`)
         flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":500`)
         await utils.shouldBeEqual(flag.Val,true,'Verify msg: Tiền cược tối đa ở cửa này là 500')
     } else {
         wsMessageReceived = []
         await selectChip(2000)
-        // flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/xocxoc,["XocXoc",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
+        // flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `42/user/sedie,["SeDie",{"endBet":-1,"betChoice":"${lowchoice}","notice":"Tiền cược tối đa ở cửa này là 2,000"}]`)
         flag = await utils.betProcess(SedieLocator[`${_choice}`].x, SedieLocator[`${_choice}`].y, `"errorCode":"SB1910","maxBet":2000`)
         await utils.shouldBeEqual(flag.Val,true,'Verify msg: Tiền cược tối đa ở cửa này là 2,000')
     }
@@ -136,11 +148,9 @@ export const getBalance = async() => {
 const getRawData = async(_mes) => {
     try {
         let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/xocxoc,");
-            return raw[1]
-        }
+        let res = String(raw).split("42/user/sedie,");
+        res= (res[0].length>1) ? res[0] : res[1]
+        return res
     } catch (error) {
         console.log(error.message)
         return null
@@ -148,12 +158,13 @@ const getRawData = async(_mes) => {
 }
 const getResult =  async(_onlyResult=true) => {
     try {
-        let rawData = await getRawData(`42/user/xocxoc,["XocXoc",{"finish":{"result"`)
+        let rawData = await getRawData(`{"finish":{"result"`)
         if(_onlyResult === true) {
             return await utils.getDataJsonPath(rawData,`$..finish.result`)
         } else {
             const roundId = await utils.getDataJsonPath(rawData, `$..roundId`)
             const settlementResult = await utils.getDataJsonPath(rawData, `$..settlementResult`)
+            let _md5 =  await utils.getDataJsonPath(rawData, `$..rawValue`)
             return { 
                 roundId : roundId, 
                 odd : settlementResult.odd, 
@@ -163,7 +174,8 @@ const getResult =  async(_onlyResult=true) => {
                 red4 : settlementResult.red4, 
                 white3 : settlementResult.white3,
                 white4 : settlementResult.white4,
-                result : await utils.getDataJsonPath(rawData,`$..finish.result`)
+                result : await utils.getDataJsonPath(rawData,`$..finish.result`),
+                md5: _md5
             }
         }
     } catch (error) {
@@ -173,7 +185,7 @@ const getResult =  async(_onlyResult=true) => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/xocxoc,["XocXoc",{"status":{"winningByChoices":`)
+        let rawData = await getRawData(`status`)
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -191,7 +203,7 @@ export const verifySettlement = async(_choice,_chip=1,_saveResult=false) => {
     lowcase = _choice.toLowerCase()
     wsMessageReceived = []
     // Wait to Finish Game
-    await utils.wsFindMessage(`42/user/xocxoc,["XocXoc",{"remainingTime":39}]`)
+    await utils.wsFindMessage(`{"remainingTime":39}]`)
     await utils.sleep(3000)
     wsMessageReceived = []
     // Wait to new round
@@ -395,12 +407,12 @@ export const openHistory = async() => {
 }
 
 export const verifyHistoryPopup = async() => {
-    await utils.sleep(1000)
-    let res = await utils.wsFindMessage('42/user/xocxoc,["XocXoc",{"history"')
-    await utils.shouldBeEqual(res.Val, true,'Check History')
-    // await utils.CaptureSubImageToFile(SedieLocator.History)
-    // let flag = await utils.findImage(SedieLocator.History)
-    // await utils.shouldBeEqual(flag.Val,true,'Does not found history popup')
+    try {
+        await utils.sleep(1000)
+        let res = await utils.wsFindMessage('"history"')
+        await utils.shouldBeEqual(res.Val, true,'Check History')
+    } catch (error) { 
+    }
 }
 
 export const closeHistory = async() => {
@@ -492,7 +504,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 //Wait until new round
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
-    let _found = await utils.getWsMessage('42/user/xocxoc,["XocXoc",{"remainingTime":39}]')
+    let _found = await utils.getWsMessage('"remainingTime":39}')
     await utils.sleep(8000)
   }
 

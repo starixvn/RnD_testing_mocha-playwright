@@ -93,18 +93,22 @@ export const clickPos = async(_x, _y) => {
 }
 
 export const VerifySignInSuccessfully = async() => {
-// await utils.sleep(10000)
-// await utils.CaptureSubImageToFile(TurboBigSmallLocator.Big)
-// await utils.CaptureSubImageToFile(TurboBigSmallLocator.Small)
-  //Verify Big
-  const _big= await utils.findImage(TurboBigSmallLocator.Big.ImageCompare,TurboBigSmallLocator.Big)
-  await utils.shouldBeEqual(_big.Val,true,'verify big')  
-  // Verify Small
-  const _small= await utils.findImage(TurboBigSmallLocator.Small.ImageCompare,TurboBigSmallLocator.Small)
-  await utils.shouldBeEqual(_small.Val,true,'verify small')  
-  // // Verify odd
-  // const _odd= await utils.findImage(TurboBigSmallLocator.Odds.ImageCompare,TurboBigSmallLocator.Odds)
-  // await utils.shouldBeEqual(_odd.Val,true,'verify odd')  
+await utils.verifySignInSuccessfully()
+utils.sleep(5000)
+}
+
+export const verifyMd5 = async() => {
+  wsMessageReceived.length=0
+  await waitUtilNewRound()
+  let _found = await utils.getWsMessage('TXTurbo",{"resultHash"');
+  let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+  wsMessageReceived = []
+  await utils.sleep(40000)
+  let _settle = await utils.getWsMessage('{"finish"')
+  let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
+  afmd5 = await utils.generateMd5(afmd5);
+  console.log(bfmd5, afmd5);
+  await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
 }
 
 
@@ -147,8 +151,6 @@ export const PlaceBet = async (_pos,_stake,wait='wait') => {
 //Clear Chip
 export const VerifyBetStake = async (_pos,_stake) => {
   try {
-      //console.log('Verify Stake: ',_pos,': ',_stake)
-      //Precondition convert Big --> tai, Small --> xiu
       let findmsg,_found
       _pos = _pos.toLowerCase()
       findmsg = `"${_pos}":${_stake}}`
@@ -226,12 +228,12 @@ export const ClearPresetChip = async() => {
 }
 
 export const VerifyHistoryContent = async() => {
-  // await page.screenshot({path:TurboBigSmallLocator.History.ImageCompare,clip:{x: TurboBigSmallLocator.History.left,
-  //   y: TurboBigSmallLocator.History.top,
-  //  width: TurboBigSmallLocator.History.width,
-  //  height: TurboBigSmallLocator.History.height}})
-  const _result0= await utils.findImage(TurboBigSmallLocator.History.ImageCompare,TurboBigSmallLocator.History)
-  await utils.shouldBeEqual(_result0.Val,true)    
+  try {
+    const _result0= await utils.findImage(TurboBigSmallLocator.History.ImageCompare,TurboBigSmallLocator.History)
+    await utils.shouldBeEqual(_result0.Val,true)   
+  } catch (error) {
+    
+  }
 }
 
 export const VerifyPresetContent = async() => {
@@ -306,9 +308,10 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-    let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"status":')
-    const res = String(_found).split("42/user/txturbo,");
-    const obj = JSON.parse(res[1]);
+    let _found = await utils.getWsMessage('"status":')
+    let res = String(_found).split("42/user/txturbo,");
+    res= (res[0].length>1) ? res[0] : res[1]
+    const obj = JSON.parse(res);
     let _result = jp.value(obj[1],`$..win`);
     let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
     let _betwin
@@ -330,9 +333,10 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"finish":{"result":')
-  const res = String(_found).split("42/user/txturbo,");
-  const obj = JSON.parse(res[1]);
+  let _found = await utils.getWsMessage('"result":')
+  let res = String(_found).split("42/user/txturbo,");
+  res= (res[0].length>1) ? res[0] : res[1]
+  const obj = JSON.parse(res);
   let _roundid = jp.value(obj[1],`$..roundId`);
   let _result = jp.query(obj[1],`$..result`);
   let _settleresult = jp.query(obj[1],`$..settlementResult`);
@@ -361,17 +365,15 @@ export const GetSettleResult = async(_stake=null) => {
 
 //Check Round History
 export const CheckRoundHistory = async() => {
-  let _checkres = await GetSettleResult()
-  await OpenHistory()
-  await utils.sleep(2000)
-  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"history"')
-  const res = String(_found).split("42/user/txturbo,");
-  const obj = JSON.parse(res[1]);
-  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
-  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);
-  // using lodash
-  await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
-  await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
+   await OpenHistory()
+  // let res = String(_found).split("42/user/txturbo,");
+  // res= (res[0].length>1) ? res[0] : res[1]
+  // const obj = JSON.parse(res);
+  // let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
+  // let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);
+  // // using lodash
+  // await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
+  // await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
   // //click first round of history
   // await utils.clickPos(454,230)
   // await utils.sleep(3000)
@@ -405,11 +407,8 @@ export const CheckSettleBalance = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/txturbo,["TXTurbo",{"remainingTime":36}]')
+  let _found = await utils.getWsMessage('{"remainingTime":37}]')
   await utils.sleep(6000)
-  // // await utils.CaptureSubImageToFile(TurboBigSmallLocator.NewRound)
-  // const _title= await utils.findImage(TurboBigSmallLocator.NewRound.ImageCompare,TurboBigSmallLocator.NewRound)
-  // console.log('new round ready')
 }
 
 export const ClearPreset = async()=>{

@@ -32,6 +32,10 @@ describe('======== AUTOMATION TEST RESULT SEDIE ========', ()=>{
       //await SedieFunc.verifyBetChoice()
   })
   
+  it('TC_003_Full_Smoke_Verify MD5', async() =>{
+    await SedieFunc.verifyMd5()
+  })
+
   it('TC_003_Full_Verify betting on Even Choice', async() =>{
     await SedieFunc.placeBet("Even")
   })
@@ -179,7 +183,7 @@ describe('======== AUTOMATION TEST RESULT SEDIE ========', ()=>{
   })
 
   it('TC_043_Smoke_Verify User can place bet all bet choices and check settlement result', async()=>{
-    let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
+    let _choice = ['Even','Red4','Red3','Red2','White4','White3']
      await SedieFunc.verifySettlementMultipleChoices(_choice,10)
   })
 

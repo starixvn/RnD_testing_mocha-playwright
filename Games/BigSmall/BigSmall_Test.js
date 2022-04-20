@@ -25,8 +25,11 @@ describe('======== AUTOMATION TEST RESULT BIG SMALL ========', ()=>{
 
  it('TC_01_Full_Smoke_Verify User can open Game Success', async () => {
    await BigSmallFunc.VerifySignInSuccessfully()
-   //await BigSmallFunc.checkNavStatisticbar()
     }) 
+
+  it('TC_22_Full_Smoke_Verify MD5 String', async () => {
+      await BigSmallFunc.verifyMd5()
+   }) 
 
    it('TC_06_Full_Verify Max Bet on Big', async () => {
   await BigSmallFunc.waitUtilNewRound()

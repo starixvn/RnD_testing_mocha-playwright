@@ -30,6 +30,12 @@ describe('======== AUTOMATION TEST RESULT VIP SEDIE ========', ()=>{
       await VipSedieFunc.waitUtilNewRound()
       await VipSedieFunc.verifyHedgeBet("Even","Odd",10,`"notice":{"errorCode":"SB1939","hedgeBetGroup":["even","odd"]`)
   })
+
+  
+  it('TC_043_Full_Smoke_Verify MD5', async() =>{
+    await VipSedieFunc.verifyMd5()
+  })
+
   
   it('TC_003_Full_Verify betting on Even Choice', async() =>{
     await VipSedieFunc.waitUtilNewRound()
@@ -176,10 +182,10 @@ describe('======== AUTOMATION TEST RESULT VIP SEDIE ========', ()=>{
     await VipSedieFunc.closeHistory()
   })
 
-  it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
-      let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
-       await VipSedieFunc.verifySettlementMultipleChoices(_choice,10)
-  })
+  // it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
+  //     let _choice = ['Even','Odd','Red4','Red3','Red2','White4','White3']
+  //      await VipSedieFunc.verifySettlementMultipleChoices(_choice,10)
+  // })
 
     it('TC_038_Full_Smoke_Verify Home', async() => {
     await VipSedieFunc.returnHome()

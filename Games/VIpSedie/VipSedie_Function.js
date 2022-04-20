@@ -9,8 +9,7 @@ let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, Red2: 2.4, White3: 3.7
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/vipsedie,["message",{"toGame":"VipSeDie"}]')
-    global.expect(_result.Val).to.equal(true)
+    await utils.verifySignInSuccessfully()
 }
 
 
@@ -55,6 +54,19 @@ export const selectChip = async(_chip=10)=>{
         await utils.sleep(2000)
     }
     await utils.clickPos(VipSedieLocator[`Chip${_chip}`].x,VipSedieLocator[`Chip${_chip}`].y) 
+}
+
+export const verifyMd5 = async() => {
+    wsMessageReceived.length=0
+    await waitUtilNewRound()
+    let _found = await utils.getRowDataFromJS("VipSeDie", "resultHash");
+    // console.log('_found',_found);
+    let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+    wsMessageReceived.length=0
+    let _result = await getResult('md5')
+    let afmd5 = await utils.generateMd5(_result.md5);
+    console.log(bfmd5, afmd5);
+    await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
 }
 
 export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
@@ -147,11 +159,9 @@ export const getBalance = async() => {
 const getRawData = async(_mes) => {
     try {
         let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/vipsedie,");
-            return raw[1]
-        }
+        let res = String(raw).split("42/user/vipsedie,");
+        res= (res[0].length>1) ? res[0] : res[1]
+        return res
     } catch (error) {
         console.log(error.message)
         return null
@@ -159,12 +169,13 @@ const getRawData = async(_mes) => {
 }
 const getResult =  async(_onlyResult = true ) => {
     try {
-        let rawData = await getRawData(`42/user/vipsedie,["VipSeDie",{"finish":{"result"`)
+        let rawData = await getRawData(`{"finish":{"result"`)
         if(_onlyResult === true) {
             return await utils.getDataJsonPath(rawData,`$..finish.result`)
         } else {
             const roundId = await utils.getDataJsonPath(rawData, `$..roundId`)
             const settlementResult = await utils.getDataJsonPath(rawData, `$..settlementResult`)
+            let _md5 =  await utils.getDataJsonPath(rawData, `$..rawValue`)
             return { 
                 roundId : roundId, 
                 odd : settlementResult.odd, 
@@ -174,7 +185,8 @@ const getResult =  async(_onlyResult = true ) => {
                 red4 : settlementResult.red4, 
                 white3 : settlementResult.white3,
                 white4 : settlementResult.white4,
-                result : await utils.getDataJsonPath(rawData,`$..finish.result`)
+                result : await utils.getDataJsonPath(rawData,`$..finish.result`),
+                md5: _md5
             }
         }
     } catch (error) {
@@ -184,7 +196,7 @@ const getResult =  async(_onlyResult = true ) => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/vipsedie,["VipSeDie",{"status":{"winningByChoices":`)
+        let rawData = await getRawData(`{"status":{"winningByChoices":`)
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -400,6 +412,7 @@ export const verifyGuideContent = async()=> {
 
 export const openHistory = async() => {
     try {
+        await utils.clickPos(VipSedieLocator.Menu.x, VipSedieLocator.Menu.y)
         await utils.clickPos(VipSedieLocator.History.x, VipSedieLocator.History.y)
     } catch (error) {
         console.log(error.message)
@@ -409,11 +422,11 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
-    let res = await utils.wsFindMessage('42/user/vipsedie,["VipSeDie",{"history"')
-    await utils.shouldBeEqual(res.Val, true,'Check History')
+    // let res = await utils.wsFindMessage('"history"')
+    // await utils.shouldBeEqual(res.Val, true,'Check History')
     // await utils.CaptureSubImageToFile(VipSedieLocator.History)
-    // let flag = await utils.findImage(VipSedieLocator.History)
-    // await utils.shouldBeEqual(flag.Val,true)
+    let flag = await utils.findImage(VipSedieLocator.History)
+    await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const closeHistory = async() => {
@@ -505,7 +518,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 //Wait until new round
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
-    let _found = await utils.getWsMessage('42/user/vipsedie,["VipSeDie",{"remainingTime":39}]')
+    let _found = await utils.getWsMessage('"remainingTime":39}]')
     await utils.sleep(9000)
   }
 

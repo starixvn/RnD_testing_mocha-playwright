@@ -26,9 +26,11 @@ describe('======== AUTOMATION TEST RESULT TURBO BIG SMALL ========', ()=>{
 
  it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
     await TurboBigSmallFunc.VerifySignInSuccessfully()
-    //await TurboBigSmallFunc.checkNavStatisticbar()
   })  
 
+  it('TC_30_Full_Smoke_Verify MD5 String', async () => {
+    await TurboBigSmallFunc.verifyMd5()
+ }) 
  
   it('TC_06_Full_Verify Max Bet on Big', async () => {   
     await TurboBigSmallFunc.waitUtilNewRound()
@@ -61,7 +63,7 @@ describe('======== AUTOMATION TEST RESULT TURBO BIG SMALL ========', ()=>{
      const pos = "Big"
      const errormsg = '"errorCode":"SB1927"'
     await TurboBigSmallFunc.PlaceBet(pos,1)
-    await TurboBigSmallFunc.VerifyBetStake(pos,1)
+    // await TurboBigSmallFunc.VerifyBetStake(pos,1)
     await TurboBigSmallFunc.PlaceBet("Small",5,'nowait')
     await TurboBigSmallFunc.VerifyErrorMessage(errormsg)
     await TurboBigSmallFunc.CheckSettleBalance()

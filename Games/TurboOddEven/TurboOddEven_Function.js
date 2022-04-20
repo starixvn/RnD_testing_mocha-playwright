@@ -37,7 +37,7 @@ export const OpenHistory = async() => {
 
 //Is Round Settle
 export const IsSettle = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('42/user/oeturbo,["OETurbo",{"finish":{"result":'));
+  let _found = wsMessageReceived.filter(element => element.includes('"finish":{"result":'));
     if (_found.length > 0){
     return true
   }
@@ -86,31 +86,14 @@ export const ClosePreset = async() => {
 //Wait until new round
 export const waitUtilNewRound = async() => {
   // const _title= await utils.findImage(TurboOddEvenLocator.NewRound.ImageCompare,TurboOddEvenLocator.NewRound)
-  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"remainingTime":36}]')
+  let _found = await utils.getWsMessage('finish')
   await utils.sleep(6000)
   // await utils.CaptureSubImageToFile(TurboOddEvenLocator.NewRound)
   // console.log('new round ready')
 }
 
 export const VerifySignInSuccessfully = async() => {
-  //capture screenshot
-  // await utils.sleep(10000)
-  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Title)
-  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Odd)
-  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Even)
-  // await utils.CaptureSubImageToFile(TurboOddEvenLocator.Odds)
-  // // Verify TurboOddEven Title
-  // const _title= await utils.findImage(TurboOddEvenLocator.Title.ImageCompare,TurboOddEvenLocator.Title)
-  // await utils.shouldBeEqual(_title.Val,true)  
-  //Verify Odd
-  const _odd= await utils.findImage(TurboOddEvenLocator.Odd.ImageCompare,TurboOddEvenLocator.Odd)
-  await utils.shouldBeEqual(_odd.Val,true)  
-  // // Verify Even
-  const _even= await utils.findImage(TurboOddEvenLocator.Even.ImageCompare,TurboOddEvenLocator.Even)
-  await utils.shouldBeEqual(_even.Val,true)  
-  // // Verify odds
-  // const _odds = await utils.findImage(TurboOddEvenLocator.Odds.ImageCompare,TurboOddEvenLocator.Odds)
-  // await utils.shouldBeEqual(_odds.Val,true)  
+ await utils.verifySignInSuccessfully()
 }
 
 
@@ -303,9 +286,10 @@ export const IsBetFail = async(_pos) => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-    let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"status":')
-    const res = String(_found).split("42/user/oeturbo,");
-    const obj = JSON.parse(res[1]);
+    let _found = await utils.getWsMessage('"status":')
+    let res = String(_found).split("42/user/oeturbo,");
+    res= (res[0].length>1) ? res[0] : res[1]
+    const obj = JSON.parse(res);
     let _result = jp.value(obj[1],`$..win`);
     let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
     let _betwin
@@ -327,9 +311,10 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"finish":{"result":')
-  const res = String(_found).split("42/user/oeturbo,");
-  const obj = JSON.parse(res[1]);
+  let _found = await utils.getWsMessage('"finish":')
+  let res = String(_found).split("42/user/oeturbo,");
+  res= (res[0].length>1) ? res[0] : res[1]
+  const obj = JSON.parse(res);
   let _roundid = jp.value(obj[1],`$..roundId`);
   let _result = jp.query(obj[1],`$..result`);
   let _settleresult = jp.query(obj[1],`$..settlementResult`);

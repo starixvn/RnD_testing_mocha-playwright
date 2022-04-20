@@ -3,6 +3,7 @@ import * as config from '../../config/config'
 let BigSmallLocator = (process.env.npm_config_cf_lang  == 'vn' ? require('./BigSmall_Locator').BigSmallLocator_vn : require('./BigSmall_Locator').BigSmallLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import _ from 'lodash';
+import { login_local } from '../References/MemberSite_Function';
 var jp = require('jsonpath')
 
 export const CloseGame = async() => {
@@ -25,7 +26,7 @@ export const clickPos = async(_x, _y) => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"remainingTime":61}]')
+  let _found = await utils.getWsMessage('"remainingTime":61}]')
   await utils.sleep(11000)
   // /await utils.CaptureSubImageToFile(BigSmallLocator.NewRound)
   // const _title= await utils.findImage(BigSmallLocator.NewRound.ImageCompare,BigSmallLocator.NewRound)
@@ -72,23 +73,29 @@ export const ClosePreset = async() => {
 }
 
 
+export const verifyMd5 = async() => {
+  wsMessageReceived = []
+  await waitUtilNewRound()
+  let _found = await utils.getWsMessage("resultHash");
+  let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+  wsMessageReceived = []
+  await utils.sleep(40000)
+  let _settle = await utils.getWsMessage('["BigSmall",{"finish"')
+  let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
+  afmd5 = await utils.generateMd5(afmd5);
+  console.log(bfmd5, afmd5);
+  await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
+}
+
+
 export const VerifySignInSuccessfully = async() => {
-  // Verify BigSmall Title
-  // await utils.CaptureSubImageToFile(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title.left,BigSmallLocator.Title.top,BigSmallLocator.Title.width,BigSmallLocator.Title.height)
-    // const _title= await utils.findImage(BigSmallLocator.Title.ImageCompare,BigSmallLocator.Title)
-    // await utils.shouldBeEqual(_title.Val,true,'Check title')  
-  // Verify Big
-  // await utils.CaptureSubImageToFile(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big.left,BigSmallLocator.Big.top,BigSmallLocator.Big.width,BigSmallLocator.Big.height)
-  const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
-  await utils.shouldBeEqual(_big.Val,true,'Check big')  
-  // Verify Small
-  // await utils.CaptureSubImageToFile(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small.left,BigSmallLocator.Small.top,BigSmallLocator.Small.width,BigSmallLocator.Small.height)
-  const _small= await utils.findImage(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small)
-  await utils.shouldBeEqual(_small.Val,true,'Check small')  
-  // Verify odd
-  // await utils.CaptureSubImageToFile(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds.left,BigSmallLocator.Odds.top,BigSmallLocator.Odds.width,BigSmallLocator.Odds.height)
-  //const _odd= await utils.findImage(BigSmallLocator.Odds.ImageCompare,BigSmallLocator.Odds)
-  //await utils.shouldBeEqual(_odd.Val,true,'Check odd')  
+  // const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
+  // await utils.shouldBeEqual(_big.Val,true,'Check big')  
+  // const _small= await utils.findImage(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small)
+  // await utils.shouldBeEqual(_small.Val,true,'Check small')  
+  let found =await utils.wsFindMessage('signedIn')
+  await utils.shouldBeEqual(found.Val, true,'Check login success')
+  utils.sleep(5000)
 }
 
 
@@ -272,7 +279,7 @@ export const IsBetFail = async(_pos,_stake) => {
 
 //Is Round Settle
 export const IsSettle = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('42/user/taixiu,["taixiu",{"finish":{"result":'));
+  let _found = wsMessageReceived.filter(element => element.includes('{"finish":{"result":'));
   if (_found.length > 0){
     return true
   }
@@ -283,9 +290,10 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-      let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"status":')
-      const res = String(_found).split("42/user/taixiu,");
-      const obj = JSON.parse(res[1]);
+      let _found = await utils.getWsMessage('"status":')
+      let res = String(_found).split("42/user/taixiu,");
+      res= (res[0].length>1) ? res[0] : res[1]
+      const obj = JSON.parse(res);
       let _result = jp.value(obj[1],`$..win`);
       let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
       let _betwin
@@ -307,9 +315,10 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"finish":{"result":')
-  const res = String(_found).split("42/user/taixiu,");
-  const obj = JSON.parse(res[1]);
+  let _found = await utils.getWsMessage('"result"')
+  let res = String(_found).split("42/user/taixiu,");
+  res= (res[0].length>1) ? res[0] : res[1]
+  const obj = JSON.parse(res);
   let _roundid = jp.value(obj[1],`$..roundId`);
   let _result = jp.query(obj[1],`$..result`);
   let _settleresult = jp.query(obj[1],`$..settlementResult`);
@@ -339,16 +348,24 @@ export const GetSettleResult = async(_stake=null) => {
 //Check Round History
 export const CheckRoundHistory = async() => {
   let _checkres = await GetSettleResult()
+  wsMessageReceived.length=0
   await OpenHistory()
-  await utils.sleep(3000)
-  let _found = await utils.getWsMessage('42/user/taixiu,["taixiu",{"history"')
-  const res = String(_found).split("42/user/taixiu,");
-  const obj = JSON.parse(res[1]);
-  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
-  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);
-  // using lodash
-  await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
-  await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
+
+  // let _found = await utils.getWsMessage('history')
+   let _found = await utils.findImage(BigSmallLocator.History)
+  // console.log('history',_found.Val);
+  await utils.shouldBeEqual(_found.Val, true,'check history image')
+
+  // const res = String(_found).split("42/user/taixiu,");
+  // const obj = JSON.parse(_found);
+  // let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
+  // let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);
+  // // using lodash
+  // await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
+  // await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
+
+
+
   // Check Round History Detail
   // //click first round of history
   // await utils.clickPos(454,230)
