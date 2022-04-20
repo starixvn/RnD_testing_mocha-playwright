@@ -100,11 +100,13 @@ utils.sleep(5000)
 export const verifyMd5 = async() => {
   wsMessageReceived.length=0
   await waitUtilNewRound()
+  // await utils.logMsg()
   let _found = await utils.getWsMessage('TXTurbo",{"resultHash"');
+  _found = (_found === null) ? await utils.getRowDataFromJS('txturbo','"TXTurbo",{"md5"'): _found
   let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
   wsMessageReceived = []
   await utils.sleep(40000)
-  let _settle = await utils.getWsMessage('{"finish"')
+  let _settle = await utils.getRowDataFromJS('txturbo','{"finish"')
   let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
   afmd5 = await utils.generateMd5(afmd5);
   console.log(bfmd5, afmd5);
@@ -407,7 +409,7 @@ export const CheckSettleBalance = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('{"remainingTime":37}]')
+  let _found = await utils.getWsMessage('finish')
   await utils.sleep(6000)
 }
 

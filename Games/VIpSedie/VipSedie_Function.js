@@ -60,12 +60,12 @@ export const verifyMd5 = async() => {
     wsMessageReceived.length=0
     await waitUtilNewRound()
     let _found = await utils.getRowDataFromJS("VipSeDie", "resultHash");
-    // console.log('_found',_found);
+    _found = (_found === null)? await utils.getRowDataFromJS("VipSeDie", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
     let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
     wsMessageReceived.length=0
     let _result = await getResult('md5')
     let afmd5 = await utils.generateMd5(_result.md5);
-    console.log(bfmd5, afmd5);
+    // console.log(bfmd5, afmd5);
     await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
 }
 
