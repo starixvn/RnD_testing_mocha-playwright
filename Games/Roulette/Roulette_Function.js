@@ -16,7 +16,7 @@ export const CloseGame = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/roulette,["Roulette",{"remainingTime":59}]')
+  let _found = await utils.getWsMessage('"remainingTime":59}]')
   await utils.sleep(14000)
   // /await utils.CaptureSubImageToFile(RouletteLocator.NewRound)
   // const _title= await utils.findImage(RouletteLocator.NewRound.ImageCompare,RouletteLocator.NewRound)
@@ -68,8 +68,7 @@ export const CloseStatistic = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  let val=  await utils.wsFindMessage('42/user/roulette,["signedIn"]')
-  await utils.shouldBeEqual(val.Val, true,'Can not open Roulette game')
+ await utils.verifySignInSuccessfully()
 }
 
 
@@ -344,15 +343,15 @@ export const clickPos = async(_x, _y) => {
 
 export const getUserBalance = async() =>{
   let url = config[env].urlWebsocket
-  url = url.replace("roulette","bigsmall")
+  url = url.replace("roulette","dragontiger")
   let _origin = config[env].urlOrigin
   let {client, wsmsgbs} = await utils.createWSConnect(url,_origin) 
   await utils.sleep(3000)
-  await utils.sendwsdata(client,'40/user/taixiu,')
-  await utils.sendwsdata(client,`42/user/taixiu,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`)
-  await utils.sendwsdata(client,'42/user/taixiu,["inGame"]')
+  await utils.sendwsdata(client,'40/user/dragontiger,')
+  await utils.sendwsdata(client,`42/user/dragontiger,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`)
+  await utils.sendwsdata(client,'42/user/dragontiger,["inGame"]')
   let red= await utils.returnMachedtData(wsmsgbs,'gameConfigs')
-  const res = String(red).split("42/user/taixiu,");
+  const res = String(red).split("42/user/dragontiger,");
   const obj = JSON.parse(res[1]);
   let balance = jp.value(obj[1],`$..user.red`);
  // console.log(balance);
