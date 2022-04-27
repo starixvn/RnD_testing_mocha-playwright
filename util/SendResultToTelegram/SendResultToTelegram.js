@@ -5,24 +5,21 @@ chai.use(chaiHttp)
 
 describe('Send Message', ()=>{
     it('Send Telegram', async () => {
-        let obj = await gsutils.repareData_vn()
-        let rs = await gsutils.prepareResult_vn(obj)
-        let _Atemp = rs.Result[0].TestSuite.split("========")
-        let testuite = _Atemp[1].replace("AUTOMATION TEST RESULT", "");
+        let result = await gsutils.repareData_vn()
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
-        let mode = (typeof process.env.npm_config_mode !== 'undefined') ? process.env.npm_config_mode: 'Smoke'
-        if(obj !== 'NotFound'){
-            let mainContent = await gsutils.isFailed(obj) === false ? `💻${testuite}: ✅` : `💻${testuite}: ❌` 
-            console.log(mainContent);
         // // //#### TelegramBot
-           chai.request("https://api.telegram.org")
+        if (result.finalresult === 'Passed' ) {
+            chai.request("https://api.telegram.org")
             .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
             .send({
                 chat_id: -605245129,
-                text: `${mainContent} ${mode} Test ${env}`
+                parse_mode: "Markdown",
+                text: `💻 ${env}: ${result.testSuiteName}: ❌ ${result.totalfailed} Failed [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job}) `
             }).end( async(err,res)=>{
                 expect(res).to.have.status(200)})  
+        }
+     
         // // #### Skynet 
         // await chai.request("https://bot.nexdev.net")
         // .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
@@ -35,12 +32,12 @@ describe('Send Message', ()=>{
         // })
 
 
-        }
+        // }
     })  
 })
 
 const envToString = async(_env)=>{
-    if(_env === 'cf_local') return '🏠'
+    if(_env === 'cf_local') return 'Local'
     else if(_env === 'cf_local1') return 'Local1'
     else if(_env === 'cf_sit') return 'SIT'
     else if(_env === 'cf_uat') return 'UAT'

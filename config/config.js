@@ -65,46 +65,46 @@ export const setting = {
   },
 };
 
-// export const cf_local1 ={
-//     url: "https://l1-glbs2.lumigame.com/signin",
-//     usernameSSO: "",
-//     memberId: {
-//         BlackJack : "1001051",
-//         Sedie : "1001052",
-//         VipSedie : "1001053",
-//         Sicbo:  "1001054",
-//         Keno:  "1001055",
-//         Baccarat:  "1001056",
-//         Roulette:  "1001057",
-//         BigSmall : "1001058",
-//         MiniSedie: "1001059",
-//         TurboBigSmall: "1001060",
-//         TurboOddEven: "1001061",
-//         SedieWar: "1001062",
-//         BigSmallSicbo: "1001063",
-//         FourGuardians: "1001064",
-//         Lottery: "1001065",
-//         FishPrawnCrab: "1001100",
-//         DragonTiger:  "1001066",
-//         SpecialSedie: "1001067",
-//         KenoProMax: "1001068",
-//         VipFishPrawnCrab: "1001101",
-//         VipBaccarat : "1001102",
-//         ThreeCards : "1001103",
-//         HeroSlot : "1001104",
-//         BitCoin:  "1001051" ,
-//         CasinoHPoker: "1001053"
-//     },
-//     password: "",
-//     gamelobbyurl: "",
-//     urlWebsocket: "wss://l1-proxy2.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
-//     urlOrigin: "https://l1-games2.lumigame.com",
-//     protocol: "wss",
-//     retrieveEndGame : "https://l1-ows2.lumigame.com/SabaClub/RetrieveEndGameInfo",
-//     setBalance : "https://l1-ows2.lumigame.com/SabaClub/CreateCustomer"
-// }
+export const cf_local3 ={
+    url: "https://l1-glbs3.lumigame.com/signin",
+    usernameSSO: "",
+    memberId: {
+        BlackJack : "1001051",
+        Sedie : "1001052",
+        VipSedie : "1001053",
+        Sicbo:  "1001054",
+        Keno:  "1001055",
+        Baccarat:  "1001056",
+        Roulette:  "1001057",
+        BigSmall : "1001058",
+        MiniSedie: "1001059",
+        TurboBigSmall: "1001060",
+        TurboOddEven: "1001061",
+        SedieWar: "1001062",
+        BigSmallSicbo: "1001063",
+        FourGuardians: "1001064",
+        Lottery: "1001065",
+        FishPrawnCrab: "1001100",
+        DragonTiger:  "1001066",
+        SpecialSedie: "1001067",
+        KenoProMax: "1001068",
+        VipFishPrawnCrab: "1001101",
+        VipBaccarat : "1001102",
+        ThreeCards : "1001103",
+        HeroSlot : "1001104",
+        BitCoin:  "1001051" ,
+        CasinoHPoker: "1001053"
+    },
+    password: "",
+    gamelobbyurl: "",
+    urlWebsocket: "wss://l1-proxy3.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
+    urlOrigin: "https://l1-games3.lumigame.com",
+    protocol: "wss",
+    retrieveEndGame : "https://l1-ows2.lumigame.com/SabaClub/RetrieveEndGameInfo",
+    setBalance : "https://l1-ows3.lumigame.com/SabaClub/CreateCustomer"
+}
 
-export const cf_local = {
+export const cf_local1 = {
   url: "https://l1-glbs1.lumigame.com/signin",
   usernameSSO: "",
   memberId: {
@@ -147,7 +147,7 @@ export const cf_local = {
   setBalance: "https://l1-ows1.lumigame.com/SabaClub/CreateCustomer",
 };
 
-export const cf_local1 = {
+export const cf_local = {
   url: "https://gamelobby-simulator.lumigame.com/signin",
   usernameSSO: "",
   memberId: {

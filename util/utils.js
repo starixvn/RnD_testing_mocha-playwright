@@ -761,7 +761,12 @@ export const Login = async (_env, _game) => {
 };
 
 export const getDataJsonPath = async (_rawData, _jsonpath) => {
-  return jp.value(JSON.parse(_rawData), _jsonpath);
+  try {
+    return jp.value(JSON.parse(_rawData), _jsonpath);
+  } catch (error) {
+    console.log('getDataJsonPath',_rawData);
+  }
+ 
 };
 
 // Get Keys of Object By Value

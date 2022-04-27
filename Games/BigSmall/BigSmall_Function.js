@@ -76,9 +76,12 @@ export const ClosePreset = async() => {
 export const verifyMd5 = async() => {
   wsMessageReceived = []
   await waitUtilNewRound()
-  let _found = await utils.getWsMessage("resultHash");
-  _found = (_found === null) ? await utils.getRowDataFromJS('BigSmall','"BigSmall",{"md5"'): _found
+  let _found = await utils.getRowDataFromJS("BigSmall", "resultHash");
+  _found = (_found == 'null')? await utils.getRowDataFromJS("BigSmall", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
   let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+  // let _found = await utils.getWsMessage("resultHash");
+  // _found = (_found == 'null') ? await utils.getRowDataFromJS('BigSmall','"BigSmall",{"md5"'): _found
+  // let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
   wsMessageReceived = []
   await utils.sleep(40000)
   let _settle = await utils.getRowDataFromJS('BigSmall','{"finish"')
@@ -90,10 +93,6 @@ export const verifyMd5 = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  // const _big= await utils.findImage(BigSmallLocator.Big.ImageCompare,BigSmallLocator.Big)
-  // await utils.shouldBeEqual(_big.Val,true,'Check big')  
-  // const _small= await utils.findImage(BigSmallLocator.Small.ImageCompare,BigSmallLocator.Small)
-  // await utils.shouldBeEqual(_small.Val,true,'Check small')  
   let found =await utils.wsFindMessage('signedIn')
   await utils.shouldBeEqual(found.Val, true,'Check login success')
   utils.sleep(5000)

@@ -62,6 +62,7 @@ export const verifyMd5 = async() => {
     wsMessageReceived = []
     await waitUtilNewRound()
     let _found = await utils.getRowDataFromJS("minisedie", "resultHash");
+    _found = (_found == 'null')? await utils.getRowDataFromJS("minisedie", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
     let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
     wsMessageReceived.length=0
     let _result = await getResult('md5')
