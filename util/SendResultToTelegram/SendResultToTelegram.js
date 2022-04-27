@@ -9,7 +9,7 @@ describe('Send Message', ()=>{
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         // // //#### TelegramBot
-        if (result.finalresult === 'Failed' ) {
+        if (result.finalresult == 'Failed' ) {
             chai.request("https://api.telegram.org")
             .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
             .send({
@@ -38,7 +38,7 @@ describe('Send Message', ()=>{
 
 const envToString = async(_env)=>{
     if(_env === 'cf_local') return 'Local'
-    else if(_env === 'cf_local1') return 'Local1'
+    else if(_env === 'cf_local1') return 'Local1️⃣'
     else if(_env === 'cf_sit') return 'SIT'
     else if(_env === 'cf_uat') return 'UAT'
     else if(_env === 'cf_prod') return 'PRO'
