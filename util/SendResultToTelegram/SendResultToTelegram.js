@@ -9,7 +9,7 @@ describe('Send Message', ()=>{
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         // // //#### TelegramBot
-        if (result.finalresult == 'Failed' ) {
+        if (result.finalresult == 'Failed' && env != 'PRO') {
             chai.request("https://api.telegram.org")
             .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
             .send({
@@ -19,20 +19,18 @@ describe('Send Message', ()=>{
             }).end( async(err,res)=>{
                 expect(res).to.have.status(200)})  
         }
-     
-        // // #### Skynet 
-        // await chai.request("https://bot.nexdev.net")
-        // .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
-        // .send({
-        //     token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-        //     conversationId: -1001516404043,
-        //     parse_mode: "Markdown",
-        //     message: `${mainContent} ${mode} Test ${env} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
-        //     // message: `${mainContent} ${mode} Test ${env} - ⏱: ${rs.ExecutionTime}- [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
-        // })
-
-
-        // }
+        if ( env == 'PRO') {
+        // #### Skynet 
+         let status = result.finalresult == 'Passed' ? '✅' :'❌'        
+        await chai.request("https://bot.nexdev.net")
+        .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+        .send({
+            token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+            conversationId: -1001516404043,
+            parse_mode: "Markdown",
+            message: `🖥 ${env}: ${result.testSuiteName}:  ${status} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
+        })
+        }
     })  
 })
 

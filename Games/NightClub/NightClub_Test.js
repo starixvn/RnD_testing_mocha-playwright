@@ -3,11 +3,9 @@ const addContext = require('mochawesome/addContext')
 import * as utils from '../../util/utils'
 import * as NightClubFunc from './NightClub_Function'
 import * as GameLobbyFunc from '../References/GameLobby_Function'
-import * as ResultFunc from '../References/Result_Function'
 const NightClubLocator = (process.env.npm_config_cf_lang === 'en' ? require('./NightClub_Locator').NightClubLocator_en : require('./NightClub_Locator').NightClubLocator_vn)
 
 describe('======== AUTOMATION TEST RESULT NIGHTCLUB LADY ========', ()=>{
-
   before(async function(){
     await utils.wsHearMessageOn()
     await utils.Login(env,game);

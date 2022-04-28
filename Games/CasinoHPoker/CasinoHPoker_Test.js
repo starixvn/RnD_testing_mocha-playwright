@@ -30,7 +30,7 @@ describe("======== AUTOMATION TEST RESULT CasinoH'em Poker ========", ()=>{
     await CasinoHPokerFunc.VerifyDealerContent()
     })  
 
- it('TC_03_Full_Smoke_Verify User can open History popup ', async () => {
+ it('TC_03_Full_Verify User can open History popup ', async () => {
     await CasinoHPokerFunc.OpenHistory()
     await CasinoHPokerFunc.VerifyHistoryContent()
     await CasinoHPokerFunc.CloseHistory()

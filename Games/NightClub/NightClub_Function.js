@@ -4,7 +4,7 @@ const NightClubLocator = (process.env.npm_config_cf_lang === 'en' ? require('./N
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
 
-let wsm = '42/user/nightclub,["NightClub"'
+let wsm = '"NightClub"'
 
 
 
@@ -14,9 +14,7 @@ export const _clickPos = async(_locator) => {
   }
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/nightclub,["message",{"toGame":"NightClub"}]')
-    expect(_result.Val).to.equal(true)
-    await utils.findImage(NightClubLocator.PayLine.ImageCompare,NightClubLocator.PayLine)
+ await utils.verifySignInSuccessfully()
 }
 
 export const OpenPlayLineDetail = async() => {
@@ -214,8 +212,8 @@ export const checkSettlement = async (placebetfunc,args) => {
 export const getSettlementResult = async () => {
     try {
         let _time = new Date().toISOString()
-        let _status = await getRawData(`${wsm},{"endBet":`)
-        let _finish = await getRawData(`${wsm},{"finish":`)
+        let _status = await utils.getRowDataFromJS('NightClub','{"endBet":')
+        let _finish = await utils.getRowDataFromJS('NightClub','{"finish":')
         let _red = await utils.getDataJsonPath(_status,`$..red`)
         let _betstake = await utils.getDataJsonPath(_status,`$..endBet`)
         let _freespin = await utils.getDataJsonPath(_status,`$..freeSpin`)

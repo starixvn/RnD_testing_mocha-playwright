@@ -97,9 +97,9 @@ export const repareData_vn = async()=> {
         let totalpassed =  jp.value(jsonResult,'$..stats.passes')
         let totalfailed =  jp.value(jsonResult,'$..stats.failures')
         let testSuiteName =  jp.query(jsonResult,'$..tests[0]..fullTitle')
-        let temp = testSuiteName[0].match(/(.*) TC_/,'$1')[0].replace("======== TC_","").trim();
-        temp= temp.split('======== AUTOMATION TEST RESULT')
-        testSuiteName =temp[1]
+        let temp = testSuiteName[0].split('======== AUTOMATION TEST RESULT')
+        temp = temp[1].split('========')
+        testSuiteName =temp[0].trim()
         let finalresult = totalfailed > 0 ? 'Failed' : 'Passed';
         return {totalpassed: totalpassed,totalfailed:totalfailed,finalresult:finalresult,testSuiteName:testSuiteName}
     } catch {

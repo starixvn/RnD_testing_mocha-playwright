@@ -34,7 +34,7 @@ describe("======== AUTOMATION TEST RESULT TEXAS HOLD'EM ========", () => {
       //skip guide md5
       await TexasHoldEmFunc.SkipGuideMD5();
     });
-    it('TC_02_Full_Smoke_History pop_up', async () => {
+    it('TC_02_Full_History pop_up', async () => {
       await TexasHoldEmFunc.OpenHistory()
       await TexasHoldEmFunc.VerifyHistoryContent()
       await TexasHoldEmFunc.CloseHistory
