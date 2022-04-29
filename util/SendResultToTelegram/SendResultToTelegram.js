@@ -9,13 +9,25 @@ describe('Send Message', ()=>{
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         // // //#### TelegramBot
-        if (result.finalresult == 'Failed' && env != 'PRO') {
-            chai.request("https://api.telegram.org")
-            .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
+        // if (result.finalresult == 'Failed' && env != 'PRO') {
+        //     chai.request("https://api.telegram.org")
+        //     .post("/bot2088610410:AAFdYvdtV9h2AucxKqhA5oztPMwSBJIcO_s/sendMessage")
+        //     .send({
+        //         chat_id: -605245129,
+        //         parse_mode: "Markdown",
+        //         text: `💻 ${env}: ${result.testSuiteName}:  ${result.totalfailed} ❌ [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job}) `
+        //     }).end( async(err,res)=>{
+        //         expect(res).to.have.status(200)})  
+        // }
+        if (result.finalresult != 'Failed' && env != 'PRO') {
+            console.log('here');
+            chai.request("https://bot.nexdev.net")
+            .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
             .send({
-                chat_id: -605245129,
+                token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+                conversationId: -1001652348118,
                 parse_mode: "Markdown",
-                text: `💻 ${env}: ${result.testSuiteName}:  ${result.totalfailed} ❌ [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job}) `
+                message: `💻 ${env}: ${result.testSuiteName}:  ${result.totalfailed} ❌ [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job}) `
             }).end( async(err,res)=>{
                 expect(res).to.have.status(200)})  
         }
