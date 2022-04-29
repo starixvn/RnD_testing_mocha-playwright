@@ -47,8 +47,8 @@ describe('Send Message', ()=>{
 })
 
 const envToString = async(_env)=>{
-    if(_env === 'cf_local') return 'Local'
-    else if(_env === 'cf_local1') return 'Local1️⃣'
+    if(_env === 'cf_local') return 'L1_Local'
+    else if(_env === 'cf_local1') return 'L1_Local1️⃣'
     else if(_env === 'cf_sit') return 'SIT'
     else if(_env === 'cf_uat') return 'UAT'
     else if(_env === 'cf_prod') return 'PRO'
