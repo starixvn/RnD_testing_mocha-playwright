@@ -19,7 +19,7 @@ describe('Send Message', ()=>{
         //     }).end( async(err,res)=>{
         //         expect(res).to.have.status(200)})  
         // }
-        if (result.finalresult != 'Failed' && env != 'PRO') {
+        if (result.finalresult == 'Failed' && env != 'PRO') {
             console.log('here');
             chai.request("https://bot.nexdev.net")
             .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
