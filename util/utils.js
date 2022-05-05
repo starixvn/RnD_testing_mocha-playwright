@@ -3,7 +3,7 @@ import pixelmatch from "pixelmatch";
 import * as MemberSiteFunc from "../Games/References/MemberSite_Function";
 import * as GameLobbyFunc from "../Games/References/GameLobby_Function";
 import * as Mongodb from "mongodb";
-// import  * as hash from 'blueimp-md5'
+const chai = require("chai");
 const W3CWebSocket = require("websocket").w3cwebsocket;
 const fs = require("fs");
 const { createWorker } = require("tesseract.js");
@@ -708,9 +708,9 @@ export const wsHearMessageOff = async () => {
   isHear = false;
 };
 
-// Off Listener Websocket Message
 export const shouldBeEqual = async (_val, _expect, _mess = "") => {
-  global.expect(_val, _mess).to.equal(_expect);
+  global.expect(_val, _mess).to.eql(_expect);
+  // chai.assert(_val == _expect,_mess)
 };
 
 // Login
