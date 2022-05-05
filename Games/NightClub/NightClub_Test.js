@@ -31,20 +31,20 @@ describe('======== AUTOMATION TEST RESULT NIGHTCLUB LADY ========', ()=>{
     it('TC_02_Full_Smoke_Verify Placebet 1 line L1 with stake=1', async () => {
       await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["L1",1,true])
      }) 
-    it('TC_03_Full_Smoke_Verify Placebet Oddline with stake=0.1', async () => {
+    it('TC_03_Full_Smoke_Verify Placebet Oddline with stake= 5', async () => {
       await utils.sleep(3000)
-      await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["OddLine","0_1"])
+      await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["OddLine","5"])
      }) 
-    it('TC_04_Full_Smoke_Verify Placebet Evenline with stake=0.5', async () => {
+    it('TC_04_Full_Smoke_Verify Placebet Evenline with stake=1', async () => {
       await utils.sleep(3000)
-      await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["EvenLine","0_5"])
+      await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["EvenLine","1"])
      }) 
     it('TC_05_Full_Smoke_Verify Placebet All with stake =0.1', async () => {
       await utils.sleep(3000)
       await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["AllLine","0_1"])
      }) 
 
-    it('TC_06_Full_Smoke_Verify Placebet Auto Spin =10', async () => {
+    it('TC_06_Full_Smoke_Verify Placebet Auto Spin =10 and Stake=1', async () => {
       await NightClubFunc.checkSettlement(NightClubFunc.placeBet,["L2",1,false,10])
      }) 
 

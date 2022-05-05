@@ -419,7 +419,7 @@ export const findImage = async (
       }
       setTimeout(() => {
         loop = false;
-      }, config.setting.timeout);
+      }, config.setting.timeout *2);
       // fs.writeFileSync('diff.png', PNG.sync.write(diff));
     }
     return { Val: false, Err: { IsErr: false, ErrMess: "" } };
