@@ -18,10 +18,10 @@ before(async () => {
     viewport: {
       width: config.setting.viewport.width,
       height: config.setting.viewport.height,
-    },
-    recordVideo: {
-      dir: './Report/Videos/',
     }
+    // recordVideo: {
+    //   dir: './Report/vn/Videos/',
+    // }
   });
   await context.grantPermissions(["clipboard-read"]);
   let page = await context.newPage();
