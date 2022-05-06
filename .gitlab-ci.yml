@@ -17,7 +17,7 @@ test1:
     - npm run CI_SelGame_$MODE --args=env=$ENV --game=$PRODUCT --cf_lang=$cf_lang
   after_script:
     - echo "Execute this command after the `script` section completes."  
-    # - npm run sendResultToTelegram --args=Job=$CI_PIPELINE_ID-env=$ENV --cf_lang=$cf_lang --mode=$MODE
+    - npm run sendResultToTelegram --args=Job=$CI_PIPELINE_ID-env=$ENV --cf_lang=$cf_lang --mode=$MODE
   artifacts:
     paths:
       - Report/$cf_lang
