@@ -198,6 +198,7 @@ export const checkSettlement = async (placebetfunc,args) => {
     if (args[3] !='noauto' ) {
         await utils.sleep(args[3] * 2000) //wait auto spin
     }
+    await utils.sleep(3000)
     // get settle result
     let settle_result = await getSettlementResult()
      if (settle_result.totalfreesprin >0) {

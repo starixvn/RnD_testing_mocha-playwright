@@ -28,7 +28,7 @@ describe('======== AUTOMATION TEST RESULT VIP SEDIE ========', ()=>{
 
   it('TC_002_Full_Smoke_Verify Hedgebet', async() => {
       await VipSedieFunc.waitUtilNewRound()
-      await VipSedieFunc.verifyHedgeBet("Even","Odd",10,`"notice":{"errorCode":"SB1939","hedgeBetGroup":["even","odd"]`)
+      await VipSedieFunc.verifyHedgeBet("Even","Odd",10,`"errorCode":"SB1939","hedgeBetGroup":["even","odd"]`)
   })
 
   

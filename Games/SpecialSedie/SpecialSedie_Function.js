@@ -114,7 +114,6 @@ export const VerifyBetStake = async (_pos,_stake) => {
       let findmsg,_found
          _pos = _pos.toLowerCase()
           findmsg = `"${_pos}":${_stake}`
-          console.log(findmsg);
           _found = await utils.wsFindMessage(findmsg,5)
        if(_found.Val==false){
          console.log('ws message to trace bet choice',wsMessageReceived);
@@ -215,9 +214,9 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-      let _found = await utils.getWsMessage('42/user/specialsedie,["SpecialSeDie",{"status"')
+      let _found = await utils.getWsMessage('"status"')
       const res = String(_found).split("42/user/specialsedie,");
-      console.log(res[1]);
+      // console.log(res[1]);
       const obj = JSON.parse(res[1]);
       let _result = jp.value(obj[1],`$..win`);
       let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
@@ -272,7 +271,7 @@ export const GetSettleResult = async(_stake=null) => {
 export const CheckRoundHistory = async() => {
    await OpenHistory()
   await utils.sleep(1000)
-  let _found = await utils.wsFindMessage('42/user/specialsedie,["SpecialSeDie",{"history"')
+  let _found = await utils.wsFindMessage('"history"')
   await utils.shouldBeEqual(_found.Val,true)
   await CloseHistory() // close history
   wsMessageReceived =[]
@@ -287,7 +286,7 @@ export const CheckSettleBalance = async() => {
   await utils.sleep(3000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
-  console.log(_af,_beforebalance,_afterbalance);
+  // console.log(_af,_beforebalance,_afterbalance);
   await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
 }
 
