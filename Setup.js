@@ -12,7 +12,7 @@ before(async () => {
   global.browser = await playwright[config.setting.browser].launch({
     headless: config.setting.headless,
     //  args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
-    args: ["--disable-gpu", "--mute-audio",  '--no-sandbox','--disable-canvas-aa','--disable-infobars', '--hide-scrollbars','--disable-2d-canvas-clip-aa'],
+    args: ["--disable-gpu", "--mute-audio",  '--no-sandbox','--disable-canvas-aa','--disable-infobars', '--hide-scrollbars','--disable-2d-canvas-clip-aa', '--wm-window-animations-disabled'],
   });
   const context = await browser.newContext({
     viewport: {
