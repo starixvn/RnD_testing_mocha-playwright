@@ -24,22 +24,26 @@ describe('======== AUTOMATION TEST RESULT FishPrawnCrab ========', ()=>{
       await FishPrawnCrabFunc.verifySignInSuccessfully()
   })  
 
-  it('TC_002_Full_Smoke_Verify UI of All Bet Choices', async() => {
-      await FishPrawnCrabFunc.verifyBetChoice()
-  })
+  // it('TC_002_Full_Smoke_Verify UI of All Bet Choices', async() => {
+  //     await FishPrawnCrabFunc.verifyBetChoice()
+  // })
   
-  it('TC_037_Full_Smoke_Verify User Can Open History Popup', async() => {
+  it('TC_003_Full_Smoke_Verify User Can Open History Popup', async() => {
     await FishPrawnCrabFunc.openHistory()
     await FishPrawnCrabFunc.verifyHistoryPopup()
     await FishPrawnCrabFunc.closeHistory()
   })
 
-  it('TC_043_Smoke_Verify Place Bet All Bet Choices and check settlement Result', async()=>{
+    it('TC_004_Full_Smoke_Verify MD5 String', async () => {
+    await FishPrawnCrabFunc.verifyMd5()
+  }) 
+
+  it('TC_005_Smoke_Verify Place Bet All Bet Choices and check settlement Result', async()=>{
     let _choice = ['Stag','Gourd','Fish','Rooster','Crab','Prawn']
      await FishPrawnCrabFunc.verifySettlementMultipleChoices(_choice,10)
   })
 
-  it('TC_038_Full_Smoke_Verify User can go back game lobby by click Home button', async() => {
+  it('TC_006_Full_Smoke_Verify User can go back game lobby by click Home button', async() => {
     await FishPrawnCrabFunc.returnClose()
   })
 

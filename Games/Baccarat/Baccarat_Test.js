@@ -35,7 +35,11 @@ describe('======== AUTOMATION TEST RESULT BACCARAT ========', ()=>{
      await BaccaratFunc.verifySettlementMultipleChoices(_choice,1)
   })
 
-  it('TC_004_Full_Smoke_Verify Home', async() => {
+  it('TC_004_Full_Smoke_Verify MD5 String', async () => {
+    await BaccaratFunc.verifyMd5()
+ }) 
+
+  it('TC_005_Full_Smoke_Verify Home', async() => {
     await BaccaratFunc.returnHome()
   })
 

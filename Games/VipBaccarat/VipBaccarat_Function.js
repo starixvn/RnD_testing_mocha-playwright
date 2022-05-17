@@ -8,8 +8,7 @@ const remainingTime = `42/user/vipbaccarat,["VipBaccarat",{"remainingTime":45}]`
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/vipbaccarat,["signedIn"]')
-    expect(_result.Val).to.equal(true)
+    await utils.verifySignInSuccessfully()
 }
 
 export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
@@ -68,8 +67,6 @@ export const verifyHistoryPopup = async() => {
 
 export const closeHistory = async() => {
     await utils.clickPos(VipBaccaratLocator.HistoryClose.x, VipBaccaratLocator.HistoryClose.y)
-    let _result = await utils.findImage(VipBaccaratLocator.Dealer)
-    expect(_result.Val).to.equal(true)
 }
 
 //Wait until new round
@@ -104,23 +101,10 @@ const getBalance = async() => {
     return await utils.getBalance()
 }
 
-const getRawData = async(_mes) => {
-    try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/vipbaccarat,");
-            return raw[1]
-        }
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
-}
 
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/vipbaccarat,["VipBaccarat",{"status":{"winningByChoices`)
+        let rawData = await utils.getRowDataFromJS("VipBaccarat", "status");
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -141,6 +125,7 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     // Get Settle
     wsMessageReceived = []
     let status = await getUserResult()
+    console.log(status);
     let balance = currentBalance +  status.bet
     await utils.sleep(5000)
     currentBalance = await getBalance()
@@ -160,3 +145,18 @@ export const returnHome = async() => {
     await utils.clickPos(VipBaccaratLocator.Home.x, VipBaccaratLocator.Home.y)
     await verifyChoiceClose()
 }
+
+export const verifyMd5 = async() => {
+    await waitUtilNewRound()
+    wsMessageReceived = []
+    let _found = await utils.getRowDataFromJS("VipBaccarat", "hashValue");
+    _found = (_found == 'null')? await utils.getRowDataFromJS("VipBaccarat", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
+    let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+    wsMessageReceived=[]
+    await utils.sleep(40000)
+    let _settle = await utils.getRowDataFromJS('VipBaccarat','{"finish"')
+    let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
+    afmd5 = await utils.generateMd5(afmd5);
+    await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
+  }
+  

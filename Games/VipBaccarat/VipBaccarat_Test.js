@@ -29,19 +29,23 @@ describe('======== AUTOMATION TEST RESULT VIP BACCARAT ========', ()=>{
       // await VipBaccaratFunc.verifyBetChoice()
   })
   
-  it('TC_037_Full_Smoke_Verify History', async() => {
+  it('TC_003_Full_Smoke_Verify History', async() => {
     await utils.sleep(3000)
     await VipBaccaratFunc.openHistory()
     await VipBaccaratFunc.verifyHistoryPopup()
     await VipBaccaratFunc.closeHistory()
   })
 
-  it('TC_043_Smoke_Verify Settlement all Bet Choices', async()=>{
+  it('TC_004_Smoke_Verify Settlement all Bet Choices', async()=>{
     let _choice = ['Big','PlayerPair','Player','Tie','BankerPair']
      await VipBaccaratFunc.verifySettlementMultipleChoices(_choice,10)
   })
 
-  it('TC_038_Full_Smoke_Verify Home', async() => {
+  it('TC_005_Full_Smoke_Verify MD5 String', async () => {
+    await VipBaccaratFunc.verifyMd5()
+ }) 
+
+  it('TC_006_Full_Smoke_Verify Home', async() => {
     await VipBaccaratFunc.returnHome()
   })
 

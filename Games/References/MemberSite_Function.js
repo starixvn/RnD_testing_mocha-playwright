@@ -34,11 +34,11 @@ export const login = async(_env,_game) => {
 
         await utils.waitEl(MemberSiteLocator.imgLogo)
         
-        // Change Language
-        await utils.clickEl(MemberSiteLocator.drpLanguage)
-        await utils.clickEl(MemberSiteLocator.optLanguage)
-        await utils.waitForLoadState()
-        await utils.waitEl(MemberSiteLocator.verifyLanguage)
+        // // Change Language
+        // await utils.clickEl(MemberSiteLocator.drpLanguage)
+        // await utils.clickEl(MemberSiteLocator.optLanguage)
+        // await utils.waitForLoadState()
+        // await utils.waitEl(MemberSiteLocator.verifyLanguage)
     } catch (error) {
         console.error(error.message);
     }

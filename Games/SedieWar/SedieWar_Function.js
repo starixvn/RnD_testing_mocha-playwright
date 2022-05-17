@@ -13,8 +13,7 @@ let Odd = {
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('["message",{"toGame":"VipSedieWar"}]')
-    expect(_result.Val).to.equal(true)
+    await utils.verifySignInSuccessfully()
 }
 
 export const verifyBetChoice = async() => {
@@ -432,7 +431,7 @@ export const verifyDBOne = async(_resultOnWeb)=>{
 //Wait until new round
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
-    let _found = await utils.getWsMessage('42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]')
+    let _found = await utils.getRowDataFromJS("VipSedieWar", "remainingTime");
     await utils.sleep(9000)
   }
 

@@ -75,7 +75,7 @@ export const closeHistory = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-    wsMessageReceived = []
+    wsMessageReceived.lenght=0
     let _found = await utils.getWsMessage(remainingTime)
     await utils.sleep(13000)
 }
@@ -105,23 +105,9 @@ const getBalance = async() => {
     return await utils.getBalance()
 }
 
-const getRawData = async(_mes) => {
-    try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/baccarat,");
-            return raw[1]
-        }
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
-}
-
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`"status"`)
+        let rawData = await utils.getRowDataFromJS("Baccarat", "status");
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -140,6 +126,7 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     await utils.sleep(500)
     let currentBalance = await getBalance()
     // Get Settle
+    await utils.sleep(5000)
     let status = await getUserResult()
     let balance = currentBalance +  status.bet
     await utils.sleep(5000)
@@ -157,7 +144,20 @@ const verifyChoiceClose = async() => {
 }
 
 export const returnHome = async() => {
-    await utils.CaptureSubImageToFile(BaccaratLocator.Dealer)
     await utils.clickPos(BaccaratLocator.Home.x, BaccaratLocator.Home.y)
-    await verifyChoiceClose()
 }
+
+export const verifyMd5 = async() => {
+    await waitUtilNewRound()
+    let _found = await utils.getRowDataFromJS("Baccarat", "hashValue");
+    _found = (_found == 'null')? await utils.getRowDataFromJS("Baccarat", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
+    let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+    wsMessageReceived.lenght=0
+    await utils.sleep(40000)
+    let _settle = await utils.getRowDataFromJS('Baccarat','{"finish"')
+    let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
+    afmd5 = await utils.generateMd5(afmd5);
+    console.log(bfmd5, afmd5);
+    await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
+  }
+  

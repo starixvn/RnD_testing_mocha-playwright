@@ -107,6 +107,19 @@ export const Sliding_Select_Chip = async(_chip) => {
     expect(_result.Val).to.equal(true)
 }
 
+export const verifyMd5 = async() => {
+  await waitUtilNewRound()
+  let _found = await utils.getRowDataFromJS("SicBo", "hashValue");
+  _found = (_found == 'null')? await utils.getRowDataFromJS("SicBo", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
+  let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+  wsMessageReceived =[]
+  await utils.sleep(40000)
+  let _settle = await utils.getRowDataFromJS('SicBo','finish')
+  let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
+  afmd5 = await utils.generateMd5(afmd5);
+  await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
+}
+
 
 //PlaceBet
 export const PlaceBet = async (_pos,_stake,wait='yes') => {
@@ -194,7 +207,7 @@ export const VerifyGuideContent = async() => {
 //Wait until new round
 export const waitUtilNewRound = async() => {
   wsMessageReceived = []
-  let _found = await utils.getWsMessage('42/user/sicbo,["SicBo",{"remainingTime":57}')
+  let _found = await utils.getWsMessage('"remainingTime":57')
   await utils.sleep(8000)
   console.log('new round ready')
 }
@@ -207,26 +220,13 @@ export const IsBetFail = async() => {
   return _found.Val
 }
 
-const getRawData = async(_mes) => {
-  try {
-      let raw = await utils.getWsMessage(_mes)
-      if(raw === null) return null
-      else {
-          raw = raw.split("42/user/sicbo,");
-            return raw[1]
-      }
-  } catch (error) {
-      console.log(error.message)
-      return null
-  }
-}
 
 //Get Settlement Result
 export const getSettlementResult = async () => {
   try {
       let _time = new Date().toISOString()
-      let _status = await getRawData(`${wsbigsmallsb},{"status":`)
-      let _finish = await getRawData(`${wsbigsmallsb},{"finish":`)
+      let _status = await utils.getRowDataFromJS('SicBo',"status")
+      let _finish = await utils.getRowDataFromJS('SicBo','finish')
       let _win = await utils.getDataJsonPath(_status,`$..win`)
       let _betstake = await utils.getDataJsonPath(_status,`$..bet`)
       let _settlement = await utils.getDataJsonPath(_finish,`$..settlementResult`)
@@ -269,7 +269,7 @@ export const checkSettlement = async (placebetfunc,args) => {
 export const CheckRoundHistory = async(_settleresult) => {
   await OpenHistory()
   await utils.sleep(3000)
-  let _result = await getRawData(`${wsbigsmallsb},{"history"`)
+  let _result = await utils.getRowDataFromJS('SicBo',"history")
   let _roundresult = await utils.getDataJsonPath(_result,`$..[?(@.phien==${_settleresult.roundId})]`)
   let _settlement =_roundresult.settlementResult
   let _choicewin = await utils.getKeysByValue(_settlement,true)

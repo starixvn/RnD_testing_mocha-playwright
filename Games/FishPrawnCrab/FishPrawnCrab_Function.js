@@ -2,14 +2,14 @@ import * as utils from '../../util/utils'
 const FishPrawnCrabLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./FishPrawnCrab_Locator').FishPrawnCrabLocator_vn : require('./FishPrawnCrab_Locator').FishPrawnCrabLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
-const remainingTime = `42/user/baucua,["BauCua",{"remainingTime":40}]`
+const remainingTime = `42/user/fishprawncrab,["FishPrawnCrab",{"remainingTime":40}]`
 
 
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/baucua,["signedIn"]')
-    expect(_result.Val).to.equal(true)
+    await utils.verifySignInSuccessfully()
+    await waitUtilNewRound()
 }
 
 export const verifyBetChoice = async() => {
@@ -39,16 +39,10 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
-    let res = await utils.wsFindMessage('42/user/baucua,["BauCua",{"history"')
-    await utils.shouldBeEqual(res.Val, true,'Check History')
-    // let flag = await utils.findImage(FishPrawnCrabLocator.History)
-    // await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const closeHistory = async() => {
     await utils.clickPos(FishPrawnCrabLocator.HistoryClose.x, FishPrawnCrabLocator.HistoryClose.y)
-    let _result = await utils.findImage(FishPrawnCrabLocator.Stag)
-    expect(_result.Val).to.equal(true)
 }
 
 //Wait until new round
@@ -83,23 +77,10 @@ const getBalance = async() => {
     return await utils.getBalance()
 }
 
-const getRawData = async(_mes) => {
-    try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/baucua,");
-            return raw[1]
-        }
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
-}
-
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/baucua,["BauCua",{"status":{"winningByChoices`)
+        let rawData = await utils.getRowDataFromJS("FishPrawnCrab", "status")
+        console.log('getUserResult',rawData);
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -138,3 +119,16 @@ export const returnClose = async() => {
     await utils.clickPos(FishPrawnCrabLocator.Close.x, FishPrawnCrabLocator.Close.y)
     await verifyChoiceClose()
 }
+
+export const verifyMd5 = async() => {
+    await waitUtilNewRound()
+    let _found = await utils.getRowDataFromJS("FishPrawnCrab", "hashValue");
+    _found = (_found == 'null')? await utils.getRowDataFromJS("FishPrawnCrab", "md5"): _found //handle case local get md5 code form string md5/ prod get from string resultHash
+    let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
+    wsMessageReceived.lenght=0
+    await utils.sleep(40000)
+    let _settle = await utils.getRowDataFromJS('FishPrawnCrab','{"finish"')
+    let afmd5 =  await utils.getDataJsonPath(_settle, `$..rawValue`)
+    afmd5 = await utils.generateMd5(afmd5);
+    await utils.shouldBeEqual(bfmd5, afmd5,'check md5')
+  }

@@ -32,6 +32,10 @@ describe('======== AUTOMATION TEST RESULT BIG SMALL SICBO ========', ()=>{
     await utils.sleep(5000)
     await BigSmallSBFunc.verifyHedgeBet('Big','Small',1,'{"errorCode":"SB1939","hedgeBetGroup":["big","small"]')
   })  
+
+  it('TC_23_Full_Smoke_Verify MD5 String', async () => {
+    await BigSmallSBFunc.verifyMd5()
+  }) 
   
 
   it('TC_06_Full_Verify bet chips', async () => {
