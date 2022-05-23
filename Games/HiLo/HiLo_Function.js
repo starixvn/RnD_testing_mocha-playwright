@@ -47,26 +47,10 @@ const returnMachedtData= async(msg)=>{
     }
 }  
 
-const getRawData = async(_mes) => {
-  try {
-      let raw = await returnMachedtData(_mes)
-      if(raw.includes('42/user/hilo,')){
-        let res = String(raw).split("42/user/hilo,");
-        return res[1]
-      } 
-      else {
-      return raw
-      }
-  } catch (error) {
-      console.log(error.message)
-      return null
-  }
-}
-
 //Get Settlement Result
 export const getSettlementResult = async () => {
   try {
-      let _status = await getRawData("status")
+    _status = await utils.getRowDataFromJS("Hilo","status")
       // console.log('_status',_status);
       let _win = await utils.getDataJsonPath(_status,`$..win`)
       let _bet = await utils.getDataJsonPath(_status,`$..bet`)
@@ -82,13 +66,13 @@ export const GetsettleOdd = async (getamountopt='endBet') => {
       await utils.sleep(1000)
       let _status, _nextAmounts, lowodd, hiodd, _basedcard
       if(getamountopt=='endBet'){
-        _status = await getRawData("endBet")
+        _status = await utils.getRowDataFromJS("Hilo","endBet")
         _nextAmounts = await utils.getDataJsonPath(_status,`$..nextAmounts`)
         lowodd = (parseFloat(_nextAmounts.h) >= parseFloat(_nextAmounts.l))? "Lo"  : "Hi"
         hiodd = (lowodd == "Lo")? "Hi" : "Lo"
        }
        else {
-        _status = await getRawData("endDeal")
+        _status = await getRowDataFromJS("Hilo","endDeal")
         _basedcard = await utils.getDataJsonPath(_status,'$..result.result[(@.length-1)].rank') 
         _nextAmounts = await utils.getDataJsonPath(_status,`$..nextAmounts`)
         // console.log('base card',_basedcard);

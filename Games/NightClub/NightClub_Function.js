@@ -66,12 +66,7 @@ export const getBalance = async() => {
 }
 const getRawData = async(_mes) => {
     try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/nightclub,");
-            return raw[1]
-        }
+        return await utils.getRowDataFromJS('nightclub',_mes)
     } catch (error) {
         console.log(error.message)
         return null

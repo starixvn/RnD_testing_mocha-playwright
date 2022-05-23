@@ -44,12 +44,7 @@ export const CloseHistory = async() => {
 
 const getRawData = async(_mes) => {
   try {
-      let raw = await utils.getWsMessage(_mes)
-      if(raw === null) return null
-      else {
-          raw = raw.split("42/user/casinoholdempoker,");
-            return raw[1]
-      }
+    return await utils.getRowDataFromJS('casinoholdempoker',_mes)
   } catch (error) {
       console.log(error.message)
       return null

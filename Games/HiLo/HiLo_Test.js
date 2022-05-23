@@ -26,25 +26,25 @@ describe("======== AUTOMATION TEST RESULT HILO========", ()=>{
     await HiLoFunc.VerifySignInSuccessfully()
   })  
 
- it('TC_03_Full_Smoke_Verify User can open History popup ', async () => {
+ it('TC_02_Full_Smoke_Verify User can open History popup ', async () => {
     await HiLoFunc.OpenHistory()
     await HiLoFunc.VerifyHistoryContent()
     await HiLoFunc.CloseHistory()
     })  
    
- it('TC_04_Full_Smoke_Verify User Can select Lo and Collect at turn 1', async () => {
+ it('TC_03_Full_Smoke_Verify User Can select Lo and Collect at turn 1', async () => {
    await HiLoFunc.PlaceBet("Chip5","Lowodd",1)
   })  
 
-  it('TC_05_Full_Smoke_Verify User Can select Hi and Collect at turn 1', async () => {
+  it('TC_04_Full_Smoke_Verify User Can select Hi and Collect at turn 1', async () => {
     await HiLoFunc.PlaceBet("Chip5","Hiodd",1)
    })  
 
-   it('TC_06_Full_Smoke_Verify User Can select Lo and placbet until win/losse', async () => {
+   it('TC_05_Full_Smoke_Verify User Can select Lo and placbet until win/losse', async () => {
     await HiLoFunc.PlaceBet("Chip5","Lowodd",10)
    })  
    
- it('TC_07_Full_Smoke_Verify Close Game Success', async () => {
+ it('TC_06_Full_Smoke_Verify Close Game Success', async () => {
       await HiLoFunc.ReturnHome()
   }) 
 

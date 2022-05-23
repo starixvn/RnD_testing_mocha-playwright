@@ -159,7 +159,7 @@ export const verifyBetAtBlockBettingTime = async() => {
 
 export const verifyBetAtSettlementTime = async()=> {
     wsMessageReceived = []
-    await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]`)
+    await utils.wsFindMessage(`{"remainingTime":54}]`)
     let _result = await utils.betProcess(SedieWarLocator.Even.x,SedieWarLocator.Even.y,`notice":{"errorCode":"SB1905"`)
     expect(_result.Val).to.equal(true)
 }
@@ -172,7 +172,7 @@ export const verifyMaxBet = async(_choice) =>{
     if (_choice === 'Round'){
         // Wait to Finish Game
         wsMessageReceived = []
-        await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"remainingTime":54}]`)
+        await utils.wsFindMessage(`{"remainingTime":54}]`)
         // Wait to new round
         await utils.sleep(9000)
         await placeBet("Even")
@@ -197,12 +197,7 @@ export const getBalance = async() => {
 }
 const getRawData = async(_mes) => {
     try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/vipsediewar,");
-            return raw[1]
-        }
+        return await utils.getRowDataFromJS('vipsediewar',_mes)
     } catch (error) {
         console.log(error.message)
         return null
@@ -211,7 +206,7 @@ const getRawData = async(_mes) => {
 
 const getResult =  async() => {
     try {
-        let rawData = await getRawData(`42/user/vipsediewar,["VipSedieWar",{"finish":{"result"`)
+        let rawData = await getRawData(`"result"`)
         return { 
             roundId : await utils.getDataJsonPath(rawData, `$..roundId`),
             result : await utils.getDataJsonPath(rawData,`$..finish.result`),
@@ -224,7 +219,7 @@ const getResult =  async() => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/vipsediewar,["VipSedieWar",{"status":{"winningByChoices":`)
+        let rawData = await getRawData(`{"status"`)
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -242,7 +237,7 @@ export const verifySettlement = async(_choice,_chip=1) => {
     lowcase = _choice.charAt(0).toLowerCase() + _choice.slice(1);
     wsMessageReceived = []
     // Wait to Finish Game
-    await utils.wsWaitMessage(`42/user/vipsediewar,["VipSedieWar",{"finish"`)
+    await utils.wsWaitMessage(`{"finish"`)
     //await utils.wsFindMessage(`42/user/vipsediewar,["VipSedieWar",{"finish"`)
     await utils.sleep(9000)
      // Wait to new round
@@ -344,7 +339,7 @@ export const openHistory = async() => {
 export const verifyHistoryPopup = async() => {
     await utils.sleep(2000)
     // await utils.CaptureSubImageToFile(SedieWarLocator.History)
-    let res = await utils.wsFindMessage('42/user/vipsediewar,["VipSedieWar",{"history"')
+    let res = await utils.wsFindMessage('"history"')
     await utils.shouldBeEqual(res.Val, true,'Check History')
     // let flag = await utils.findImage(SedieWarLocator.History)
     // await utils.shouldBeEqual(flag.Val,true)

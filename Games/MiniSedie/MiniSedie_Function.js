@@ -140,10 +140,7 @@ const getBalance = async() => {
 }
 const getRawData = async(_mes) => {
     try {
-        let raw = await utils.getWsMessage(_mes)
-        let res = String(raw).split("42/user/minisedie,");
-        res= (res[0].length>1) ? res[0] : res[1]
-        return res
+        return await utils.getRowDataFromJS('minisedie',_mes)
     } catch (error) {
         console.log(error.message)
         return null

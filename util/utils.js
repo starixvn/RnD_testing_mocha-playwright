@@ -1055,8 +1055,6 @@ export const verifyBlockTime = async (_game, _placebetfunc, args) => {
 export const getRowDataFromJS = async (_gamenamefilter, _mes) => {
   try {
     let raw = await getWsMessage(_mes)
-    // let raw = wsMessageReceived.filter((element) => element.includes(_mes));
-    // raw = raw.pop();
     _gamenamefilter = _gamenamefilter.toLowerCase();
     let res = String(raw).split(`42/user/${_gamenamefilter},`);
     res= (res[0].length>1) ? res[0] : res[1]

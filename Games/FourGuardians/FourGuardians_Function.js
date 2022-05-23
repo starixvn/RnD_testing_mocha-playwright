@@ -218,13 +218,9 @@ export const VerifyPaylineAll = async() => {
 
 const getRawData = async(_mes) => {
   try {
-      let raw = await utils.getWsMessage(_mes)
-      if(raw === null) return null
-      else {
-          raw = raw.split("42/user/fourguardians,");
-            return raw[1]
+    return await utils.getRowDataFromJS('fourguardians',_mes)
       }
-  } catch (error) {
+  catch (error) {
       console.log(error.message)
       return null
   }
