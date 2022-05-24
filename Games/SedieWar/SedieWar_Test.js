@@ -24,6 +24,7 @@ describe('======== AUTOMATION TEST RESULT SEDIE WAR ========', ()=>{
   let result;
   it('TC_001_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
       await SedieWarFunc.verifySignInSuccessfully()
+      await SedieWarFunc.waitUtilNewRound() //handle timming issue on Git Machine
   })  
 
   it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {

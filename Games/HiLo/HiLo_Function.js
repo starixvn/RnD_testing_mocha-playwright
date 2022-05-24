@@ -72,7 +72,7 @@ export const GetsettleOdd = async (getamountopt='endBet') => {
         hiodd = (lowodd == "Lo")? "Hi" : "Lo"
        }
        else {
-        _status = await getRowDataFromJS("Hilo","endDeal")
+        _status = await utils.getRowDataFromJS("Hilo","endDeal")
         _basedcard = await utils.getDataJsonPath(_status,'$..result.result[(@.length-1)].rank') 
         _nextAmounts = await utils.getDataJsonPath(_status,`$..nextAmounts`)
         // console.log('base card',_basedcard);
