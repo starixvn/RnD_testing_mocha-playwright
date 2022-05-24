@@ -34,6 +34,7 @@ describe('======== AUTOMATION TEST RESULT SPECIAL SEDIE ========', ()=>{
     await SpecialSedieFunc.waitUtilNewRound()
     let stake = 1, pos= 'Odd'
     await SpecialSedieFunc.PresetChip(stake)
+    await SpecialSedieFunc.waitUtilNewRound()
     await SpecialSedieFunc.PlaceBet(pos,null,'nowait')
     await SpecialSedieFunc.CheckSettleBalance()
     }) 
