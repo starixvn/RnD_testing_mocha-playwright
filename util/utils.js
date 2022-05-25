@@ -41,13 +41,10 @@ const FindMessage = async (_mes) => {
     return false;
   }
 };
-const getMessage = async (_mes) => {
+export const getMessage = async (_mes) => {
   try {
     if (typeof wsMessageReceived !== "undefined") {
-      const _found = wsMessageReceived.filter((element) =>
-        element.includes(_mes)
-      );
-      // console.log(_found)
+      const _found = wsMessageReceived.filter((element) => element.includes(_mes));
       if (_found.length !== 0) return _found.pop();
     }
     return null;
@@ -419,7 +416,7 @@ export const findImage = async (
       }
       setTimeout(() => {
         loop = false;
-      }, config.setting.timeout *2);
+      }, config.setting.timeout * 2);
       // fs.writeFileSync('diff.png', PNG.sync.write(diff));
     }
     return { Val: false, Err: { IsErr: false, ErrMess: "" } };
@@ -677,23 +674,26 @@ export const wshear = async (ws) => {
       if (isHear === true) {
         if (typeof msg.payload != "string") {
           let temp = msgpack.unpack(msg.payload);
-        //   console.log('msgpack',JSON.stringify(temp.data));
           wsMessageReceived.push(JSON.stringify(temp.data));
         } else {
           wsMessageReceived.push(msg.payload);
-          // console.log('normal msg',msg.payload);
         }
       } else {
         wsMessageReceived = [];
       }
     });
-    // ws.on('framesent', async msg1 => {
-    //     console.log('framesent',msg1.payload );
-    //         if(typeof msg1.payload == "object" ){
-    //               console.log('send',typeof msg1.payload,msgpack.unpack(msg1.payload));
-    //         }
-
-    // })
+    ws.on("framesent", async (msg) => {
+      if (isHear === true) {
+        if (typeof msg.payload != "string") {
+          let temp = msgpack.unpack(msg.payload);
+          wsMessageSend.push(JSON.stringify(temp.data));
+        } else {
+          wsMessageSend.push(msg.payload);
+        }
+      } else {
+        wsMessageSend = [];
+      }
+    });
   }
 };
 
@@ -764,9 +764,8 @@ export const getDataJsonPath = async (_rawData, _jsonpath) => {
   try {
     return jp.value(JSON.parse(_rawData), _jsonpath);
   } catch (error) {
-    console.log('getDataJsonPath',_rawData);
+    console.log("getDataJsonPath", _rawData);
   }
- 
 };
 
 // Get Keys of Object By Value
@@ -774,11 +773,10 @@ export const getKeysByValue = async (object, value) => {
   return Object.keys(object).filter((key) => object[key] === value);
 };
 
-export const verifySignInSuccessfully = async() => {
-  let _result = await wsFindMessage('signedIn')
-  expect(_result.Val).to.equal(true)
-}
-
+export const verifySignInSuccessfully = async () => {
+  let _result = await wsFindMessage("signedIn");
+  expect(_result.Val).to.equal(true);
+};
 
 export const getUIBalance = async (
   _path,
@@ -903,7 +901,6 @@ export const wsClient = class {
         break;
       }
       await sleep(200);
-      // console.log("Wait Websocket Message: "+ messageWait)
     }
     return _found.pop();
   }
@@ -941,10 +938,10 @@ export const wsClient = class {
 };
 
 export const getSession = async () => {
-  const _rawData = await getWsMessage('{"Authorized":true');
-  session = await getDataJsonPath(_rawData, "$..ss.ss");
-  username = await getDataJsonPath(_rawData, "$..ss.username");
-  name = await getDataJsonPath(_rawData, "$..user.name");
+  await sleep(5000);
+  const _rawData = wsMessageSend.filter(element => element.includes('{"ss":'));
+  session = await getDataJsonPath(_rawData, "$..ss");
+  username = await getDataJsonPath(_rawData, "$..username");
 };
 export const getName = async () => {
   return await name;
@@ -1054,11 +1051,11 @@ export const verifyBlockTime = async (_game, _placebetfunc, args) => {
 //handle for ws data with normal or msgpack style
 export const getRowDataFromJS = async (_gamenamefilter, _mes) => {
   try {
-    let raw = await getWsMessage(_mes)
+    let raw = await getWsMessage(_mes);
     _gamenamefilter = _gamenamefilter.toLowerCase();
     let res = String(raw).split(`42/user/${_gamenamefilter},`);
-    res= (res[0].length>1) ? res[0] : res[1]
-    return res
+    res = res[0].length > 1 ? res[0] : res[1];
+    return res;
   } catch (error) {
     console.log(error.message);
     return null;

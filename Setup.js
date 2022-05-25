@@ -9,6 +9,7 @@ const expect = chai.expect;
 before(async () => {
   const args = await parseArg(process.env.npm_config_args);
   global.wsMessageReceived = [];
+  global.wsMessageSend =[];
   global.browser = await playwright[config.setting.browser].launch({
     headless: config.setting.headless,
     //  args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
