@@ -3,6 +3,7 @@ const GameLobbyLocator = (process.env.npm_config_cf_lang == 'vn' ? require('../R
 const SedieWarLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./SedieWar_Locator').SedieWarLocator_vn : require('./SedieWar_Locator').SedieWarLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
+import { should } from 'chai'
 const jp = require('jsonpath');
 
 let Odd = { 
@@ -438,6 +439,7 @@ export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
     await utils.sleep(200)
     await utils.clickPos(SedieWarLocator[`${_choice2}`].x, SedieWarLocator[`${_choice2}`].y)
     let _result = await utils.wsFindMessage(ermsg,20)
+    await utils.shouldBeEqual(_result.Val,true,`check hedgebet ${ermsg}`)
     expect(_result.Val).to.equal(true)
 }
 
