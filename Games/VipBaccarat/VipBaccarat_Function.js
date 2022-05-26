@@ -72,7 +72,7 @@ export const closeHistory = async() => {
 //Wait until new round
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
-    let _found = await utils.getWsMessage(remainingTime)
+    let _found = await utils.getWsMessage('{"remainingTime":45}')
     await utils.sleep(13000)
 }
 
@@ -125,7 +125,6 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     // Get Settle
     wsMessageReceived = []
     let status = await getUserResult()
-    console.log(status);
     let balance = currentBalance +  status.bet
     await utils.sleep(5000)
     currentBalance = await getBalance()

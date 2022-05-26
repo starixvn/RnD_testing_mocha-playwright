@@ -81,7 +81,7 @@ export const closeHistory = async() => {
 //Wait until new round
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
-    let _found = await utils.getWsMessage(remainingTime)
+    let _found = await utils.getWsMessage('{"remainingTime":42}')
     await utils.sleep(8000)
 }
 

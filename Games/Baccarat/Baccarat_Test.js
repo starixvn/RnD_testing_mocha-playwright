@@ -24,7 +24,7 @@ describe('======== AUTOMATION TEST RESULT BACCARAT ========', ()=>{
 
   
   it('TC_002_Full_Smoke_Verify History', async() => {
-    await utils.sleep(3000)
+    await BaccaratFunc.waitUtilNewRound()
     await BaccaratFunc.openHistory()
     await BaccaratFunc.verifyHistoryPopup()
     await BaccaratFunc.closeHistory()
