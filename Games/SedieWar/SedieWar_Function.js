@@ -428,7 +428,7 @@ export const verifyDBOne = async(_resultOnWeb)=>{
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
     let _found = await utils.getRowDataFromJS("VipSedieWar", "remainingTime");
-    await utils.sleep(9000)
+    await utils.sleep(10000)
   }
 
 

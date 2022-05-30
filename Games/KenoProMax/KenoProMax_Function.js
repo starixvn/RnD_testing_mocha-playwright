@@ -11,8 +11,8 @@ export const CloseGame = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/kenopromax,["KenoProMax",{"remainingTime":39}]')
-  await utils.sleep(9000)
+  let _found = await utils.getWsMessage('"remainingTime":39}]')
+  await utils.sleep(11000)
   // /await utils.CaptureSubImageToFile(KenoProMaxLocator.NewRound)
   // const _title= await utils.findImage(KenoProMaxLocator.NewRound.ImageCompare,KenoProMaxLocator.NewRound)
 }

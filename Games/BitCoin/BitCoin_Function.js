@@ -25,7 +25,7 @@ export const clickPos = async(_x, _y) => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"remainingTime":119}]',120)
+  let _found = await utils.getWsMessage('"remainingTime":119}]',120)
   console.log('new round ready');
   await utils.sleep(15000)
 }

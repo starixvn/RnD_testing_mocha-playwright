@@ -75,12 +75,14 @@ export const closeHistory = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-    wsMessageReceived.lenght=0
     let _found = await utils.getWsMessage('{"remainingTime":45}')
-    await utils.sleep(13000)
+    await utils.sleep(16000)
+    console.log('new round ready',_found);
+    wsMessageReceived=[]
 }
 
 export const selectChip = async(_chip=1)=>{
+    console.log('select chip');
     /*  Param Explained:
         _chip : input chip amount will be selected, by default = 1
     */
