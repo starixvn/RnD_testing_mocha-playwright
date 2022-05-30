@@ -291,8 +291,6 @@ export const returnHome = async() => {
     await utils.sleep(1000)
     await utils.clickPos(SedieWarLocator.Home.x, SedieWarLocator.Home.y)
     await utils.sleep(1000)
-    let flag = await utils.imageShouldNotDisplay(SedieWarLocator.Player)
-    await utils.shouldBeEqual(flag.Val,true)
 }
 
 export const openGuide = async() => {
