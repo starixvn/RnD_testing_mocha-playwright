@@ -193,26 +193,41 @@ export const cf_local = {
   setBalance: "https://owapi-simulator.lumigame.com/SabaClub/CreateCustomer",
 };
 
-export const cf_ow = {
+export const cf_sit = {
   url: "http://demo:one23@qawer.playthefun.com:5068/login",
+  urlLog: "",
   username: {
-    BlackJack: "supertestsaba66",
-    Sedie: "supertestsaba67",
-    VipSedie: "supertestsaba68",
-    BigSmallSicbo: "supertestsaba69",
-    Keno: "supertestsaba70",
-    Baccarat: "supertestsaba71",
-    Roulette: "supertestsaba72",
-    BigSmall: "supertestsaba73",
-    MiniSedie: "supertestsaba74",
-    TurboBigSmall: "supertestsaba75",
-    TurboOddEven: "supertestsaba76",
-    SedieWar: "supertestsaba77",
+    Sedie: "supertestsaba66",
+    VipSedie: "supertestsaba67",
+    TurboBigSmall: "supertestsaba68",
+    BigSmall: "supertestsaba69",
+    MiniSedie: "supertestsaba70",
+    BigSmallSicbo: "supertestsaba66",
+    BlackJack: "supertestsaba67",
+    SedieWar: "supertestsaba68",
+    TurboOddEven: "supertestsaba69",
+    DragonTiger: "supertestsaba70",
+    KenoProMax: "supertestsaba66",
+    VipFishPrawnCrab: "supertestsaba67",
+    VipBaccarat: "supertestsaba68",
+    ThreeCards: "supertestsaba69",
+    Lottery: "supertestsaba70",
+    FourGuardians: "supertestsaba66",
+    SpecialSedie: "supertestsaba67",
+    FishPrawnCrab: "supertestsaba68",
+    HeroSlot: "supertestsaba69",
+    Roulette: "supertestsaba70",
+    BitCoin: "supertestsaba66",
+    CasinoHPoker: "supertestsaba67",
+    HiLo: "supertestsaba68",
+    Baccarat: "supertestsaba69",
+    TexasHoldEm: "supertestsaba70",
+    NightClub: "supertestsaba66",
   },
   password: "1234aaAA",
-  gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
+  gamelobbyurl: "VendorGame/OpenSabaClub?GameID=",
   urlWebsocket:
-    "wss://l1uatproxy.sgamesuat.com/sit/roulette/socket.io/?EIO=3&transport=websocket",
+    "wss://l1sit.sgamesuat.com/sit/roulette/socket.io/?EIO=4&transport=websocket",
   urlOrigin: "https://l1sit.sgamesuat.com",
   protocol: "wss",
 };
@@ -237,7 +252,7 @@ export const cf_uat = {
   password: "1234aaAA",
   gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
   urlWebsocket:
-    "wss://l1uatproxy.sgamesuat.com/uat/roulette/socket.io/?EIO=3&transport=websocket",
+    "wss://l1uatproxy.sgamesuat.com/uat/roulette/socket.io/?EIO=4&transport=websocket" ,
   urlOrigin: "https://l1uat.sgamesuat.com",
 };
 
@@ -274,7 +289,7 @@ export const cf_prod = {
   password: "1234aa",
   gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
   urlWebsocket:
-    "wss://proxy.sabagame.com/roulette/socket.io/?EIO=3&transport=websocket",
+    "wss://proxy.sabagame.com/roulette/socket.io/?EIO=4&transport=websocket",
   urlOrigin: "https://www.sabagame.com",
   protocol: "wss",
 };

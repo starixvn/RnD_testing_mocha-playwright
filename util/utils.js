@@ -719,7 +719,7 @@ export const shouldBeEqual = async (_val, _expect, _mess = "") => {
 export const Login = async (_env, _game) => {
   // await wsHearMessageOff()
   let flag;
-  if (_env == "cf_prod" || _env == "cf_uat") {
+  if (_env == "cf_prod" || _env == "cf_sit") {
     // Login Member Site
     await MemberSiteFunc.login(_env, _game);
     // Navigate Sabaclub
@@ -732,18 +732,17 @@ export const Login = async (_env, _game) => {
         config.setting.gameId[_game]
     );
     //select group currency
-    if (_env == "cf_uat") {
-      await selectDrp(
-        'xpath=//*/select[@id="group"]',
-        "61a5a48b7864f80001d3cb59"
-      );
-    } else {
+          // await selectDrp(
+      //   'xpath=//*/select[@id="group"]',
+      //   "61a5a48b7864f80001d3cb59"
+      // );
+    if (_env == "cf_prod") {
       await selectDrp(
         'xpath=//*/select[@id="group"]',
         "61b048d27e6d8f000145357f"
       );
-    }
-    await clickEl('xpath=//input[@value="Submit"]');
+      await clickEl('xpath=//input[@value="Submit"]');
+    } 
     await sleep(15000);
   } else {
     // Navigate Sabaclub from Simulator

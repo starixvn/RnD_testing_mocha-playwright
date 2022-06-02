@@ -4,7 +4,6 @@ import * as utils from '../../util/utils'
 const chai = require('chai')
 const chaiHTTP = require('chai-http')
 chai.use(chaiHTTP)
-const expect = chai.expect
 
 export const login = async(_env,_game) => {
     // Login for SIT/UAT/PRO
@@ -12,33 +11,22 @@ export const login = async(_env,_game) => {
         // Go to Membersite Url
         await utils.navigate(config[_env].url)
         await utils.waitForLoadState()
-
-        if(_env === 'cf_uat'){
-            await utils.navigate(config[_env].urlLog)
-            await utils.waitForLoadState()
-        }
         // Input Username and Password
         await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
         await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
-        // await utils.CaptureSubImageToFile('secode.png',530,80,55,20)
-        // let secode = await utils.getNumberFromImage('secode.png')
-        // secode = secode.toString().trim()
-        // console.log(secode);
-        // await utils.sendKeys(MemberSiteLocator.txtValidationCode,secode)
-        // Enter Login button
+         // Enter Login button
         if(_env == 'cf_prod'){
             await utils.clickEl(MemberSiteLocator.btnLoginPro)
         } else {
+            await utils.waitForLoadState()
             await utils.clickEl(MemberSiteLocator.btnLogin)
+            await utils.sleep(3000)
+            await utils.clickEl('xpath=//*/div[@class="c-dropdown c-dropdown--lang  "]')
+            await utils.clickEl('xpath=//*/div[@class="c-dropdown__container"]//div[contains(text(),"Tiếng Việt")]')
+            await utils.sleep(3000)
         }
-
         await utils.waitEl(MemberSiteLocator.imgLogo)
-        
-        // // Change Language
-        // await utils.clickEl(MemberSiteLocator.drpLanguage)
-        // await utils.clickEl(MemberSiteLocator.optLanguage)
-        // await utils.waitForLoadState()
-        // await utils.waitEl(MemberSiteLocator.verifyLanguage)
+
     } catch (error) {
         console.error(error.message);
     }
@@ -65,16 +53,3 @@ export const login_local = async(_env,_game) => {
             console.error(error.message)
         }
 }
-
-// export const login_local2 = async(_env,_game) => {
-//     try{
-//         await utils.navigate("https://gamelobby-simulator.lumigame.com/signin")
-//         await utils.sendKeys('id=memberId',config[_env].memberId[_game])
-//         await utils.clickEl("//*[@value='Get Token']")
-//         let link= await utils.getText("//*[@class='col-sm-12']")
-//         await utils.navigate(link)
-//         await utils.sleep(7000)//Wait for login process
-//     } catch (error) {
-//         console.error(error.message)
-//     }
-// }
