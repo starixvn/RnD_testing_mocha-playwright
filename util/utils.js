@@ -765,7 +765,7 @@ export const getDataJsonPath = async (_rawData, _jsonpath) => {
   try {
     return jp.value(JSON.parse(_rawData), _jsonpath);
   } catch (error) {
-    console.log("getDataJsonPath", _rawData);
+    console.log("error getDataJsonPath", _rawData, _jsonpath);
   }
 };
 
@@ -940,7 +940,11 @@ export const wsClient = class {
 
 export const getSession = async () => {
   await sleep(5000);
-  const _rawData = wsMessageSend.filter(element => element.includes('{"ss":'));
+  let _rawData = wsMessageSend.filter(element => element.includes('{"ss":'));
+  if (_rawData.toString().includes('40{"ss"')) {
+    _rawData = _rawData.toString().split('40')
+    _rawData = _rawData[1]
+  }
   session = await getDataJsonPath(_rawData, "$..ss");
   username = await getDataJsonPath(_rawData, "$..username");
 };

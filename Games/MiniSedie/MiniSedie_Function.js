@@ -142,7 +142,6 @@ const getRawData = async(_mes) => {
     try {
         return await utils.getRowDataFromJS('minisedie',_mes)
     } catch (error) {
-        console.log(error.message)
         return null
     }
 }
@@ -174,7 +173,7 @@ const getResult = async(_onlyResult=true) => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`"status":{"winningByChoices":`)
+        let rawData = await getRawData(`"status"`)
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)

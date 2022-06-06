@@ -183,10 +183,9 @@ const getResult =  async(_onlyResult=true) => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`status`)
-        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
+        let rawData = await utils.getRowDataFromJS('sedie',"status")
+        return  await utils.getDataJsonPath(rawData, `$..status`)
     } catch (error) {
-        console.log(error.message)
         return null
     }
 }
@@ -524,8 +523,6 @@ export const verifySettlementMultipleChoices = async(_choices,_chip) => {
     await utils.sleep(5000)
     currentBalance = await getBalance()
     // Verify Balance on UI
-    // console.log('actual Balance: ' + currentBalance)
-    let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
-    // console.log(Math.abs(currentBalance-balance))
+      let rs = (Math.abs(currentBalance-balance) <= 0.01) ? true : false;
     await utils.shouldBeEqual(rs,true,"Error: expect actual balance ( "+currentBalance+" ) to equal : "+balance)
   } 
