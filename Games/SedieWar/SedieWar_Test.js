@@ -29,6 +29,7 @@ describe('======== AUTOMATION TEST RESULT SEDIE WAR ========', ()=>{
 
   it('TC_002_Full_Smoke_Verify Hedge Bets', async() => {
     await SedieWarFunc.waitUtilNewRound()
+    await utils.sleep(2000)
     await SedieWarFunc.verifyHedgeBet("Player","Banker",10,'"errorCode":"SB1939","hedgeBetGroup":["player","banker"]')
     await SedieWarFunc.verifyHedgeBet("PlayerEven","PlayerOdd",10,'"errorCode":"SB1939","hedgeBetGroup":["playerEven","playerOdd"]')
     await SedieWarFunc.verifyHedgeBet("BankerEven","BankerOdd",10,'"errorCode":"SB1939","hedgeBetGroup":["bankerEven","bankerOdd"]')

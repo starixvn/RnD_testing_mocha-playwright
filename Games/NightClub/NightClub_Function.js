@@ -14,6 +14,7 @@ export const _clickPos = async(_locator) => {
   }
 
 export const verifySignInSuccessfully = async() => {
+ await utils.sleep(10000)
  await utils.verifySignInSuccessfully()
 //  await utils.CaptureSubImageToFile(NightClubLocator.PayLine)
  await utils.findImage(NightClubLocator.PayLine)
