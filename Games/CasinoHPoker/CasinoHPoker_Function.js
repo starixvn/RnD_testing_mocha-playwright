@@ -97,12 +97,14 @@ export const checkSettlement = async (placebetfunc,args,_AAchoice="No",_CheckMD5
 
 
 export const NewBet = async() => {
+  console.log('click newbet');
     await utils.sleep(1000)
     await utils.clickPos(CasinoHPokerLocator.Newbet.x,CasinoHPokerLocator.Newbet.y)
     await utils.sleep(1000)
 }
 
 export const Rebet = async() => {
+  console.log('click Rebet');
   await utils.clickPos(CasinoHPokerLocator.Rebet.x,CasinoHPokerLocator.Rebet.y)
 }
 
@@ -118,14 +120,14 @@ export const getMD5string = async () => {
 };
 
 //PlaceBet
-export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _follow="Follow",_cancel="NoCancel") => {
+export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _follow="Follow",_cancel="NoCancel",_swap='noSwap') => {
   try {
       let stringmd5
       await utils.sleep(500)
       await Sliding_Select_Chip(stake)
       await utils.clickPos(CasinoHPokerLocator[pos].x,CasinoHPokerLocator[pos].y)//click bet position
       if (_double == "Double")  {
-        // console.log('click double stake');
+        console.log('click double stake');
         await utils.sleep(1000)
         await utils.clickPos(CasinoHPokerLocator.Double.x,CasinoHPokerLocator.Double.y)
       } 
@@ -135,18 +137,31 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
         await utils.sleep(3000)
         stringmd5 = await getMD5string();
+        if (_swap == "Swap") {
+          console.log("click swap");
+          await utils.sleep(3000);
+          await utils.clickPos(CasinoHPokerLocator.Bet.x, CasinoHPokerLocator.Bet.y);
+        } else {
+          console.log("no swap click cancel");
+          await utils.sleep(3000);
+          await utils.clickPos(
+            CasinoHPokerLocator.Cancel.x,
+            CasinoHPokerLocator.Cancel.y
+          );
+        }
       } 
-
+     
       if (_follow == "Follow")  {
-        // console.log('click follow card');
+        console.log('click follow card');
         await utils.sleep(8000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
       } 
       if (_cancel == "Cancel") {
         await utils.sleep(8000)
-        // console.log('click cancel button');
+        console.log('click cancel button');
         await utils.clickPos(CasinoHPokerLocator.Cancel.x,CasinoHPokerLocator.Cancel.y)
       }
+   
       return stringmd5
   } catch (e) {
       console.error(e)

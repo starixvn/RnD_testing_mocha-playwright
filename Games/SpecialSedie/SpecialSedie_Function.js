@@ -12,7 +12,7 @@ export const CloseGame = async() => {
 //Wait until new round
 export const waitUtilNewRound = async() => {
   let _found = await utils.getWsMessage('42/user/specialsedie,["SpecialSeDie",{"remainingTime":39}]')
-  await utils.sleep(9000)
+  await utils.sleep(10000)
   // /await utils.CaptureSubImageToFile(SpecialSedieLocator.NewRound)
   // const _title= await utils.findImage(SpecialSedieLocator.NewRound.ImageCompare,SpecialSedieLocator.NewRound)
 }
