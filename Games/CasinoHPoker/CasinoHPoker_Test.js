@@ -50,12 +50,12 @@ describe("======== AUTOMATION TEST RESULT CasinoH'em Poker ========", ()=>{
 
   it('TC_06_Full_Smoke_Verify User can place bet Ante and check settlement result and MD5String', async () => {
     await CasinoHPokerFunc.NewBet()
-    await CasinoHPokerFunc.checkSettlement(CasinoHPokerFunc.PlaceBet,[10,"Ante"])
+    await CasinoHPokerFunc.checkSettlement(CasinoHPokerFunc.PlaceBet,[1,"Ante"])
     })  
 
  it('TC_07_Full_Smoke_Verify User can place bet double Ante and check settlement result ', async () => {
     await CasinoHPokerFunc.NewBet()
-    await CasinoHPokerFunc.checkSettlement(CasinoHPokerFunc.PlaceBet,[5,"Ante","Double"])
+    await CasinoHPokerFunc.checkSettlement(CasinoHPokerFunc.PlaceBet,[1,"Ante","Double"])
   })  
  
  it('TC_08_Full_Smoke_Verify User can place bet Ante & AA and check settlement result ', async () => {

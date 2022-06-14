@@ -109,7 +109,7 @@ export const Rebet = async() => {
 }
 
 export const VerifySignInSuccessfully = async() => {
-  let _result = await utils.wsFindMessage('42/user/casinoholdempoker,["signedIn"]')
+  let _result = await utils.wsFindMessage('"signedIn"')
   await utils.shouldBeEqual(_result.Val,true)
 }
 
