@@ -719,30 +719,17 @@ export const shouldBeEqual = async (_val, _expect, _mess = "") => {
 export const Login = async (_env, _game) => {
   // await wsHearMessageOff()
   let flag;
-  if (_env == "cf_prod" || _env == "cf_sit") {
+  if (_env == "cf_prod" || _env == "cf_sit" || _env == "cf_uat") {
     // Login Member Site
     await MemberSiteFunc.login(_env, _game);
     // Navigate Sabaclub
-    await navigate(
-      page
-        .url()
-        .toString()
-        .replace(/\/[Ss]ports/g, "") +
-        config[_env].gamelobbyurl +
-        config.setting.gameId[_game]
-    );
-    //select group currency
-          // await selectDrp(
-      //   'xpath=//*/select[@id="group"]',
-      //   "61a5a48b7864f80001d3cb59"
-      // );
+    let sabalink = (_env == "cf_prod")? page.url().toString().replace(/\/[Ss]ports/g, "") + config[_env].gamelobbyurl + config.setting.gameId[_game]: page.url().toString().replace("#lobby", "#ThirdPartyGame") + config[_env].gamelobbyurl + config.setting.gameId[_game]
+    await navigate(sabalink);
+    // select group currency
     if (_env == "cf_prod") {
-      await selectDrp(
-        'xpath=//*/select[@id="group"]',
-        "61b048d27e6d8f000145357f"
-      );
-      await clickEl('xpath=//input[@value="Submit"]');
+      await selectDrp('xpath=//*/select[@id="group"]',"61b048d27e6d8f000145357f");
     } 
+    await clickEl('xpath=//input[@value="Submit"]');
     await sleep(15000);
   } else {
     // Navigate Sabaclub from Simulator

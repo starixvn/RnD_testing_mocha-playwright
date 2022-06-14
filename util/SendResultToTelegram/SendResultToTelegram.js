@@ -19,8 +19,7 @@ describe('Send Message', ()=>{
         //     }).end( async(err,res)=>{
         //         expect(res).to.have.status(200)})  
         // }
-        if (result.finalresult == 'Failed' && env != 'PRO') {
-            console.log('here');
+        if (result.finalresult == 'Failed' && env != 'PRO'  && env != 'UAT') {
             chai.request("https://bot.nexdev.net")
             .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
             .send({
@@ -31,7 +30,7 @@ describe('Send Message', ()=>{
             }).end( async(err,res)=>{
                 expect(res).to.have.status(200)})  
         }
-        if ( env == 'PRO') {
+        if ( env == 'PRO' ||env == 'UAT') {
         // #### Skynet 
          let status = result.finalresult == 'Passed' ? '✅' :'❌'        
         await chai.request("https://bot.nexdev.net")
