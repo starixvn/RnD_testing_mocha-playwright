@@ -105,7 +105,7 @@ export const repareData_vn = async()=> {
             finalresult = 'Failed-SSO From Member Site'
         }
         else{
-            finalresult = (totalfailed = 0 && totalpassed>0) ? 'Passed' : 'Failed';
+            finalresult = (totalfailed == 0 && totalpassed>0) ? 'Passed' : 'Failed';
         }
         
         return {totalpassed: totalpassed,totalfailed:totalfailed,finalresult:finalresult,testSuiteName:testSuiteName}
