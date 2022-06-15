@@ -100,7 +100,14 @@ export const repareData_vn = async()=> {
         let temp = testSuiteName[0].split('======== AUTOMATION TEST RESULT')
         temp = temp[1].split('========')
         testSuiteName =temp[0].trim()
-        let finalresult = totalfailed > 0 ? 'Failed' : 'Passed';
+        let finalresult 
+        if (totalpassed==0 && totalfailed==0) {
+            finalresult = 'Failed-SSO From Member Site'
+        }
+        else{
+            finalresult = (totalfailed = 0 && totalpassed>0) ? 'Passed' : 'Failed';
+        }
+        
         return {totalpassed: totalpassed,totalfailed:totalfailed,finalresult:finalresult,testSuiteName:testSuiteName}
     } catch {
         return 'NotFound'

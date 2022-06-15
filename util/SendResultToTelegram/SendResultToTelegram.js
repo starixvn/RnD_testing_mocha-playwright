@@ -6,6 +6,7 @@ chai.use(chaiHttp)
 describe('Send Message', ()=>{
     it('Send Telegram', async () => {
         let result = await gsutils.repareData_vn()
+        console.log(result);
         const args = await parseArg(process.env.npm_config_args)
         let env = await envToString((typeof args.env !== 'undefined') ? args.env : 'cf_local')
         // // // //#### TelegramBot
@@ -32,7 +33,16 @@ describe('Send Message', ()=>{
         }
         if ( env == 'PRO' ||env == 'UAT') {
         // #### Skynet 
-         let status = result.finalresult == 'Passed' ? '✅' :'❌'        
+         let status
+         if (result.finalresult == 'Passed' ) {
+            status ='✅'
+         }
+         else if(result.finalresult == 'Failed'){
+            status ='❌'
+         }
+         else{
+            status ='⚠️ Failed SSO'
+         }   
         await chai.request("https://bot.nexdev.net")
         .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
         .send({
