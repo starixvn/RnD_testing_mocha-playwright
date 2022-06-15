@@ -725,6 +725,7 @@ export const Login = async (_env, _game) => {
     // Navigate Sabaclub
     let sabalink = (_env == "cf_prod")? page.url().toString().replace(/\/[Ss]ports/g, "") + config[_env].gamelobbyurl + config.setting.gameId[_game]: page.url().toString().replace("#lobby", "#ThirdPartyGame") + config[_env].gamelobbyurl + config.setting.gameId[_game]
     await navigate(sabalink);
+    await waitForLoadState()
     // select group currency
     if (_env == "cf_prod") {
       await selectDrp('xpath=//*/select[@id="group"]',"61b048d27e6d8f000145357f");

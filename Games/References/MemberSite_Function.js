@@ -30,6 +30,7 @@ export const login = async(_env,_game) => {
             await utils.sendKeys(MemberSiteLocator.txtUsername,config[_env].username[_game])
             await utils.sendKeys(MemberSiteLocator.txtPassword,config[_env].password)
             await utils.clickEl(MemberSiteLocator.btnLoginPro)
+            await utils.sleep(3000)
         } 
         // else {
         //     await utils.waitForLoadState()
