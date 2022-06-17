@@ -930,11 +930,11 @@ export const getSession = async () => {
   await sleep(5000);
   let _rawData = wsMessageSend.filter(element => element.includes('{"ss":'));
   if (_rawData.toString().includes('40{"ss"')) {
-    _rawData = _rawData.toString().split('40')
+    _rawData = _rawData[0].toString().split('40')
     _rawData = _rawData[1]
   }
-  session = await getDataJsonPath(_rawData, "$..ss");
-  username = await getDataJsonPath(_rawData, "$..username");
+  session = await getDataJsonPath(_rawData[0], "$..ss");
+  username = await getDataJsonPath(_rawData[0], "$..username");
 };
 export const getName = async () => {
   return await name;
