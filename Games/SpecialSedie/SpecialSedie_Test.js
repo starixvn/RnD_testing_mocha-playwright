@@ -33,10 +33,9 @@ describe('======== AUTOMATION TEST RESULT SPECIAL SEDIE ========', ()=>{
   it('TC_03_Full_Smoke_Verify Settlement on Odd', async () => {
     await SpecialSedieFunc.waitUtilNewRound()
     let stake = 1, pos= 'Odd'
-    await SpecialSedieFunc.PresetChip(stake)
-    await SpecialSedieFunc.waitUtilNewRound()
-    await SpecialSedieFunc.PlaceBet(pos,null,'nowait')
+    await SpecialSedieFunc.PlaceBet(pos,stake)
     await SpecialSedieFunc.CheckSettleBalance()
+    await SpecialSedieFunc.CheckRoundHistory()
     }) 
 
   it('TC_04_Full_Smoke_Verify Close Game Success', async () => {
