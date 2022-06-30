@@ -100,12 +100,11 @@ export const cf_local3 = {
   },
   password: "",
   gamelobbyurl: "",
-  urlWebsocket:
-    "wss://l1-proxy3.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
   urlOrigin: "https://l1-games3.lumigame.com",
   protocol: "wss",
   retrieveEndGame: "https://l1-ows2.lumigame.com/SabaClub/RetrieveEndGameInfo",
   setBalance: "https://l1-ows3.lumigame.com/SabaClub/CreateCustomer",
+  reCheckIn: "https://l1-proxy3.lumigame.com/user/auth/reCheckIn"
 };
 
 export const cf_local1 = {
@@ -143,12 +142,11 @@ export const cf_local1 = {
   },
   password: "",
   gamelobbyurl: "",
-  urlWebsocket:
-    "wss://l1-proxy1.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
   urlOrigin: "https://l1-games1.lumigame.com",
   protocol: "wss",
   retrieveEndGame: "https://l1-ows1.lumigame.com/SabaClub/RetrieveEndGameInfo",
   setBalance: "https://l1-ows1.lumigame.com/SabaClub/CreateCustomer",
+  reCheckIn: "https://l1-proxy.lumigame.com/user/auth/reCheckIn"
 };
 
 export const cf_local = {
@@ -187,13 +185,12 @@ export const cf_local = {
   },
   password: "",
   gamelobbyurl: "",
-  urlWebsocket:
-    "wss://l1-proxy.lumigame.com/roulette/socket.io/?EIO=3&transport=websocket",
   urlOrigin: "https://gamelobby-simulator.lumigame.com",
   protocol: "wss",
   retrieveEndGame:
     "https://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
   setBalance: "https://owapi-simulator.lumigame.com/SabaClub/CreateCustomer",
+  reCheckIn: "https://l1-proxy.lumigame.com/user/auth/reCheckIn"
 };
 
 export const cf_sit = {
@@ -229,10 +226,9 @@ export const cf_sit = {
   },
   password: "1234aaAA",
   gamelobbyurl: "VendorGame/OpenSabaClub?GameID=",
-  urlWebsocket:
-    "wss://l1sit.sgamesuat.com/sit/roulette/socket.io/?EIO=4&transport=websocket",
   urlOrigin: "https://l1sit.sgamesuat.com",
   protocol: "wss",
+  reCheckIn: "https://l1sit.sgamesuat.com/sit/user/auth/reCheckIn"
 };
 
 export const cf_uat = {
@@ -269,9 +265,8 @@ export const cf_uat = {
   },
   password: "1234aaAA",
   gamelobbyurl: "vid=42&gid=",
-  urlWebsocket:
-    "wss://l1uatproxy.sgamesuat.com/uat/roulette/socket.io/?EIO=4&transport=websocket" ,
   urlOrigin: "https://l1uat.sgamesuat.com",
+  reCheckIn: "https://l1uatproxy.sgamesuat.com/uat/user/auth/reCheckIn"
 };
 
 export const cf_prod = {
@@ -306,8 +301,7 @@ export const cf_prod = {
   },
   password: "1234aa",
   gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
-  urlWebsocket:
-    "wss://proxy.sabagame.com/roulette/socket.io/?EIO=4&transport=websocket",
   urlOrigin: "https://www.sabagame.com",
   protocol: "wss",
+  reCheckIn: "https://proxy.sabagame.com/user/auth/reCheckIn"
 };

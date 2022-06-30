@@ -618,7 +618,6 @@ export const betProcess = async (_x, _y, _mes) => {
 //send ws data
 export const sendwsdata = async (client, msg) => {
   if (client.readyState === client.OPEN) {
-    //   client.send(msgpack.pack(msg));
     client.send(msg);
     await sleep(1000);
   } else {
@@ -629,7 +628,7 @@ export const sendwsdata = async (client, msg) => {
 // wait for data from array
 export const returnMachedtData = async (wsMessage, msg) => {
   for (let i = 0; i < 30; i++) {
-    const _found = wsMessage.filter((element) => element.includes(msg));
+    let _found = wsMessage.filter((element) => element.includes(msg));
     if (_found.length > 0) {
       i = 30;
       return _found.pop();
@@ -643,7 +642,7 @@ export const returnMachedtData = async (wsMessage, msg) => {
 //Create new socket connection
 export const createWSConnect = async (wsurl, urlorigin) => {
   var client = new W3CWebSocket(wsurl, "wss", urlorigin, {
-    "User-agent": userAgent,
+    "User-agent": userAgent
   });
   let wsmsgbs = [];
   client.onerror = () => {
@@ -663,7 +662,7 @@ export const createWSConnect = async (wsurl, urlorigin) => {
   };
   client.onopen = () => {
     console.log("WebSocket Client Connected");
-  };
+      };
   return { client, wsmsgbs };
 };
 
@@ -823,119 +822,26 @@ export const getUIBalance = async (
   }
 };
 export const getBalance = async () => {
-  const client = new wsClient(config[env].urlWebsocket, config[env].urlOrigin);
-  await client.init();
-  if (username === null || session === null) {
-    console.log("Missing session");
-  } else {
-    return await client.getBalance(username, session);
-  }
-};
+  let audata = {"session":session,"username":username,"browserUserAgent":userAgent}
+  let getbalance= await chai.request(config[env].reCheckIn).post("").set("User-Agent", userAgent).send(audata);
+  return jp.value(JSON.parse(getbalance.text), '$..balance');
 
-// Get Balance by WebSocket
-export const wsClient = class {
-  constructor(url, origin) {
-    this.client = new W3CWebSocket(url, config[env].protocol, origin, {
-      "User-agent": userAgent,
-    });
-    this.wsMessage = [];
-  }
-  async init() {
-    this.client.onerror = () => {
-      console.log("Connection Error");
-    };
-
-    this.client.onclose = () => {};
-
-    this.client.onmessage = (e) => {
-      if (typeof e.data === "string") {
-        this.wsMessage.push(e.data);
-        // console.log(e.data)
-      }
-    };
-
-    this.client.onopen = () => {};
-  }
-  async SendMessage(message) {
-    for (let i = 0; i < config.setting.loop; i++) {
-      if (this.client.readyState === this.client.OPEN) {
-        this.client.send(message.toString());
-        break;
-      }
-
-      await sleep(200);
-      // console.log("Wait Websocket Client Connect Succesfully")
-    }
-  }
-  async waitMessage(messageWait) {
-    for (let i = 0; i < config.setting.loop; i++) {
-      for (let j = 0; j < this.wsMessage.length; j++) {
-        if (this.wsMessage[j].includes(messageWait)) {
-          // console.log(this.wsMessage[j])
-          i = 60;
-          break;
-        }
-      }
-      await sleep(200);
-      // console.log("Wait Websocket Message: "+ messageWait)
-    }
-  }
-  async getMessage(prefixMessage) {
-    let _found = null;
-    for (let i = 0; i < config.setting.loop; i++) {
-      _found = this.wsMessage.filter((element) =>
-        element.includes(prefixMessage)
-      );
-      if (_found.length !== 0) {
-        break;
-      }
-      await sleep(200);
-    }
-    return _found.pop();
-  }
-  async getRawData(_mes) {
-    try {
-      let raw = _mes;
-      if (raw === null) return null;
-      else {
-        raw = raw.split("42/user/roulette,");
-        return raw[1];
-      }
-    } catch (error) {
-      console.log(error.message);
-      return null;
-    }
-  }
-  async getBalance(username, session) {
-    await this.waitMessage("0{");
-    await this.SendMessage("40/user/roulette,");
-    await this.waitMessage("40");
-    await this.SendMessage(
-      `42/user/roulette,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`
-    );
-    await this.waitMessage('42/user/roulette,["signedIn"]');
-    await this.SendMessage('42/user/roulette,["inGame"]');
-    await this.waitMessage("gameConfigs");
-    let mess = await this.getMessage("gameConfigs");
-    mess = await this.getRawData(mess);
-    await this.closeSocket();
-    return await getDataJsonPath(mess, "$..user.red");
-  }
-  async closeSocket() {
-    this.client.close(0, "Closed Socket");
-  }
 };
 
 export const getSession = async () => {
   await sleep(5000);
   let _rawData = wsMessageSend.filter(element => element.includes('{"ss":'));
   if (_rawData.toString().includes('40{"ss"')) {
-    _rawData = _rawData[0].toString().split('40')
-    _rawData = _rawData[1]
+    _rawData = _rawData[0].replace('40','')
+  session = await getDataJsonPath(_rawData, "$..ss");
+  username = await getDataJsonPath(_rawData, "$..username");
   }
-  session = await getDataJsonPath(_rawData[0], "$..ss");
-  username = await getDataJsonPath(_rawData[0], "$..username");
+  else{
+    session = await getDataJsonPath(_rawData[0], "$..ss");
+    username = await getDataJsonPath(_rawData[0], "$..username");
+  }
 };
+
 export const getName = async () => {
   return await name;
 };

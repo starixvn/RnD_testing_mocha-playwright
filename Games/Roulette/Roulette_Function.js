@@ -342,21 +342,7 @@ export const clickPos = async(_x, _y) => {
 }
 
 export const getUserBalance = async() =>{
-  let url = config[env].urlWebsocket
-  url = url.replace("roulette","dragontiger")
-  let _origin = config[env].urlOrigin
-  let {client, wsmsgbs} = await utils.createWSConnect(url,_origin) 
-  await utils.sleep(3000)
-  await utils.sendwsdata(client,'40/user/dragontiger,')
-  await utils.sendwsdata(client,`42/user/dragontiger,["signin",{"isAuthenticated":true,"username":"${username}","language":"vi-VN","ss":"${session}","isSSO":true,"time":"2021-03-22T09:16:12.371Z"}]`)
-  await utils.sendwsdata(client,'42/user/dragontiger,["inGame"]')
-  let red= await utils.returnMachedtData(wsmsgbs,'gameConfigs')
-  const res = String(red).split("42/user/dragontiger,");
-  const obj = JSON.parse(res[1]);
-  let balance = jp.value(obj[1],`$..user.red`);
- // console.log(balance);
-  await client.close()
-  return balance
+  return await utils.getBalance()
 }
 
 ///////////////////////////////////////////////////////////Database Functions

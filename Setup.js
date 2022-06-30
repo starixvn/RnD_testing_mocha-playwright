@@ -27,12 +27,6 @@ before(async () => {
   await context.grantPermissions(["clipboard-read"]);
   let page = await context.newPage();
   const getUA = await page.evaluate(() => navigator.userAgent);
-  let pages = [];
-  pages.push(page);
-  context.on("page", async (newPage) => {
-    pages.push(await newPage);
-  });
-  global.pages = pages;
   global.userAgent = uaParser(getUA).ua;
   global.page = page;
   global.context = context;
