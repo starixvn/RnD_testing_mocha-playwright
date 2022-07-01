@@ -2,7 +2,7 @@ import * as utils from '../../util/utils'
 const VipFishPrawnCrabLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_vn : require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
-const remainingTime = `42/user/vipfishprawncrab,["VipFishPrawnCrab",{"remainingTime":42}]`
+const remainingTime = `"remainingTime":42`
 
 
 
@@ -67,8 +67,7 @@ export const openHistory = async() => {
 
 export const verifyHistoryPopup = async() => {
     await utils.sleep(1000)
-    let res = await utils.wsFindMessage('42/user/vipfishprawncrab,["VipFishPrawnCrab",{"history"')
-    await utils.shouldBeEqual(res.Val, true,'Check History')
+    let res = await utils.wsFindMessage('"history"')
     // await utils.CaptureSubImageToFile(VipFishPrawnCrabLocator.History)
     // let flag = await utils.findImage(VipFishPrawnCrabLocator.History)
     // await utils.shouldBeEqual(flag.Val,true)
@@ -126,7 +125,7 @@ const getRawData = async(_mes) => {
 
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/vipfishprawncrab,["VipFishPrawnCrab",{"status":{"winningByChoices`)
+        let rawData = await getRawData(`"status"`)
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)

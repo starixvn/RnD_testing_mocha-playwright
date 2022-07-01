@@ -343,28 +343,10 @@ export const GetSettleResult = async(_stake=null) => {
 
 //Check Round History
 export const CheckRoundHistory = async() => {
-  let _checkres = await GetSettleResult()
   await OpenHistory()
   await utils.sleep(1000)
-  let _found = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"history"')
-  const res = String(_found).split("42/user/oeturbo,");
-  const obj = JSON.parse(res[1]);
-  let _getresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].result`);
-  let _getsettleresult = jp.query(obj[1],`$..betLogs[?(@.phien==${_checkres.roundId})].settlementResult`);
-  // using lodash
-  await utils.shouldBeEqual(_.isEqual(_checkres.result,_getresult),true)
-  await utils.shouldBeEqual(_.isEqual(_checkres.settleresult,_getsettleresult), true)
-    // //click first round of history
-    // await utils.clickPos(454,230)
-    // await utils.sleep(3000)
-    // let _founddetail = await utils.getWsMessage('42/user/oeturbo,["OETurbo",{"round"')
-    // const resdetail = String(_founddetail).split("42/user/oeturbo,");
-    // const objdetail = JSON.parse(resdetail[1]);
-    // let username =  await utils.getName()
-    //  //check data
-    //  await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].win`),_checkres.win),true)
-    //  await utils.shouldBeEqual(_.isEqual(jp.value(objdetail[1],`$..[?(@.name=='${username}')].choice`),_checkres.betchoice),true)
-    // await CloseHistory() // close round detail
+  let _found = await utils.getWsMessage("history")
+  console.log('history',_found);
     await CloseHistory() // close history
     wsMessageReceived =[]
  }
