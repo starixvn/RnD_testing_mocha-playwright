@@ -49,32 +49,23 @@ export const getBalance = async() => {
     return await utils.getBalance()
 }
 const getRawData = async(_mes) => {
-    try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/HeroSlot,");
-            return raw[1]
-        }
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
+        let _found = await utils.getRowDataFromJS("HeroSlot", _mes);
+        return _found
 }
 
 export const getResult =  async() => {
     try {
         // wait bet animation
-        if((await utils.wsFindMessage(`${wsm},{"bonuses"`,3)).Val === true){
+        if((await utils.wsFindMessage(`{"bonuses"`,3)).Val === true){
             // wait 2min to auto close bonus popup
             await utils.clearLog()
             await utils.sleep(140000)
         }
-        while((await utils.getDataJsonPath(await getRawData(`${wsm},{"finish":{"`),`$..finish.totalOfFreeSpins`)).toString() !== '0'){
+        while((await utils.getDataJsonPath(await getRawData(`{"finish":{"`),`$..finish.totalOfFreeSpins`)).toString() !== '0'){
             // wait clear freespin
             await utils.sleep(3000)
         }
-        let rawData = await getRawData(`${wsm},{"finish":{"`)
+        let rawData = await getRawData("finish")
         // console.log(await utils.getDataJsonPath(rawData,`$..finish`))
         return await utils.getDataJsonPath(rawData,`$..finish`)
     } catch (error) {
@@ -83,7 +74,7 @@ export const getResult =  async() => {
     }
 }
 export const getLastHistory = async() => {
-    let rawData = await getRawData(`${wsm},{"history":{"`)
+    let rawData = await getRawData(`"history"`)
     // console.log(await utils.getDataJsonPath(rawData,`$..history.betLogs[0]`))
     return await utils.getDataJsonPath(rawData,`$..history.betLogs[0]`)
 }
@@ -168,8 +159,8 @@ export const verifyHistoryContent = async() => {
     // placebet to get new id
     await openHistory()
     await utils.sleep(5000)
-    let _result = await utils.wsFindMessage('"HeroesSlot",{"history"')
-    expect(_result.Val).to.equal(true)
+    let _result = await utils.wsFindMessage('"history"')
+    // expect(_result.Val).to.equal(true)
     await closeHistory()
 }
 

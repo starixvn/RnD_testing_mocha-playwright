@@ -12,7 +12,7 @@ export const CloseGame = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/lottery,["Lottery",{"remainingTime":54}]')
+  let _found = await utils.getWsMessage('4"remainingTime":54')
   await utils.sleep(10000)
   // /await utils.CaptureSubImageToFile(LotteryLocator.NewRound)
   // const _title= await utils.findImage(LotteryLocator.NewRound.ImageCompare,LotteryLocator.NewRound)
@@ -52,7 +52,7 @@ export const CloseStatistic = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  let val=  await utils.wsFindMessage('42/user/lottery,["signedIn"]')
+  let val=  await utils.wsFindMessage('"signedIn"')
   await utils.shouldBeEqual(val.Val, true,'Can not open Lottery game')
 }
 
@@ -69,13 +69,14 @@ export const PlaceBet = async (_bettype,_pos,_stake,wait='wait') => {
       wsMessageReceived = []
       await utils.sleep(100)
 
-      //Reset chip
-      await utils.swipe(413,635,900,635)
-      await utils.sleep(50)
-
+ 
        //select chip
       const _cnumber = `Chip${_stake}`
       if (_cnumber=='Chip500'||_cnumber=='Chip1000'||_cnumber=='Chip2000'){
+             //Reset chip
+      await utils.swipe(413,635,900,635)
+      await utils.sleep(50)
+
         await utils.swipe(900,635,413,635)
         await utils.sleep(300)
         await clickPos(LotteryLocator[_cnumber].x,LotteryLocator[_cnumber].y)
@@ -222,7 +223,7 @@ export const IsBetFail = async() => {
 
 //Is Round Settle
 export const IsSettle = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('42/user/roulette,["Roulette",{"finish"'));
+  let _found = wsMessageReceived.filter(element => element.includes('"finish"'));
   if (_found.length > 0){
     return true
   }
@@ -233,11 +234,10 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-      let _found = await utils.getWsMessage('42/user/lottery,["Lottery",{"status"')
-      const res = String(_found).split("42/user/lottery,");
-      const obj = JSON.parse(res[1]);
-      let _result = jp.value(obj[1],`$..win`);
-      let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
+    let _found = await utils.getRowDataFromJS("lottery", "status");
+      const obj = JSON.parse(_found);
+      let _result = jp.value(obj,`$..win`);
+      let _gbetchoice = jp.value(obj,`$..winningByChoices`)
       let  _betwin
       if (_result==false){
         _betwin = 0
@@ -256,13 +256,12 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('42/user/roulette,["Roulette",{"finish"')
-  const res = String(_found).split("42/user/roulette,");
-  const obj = JSON.parse(res[1]);
-  let _roundid = jp.value(obj[1],`$..roundId`);
-  let _result = jp.query(obj[1],`$..result`);
-  let _settleresult = jp.query(obj[1],`$..settlementResult`);
-  let _bigwin = jp.value(obj[1],`$..settlementResult.big`);
+  let _found = await utils.getRowDataFromJS("lottery", "finish");
+  const obj = JSON.parse(_found);
+  let _roundid = jp.value(obj,`$..roundId`);
+  let _result = jp.query(obj,`$..result`);
+  let _settleresult = jp.query(obj,`$..settlementResult`);
+  let _bigwin = jp.value(obj,`$..settlementResult.big`);
   let _choicewin = _bigwin
   if (_choicewin == true){
        _choicewin = process.env.npm_config_cf_lang  == 'vn'?'Tài':'Big'
@@ -289,8 +288,8 @@ export const GetSettleResult = async(_stake=null) => {
 export const CheckRoundHistory = async() => {
    await OpenHistory()
   await utils.sleep(3000)
-  let _found = await utils.wsFindMessage('42/user/lottery,["Lottery",{"history"')
-  await utils.shouldBeEqual(_found.Val,true)
+  // let _found = await utils.wsFindMessage('42/user/lottery,["Lottery",{"history"')
+  // await utils.shouldBeEqual(_found.Val,true)
   await CloseHistory() // close history
   wsMessageReceived =[]
    //check data

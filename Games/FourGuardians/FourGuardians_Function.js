@@ -81,8 +81,8 @@ export const VerifyHistoryContent = async() => {
   //   y: FourGuardiansLocator.History.top,
   //  width: FourGuardiansLocator.History.width,
   //  height: FourGuardiansLocator.History.height}})
- let res = await utils.wsFindMessage('42/user/fourguardians,["FourGuardians",{"history"')
- await utils.shouldBeEqual(res.Val, true,'Check History')
+ let res = await utils.wsFindMessage('"history"')
+//  await utils.shouldBeEqual(res.Val, true,'Check History')
  await ClosePopUp()
   // let res = await utils.findImage(FourGuardiansLocator.History.ImageCompare,FourGuardiansLocator.History)
   // await utils.shouldBeEqual(res.Val, true,'Check History')
@@ -230,8 +230,8 @@ const getRawData = async(_mes) => {
 export const getSettlementResult = async () => {
   try {
       let _time = new Date().toISOString()
-      let _status = await getRawData(`${wsbigsmallsb},{"endBet":`)
-      let _finish = await getRawData(`${wsbigsmallsb},{"finish":`)
+      let _status = await utils.getRowDataFromJS("fourguardians", "endBet");
+      let _finish = await utils.getRowDataFromJS("fourguardians", "finish");
       let _red = await utils.getDataJsonPath(_status,`$..red`)
       let _betstake = await utils.getDataJsonPath(_status,`$..endBet`)
       let _freespin = await utils.getDataJsonPath(_status,`$..freeSpin`)
@@ -266,7 +266,7 @@ export const checkSettlement = async (placebetfunc,args) => {
 export const CheckRoundHistory = async(_settleresult) => {
   await OpenHistory()
   await utils.sleep(3000)
-  let _result = await getRawData(`${wsbigsmallsb},{"history"`)
+  let _result = await utils.getRowDataFromJS("fourguardians", "_result");
   let _roundresult = await utils.getDataJsonPath(_result,`$..[?(@.phien==${_settleresult.roundId})]`)
   let _settlement =_roundresult.settlementResult
   let _choicewin = await utils.getKeysByValue(_settlement,true)

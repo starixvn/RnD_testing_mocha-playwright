@@ -58,8 +58,8 @@ export const StandCard = async() => {
     await utils.sleep(100)
     await utils.clickPos(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top)
     //await page.mouse.move(BlackJackLocator.Stake.left,BlackJackLocator.Stake.top);
-    await utils.sleep(500)
-    let _Stand = await utils.findImage(BlackJackLocator.Stand)
+    await utils.sleep(1000)
+    // let _Stand = await utils.findImage(BlackJackLocator.Stand)
     await utils.clickPos(BlackJackLocator.Stand.x,BlackJackLocator.Stand.y)
     //   if(_Stand.Val === true){
     //    // console.log('Stand')
@@ -136,7 +136,7 @@ export const Rebet = async() => {
 }
 
 export const VerifySignInSuccessfully = async() => {
-  let _result = await utils.wsFindMessage('user/blackjack,["signedIn"]')
+  let _result = await utils.wsFindMessage('signedIn')
   await utils.shouldBeEqual(_result.Val,true)
 }
 
@@ -178,7 +178,7 @@ export const BetSettle_HitCardUntilOver15 = async (_pos) => {
         let isdealerbj = await IsDealerBLackJack()
         let _currentscore = 0  
         const _result = await GetFirstTotalScore(_pos)
-        for (let i = 0; i < 4; i++){
+         for (let i = 0; i < 4; i++){
           if (isdealerbj ==true){
             break
           }
@@ -333,27 +333,27 @@ export const VerifyChipColor_Pos2 = async(_chip) => {
 
 // Get Total Bet Ammount of all pos after click Deal
 export const GetTotalBetAmount = async() => {
-  //const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
-  var res = String(_found).split("42/user/blackjack,");
-  var obj = JSON.parse(res[1]);
+  // //const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"deal'));
+  let _found = await utils.getRowDataFromJS("blackjack", "deal");
+  // var res = String(_found).split("42/user/blackjack,");
+  var obj = JSON.parse(_found);
   return obj[1].deal.totalAmount
 }
 
 // Get ID of pos after click Deal
 export const GetPosId = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
+  let _found = await utils.getRowDataFromJS("blackjack", "deal");
+  // const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(_found);
   const _result = jp.value(obj[1], `$..hands[?(@.pos==${_pos})].id`);
   return _result
 }
 
 // Get Bet stake of pos
 export const GetPosBet = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal')
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
+  let _found = await utils.getRowDataFromJS("blackjack", "deal");
+  // const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(_found);
   const _result = jp.value(obj[1], `$..hands[?(@.pos==${_pos})].bet`);
   return _result
 }
@@ -361,9 +361,9 @@ export const GetPosBet = async(_pos) => {
 
 // Get Total Score of Pos of first round
 export const GetFirstTotalScore = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
+  let _found = await utils.getRowDataFromJS("blackjack", "deal");
+  // const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(_found);
   const _result = jp.query(obj[1], `$..hands[?(@.pos==${_pos})]`);
   //console.log('First Score: ',Math.max(..._result[0].total))
   return Math.max(..._result[0].total)
@@ -371,41 +371,41 @@ export const GetFirstTotalScore = async(_pos) => {
 
 // Get current score of pos when hitting a card
 export const GetHitScore = async(_pos) => { 
-  let _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
+  let _foundhit = await utils.getRowDataFromJS("blackjack", "hit");
   //console.log(_foundhit)
     if (_foundhit.includes(_pos) === false){
     await utils.sleep(3000)
-    _foundhit = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"hit"')
+    _foundhit = await utils.getWsMessage('"hit"')
   }
-  const res = String(_foundhit).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
+  // const res = String(_foundhit).split("42/user/blackjack,");
+  const obj = JSON.parse(_foundhit);
   // console.log('Hit card score: ',obj[1].hit.total[0])
   return obj[1].hit.total[0]
 }
 
 // Get Total Score of Pos of first round
 export const GetDealBalance = async(_pos) => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
+  let _found = await utils.getRowDataFromJS("blackjack", "deal");
   if(_found === null){
     console.log(`can not get deal data`)
   }
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
+  // const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(_found);
   const _result = jp.value(obj, "$[1]['user']['red']");
-  //console.log(`Balance after Deal: ${_result[0]}`)
+  // console.log(`Balance after Deal: ${_result}`)
   return _result
   }
 
 
   // Is dealer BlackJack
 export const IsDealerBLackJack = async() => {
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"deal');
+  let _found = await utils.getRowDataFromJS("blackjack", "deal");
   if(_found === null){
     console.log(`can not get deal data`)
   }
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  let _result = jp.query(obj[1], "$..dealer[1]");
+  // const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(_found);
+  let _result = jp.query(obj, "$..dealer[1]");
  // console.log('dealer', _result)
   if (Object.keys(_result).length > 0){
     return true
@@ -417,16 +417,16 @@ export const IsDealerBLackJack = async() => {
 // Get winloss of pos (based on pos's id) after settled
 export const GetSettleResultByPosID = async(_posid) => {
   // const _found = wsMessageReceived.filter(element => element.includes('42/user/blackjack,["BlackJack",{"finish'));
-  const _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"finish');
+  let _found = await utils.getRowDataFromJS("blackjack", "finish");
   if(_found === null){
     console.log(`can not get finish data`)
   }
   //var last_found = _found.pop();
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  let _betwin = jp.value(obj[1], `$..winningHands[?(@.id==${_posid})].betwin`);
+  // const res = String(_found).split("42/user/blackjack,");
+  const obj = JSON.parse(_found);
+  let _betwin = jp.value(obj, `$..winningHands[?(@.id==${_posid})].betwin`);
   _betwin = +_betwin || 0
-  let _settleresult = jp.value(obj[1], `$..settlementResult`);
+  let _settleresult = jp.value(obj, `$..settlementResult`);
    return { betwin : _betwin , settleresult : _settleresult}
 }
 
@@ -435,15 +435,14 @@ export const GetSettleResultByPosID = async(_posid) => {
 export const CheckRoundHistory = async(_rid,_settleresult,_betstake,_winloss) => {
   await OpenHistory()
   await utils.sleep(3000)
-  let _found = await utils.getWsMessage('42/user/blackjack,["BlackJack",{"history"')
+  let _found = await utils.getRowDataFromJS("blackjack", "history");
   if(_found === null){
     console.log(`can not get history data`)
   }
-  const res = String(_found).split("42/user/blackjack,");
-  const obj = JSON.parse(res[1]);
-  let _getbetstake = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].bet`);
-  let _getsettleresult = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].settlementResult`);
-  let _getwinloss = jp.value(obj[1],`$..betLogs[?(@.id==${_rid})].betwin`)
+  const obj = JSON.parse(_found);
+  let _getbetstake = jp.value(obj,`$..betLogs[?(@.id==${_rid})].bet`);
+  let _getsettleresult = jp.value(obj,`$..betLogs[?(@.id==${_rid})].settlementResult`);
+  let _getwinloss = jp.value(obj,`$..betLogs[?(@.id==${_rid})].betwin`)
   // check
   await utils.shouldBeEqual(_betstake,_getbetstake, 'Verify Bet Stake')
   await utils.shouldBeEqual(_settleresult,_getsettleresult,'Verify Settlement result')

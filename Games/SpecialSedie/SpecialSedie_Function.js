@@ -11,10 +11,8 @@ export const CloseGame = async() => {
 
 //Wait until new round
 export const waitUtilNewRound = async() => {
-  let _found = await utils.getWsMessage('42/user/specialsedie,["SpecialSeDie",{"remainingTime":39}]')
+  let _found = await utils.getWsMessage('{"remainingTime":39}]')
   await utils.sleep(10000)
-  // /await utils.CaptureSubImageToFile(SpecialSedieLocator.NewRound)
-  // const _title= await utils.findImage(SpecialSedieLocator.NewRound.ImageCompare,SpecialSedieLocator.NewRound)
 }
 
 export const OpenHistory = async() => {
@@ -215,11 +213,9 @@ export const IsSettle = async() => {
 export const GetWinLossStatus = async () => {
   try {
       let _found = await utils.getWsMessage('"status"')
-      const res = String(_found).split("42/user/specialsedie,");
-      // console.log(res[1]);
-      const obj = JSON.parse(res[1]);
-      let _result = jp.value(obj[1],`$..win`);
-      let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
+      const obj = JSON.parse(_found);
+      let _result = jp.value(obj,`$..win`);
+      let _gbetchoice = jp.value(obj,`$..winningByChoices`)
       let  _betwin
       if (_result==false){
         _betwin = 0
@@ -271,8 +267,8 @@ export const GetSettleResult = async(_stake=null) => {
 export const CheckRoundHistory = async() => {
    await OpenHistory()
   await utils.sleep(1000)
-  let _found = await utils.wsFindMessage('"history"')
-  await utils.shouldBeEqual(_found.Val,true)
+  // let _found = await utils.wsFindMessage('"history"')
+  // await utils.shouldBeEqual(_found.Val,true)
   await CloseHistory() // close history
   wsMessageReceived =[]
    //check data
@@ -286,7 +282,6 @@ export const CheckSettleBalance = async() => {
   await utils.sleep(3000)
   let _afterbalance = await utils.getBalance()
   _beforebalance = _beforebalance +  _af.betwin
-  // console.log(_af,_beforebalance,_afterbalance);
   await utils.shouldBeEqual(Math.round(_afterbalance * 100) / 100, Math.round(_beforebalance * 100) / 100,'Check Settle Balance')
 }
 

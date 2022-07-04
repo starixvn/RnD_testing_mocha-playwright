@@ -2,7 +2,7 @@ import * as utils from '../../util/utils'
 const FishPrawnCrabLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./FishPrawnCrab_Locator').FishPrawnCrabLocator_vn : require('./FishPrawnCrab_Locator').FishPrawnCrabLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
-const remainingTime = `42/user/fishprawncrab,["FishPrawnCrab",{"remainingTime":40}]`
+const remainingTime = `"remainingTime":40`
 
 
 
