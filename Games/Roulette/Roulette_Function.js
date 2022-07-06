@@ -29,9 +29,10 @@ export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
   await utils.clickPos(RouletteLocator[`${_choice1}`].x,RouletteLocator[`${_choice1}`].y)
   await utils.sleep(200)
   await utils.clickPos(RouletteLocator[`${_choice2}`].x, RouletteLocator[`${_choice2}`].y)
+  await utils.sleep(200)
+  await utils.clickPos(RouletteLocator.BtnAgree.x, RouletteLocator.BtnAgree.y)
   let _result = await utils.wsFindMessage(ermsg,20)
-  await utils.shouldBeEqual(_result.Val,true,wsMessageReceived)
-  // expect(_result.Val).to.equal(true)
+  expect(_result.Val).to.equal(true)
 }
 
 export const OpenHistory = async() => {
@@ -225,7 +226,7 @@ export const IsBetFail = async() => {
 
 //Is Round Settle
 export const IsSettle = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('42/user/roulette,["Roulette",{"finish"'));
+  let _found = wsMessageReceived.filter(element => element.includes('"finish"'));
   if (_found.length > 0){
     return true
   }
@@ -236,17 +237,15 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-      let _found = await utils.getWsMessage('42/user/roulette,["Roulette",{"status"')
-      const res = String(_found).split("42/user/roulette,");
-      const obj = JSON.parse(res[1]);
-      let _result = jp.value(obj[1],`$..win`);
-      let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
+      let _found = await utils.getRowDataFromJS("Roulette", "status")
+      let _result =  await utils.getDataJsonPath(_found, "$..win");
+      let _gbetchoice = await utils.getDataJsonPath(_found, "$..winningByChoices");
       let  _betwin
       if (_result==false){
         _betwin = 0
       }
       else{
-        _betwin = jp.value(obj, `$..bet`);
+        _betwin = await utils.getDataJsonPath(_found, "$..win");
       }
       let _betchoice = Object.keys(_gbetchoice)[0]
       return {win: _result , betwin: _betwin ,betchoice:  _betchoice}
@@ -259,13 +258,11 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('42/user/roulette,["Roulette",{"finish"')
-  const res = String(_found).split("42/user/roulette,");
-  const obj = JSON.parse(res[1]);
-  let _roundid = jp.value(obj[1],`$..roundId`);
-  let _result = jp.query(obj[1],`$..result`);
-  let _settleresult = jp.query(obj[1],`$..settlementResult`);
-  let _bigwin = jp.value(obj[1],`$..settlementResult.big`);
+  let _found = await utils.getRowDataFromJS("Roulette", "finish")
+  let _roundid =  await utils.getDataJsonPath(_found, "$..roundId");
+  let _result =  await utils.getDataJsonPath(_found, "$..result");
+  let _settleresult = await utils.getDataJsonPath(_found, "$..settlementResult");
+  let _bigwin = await utils.getDataJsonPath(_found, "$..settlementResult.big");
   let _choicewin = _bigwin
   if (_choicewin == true){
        _choicewin = process.env.npm_config_cf_lang  == 'vn'?'Tài':'Big'

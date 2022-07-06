@@ -2,13 +2,13 @@ import * as utils from '../../util/utils'
 const ThreeCardsLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./ThreeCards_Locator').ThreeCardsLocator_vn : require('./ThreeCards_Locator').ThreeCardsLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
-const remainingTime = `42/user/threecards,["ThreeCards",{"remainingTime":39}]`
+const remainingTime = `"remainingTime":39`
 
 
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/threecards,["signedIn"]')
+    let _result = await utils.wsFindMessage('"signedIn"')
     expect(_result.Val).to.equal(true)
 }
 
@@ -44,8 +44,8 @@ export const verifyHistoryPopup = async() => {
     // await utils.CaptureSubImageToFile(ThreeCardsLocator.History)
     // let flag = await utils.findImage(ThreeCardsLocator.History)
     // await utils.shouldBeEqual(flag.Val,true)
-    let res = await utils.wsFindMessage('42/user/threecards,["ThreeCards",{"history"')
-    await utils.shouldBeEqual(res.Val, true,'Check History')
+    // let res = await utils.wsFindMessage('42/user/threecards,["ThreeCards",{"history"')
+    // await utils.shouldBeEqual(res.Val, true,'Check History')
 }
 
 export const closeHistory = async() => {
@@ -97,12 +97,8 @@ const getBalance = async() => {
 
 const getRawData = async(_mes) => {
     try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/threecards,");
-            return raw[1]
-        }
+        let rawData = await utils.getRowDataFromJS("ThreeCards", _mes)
+          return rawData
     } catch (error) {
         console.log(error.message)
         return null
@@ -111,8 +107,11 @@ const getRawData = async(_mes) => {
 
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`42/user/threecards,["ThreeCards",{"status":{"winningByChoices`)
-        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
+        let rawData = await utils.getRowDataFromJS("ThreeCards", "status")
+        let _bet = await utils.getDataJsonPath(rawData, "$..bet");
+        let _win = await utils.getDataJsonPath(rawData, "$..win");
+        let _winningByChoices = await utils.getDataJsonPath(rawData, "$..winningByChoices");
+        return {bet: _bet, win: _win, winningByChoices:_winningByChoices}
     } catch (error) {
         console.log(error.message)
         return null

@@ -80,8 +80,10 @@ const getBalance = async() => {
 const getUserResult = async() => {
     try {
         let rawData = await utils.getRowDataFromJS("FishPrawnCrab", "status")
-        console.log('getUserResult',rawData);
-        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
+        let _bet = await utils.getDataJsonPath(rawData, "$..bet");
+        let _win = await utils.getDataJsonPath(rawData, "$..win");
+        let _winningByChoices = await utils.getDataJsonPath(rawData, "$..winningByChoices");
+        return {bet: _bet, win: _win, winningByChoices:_winningByChoices}
     } catch (error) {
         console.log(error.message)
         return null

@@ -2,7 +2,7 @@ import * as utils from '../../util/utils'
 const MiniSedieLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./MiniSedie_Locator').MiniSedieLocator_vn : require('./MiniSedie_Locator').MiniSedieLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
-const remainingTime = `42/user/minisedie,["MiniSeDie",{"remainingTime":38}]`
+const remainingTime = `"remainingTime":38`
 
 
 // Data 
@@ -147,7 +147,7 @@ const getRawData = async(_mes) => {
 }
 const getResult = async(_onlyResult=true) => {
     try {
-        let rawData = await getRawData(`{"finish":{"result"`)
+        let rawData = await utils.getRowDataFromJS("minisedie", '"finish":{"result"');
         if(_onlyResult === true) {
             return await utils.getDataJsonPath(rawData,`$..finish.result`)
         } else {
@@ -173,8 +173,13 @@ const getResult = async(_onlyResult=true) => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`"status"`)
-        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
+        let rawData = await utils.getRowDataFromJS("minisedie", 'status');
+        let _bet = await utils.getDataJsonPath(rawData, "$..bet");
+        let _win = await utils.getDataJsonPath(rawData, "$..win");
+        let _winningByChoices = await utils.getDataJsonPath(rawData, "$..winningByChoices");
+        return {bet: _bet, win: _win, winningByChoices:_winningByChoices}
+        // let rawData = await getRawData(`"status"`)
+        // return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
         return null
@@ -401,8 +406,8 @@ export const openHistory = async() => {
 export const verifyHistoryPopup = async() => {
     try {
         await utils.sleep(1000)
-        let res = await utils.wsFindMessage('"history"')
-        await utils.shouldBeEqual(res.Val, true,'Check History')
+        // let res = await utils.wsFindMessage('"history"')
+        // await utils.shouldBeEqual(res.Val, true,'Check History')
         // await utils.CaptureSubImageToFile(MiniSedieLocator.History)
         // let flag = await utils.findImage(MiniSedieLocator.History)
         // await utils.shouldBeEqual(flag.Val,true)
