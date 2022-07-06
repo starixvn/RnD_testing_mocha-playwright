@@ -72,8 +72,7 @@ export const ClosePreset = async() => {
 
 
 export const VerifySignInSuccessfully = async() => {
-  let _found = await utils.wsFindMessage('42/user/bitcoinmaster',120)
-  await utils.shouldBeEqual(_found.Val, true,'Open Game Failed')
+  await utils.verifySignInSuccessfully()
 }
 
 
@@ -247,7 +246,7 @@ export const IsBetFail = async(_pos,_stake) => {
 
 //Is Round Settle
 export const IsSettle = async() => {
-  let _found = wsMessageReceived.filter(element => element.includes('42/user/bitcoinmaster,["BitcoinMaster",{"finish":{"result":'));
+  let _found = wsMessageReceived.filter(element => element.includes('finish'));
   if (_found.length > 0){
     return true
   }
@@ -258,18 +257,16 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-      let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"status"',120)
-      const res = String(_found).split("42/user/bitcoinmaster,");
-      const obj = JSON.parse(res[1]);
-      let _result = jp.value(obj[1],`$..win`);
-      let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
+      let rawData = await utils.getWsMessage('status',180);
+      let _result = await utils.getDataJsonPath(rawData, "$..win");
+      let _gbetchoice = await utils.getDataJsonPath(rawData, "$..winningByChoices");
       let _betwin
       if (_result == 'false'){
         _betwin = 0  //rule cân cửa
       }
       else
       {
-        _betwin = jp.value(obj, `$..bet`);
+        _betwin = await utils.getDataJsonPath(rawData, "$..bet")
       }
       let _betchoice = Object.keys(_gbetchoice)[0]
       return {win: _result , betwin: _betwin ,betchoice:  _betchoice}
@@ -282,12 +279,10 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('42/user/bitcoinmaster,["BitcoinMaster",{"finish":{"result":')
-  const res = String(_found).split("42/user/bitcoinmaster,");
-  const obj = JSON.parse(res[1]);
-  let _roundid = jp.value(obj[1],`$..roundId`);
-  let _result = jp.query(obj[1],`$..result`);
-  let _settleresult = jp.query(obj[1],`$..settlementResult`);
+  let rawData = await utils.getRowDataFromJS("bitcoinmaster", 'finish');
+  let _roundid = await utils.getDataJsonPath(rawData, "$..roundId");
+  let _result = await utils.getDataJsonPath(rawData, "$..result");
+  let _settleresult =  await utils.getDataJsonPath(rawData, "$..settlementResult");
   // Get bet win stake
   let _getwinstake = await GetWinLossStatus()
   return { 

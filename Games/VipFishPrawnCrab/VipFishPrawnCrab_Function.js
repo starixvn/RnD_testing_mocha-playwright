@@ -2,13 +2,12 @@ import * as utils from '../../util/utils'
 const VipFishPrawnCrabLocator = (process.env.npm_config_cf_lang === 'vn' ? require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_vn : require('./VipFishPrawnCrab_Locator').VipFishPrawnCrabLocator_en)
 import {DB} from '../References/DataBase_Locator'
 import * as config from '../../config/config'
-const remainingTime = `"remainingTime":42`
 
 
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('42/user/vipfishprawncrab,["signedIn"]')
+    let _result = await utils.wsFindMessage('"signedIn"')
     expect(_result.Val).to.equal(true)
 }
 
@@ -109,24 +108,14 @@ const getBalance = async() => {
     return await utils.getBalance()
 }
 
-const getRawData = async(_mes) => {
-    try {
-        let raw = await utils.getWsMessage(_mes)
-        if(raw === null) return null
-        else {
-            raw = raw.split("42/user/vipfishprawncrab,");
-            return raw[1]
-        }
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
-}
 
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`"status"`)
-        return await utils.getDataJsonPath(rawData, `$[1]['status']`)
+        let rawData =await utils.getRowDataFromJS("vipfishprawncrab", "status")
+        let _bet = await utils.getDataJsonPath(rawData, "$..bet");
+        let _win = await utils.getDataJsonPath(rawData, "$..win");
+        let _winningByChoices = await utils.getDataJsonPath(rawData, "$..winningByChoices");
+        return {bet: _bet, win: _win, winningByChoices:_winningByChoices}
     } catch (error) {
         console.log(error.message)
         return null

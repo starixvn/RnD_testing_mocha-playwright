@@ -54,7 +54,7 @@ const getRawData = async(_mes) => {
 //Get Settlement Result
 export const getSettlementResult = async () => {
   try {
-      let _status = await utils.getRowDataFromJS("casinoholdempoker", 'endBet');
+      let _status = await utils.getWsMessage('endBet',20);
       let _finish = await utils.getRowDataFromJS("casinoholdempoker", 'finish');
       let _totalAmount = await utils.getDataJsonPath(_status,`$..totalAmount`)
       let _betchoices = await utils.getDataJsonPath(_status,`$..choices`)

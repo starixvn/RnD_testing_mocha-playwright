@@ -169,7 +169,7 @@ const getRawData = async(_mes) => {
 }
 const getResult =  async(_onlyResult = true ) => {
     try {
-        let rawData = await getRawData(`{"finish":{"result"`)
+        let rawData = await utils.getRowDataFromJS("vipsedie", "result")
         if(_onlyResult === true) {
             return await utils.getDataJsonPath(rawData,`$..finish.result`)
         } else {

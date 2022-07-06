@@ -36,7 +36,6 @@ describe('======== AUTOMATION TEST RESULT BITCOIN ========', ()=>{
    await BitCoinFunc.PlaceBet(pos,5,'nowait')
    await BitCoinFunc.VerifyErrorMessage(errormsg)
   await BitCoinFunc.CheckSettleBalance()
-   await BitCoinFunc.CheckRoundHistory()
   }) 
  
  it('TC_07_Full_Verify Max Bet on Small', async () => {
@@ -48,10 +47,9 @@ describe('======== AUTOMATION TEST RESULT BITCOIN ========', ()=>{
   await BitCoinFunc.PlaceBet(pos,5,'nowait')
   await BitCoinFunc.VerifyErrorMessage(errormsg)
   await BitCoinFunc.CheckSettleBalance()
-  await BitCoinFunc.CheckRoundHistory()
 }) 
 
-  it('TC_08_Full_Smoke_Verify User Can Only Bet on 1 Pos-Odd', async () => {
+  it('TC_08_Full_Smoke_Verify Hedgebets', async () => {
     await BitCoinFunc.waitUtilNewRound()
      const pos = "Odd"
      const errormsg = '"errorCode":"SB1927"'
@@ -60,7 +58,6 @@ describe('======== AUTOMATION TEST RESULT BITCOIN ========', ()=>{
     await BitCoinFunc.PlaceBet("Even",5,'nowait')
     await BitCoinFunc.VerifyErrorMessage(errormsg)
     await BitCoinFunc.CheckSettleBalance()
-    await BitCoinFunc.CheckRoundHistory()
   }) 
 
 
