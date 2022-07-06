@@ -1,0 +1,57 @@
+const path = require('path') 
+const pathImageCompare = path.join(__dirname,"../../") + path.sep + "ImageCompare" + path.sep + (process.env.npm_config_cf_lang === 'en' ? "en" : "vn")  + path.sep + "TreasureIsland" + path.sep
+
+export const TreasureIslandLocator_vn = { 
+	Spin : { x : 1115, y : 627, top : 595, left : 1072, width : 96, height : 87, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_Spin.png" },
+	Menu : { x : 100, y : 130, top : 105, left : 75, width : 60, height : 60, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_MenuIcon.png" },
+	Home : { x : 105, y : 197 },
+	Trialbtn: {x:100,y: 60},
+	AutoSpin : { x : 773, y : 656 },
+	AutoSpin10 : { x : 494, y : 271 },
+	AutoSpin30 : { x : 594, y : 270 },
+	AutoSpin50 : { x : 689, y : 270 },
+	AutoSpin80 : { x : 780, y : 270 },
+	AutoSpin100 : { x : 500, y : 340 },
+	AutoSpinClose : { x : 864, y : 166 },
+	AutoSpinStart: { x : 634, y : 508 },
+	StakeClose : { x : 521, y : 252 },
+	StakelevelUp: { x : 431, y : 366 },
+	StakeAmountUp: { x : 431, y : 451 },
+	StakeTotalUp: { x : 431, y : 538 },
+	StakelevelDown: { x : 290, y : 361 },
+	StakeAmountDown: { x : 290, y : 451 },
+	StakeTotalDown: { x : 290, y : 538 },
+	Turbo : { x : 941, y : 656 },
+	Stakemenu : { x : 368, y : 661 },
+	History : { x : 105, y : 392, top : 29, left : 467, width : 329, height : 106, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_History.png" },
+	HistoryClose : { x : 1154, y : 80 },
+	Guide : { x : 105, y : 453, top : 125, left : 149, width : 984, height : 539, ImageCompare1 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_6.png" },
+	GuideClose : { x : 1154, y : 80 }
+}
+
+export const TreasureIslandLocator_en = { 
+	Spin : { x : 1115, y : 627, top : 595, left : 1072, width : 96, height : 87, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_Spin.png" },
+	Menu : { x : 100, y : 130, top : 105, left : 75, width : 60, height : 60, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_MenuIcon.png" },
+	Home : { x : 105, y : 197 },
+	AutoSpin : { x : 773, y : 656 },
+	AutoSpin10 : { x : 489, y : 317 },
+	AutoSpin30 : { x : 565, y : 317 },
+	AutoSpin50 : { x : 635, y : 317 },
+	AutoSpin80 : { x : 712, y : 317 },
+	AutoSpin100 : { x : 784, y : 317 },
+	AutoSpinClose : { x : 873, y : 192 },
+	StakeClose : { x : 521, y : 252 },
+	StakelevelUp: { x : 431, y : 366 },
+	StakeAmountUp: { x : 431, y : 451 },
+	StakeTotalUp: { x : 431, y : 538 },
+	StakelevelDown: { x : 290, y : 361 },
+	StakeAmountDown: { x : 290, y : 451 },
+	StakeTotalDown: { x : 290, y : 538 },
+	Turbo : { x : 941, y : 656 },
+	Turbo : { x : 941, y : 656 },
+	Stakemenu : { x : 368, y : 661 },
+	History : { x : 105, y : 392, top : 29, left : 467, width : 329, height : 106, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_History.png" },
+	HistoryClose : { x : 1154, y : 80 },
+	Guide : { x : 105, y : 453, top : 125, left : 149, width : 984, height : 539, ImageCompare1 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_1.png", ImageCompare2 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_2.png", ImageCompare3 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_3.png", ImageCompare4 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_4.png", ImageCompare5 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_5.png", ImageCompare6 : pathImageCompare + "ImgCompare_TreasureIsland_Guide_6.png" },
+	GuideClose : { x : 1154, y : 80 }
+}

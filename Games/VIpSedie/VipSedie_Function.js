@@ -156,17 +156,6 @@ export const verifyMaxBet = async(_choice) =>{
 export const getBalance = async() => {
     return await utils.getBalance()
 }
-const getRawData = async(_mes) => {
-    try {
-        let raw = await utils.getWsMessage(_mes)
-        let res = String(raw).split("42/user/vipsedie,");
-        res= (res[0].length>1) ? res[0] : res[1]
-        return res
-    } catch (error) {
-        console.log(error.message)
-        return null
-    }
-}
 const getResult =  async(_onlyResult = true ) => {
     try {
         let rawData = await utils.getRowDataFromJS("vipsedie", "result")
@@ -196,7 +185,7 @@ const getResult =  async(_onlyResult = true ) => {
 }
 const getUserResult = async() => {
     try {
-        let rawData = await getRawData(`{"status":{"winningByChoices":`)
+        let rawData = await utils.getRowDataFromJS("vipsedie", "status")
         return await utils.getDataJsonPath(rawData, `$[1]['status']`)
     } catch (error) {
         console.log(error.message)
@@ -519,7 +508,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
     let _found = await utils.getWsMessage('"remainingTime":39}]')
-    await utils.sleep(9000)
+    await utils.sleep(10000)
   }
 
 
