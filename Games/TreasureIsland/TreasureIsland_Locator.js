@@ -5,6 +5,7 @@ export const TreasureIslandLocator_vn = {
 	Spin : { x : 1115, y : 627, top : 595, left : 1072, width : 96, height : 87, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_Spin.png" },
 	Menu : { x : 100, y : 130, top : 105, left : 75, width : 60, height : 60, ImageCompare : pathImageCompare + "ImgCompare_TreasureIsland_MenuIcon.png" },
 	Home : { x : 105, y : 197 },
+	Scatter: { x : 92, y : 354 },
 	Trialbtn: {x:100,y: 60},
 	AutoSpin : { x : 773, y : 656 },
 	AutoSpin10 : { x : 494, y : 271 },

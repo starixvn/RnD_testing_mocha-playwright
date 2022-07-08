@@ -41,10 +41,34 @@ export const checkSettlement = async (placebetfunc,args) => {
         console.log(settle_result);
         await utils.sleep(settle_result.totalfreesprin * 2000)
     }
-    await utils.sleep(3000)
+    await utils.sleep(5000)
     let _afbalance = await utils.getBalance()
     //check balance
     await utils.shouldBeEqual((settle_result.red + settle_result.betWin).toFixed(2),_afbalance.toFixed(2), `verify balance`) 
+    await _clickPos(TreasureIslandLocator.Scatter)
+}
+
+//Check Settlement
+export const checkTrialSettlement = async (placebetfunc,args) => {
+    let _beforebalance = await utils.getBalance()
+    wsMessageReceived.length=0
+    // PlaceBet
+    await placebetfunc.apply(this,args)
+    if (args[4] !='noauto' ) {
+        await utils.sleep(args[3] * 2000) //wait auto spin
+    }
+    await utils.sleep(3000)
+    // get settle result
+    let settle_result = await getTrialSettlementResult()
+     if (settle_result.totalfreesprin >0) {
+        console.log(settle_result);
+        await utils.sleep(settle_result.totalfreesprin * 2000)
+    }
+    await utils.sleep(3000)
+    let _afbalance = await utils.getBalance()
+    //check real balance do not change
+    await utils.shouldBeEqual(_beforebalance,_afbalance, `verify balance`) 
+    await _clickPos(TreasureIslandLocator.Scatter)
 }
 
 //Get Settlement Result
@@ -62,6 +86,27 @@ export const getSettlementResult = async () => {
         let _bigWin = await utils.getDataJsonPath(_finish,`$..bigWin`)
         let _totalfreesprin = await utils.getDataJsonPath(_finish,`$..totalOfFreeSpins`)
         return {red: _red, time: _time,betstake: _betstake,roundId: _roundId, result:_result, settlementResult : _settlementResult,betWin: _betWin, bigWin: _bigWin, totalfreesprin: _totalfreesprin}
+        } catch (e) {
+        console.error(e)
+    }
+  }
+
+  export const getTrialSettlementResult = async () => {
+    try {
+        let _status = await utils.getRowDataFromJS('TreasureIsland','{"endBet":')
+        let _finish = await utils.getRowDataFromJS('TreasureIsland','{"finish":')
+        _status = String(_status).split(`42/trial/treasureisland,`);
+        _status = _status[0].length > 1 ? _status[0] : _status[1];
+        _finish = String(_finish).split(`42/trial/treasureisland,`);
+        _finish = _finish[0].length > 1 ? _finish[0] : _finish[1];
+        let _red = await utils.getDataJsonPath(_status,`$..balance`)
+        let _betstake = await utils.getDataJsonPath(_status,`$..endBet`)
+        let _roundId = await utils.getDataJsonPath(_finish,`$..roundId`)
+        let _result = await utils.getDataJsonPath(_finish,`$..result`)
+        let _betWin = await utils.getDataJsonPath(_finish,`$..finish.win`)
+        let _bigWin = await utils.getDataJsonPath(_finish,`$..bigWin`)
+        let _totalfreesprin = await utils.getDataJsonPath(_finish,`$..totalOfFreeSpins`)
+        return {red: _red,betstake: _betstake,roundId: _roundId, result:_result,betWin: _betWin, bigWin: _bigWin, totalfreesprin: _totalfreesprin}
         } catch (e) {
         console.error(e)
     }
@@ -105,16 +150,19 @@ export const placeBet = async(betlevel='Up',coinValue='Up',totalBet='Up',_sspeed
 }
    //auto spin
 
-   if (_autospin !='noauto') {
+ if (_autospin !='noauto') {
     await _clickPos(TreasureIslandLocator.AutoSpin)  
-    await _clickPos(TreasureIslandLocator[ `AutoSpin${_autospin}`])    
+    await _clickPos(TreasureIslandLocator[ `AutoSpin${_autospin}`])   
+    console.log('click auto spin start'); 
     await _clickPos(TreasureIslandLocator.AutoSpinStart)  
 }
 //Spin
-if (_autospin =='noauto' && _key== 'click') {
+if (_autospin =='noauto' && _key == 'click') {
+    console.log('click spin');
 await _clickPos(TreasureIslandLocator.Spin)
 }
 if (_autospin =='noauto' && _key != 'click') {
+    console.log('press space');
     await page.keyboard.press('Space');
     await page.keyboard.up('Space');
     }
@@ -132,6 +180,7 @@ export const resetbetstake = async() => {
 
 export const switchmode = async() => {
     await  _clickPos(TreasureIslandLocator.Trialbtn)
+    await utils.sleep(3000)
 }
 
 export const getResult =  async() => {

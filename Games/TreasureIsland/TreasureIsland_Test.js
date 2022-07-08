@@ -7,7 +7,7 @@ import { clickPos } from '../SpecialSedie/SpecialSedie_Function'
 const TreasureIslandLocator = (process.env.npm_config_cf_lang === 'en' ? require('./TreasureIsland_Locator').TreasureIslandLocator_en : require('./TreasureIsland_Locator').TreasureIslandLocator_vn)
 
 
-describe('======== AUTOMATION TEST RESULT HERO SLOT ========', ()=>{
+describe('======== AUTOMATION TEST RESULT TREASURE ISLAND ========', ()=>{
 
   before(async function(){
     await utils.wsHearMessageOn()
@@ -40,18 +40,16 @@ describe('======== AUTOMATION TEST RESULT HERO SLOT ========', ()=>{
        }) 
 
       it('TC_03_Full_Smoke_Verify Placebet Trial mode Level-Coin-Total (1-0.1-2)', async () => {
-        await TreasureIslandFunc.switchmode()
-        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down"])
+        await TreasureIslandFunc.switchmode('Trial')
+        await TreasureIslandFunc.checkTrialSettlement(TreasureIslandFunc.placeBet,["Up","","Down"])
        }) 
 
        it('TC_04_Full_Smoke_Verify Placebet Auto Spin 10 Level-Coin-Total 1-0.01-2', async () => {
-        // await TreasureIslandFunc.switchmode()
-        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down","",10])
+        await TreasureIslandFunc.switchmode('Real')
+        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down",true,10,'click'])
        }) 
-
        it('TC_05_Full_Smoke_Verify Placebet By Press Space bar', async () => {
-        // await TreasureIslandFunc.switchmode()
-        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down","","","Spacebar"])
+        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down",,,"Spacebar"])
        }) 
        
     })

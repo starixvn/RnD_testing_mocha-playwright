@@ -153,7 +153,7 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
      
       if (_follow == "Follow")  {
         console.log('click follow card');
-        await utils.sleep(8000)
+        await utils.sleep(10000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
       } 
       if (_cancel == "Cancel") {
