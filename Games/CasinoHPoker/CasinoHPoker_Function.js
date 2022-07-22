@@ -133,9 +133,9 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
       } 
       if (hitCard == "HitCard")  {
         console.log('click hit card');
-        await utils.sleep(3000)
+        await utils.sleep(4000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
-        await utils.sleep(3000)
+        await utils.sleep(4000)
         stringmd5 = await getMD5string();
         if (_swap == "Swap") {
           console.log("click swap");
@@ -153,7 +153,7 @@ export const PlaceBet = async (stake,pos,_double="NoDouble",hitCard="HitCard", _
      
       if (_follow == "Follow")  {
         console.log('click follow card');
-        await utils.sleep(10000)
+        await utils.sleep(8000)
         await utils.clickPos(CasinoHPokerLocator.Bet.x,CasinoHPokerLocator.Bet.y)
       } 
       if (_cancel == "Cancel") {
