@@ -77,13 +77,16 @@ export const getWsMessage = async (_mes, cfloop = config.setting.loop) => {
     let result;
     for (let t = 0; t < cfloop; t++) {
       result = await getMessage(_mes);
-      if (result !== null) return result;
-      await sleep(1000);
+      if (result !== null) {
+        break;
+       }
+      else {
+        await sleep(1000);
+      }
     }
-    return null;
+    return result;
   } catch (error) {
     console.log(error.message);
-    return null;
   }
 };
 
@@ -652,8 +655,7 @@ export const createWSConnect = async (wsurl, urlorigin) => {
     console.log("echo-protocol Client Closed");
   };
   client.onmessage = (e) => {
-    //console.log(e.data,client.binaryType );
-    if (typeof e.data === "string") {
+    if (typeof e.data == "string") {
       wsmsgbs.push(e.data);
     } else {
       let temp = msgpack.unpack(e.data);
@@ -669,7 +671,7 @@ export const createWSConnect = async (wsurl, urlorigin) => {
 // Check Websocket Mesage
 export const wshear = async (ws) => {
   if (isHear === true) {
-    ws.on("framereceived", async (msg) => {
+    ws.on('framereceived', async (msg) => {
       if (isHear === true) {
         if (typeof msg.payload != "string") {
           let temp = msgpack.unpack(msg.payload);

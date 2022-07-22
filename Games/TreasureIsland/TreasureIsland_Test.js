@@ -27,21 +27,17 @@ describe('======== AUTOMATION TEST RESULT TREASURE ISLAND ========', ()=>{
     it('TC_01_Full_Smoke_Verify can open game by click on game icon at the lobby', async () => {
       await TreasureIslandFunc.verifySignInSuccessfully()
       await utils.sleep(5000)
-      // await utils.clickPos(TreasureIslandLocator.AutoSpin.x,TreasureIslandLocator.AutoSpin.y)
-      // await page.screenshot({ path: `AutoSpinmenu.png`});
-
-
     })  
     })
 
     describe("Test Suite 02: Verify Place Bet and Settlement", ()=>{
       it('TC_02_Full_Smoke_Verify Placebet Level-Coin-Total (2-0.01-4)', async () => {
-        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","Up","",true])
+        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","Up","",true,'noauto','click'])
        }) 
 
       it('TC_03_Full_Smoke_Verify Placebet Trial mode Level-Coin-Total (1-0.1-2)', async () => {
         await TreasureIslandFunc.switchmode('Trial')
-        await TreasureIslandFunc.checkTrialSettlement(TreasureIslandFunc.placeBet,["Up","","Down"])
+        await TreasureIslandFunc.checkTrialSettlement(TreasureIslandFunc.placeBet,["Up","","Down",false,'noauto','click'])
        }) 
 
        it('TC_04_Full_Smoke_Verify Placebet Auto Spin 10 Level-Coin-Total 1-0.01-2', async () => {
@@ -49,7 +45,7 @@ describe('======== AUTOMATION TEST RESULT TREASURE ISLAND ========', ()=>{
         await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down",true,10,'click'])
        }) 
        it('TC_05_Full_Smoke_Verify Placebet By Press Space bar', async () => {
-        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down",,,"Spacebar"])
+        await TreasureIslandFunc.checkSettlement(TreasureIslandFunc.placeBet,["Up","","Down",false,'noauto',"Spacebar"])
        }) 
        
     })

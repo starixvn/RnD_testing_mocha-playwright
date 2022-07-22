@@ -35,7 +35,7 @@ export const setting = {
     HiLo: 1651,
     TexasHoldEm: 1652,
     NightClub: 1653,
-    TreasureIsland: 47,
+    TreasureIsland: 1654,
   },
   gameIdlocal: {
     BlackJack: 23,
@@ -104,7 +104,7 @@ export const cf_local3 = {
   protocol: "wss",
   retrieveEndGame: "https://l1-ows2.lumigame.com/SabaClub/RetrieveEndGameInfo",
   setBalance: "https://l1-ows3.lumigame.com/SabaClub/CreateCustomer",
-  reCheckIn: "https://l1-proxy3.lumigame.com/user/auth/reCheckIn"
+  reCheckIn: "https://l1-proxy3.lumigame.com/user/auth/reCheckIn",
 };
 
 export const cf_local1 = {
@@ -146,7 +146,7 @@ export const cf_local1 = {
   protocol: "wss",
   retrieveEndGame: "https://l1-ows1.lumigame.com/SabaClub/RetrieveEndGameInfo",
   setBalance: "https://l1-ows1.lumigame.com/SabaClub/CreateCustomer",
-  reCheckIn: "https://l1-proxy.lumigame.com/user/auth/reCheckIn"
+  reCheckIn: "https://l1-proxy.lumigame.com/user/auth/reCheckIn",
 };
 
 export const cf_local = {
@@ -181,7 +181,7 @@ export const cf_local = {
     HiLo: "1001054",
     TexasHoldEm: "1001055",
     NightClub: "1001056",
-    TreasureIsland: "1001057" ,
+    TreasureIsland: "1001057",
   },
   password: "",
   gamelobbyurl: "",
@@ -190,7 +190,7 @@ export const cf_local = {
   retrieveEndGame:
     "https://owapi-simulator.lumigame.com/SabaClub/RetrieveEndGameInfo",
   setBalance: "https://owapi-simulator.lumigame.com/SabaClub/CreateCustomer",
-  reCheckIn: "https://l1-proxy.lumigame.com/user/auth/reCheckIn"
+  reCheckIn: "https://l1-proxy.lumigame.com/user/auth/reCheckIn",
 };
 
 export const cf_sit = {
@@ -223,16 +223,17 @@ export const cf_sit = {
     Baccarat: "supertestsaba69",
     TexasHoldEm: "supertestsaba70",
     NightClub: "supertestsaba66",
+    TreasureIsland: "supertestsaba67",
   },
   password: "1234aaAA",
   gamelobbyurl: "VendorGame/OpenSabaClub?GameID=",
   urlOrigin: "https://l1sit.sgamesuat.com",
   protocol: "wss",
-  reCheckIn: "https://l1sit.sgamesuat.com/sit/user/auth/reCheckIn"
+  reCheckIn: "https://l1sit.sgamesuat.com/sit/user/auth/reCheckIn",
 };
 
 export const cf_uat = {
-  // url: "http://demo:one23@qawer.viva88.com:6104/login",
+  // url: "http://demo:one23@qawer.viva88.com:6101/login",
   url: "http://qawer.bong88.com:5301",
   urlLog: "",
   username: {
@@ -262,11 +263,12 @@ export const cf_uat = {
     Baccarat: "IT58Test789",
     TexasHoldEm: "IT59Test789",
     NightClub: "IT55Test789",
+    TreasureIsland: "IT56Test789",
   },
   password: "1234aaAA",
   gamelobbyurl: "vid=42&gid=",
   urlOrigin: "https://l1uat.sgamesuat.com",
-  reCheckIn: "https://l1uatproxy.sgamesuat.com/uat/user/auth/reCheckIn"
+  reCheckIn: "https://l1uatproxy.sgamesuat.com/uat/user/auth/reCheckIn",
 };
 
 export const cf_prod = {
@@ -298,10 +300,11 @@ export const cf_prod = {
     Baccarat: "supertestte120201006",
     TexasHoldEm: "supertestte120201007",
     NightClub: "supertestte120201008",
+    TreasureIsland: "supertestte120201009",
   },
   password: "1234aa",
   gamelobbyurl: "/VendorGame/OpenSabaClub?GameID=",
   urlOrigin: "https://www.sabagame.com",
   protocol: "wss",
-  reCheckIn: "https://proxy.sabagame.com/user/auth/reCheckIn"
+  reCheckIn: "https://proxy.sabagame.com/user/auth/reCheckIn",
 };
