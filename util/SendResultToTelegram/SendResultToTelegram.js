@@ -43,23 +43,23 @@ describe('Send Message', ()=>{
          else{
             status ='⚠️ Failed SSO'
          }   
-        await chai.request("https://bot.nexdev.net")
-        .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
-        .send({
-            token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-            conversationId: -1001516404043,
-            parse_mode: "Markdown",
-            message: `🖥 ${env}: ${result.testSuiteName}:  ${status} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
-        })
-        // chai.request("https://bot.nexdev.net")
-        //     .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
-        //     .send({
-        //         token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
-        //         conversationId: -1001652348118,
-        //         parse_mode: "Markdown",
-        //         message: `🖥 ${env}: ${result.testSuiteName}:  ${status}`
-        //     }).end( async(err,res)=>{
-        //         expect(res).to.have.status(200)})  
+        // await chai.request("https://bot.nexdev.net")
+        // .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+        // .send({
+        //     token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+        //     conversationId: -1001516404043,
+        //     parse_mode: "Markdown",
+        //     message: `🖥 ${env}: ${result.testSuiteName}:  ${status} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job})`
+        // })
+        chai.request("https://bot.nexdev.net")
+            .post("/skynex/api/messages/forwardwithtoken").set('content-type', 'application/x-www-form-urlencoded')
+            .send({
+                token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+                conversationId: -1001652348118,
+                parse_mode: "Markdown",
+                message: `🖥 ${env}: ${result.testSuiteName}:  ${status}`
+            }).end( async(err,res)=>{
+                expect(res).to.have.status(200)})  
 
 
         }
