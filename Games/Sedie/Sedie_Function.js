@@ -58,9 +58,9 @@ export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
     wsMessageReceived = []
     await selectChip(_chip)
     await utils.clickPos(SedieLocator[`${_choice1}`].x,SedieLocator[`${_choice1}`].y)
-    await utils.sleep(200)
+    await utils.sleep(500)
     await utils.clickPos(SedieLocator[`${_choice2}`].x, SedieLocator[`${_choice2}`].y)
-    await utils.sleep(200)
+    await utils.sleep(500)
     let _result = await utils.wsFindMessage(ermsg,20)
     await utils.shouldBeEqual(_result.Val,true,'hedgebet')
 }
