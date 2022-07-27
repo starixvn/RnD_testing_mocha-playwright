@@ -98,11 +98,11 @@ utils.sleep(5000)
 }
 
 export const verifyMd5 = async() => {
-  wsMessageReceived.length=0
+  wsMessageReceived=[]
   await waitUtilNewRound()
   // await utils.logMsg()
-  let _found = await utils.getWsMessage('TXTurbo",{"resultHash"');
-  _found = (_found === null) ? await utils.getRowDataFromJS('txturbo','"TXTurbo",{"md5"'): _found
+  let _found = await utils.getRowDataFromJS("txturbo", "hashValue");
+  _found = (_found === null) ? await utils.getRowDataFromJS('txturbo','"md5"'): _found
   let bfmd5 = await utils.getDataJsonPath(_found, "$..hashValue");
   wsMessageReceived = []
   await utils.sleep(40000)
@@ -310,19 +310,16 @@ export const IsSettle = async() => {
 //GetWinLossStatus
 export const GetWinLossStatus = async () => {
   try {
-    let _found = await utils.getWsMessage('"status":')
-    let res = String(_found).split("42/user/txturbo,");
-    res= (res[0].length>1) ? res[0] : res[1]
-    const obj = JSON.parse(res);
-    let _result = jp.value(obj[1],`$..win`);
-    let _gbetchoice = jp.value(obj[1],`$..winningByChoices`)
+    let _found = await utils.getRowDataFromJS("txturbo", "status");
+    let _result = await utils.getDataJsonPath(_found, `$..win`)
+    let _gbetchoice = await utils.getDataJsonPath(_found, `$..winningByChoices`)
     let _betwin
     if (_result == 'false'){
       _betwin = 0  //rule cân cửa
     }
     else
     {
-      _betwin = jp.value(obj, `$..bet`);
+      _betwin = await utils.getDataJsonPath(_found, `$..bet`)
     }
       let _betchoice = Object.keys(_gbetchoice)[0]
       return {win: _result , betwin: _betwin ,betchoice:  _betchoice}
@@ -335,14 +332,11 @@ export const GetWinLossStatus = async () => {
 //Get Settle Result
 export const GetSettleResult = async(_stake=null) => {
   let _time = new Date().toISOString()
-  let _found = await utils.getWsMessage('"result":')
-  let res = String(_found).split("42/user/txturbo,");
-  res= (res[0].length>1) ? res[0] : res[1]
-  const obj = JSON.parse(res);
-  let _roundid = jp.value(obj[1],`$..roundId`);
-  let _result = jp.query(obj[1],`$..result`);
-  let _settleresult = jp.query(obj[1],`$..settlementResult`);
-  let _bigwin = jp.value(obj[1],`$..settlementResult.big`);
+  let _found = await utils.getRowDataFromJS("txturbo", "result");
+  let _roundid = await utils.getDataJsonPath(_found, `$..roundId`)
+  let _result = await utils.getDataJsonPath(_found, `$..result`)
+  let _settleresult =  await utils.getDataJsonPath(_found, `$..settlementResult`)
+  let _bigwin = await utils.getDataJsonPath(_found, `$..settlementResult.big`)
   let _choicewin = _bigwin
   if (_choicewin == true){
     _choicewin = 'Tài'
@@ -369,7 +363,7 @@ export const GetSettleResult = async(_stake=null) => {
 export const CheckRoundHistory = async() => {
    await OpenHistory()
    let _found = await utils.getWsMessage("history")
-   console.log('history',_found);
+  //  console.log('history',_found);
   await CloseHistory() // close history
   wsMessageReceived =[]
 }

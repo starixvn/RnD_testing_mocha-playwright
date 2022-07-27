@@ -48,7 +48,7 @@ before(async () => {
   if (typeof process.env.npm_config_game !== "undefined") {
     global.game = process.env.npm_config_game;
     // Set balance on Local
-    if (env === "cf_local" || env === "cf_local1") {
+    if (env.includes("cf_local")) {
       let _requestdata = `Operator=ow&PlayerId=${config[env].memberId[game]}&Balance=200000.00&MinBet=1.00&MaxBet=3000.00&Partner=ow`;
       chai
         .request(config[env].setBalance)

@@ -62,7 +62,15 @@ export const login_local = async(_env,_game) => {
             }
             obj = await JSON.parse(res.text)
             await utils.navigate(obj.redirectUrl)
-            await utils.sleep(7000)//Wait for login process
+            await utils.sleep(3000)
+            //Post SiginName
+            await utils.getSession();
+            let signNameURL = config[_env].reCheckIn.replace('reCheckIn','signName')
+            let signNameData = {"session":session,"username":username,"nickname":'AuT'+config[_env].memberId[_game],"browserUserAgent":userAgent,"avatar":0}
+            await chai.request(signNameURL).post("").send(signNameData)
+            await utils.navigate(obj.redirectUrl)
+            await utils.sleep(2000)//Wait for login process
+            // await page.reload()
         } catch (error) {
             console.error(error.message)
         }
