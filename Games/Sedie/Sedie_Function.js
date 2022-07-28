@@ -56,7 +56,8 @@ export const placeBet = async(_choice,_chip=1) => {
 
 export const verifyHedgeBet = async(_choice1, _choice2,_chip=1,ermsg) => {
     wsMessageReceived = []
-    await selectChip(_chip)
+    // await selectChip(_chip)
+    await utils.clickPos(MiniSedieLocator[`Chip${_chip}`].x,MiniSedieLocator[`Chip${_chip}`].y) 
     await utils.clickPos(SedieLocator[`${_choice1}`].x,SedieLocator[`${_choice1}`].y)
     await utils.sleep(500)
     await utils.clickPos(SedieLocator[`${_choice2}`].x, SedieLocator[`${_choice2}`].y)
