@@ -508,7 +508,7 @@ export const verifyDBPhien = async(_resultOnWeb)=>{
 export const waitUtilNewRound = async() => {
     wsMessageReceived = []
     let _found = await utils.getWsMessage('"remainingTime":39}]')
-    await utils.sleep(10000)
+    await utils.sleep(9000)
   }
 
 

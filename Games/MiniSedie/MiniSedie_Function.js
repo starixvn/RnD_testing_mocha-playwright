@@ -11,8 +11,7 @@ let Odd = { Even: 1.96,Odd: 1.96, Red4: 14.4, Red3: 3.75, White3: 3.75, White4: 
 
 
 export const verifySignInSuccessfully = async() => {
-    let _result = await utils.wsFindMessage('signedIn')
-    expect(_result.Val).to.equal(true)
+    await utils.verifySignInSuccessfully()
 }
 
 

@@ -766,6 +766,7 @@ export const getKeysByValue = async (object, value) => {
 export const verifySignInSuccessfully = async () => {
   let _result = await wsFindMessage("signedIn");
   expect(_result.Val).to.equal(true);
+  await sleep(3000)
 };
 
 export const getUIBalance = async (
