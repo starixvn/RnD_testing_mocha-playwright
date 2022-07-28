@@ -23,6 +23,12 @@ describe("Send Message", () => {
     //         expect(res).to.have.status(200)})
     // }
     if (result.finalresult == "Failed" && env != "PRO" && env != "UAT") {
+      let status;
+       if (result.finalresult == "Failed") {
+        status = "❌";
+      } else {
+        status = "⚠️ Login Failed";
+      }
       chai
         .request("https://bot.nexdev.net")
         .post("/skynex/api/messages/forwardwithtoken")
@@ -31,7 +37,7 @@ describe("Send Message", () => {
           token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
           conversationId: -1001652348118,
           parse_mode: "Markdown",
-          message: `💻 ${env}: ${result.testSuiteName}:  ${result.totalfailed} ❌ [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job}) `,
+          message: `💻 ${env}: ${result.testSuiteName}:  ${status} [LINK](https://git3.nexdev.net/RnD/testing/mocha-playwright/-/pipelines/${args.Job}) `,
         })
         .end(async (err, res) => {
           expect(res).to.have.status(200);
