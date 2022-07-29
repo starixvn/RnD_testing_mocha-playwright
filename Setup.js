@@ -10,22 +10,26 @@ before(async () => {
   const args = await parseArg(process.env.npm_config_args);
   global.wsMessageReceived = [];
   global.wsMessageSend =[];
-  global.browser = await playwright[config.setting.browser].launch({
-    headless: config.setting.headless,
-    //  args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-gpu', '--use-gl=swiftshader','--enable-webgl']
-    args: ["--disable-gpu", "--mute-audio",  '--no-sandbox','--disable-canvas-aa','--disable-infobars', '--hide-scrollbars','--disable-2d-canvas-clip-aa', '--wm-window-animations-disabled'],
-  });
-  const context = await browser.newContext({
+  global.browser = await playwright[config.setting.browser].launchPersistentContext("\UserData",
+  {headless: config.setting.headless,
     viewport: {
       width: config.setting.viewport.width,
       height: config.setting.viewport.height,
-    }
+    },
+    args: ["--disable-gpu", "--mute-audio",  '--no-sandbox','--disable-canvas-aa','--disable-infobars', '--hide-scrollbars','--disable-2d-canvas-clip-aa', '--wm-window-animations-disabled']
+  }
+  );
+  // const context = await browser.newContext({
+  //   viewport: {
+  //     width: config.setting.viewport.width,
+  //     height: config.setting.viewport.height,
+  //   }
     // recordVideo: {
     //   dir: './Report/vn/Videos/',
     // }
-  });
-  await context.grantPermissions(["clipboard-read"]);
-  let page = await context.newPage();
+  // });
+  // await context.grantPermissions(["clipboard-read"]);
+  let page = await browser.newPage();
   const getUA = await page.evaluate(() => navigator.userAgent);
   global.userAgent = uaParser(getUA).ua;
   global.page = page;
