@@ -17,11 +17,11 @@ test1:
   after_script:
     - echo "Execute this command after the `script` section completes."  
     # - npm run sendResultToTelegram --args=Job=$CI_PIPELINE_ID-env=$ENV --cf_lang=$cf_lang --mode=$MODE
-  artifacts:
-    paths:
-      - Report/$cf_lang
-    when: always
-    expire_in: 1 day 
+  # artifacts:
+  #   paths:
+  #     - Report/$cf_lang
+  #   when: always
+  #   expire_in: 1 day 
 
 # report:
 #   stage: report
