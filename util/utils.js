@@ -732,7 +732,7 @@ export const Login = async (_env, _game) => {
       await selectDrp('xpath=//*/select[@id="group"]',"61b048d27e6d8f000145357f");
     } 
     await clickEl('xpath=//input[@value="Submit"]');
-    await sleep(5000);
+    await sleep(8000);
   } else {
     // Navigate Sabaclub from Simulator
     await MemberSiteFunc.login_local(_env, _game);
