@@ -8,7 +8,7 @@ stages:
 test1:
   stage: test
   tags:
-    - docker-automation-test
+    - smoke-test
   script:
     - echo $CI_PIPELINE_ID
     - npm install --no-optional
